@@ -1,0 +1,13 @@
+.login-form {
+  width: 100%;
+  margin-top: 8px;
+}
+
+.login-heading {
+  text-align: center;
+  color: #222;
+  font-size: 1.75rem;
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--color-text-dark);
+  width: 100%;
+}

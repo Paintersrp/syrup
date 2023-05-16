@@ -1,0 +1,75 @@
+export const palettes = {
+  primary: {
+    main: "#2e3b55",
+    light: "#6b7c9b",
+    dark: "#00152e",
+    contrastText: "#fff",
+    gold: "#ff8c00",
+  },
+  secondary: {
+    main: "#ff8c00",
+    light: "#ffd04d",
+    dark: "#c75e00",
+    contrastText: "#fff",
+  },
+  success: {
+    light: "#81c784",
+    main: "#4caf50",
+    dark: "#388e3c",
+  },
+  warning: {
+    light: "#ffd54f",
+    main: "#ffeb3b",
+    dark: "#f57f17",
+  },
+  error: {
+    light: "#e57373",
+    main: "#f44336",
+    dark: "#d32f2f",
+  },
+  info: {
+    light: "#64b5f6",
+    main: "#3f51b5",
+    dark: "#1976d2",
+  },
+  text: {
+    dark: "#222",
+    light: "#fff",
+    primary: "rgba(0, 0, 0, 1)",
+    secondary: "rgba(0, 0, 0, 0.6)",
+    disabled: "rgba(0, 0, 0, 0.38)",
+    hint: "rgba(0, 0, 0, 0.38)",
+  },
+  action: {
+    active: "rgba(0, 0, 0, 0.54)",
+    hover: "rgba(121, 134, 203 , 0.75)",
+    hoverLight: "rgba(121, 134, 203 , 0.10)",
+    selected: "rgba(255, 255, 255, 0.22)",
+    disabled: "rgba(0, 0, 0, 0.26)",
+    disabledBackground: "rgba(0, 0, 0, 0.12)",
+  },
+  background: {
+    default: "#f5f5f5",
+    paper: "#f5f5f5",
+    light: "#f5f5f5",
+  },
+};
+
+export const fontSizes = {
+  h1: "2.25rem",
+  h2: "2rem",
+  h3: "1.75rem",
+  h4: "1.5rem",
+  h5: "1.25rem",
+  h6: "1rem",
+  body1: "1rem",
+  body2: "0.875rem",
+  caption: "0.75rem",
+  one: ".75rem",
+  two: "1rem",
+  three: "1.25rem",
+  four: "1.5rem",
+  five: "1.75rem",
+  six: "2rem",
+  seven: "2.25rem",
+};

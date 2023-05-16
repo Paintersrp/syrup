@@ -1,0 +1,196 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800;900&display=swap");
+
+:root {
+  font-family: Roboto, sans-serif;
+  line-height: 24px;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: #222;
+  background-color: #f5f5f5;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  --color-success-main: #4caf50;
+  --color-success-light: #81c784;
+  --color-success-dark: #388e3c;
+  --color-error-main: #f44336;
+  --color-error-light: #e57373;
+  --color-error-dark: #d32f2f;
+  --color-primary-main: #2e3b55;
+  --color-primary-light: #6b7c9b;
+  --color-primary-dark: #00152e;
+  --color-primary-hover: #2e3b55bc;
+  --color-secondary-main: #ff8c00;
+  --color-secondary-light: #ffd04d;
+  --color-secondary-dark: #c75e00;
+  --color-text-dark: #222;
+  --color-text-light: #fff;
+  --color-text-primary: rgba(0, 0, 0, 1);
+  --color-text-secondary: rgba(0, 0, 0, 0.6);
+  --color-text-disabled: rgba(0, 0, 0, 0.38);
+  --color-text-min-visible: rgba(0, 0, 0, 0.1);
+  --color-text-dark: rgba(0, 0, 0, 0.75);
+  --color-background-default: #f5f5f5;
+  --color-background-light: #f5f5f5;
+}
+
+.bg-primary-m {
+  background-color: var(--color-primary-main);
+}
+.bg-secondary-m {
+  background-color: var(--color-secondary-main);
+}
+.bg-error-m {
+  background-color: var(--color-error-main);
+}
+.bg-success-m {
+  background-color: var(--color-success-main);
+}
+
+.link-text {
+  color: #007bff;
+}
+.link-text:hover {
+  color: var(--color-primary-light);
+}
+
+.h1,
+h1 {
+  font-weight: 600;
+  font-size: 2.25rem;
+  line-height: 1.167;
+  letter-spacing: 0.02em;
+}
+
+.h2,
+h2 {
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 1.2;
+  letter-spacing: -0.00833em;
+}
+
+.h3,
+h3 {
+  font-weight: 600;
+  font-size: 1.5rem;
+  line-height: 1.167;
+  letter-spacing: 0em;
+}
+
+.h4,
+h4 {
+  font-weight: 600;
+  font-size: 1.25rem;
+  line-height: 1.235;
+  letter-spacing: 0.00735em;
+}
+
+.h5,
+h5 {
+  font-weight: 600;
+  font-size: 1.1rem;
+  line-height: 1.334;
+  letter-spacing: 0em;
+}
+
+.h6,
+h6 {
+  font-weight: 500;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  letter-spacing: 0.0075em;
+}
+
+.subtitle1 {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.subtitle2 {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.body1 {
+  font-weight: 500;
+  font-size: 0.95rem;
+  line-height: 1.334;
+  letter-spacing: -0.00833em;
+}
+
+.body2 {
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+
+.button {
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.caption {
+  font-weight: 700;
+  font-size: 0.85rem;
+  line-height: 1.66;
+  letter-spacing: 0.03333em;
+}
+
+.overline {
+  font-weight: 600;
+  font-size: 0.8rem;
+  line-height: 2.66;
+  letter-spacing: 0.08333em;
+  text-transform: uppercase;
+}
+
+p {
+  font-family: Roboto;
+}
+
+a {
+  font-family: Roboto;
+  font-weight: 500;
+  color: #222;
+  text-decoration: inherit;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+  height: 100%;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+}

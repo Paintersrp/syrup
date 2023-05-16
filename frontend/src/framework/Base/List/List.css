@@ -1,0 +1,37 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin: 0;
+}
+
+.list-item {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #ccc;
+}
+
+.list-item-icon {
+  display: flex;
+  align-items: center;
+  margin-right: 16px;
+}
+
+.list-item-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-item-text h2 {
+  font-size: 1.2rem;
+  margin: 0;
+  margin-bottom: 4px;
+}
+
+.list-item-text p {
+  font-size: 0.8rem;
+  margin: 0;
+  color: #666;
+}
