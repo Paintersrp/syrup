@@ -52,23 +52,3 @@
 .expandButton:hover {
   background-color: var(--color-primary-hover);
 }
-
-.hr-divider {
-  border: none;
-  height: 1px;
-  background-color: var(--color-text-disabled);
-  margin: 6px 0 16px 0;
-}
-
-.hr-divider-light {
-  border: none;
-  height: 1px;
-  background-color: var(--color-text-min-visible);
-  margin: 0;
-}
-.hr-divider-normal {
-  border: none;
-  height: 1px;
-  background-color: var(--color-text-disabled);
-  margin: 0;
-}
