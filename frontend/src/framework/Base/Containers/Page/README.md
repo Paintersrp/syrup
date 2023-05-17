@@ -2,18 +2,6 @@
 
 The `Page` component is a reusable component that represents a page layout with an optional header and content area.
 
-## Installation
-
-Install the `Page` component using npm or yarn:
-
-```shell
-npm install page-component
-
-# or
-
-yarn add page-component
-```
-
 ## Usage
 
 To use the `Page` component in your React application, import it and render it with the desired props.
