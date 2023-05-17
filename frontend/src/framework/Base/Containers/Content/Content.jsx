@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import "../styles.css";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
@@ -15,21 +16,21 @@ function Content({
   subheader,
   children,
   maxWidth,
-  boxShadow = 0,
-  pad: padding = 3,
-  pl: paddingLeft = 0,
-  pr: paddingRight = 0,
-  pt: paddingTop = 0,
-  pb: paddingBottom = 0,
-  br: borderRadius = 1,
-  b: background = "#F5F5F5",
-  j: justifyChildren = "flex-start",
-  a: alignChildren = "flex-start",
-  fd = "column",
-  collapse = false,
-  divider = false,
-  headerAlign = "center",
-  headerVar = "h3",
+  boxShadow,
+  pad: padding,
+  pl: paddingLeft,
+  pr: paddingRight,
+  pt: paddingTop,
+  pb: paddingBottom,
+  br: borderRadius,
+  b: background,
+  j: justifyChildren,
+  a: alignChildren,
+  fd: flexDirection,
+  collapse,
+  divider,
+  headerAlign,
+  headerVar,
 }) {
   const [open, setOpen] = useState(true);
 
@@ -95,7 +96,7 @@ function Content({
             </Text>
           )}
 
-          <Flexer j={justifyChildren} a={alignChildren} fd={fd}>
+          <Flexer j={justifyChildren} a={alignChildren} fd={flexDirection}>
             {children}
           </Flexer>
         </Collapser>
@@ -103,5 +104,45 @@ function Content({
     </div>
   );
 }
+
+Content.propTypes = {
+  header: PropTypes.string,
+  subheader: PropTypes.string,
+  children: PropTypes.node,
+  maxWidth: PropTypes.number,
+  boxShadow: PropTypes.number,
+  pad: PropTypes.number,
+  pl: PropTypes.number,
+  pr: PropTypes.number,
+  pt: PropTypes.number,
+  pb: PropTypes.number,
+  br: PropTypes.number,
+  b: PropTypes.string,
+  j: PropTypes.string,
+  a: PropTypes.string,
+  fd: PropTypes.string,
+  collapse: PropTypes.bool,
+  divider: PropTypes.bool,
+  headerAlign: PropTypes.string,
+  headerVar: PropTypes.string,
+};
+
+Content.defaultProps = {
+  boxShadow: 0,
+  pad: 3,
+  pl: 0,
+  pr: 0,
+  pt: 0,
+  pb: 0,
+  br: 1,
+  b: "#F5F5F5",
+  j: "flex-start",
+  a: "flex-start",
+  fd: "column",
+  collapse: false,
+  divider: false,
+  headerAlign: "center",
+  headerVar: "h3",
+};
 
 export default Content;

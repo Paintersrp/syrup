@@ -73,4 +73,6 @@ Surface.defaultProps = {
 
 ## License
 
-This component is open-source and released under the MIT License.
+This component is released under the [MIT License](https://opensource.org/licenses/MIT).
+
+---
