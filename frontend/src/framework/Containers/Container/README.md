@@ -1,6 +1,6 @@
 # Container Component
 
-The `Container` component is a flexible container that wraps its children in a flexbox layout. It allows you to easily control the alignment, spacing, and direction of the children within the container. It should be used with the [Item](https://github.com/Paintersrp/tracker/tree/main/frontend/src/framework/Base/Containers/Item) component, which has responsiveness props and applies relevant classes for `Container`.
+The `Container` component is a flexible container that wraps its children in a flexbox layout. It allows you to easily control the alignment, spacing, and direction of the children within the container. It should be used with the [Item](https://github.com/Paintersrp/tracker/tree/main/frontend/src/framework/Containers/Item) component, which has responsiveness props and applies relevant classes for `Container`.
 
 ## Props
 
