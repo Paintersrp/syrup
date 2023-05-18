@@ -20,7 +20,7 @@ import Text from "../../Base/Text/Text";
 
 import { handleDataChange } from "../../../utils/dataHandlers/dataHandlers";
 import axiosInstance from "../../../lib/Axios/axiosInstance";
-import { setAuth, setUser } from "../../../lib/Actions/auth";
+import { setAuth, setUser } from "../../../lib/Actions/auth.tsx";
 import { text } from "@fortawesome/fontawesome-svg-core";
 
 interface FormData {

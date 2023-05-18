@@ -14,7 +14,7 @@ import {
   AppFooter,
 } from "./framework/Prebuilt/Navigation";
 
-function App() {
+function App(): JSX.Element {
   const { isDrawerOpen, handleDrawer } = useDrawer();
 
   return (

@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import axiosInstance from "../Axios/axiosInstance";
 
-const handleLogout = () => {
+const handleLogout = (): void => {
   if (Cookies.get("jwt")) {
     axiosInstance
       .get("/auth/logout/")

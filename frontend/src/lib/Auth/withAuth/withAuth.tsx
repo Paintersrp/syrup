@@ -4,8 +4,10 @@ import { setAuth, setUser } from "../../Actions/auth";
 import axiosInstance from "../../Axios/axiosInstance";
 import Cookies from "js-cookie";
 
-const withAuth = (WrappedComponent) => {
-  const HOC = (props) => {
+const withAuth = <P extends object>(
+  WrappedComponent: React.ComponentType<P>
+) => {
+  const HOC: React.FC<P> = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {

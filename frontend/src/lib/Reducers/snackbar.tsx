@@ -1,4 +1,10 @@
 import {
+  DataUpdatedAction,
+  AlertSuccessAction,
+  AlertFailAction,
+  AlertWarningAction,
+  AlertInfoAction,
+  CloseSnackbarAction,
   DATA_UPDATED,
   ALERT_SUCCESS,
   ALERT_FAIL,
@@ -7,14 +13,32 @@ import {
   CLOSE_SNACKBAR,
 } from "../Actions/snackbar";
 
-const initialState = {
+export interface SnackbarState {
+  open: boolean;
+  message: string;
+  type: string;
+  errorMessage: string;
+}
+
+const initialState: SnackbarState = {
   open: false,
   message: "",
   type: "",
   errorMessage: "",
 };
 
-const snackbarReducer = (state = initialState, action) => {
+type SnackbarActionTypes =
+  | DataUpdatedAction
+  | AlertSuccessAction
+  | AlertFailAction
+  | AlertWarningAction
+  | AlertInfoAction
+  | CloseSnackbarAction;
+
+const snackbarReducer = (
+  state: SnackbarState = initialState,
+  action: SnackbarActionTypes
+): SnackbarState => {
   switch (action.type) {
     case DATA_UPDATED:
       return {
@@ -28,28 +52,28 @@ const snackbarReducer = (state = initialState, action) => {
         ...state,
         open: true,
         type: "success",
-        message: action.message,
+        message: action.payload.message,
       };
     case ALERT_FAIL:
       return {
         ...state,
         open: true,
         type: "error",
-        message: `Error: ${action.message}`,
+        message: `Error: ${action.payload.message}`,
       };
     case ALERT_WARNING:
       return {
         ...state,
         open: true,
         type: "warning",
-        message: `Caution: ${action.message}`,
+        message: `Caution: ${action.payload.message}`,
       };
     case ALERT_INFO:
       return {
         ...state,
         open: true,
         type: "info",
-        message: `${action.message}`,
+        message: action.payload.message,
       };
     case CLOSE_SNACKBAR:
       return {

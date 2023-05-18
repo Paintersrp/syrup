@@ -7,7 +7,7 @@ interface AppDrawerProps {
   variant?: "standard" | "permanent" | "persistent";
   side?: "left" | "right";
   color?: string;
-  companyIcon?: string | undefined;
+  companyIcon?: string | undefined | any;
   companyTitle?: string | undefined;
 }
 
