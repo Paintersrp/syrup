@@ -1,8 +1,8 @@
 import React from "react";
 
-import ActionButton from "../../../../../../framework/Prebuilt/Buttons/ActionButton/ActionButton";
+import { ActionButton } from "../../../../../../framework/Prebuilt/Buttons";
 import Divider from "../../../../../../framework/Base/Divider/Divider";
-import Flexer from "../../../../../../framework/Base/Flexer/Flexer";
+import Flexer from "../../../../../../framework/Containers/Flexer/Flexer";
 import Text from "../../../../../../framework/Base/Text/Text";
 import Tooltip from "../../../../../../framework/Base/Tooltip/Tooltip";
 

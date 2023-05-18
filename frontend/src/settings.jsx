@@ -9,7 +9,7 @@ import {
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
 
-import BaseIconButton from "./framework/Base/BaseIconButton/BaseIconButton";
+import IconButton from "./framework/Base/IconButton/IconButton";
 import WIPPage from "./components/WIP/WIPPage";
 import TrackerPage from "./components/Tracker/TrackerPage";
 
@@ -36,7 +36,7 @@ export const SOCIALS = [
   {
     name: "facebook",
     icon: (
-      <BaseIconButton
+      <IconButton
         size="md"
         fontSize="1.5rem"
         icon={faFacebookSquare}
@@ -49,7 +49,7 @@ export const SOCIALS = [
   {
     name: "twitter",
     icon: (
-      <BaseIconButton
+      <IconButton
         size="md"
         fontSize="1.5rem"
         icon={faTwitter}
@@ -62,7 +62,7 @@ export const SOCIALS = [
   {
     name: "instagram",
     icon: (
-      <BaseIconButton
+      <IconButton
         size="md"
         fontSize="1.5rem"
         icon={faInstagram}
@@ -75,7 +75,7 @@ export const SOCIALS = [
   {
     name: "linkedin",
     icon: (
-      <BaseIconButton
+      <IconButton
         size="md"
         fontSize="1.5rem"
         icon={faLinkedin}
@@ -88,7 +88,7 @@ export const SOCIALS = [
   {
     name: "youtube",
     icon: (
-      <BaseIconButton
+      <IconButton
         size="md"
         fontSize="1.5rem"
         icon={faYoutube}
@@ -101,7 +101,7 @@ export const SOCIALS = [
   {
     name: "github",
     icon: (
-      <BaseIconButton
+      <IconButton
         size="md"
         fontSize="1.5rem"
         icon={faGithub}

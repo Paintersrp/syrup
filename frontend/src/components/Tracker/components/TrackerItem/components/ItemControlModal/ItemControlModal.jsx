@@ -1,10 +1,10 @@
 import React from "react";
 import "./ItemControlModal.css";
 
-import BaseButton from "../../../../../../framework/Base/BaseButton/BaseButton";
-import BaseInput from "../../../../../../framework/Base/BaseInput/BaseInput";
-import BaseModal from "../../../../../../framework/Base/BaseModal/BaseModal";
-import Flexer from "../../../../../../framework/Base/Flexer/Flexer";
+import Button from "../../../../../../framework/Base/Button/Button";
+import Input from "../../../../../../framework/Base/Input/Input";
+import Modal from "../../../../../../framework/Base/Modal/Modal";
+import Flexer from "../../../../../../framework/Containers/Flexer/Flexer";
 
 import { handleDataChange } from "../../../../../../utils/dataHandlers/dataHandlers";
 
@@ -17,16 +17,16 @@ const ItemControlModal = ({
   cancelClick,
 }) => {
   return (
-    <BaseModal isOpen={open} onClose={cancelClick}>
+    <Modal isOpen={open} onClose={cancelClick}>
       <div className="input-group" key={`${headerText}-form`}>
-        <BaseInput
+        <Input
           type="text"
           value={data.name}
           onChange={(e) => handleDataChange(e, setData, data)}
           name="name"
           helpText="Name"
         />
-        <BaseInput
+        <Input
           type="number"
           value={data.amount}
           onChange={(e) => handleDataChange(e, setData, data)}
@@ -34,7 +34,7 @@ const ItemControlModal = ({
           helpText="Amount"
         />
         <Flexer j="c">
-          <BaseButton
+          <Button
             onClick={confirmClick}
             size="md"
             color="success"
@@ -45,8 +45,8 @@ const ItemControlModal = ({
             }}
           >
             Confirm
-          </BaseButton>
-          <BaseButton
+          </Button>
+          <Button
             onClick={cancelClick}
             size="md"
             color="error"
@@ -57,10 +57,10 @@ const ItemControlModal = ({
             }}
           >
             Cancel
-          </BaseButton>
+          </Button>
         </Flexer>
       </div>
-    </BaseModal>
+    </Modal>
   );
 };
 
