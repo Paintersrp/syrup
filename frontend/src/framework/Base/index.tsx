@@ -16,3 +16,7 @@ export { default as ListItem } from "./List/ListItem";
 export { default as List } from "./List/List";
 export { default as Text } from "./Text/Text";
 export { default as Tooltip } from "./Tooltip/Tooltip";
+export { default as TransferList } from "./TransferList/TransferList";
+export { Select, Option } from "./Select/Select";
+export { default as Menu } from "./Menu/Menu";
+export { default as MenuItem } from "./Menu/components/MenuItem/MenuItem";

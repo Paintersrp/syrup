@@ -1,5 +1,15 @@
-import React, { FC, ReactNode, MouseEvent } from "react";
-import { Drawer, DrawerHead } from "../../../Base";
+import React, { FC } from "react";
+import { Divider, Drawer, DrawerHead, List, ListItem } from "../../../Base";
+import {
+  faCoins,
+  faEdit,
+  faCancel,
+  faBold,
+  faBorderStyle,
+  faUnderline,
+} from "@fortawesome/free-solid-svg-icons";
+import "./AppDrawer.css";
+import { palettes } from "../../../../theme";
 
 interface AppDrawerProps {
   open?: boolean;
@@ -24,8 +34,26 @@ const AppDrawer: FC<AppDrawerProps> = ({
     <Drawer variant={variant} open={open} onClose={handleClose} side={side}>
       <div style={{ color }}>
         <DrawerHead title={companyTitle} icon={companyIcon} />
-        <h2>My Drawer</h2>
-        <p>This is the content of my drawer.</p>
+        <List j="c" a="c" spacing={0} maxWidth={400} boxShadow={0} px={0}>
+          <ListItem
+            button
+            text="List item 1"
+            className="drawer-list-item"
+            icon={faEdit}
+            iconColor="secondary"
+            onClick={handleClose}
+          />
+
+          <ListItem
+            button
+            text="List item 2"
+            className="drawer-list-item"
+            onClick={handleClose}
+          />
+        </List>
+        <div style={{ width: "100%" }}>
+          <Divider mt={0} color={palettes.primary.hover} />
+        </div>
       </div>
     </Drawer>
   );

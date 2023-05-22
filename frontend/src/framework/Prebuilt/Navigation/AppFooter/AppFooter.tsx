@@ -3,16 +3,20 @@ import { Link } from "react-router-dom";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import "./AppFooter.css";
 
-import Button from "../../../Base/Button/Button";
-import Input from "../../../Base/Input/Input";
-import Divider from "../../../Base/Divider/Divider";
-import Flexer from "../../../Containers/Flexer/Flexer";
-import Text from "../../../Base/Text/Text";
-import Tooltip from "../../../Base/Tooltip/Tooltip";
+import {
+  Button,
+  Divider,
+  Icon,
+  IconButton,
+  Input,
+  Text,
+  Tooltip,
+} from "../../../Base";
+import { Flexer } from "../../../Containers";
 
 import { handleDataChange } from "../../../../utils/dataHandlers/dataHandlers";
 import { LOGO, SOCIALS, LINKS, TITLE } from "../../../../settings";
-import { Icon } from "../../../Base";
+import { palettes } from "../../../../theme";
 
 interface Data {
   email: string;
@@ -115,7 +119,13 @@ const AppFooter: FC = ({}) => {
                   return (
                     <span style={{ marginRight: 4 }}>
                       <Tooltip text={platform.handle} position="bottom">
-                        {platform.icon}
+                        <IconButton
+                          size="md"
+                          fontSize="1.5rem"
+                          icon={platform.icon}
+                          invertColors
+                          manualHoverColor={palettes.secondary.light}
+                        />
                       </Tooltip>
                     </span>
                   );

@@ -6,18 +6,12 @@ import Cookies from "js-cookie";
 import bcrypt from "bcryptjs";
 import "./Login.css";
 
-import Button from "../../Base/Button/Button";
-import Icon from "../../Base/Icon/Icon";
-import Input from "../../Base/Input/Input";
-import Flexer from "../../Containers/Flexer/Flexer";
-import Page from "../../Containers/Page/Page";
-import Surface from "../../Containers/Surface/Surface";
-import Text from "../../Base/Text/Text";
+import { Button, Checkbox, Icon, Input, Text } from "../../Base";
+import { Flexer, Page, Surface } from "../../Containers";
 
 import axiosInstance from "../../../lib/Axios/axiosInstance";
 import { handleDataChange } from "../../../utils/dataHandlers/dataHandlers";
 import { setAuth, setUser } from "../../../lib/Actions/auth";
-import { Checkbox } from "../../Base";
 
 interface FormData {
   username: string;

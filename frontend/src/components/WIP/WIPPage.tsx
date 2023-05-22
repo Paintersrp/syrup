@@ -1,12 +1,43 @@
-import React, { ReactElement } from "react";
-import Flexer from "../../framework/Containers/Flexer/Flexer";
-import List from "../../framework/Base/List/List";
-import ListItem from "../../framework/Base/List/ListItem";
-import Page from "../../framework/Containers/Page/Page";
-import { Text, TreeNode } from "../../framework/Base";
-import { Surface } from "../../framework/Containers";
+import React, { ReactElement, useRef, useState } from "react";
+
+import {
+  Button,
+  Text,
+  TransferList,
+  TreeNode,
+  Menu,
+  MenuItem,
+  List,
+  ListItem,
+  Select,
+  Option,
+} from "../../framework/Base";
+
+import { Surface, Page, Flexer } from "../../framework/Containers";
+import { faCoins } from "@fortawesome/free-solid-svg-icons";
+import MenuExamples from "../../framework/Base/Menu/components/MenuExamples/MenuExamples";
 
 const WIPPage = (): ReactElement => {
+  const leftItems = [
+    { id: "1", name: "Item 1" },
+    { id: "2", name: "Item 2" },
+    { id: "3", name: "Item 3" },
+    { id: "4", name: "Item 4" },
+  ];
+
+  const rightItems = [
+    { id: "5", name: "Item 5" },
+    { id: "6", name: "Item 6" },
+    { id: "7", name: "Item 7" },
+  ];
+
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const handleChange = (value) => {
+    setSelectedValue(value);
+    // Do something with the selected value
+  };
+
   return (
     <Page>
       <Flexer j="c" a="c" fd="column">
@@ -80,6 +111,17 @@ const WIPPage = (): ReactElement => {
             </TreeNode>
           </TreeNode>
         </Surface>
+
+        <TransferList leftItems={leftItems} rightItems={rightItems} />
+
+        <MenuExamples />
+        <div style={{ marginBottom: 96 }}>
+          <Select onChange={handleChange}>
+            <Option value="Tacos">Tacos</Option>
+            <Option value="Burritos">Burritos</Option>
+            <Option value="Enchiladas">Enchiladas</Option>
+          </Select>
+        </div>
       </Flexer>
     </Page>
   );

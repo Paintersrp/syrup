@@ -4,6 +4,7 @@ import "./List.css";
 import Divider from "../Divider/Divider";
 import Surface from "../../Containers/Surface/Surface";
 import { JustificationValue } from "../../Containers/Flexer/Flexer";
+import { palettes } from "../../../theme";
 
 interface ListProps {
   children: ReactNode;
@@ -44,7 +45,7 @@ const List: React.FC<ListProps> = ({
   pt: paddingTop = 0,
   pb: paddingBottom = 0,
   br: borderRadius = 0.5,
-  b: background = "#F5F5F5",
+  b: background = "inherit",
   j: justifyChildren = "flex-start",
   a: alignChildren = "flex-start",
   fd: flexDirection = "column",
@@ -64,7 +65,7 @@ const List: React.FC<ListProps> = ({
         <div style={childStyle}>{child}</div>
         {renderDivider && (
           <span>
-            <Divider />
+            <Divider color={palettes.primary.hover} />
           </span>
         )}
       </React.Fragment>

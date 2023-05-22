@@ -6,22 +6,13 @@ import Cookies from "js-cookie";
 import bcrypt from "bcryptjs";
 import "./Register.css";
 
-import ActionButton from "../../Prebuilt/Buttons/ActionButton/ActionButton";
-import Button from "../../Base/Button/Button";
-import Icon from "../../Base/Icon/Icon";
-import Input from "../../Base/Input/Input";
-import Collapser from "../../Base/Collapser/Collapser";
-import Container from "../../Containers/Container/Container";
-import Flexer from "../../Containers/Flexer/Flexer";
-import Item from "../../Containers/Item/Item";
-import Page from "../../Containers/Page/Page";
-import Surface from "../../Containers/Surface/Surface";
-import Text from "../../Base/Text/Text";
+import { Button, Collapser, Icon, Input, Text } from "../../Base";
+import { Container, Flexer, Item, Page, Surface } from "../../Containers";
+import { ActionButton } from "../../Prebuilt";
 
 import { handleDataChange } from "../../../utils/dataHandlers/dataHandlers";
 import axiosInstance from "../../../lib/Axios/axiosInstance";
-import { setAuth, setUser } from "../../../lib/Actions/auth.tsx";
-import { text } from "@fortawesome/fontawesome-svg-core";
+import { setAuth, setUser } from "../../../lib/Actions/auth";
 
 interface FormData {
   firstName: string;

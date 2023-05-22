@@ -1,15 +1,18 @@
-import axios from "axios";
+import axios, { AxiosInstance, AxiosResponse } from "axios";
 import cookie from "js-cookie";
 
-const axiosInstance = axios.create({
+const axiosInstance: AxiosInstance = axios.create({
   baseURL: "http://localhost:8000/api/",
 });
 
 axiosInstance.interceptors.request.use(
-  (config) => {
+  (config: any) => {
     const token = cookie.get("jwt");
     if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
+      config.headers = {
+        ...config.headers,
+        Authorization: `Bearer ${token}`,
+      };
     }
     return config;
   },
@@ -17,7 +20,7 @@ axiosInstance.interceptors.request.use(
 );
 
 axiosInstance.interceptors.response.use(
-  (response) => response,
+  (response: AxiosResponse) => response,
   (error) => {
     if (error.response && error.response.status === 404) {
       return Promise.reject(error.response.data);

@@ -2,11 +2,11 @@ import React, { useState, ReactNode, CSSProperties } from "react";
 import "../styles.css";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
-import IconButton from "../../Base/IconButton/IconButton";
-import Collapser from "../../Base/Collapser/Collapser";
-import Divider from "../../Base/Divider/Divider";
-import Flexer, { JustificationValue } from "../Flexer/Flexer";
-import Text, { TextAlign, TextType } from "../../Base/Text/Text";
+import { JustificationValue } from "../Flexer/Flexer";
+import { TextAlign, TextType } from "../../Base/Text/Text";
+
+import { Collapser, Divider, IconButton, Text } from "../../Base";
+import { Flexer } from "../../Containers";
 
 import { shadowSwitch } from "../../../utils/styleSwitches/styleSwitches";
 

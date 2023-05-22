@@ -1,0 +1,23 @@
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.menu-item:hover {
+  background-color: #e8e8e8;
+}
+
+.menu-item.active {
+  background-color: #d7d7d7;
+  color: #333333;
+}
+
+.menu-item-text {
+  width: 100%;
+  font-weight: 500;
+  font-size: 14px;
+  font-family: Roboto;
+}

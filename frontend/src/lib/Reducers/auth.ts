@@ -29,7 +29,7 @@ const authReducer = (
     case SET_AUTH:
       return {
         ...state,
-        is_authenticated: action.payload,
+        is_authenticated: action.payload.is_authenticated,
         is_checked: true,
       };
     case SET_USER:

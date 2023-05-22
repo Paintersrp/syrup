@@ -44,6 +44,7 @@ const withAuth = <P extends object>(
             );
           });
       } else {
+        console.log("no auth");
         dispatch(setAuth({ is_authenticated: false }));
         dispatch(
           setUser({

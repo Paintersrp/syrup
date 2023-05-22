@@ -1,0 +1,6 @@
+.drawer-list-item {
+  padding: 8px 0px 8px 0px;
+}
+.drawer-list-item:hover {
+  background: #a1a1a133;
+}

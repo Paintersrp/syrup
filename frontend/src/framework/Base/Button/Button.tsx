@@ -21,12 +21,13 @@ type ButtonSize =
   | "large";
 
 interface ButtonProps {
+  ref?: React.LegacyRef<HTMLButtonElement> | null;
   size?: ButtonSize;
   color?: string;
   shade?: ColorShade;
   type?: ButtonType;
   children: ReactNode;
-  onClick?: () => void;
+  onClick?: (event: any) => void;
   className?: string | undefined;
   style?: CSSProperties;
   disabled?: boolean;
@@ -52,6 +53,7 @@ const sizeSwitch = (size: ButtonSize): string => {
 };
 
 const Button: React.FC<ButtonProps> = ({
+  ref,
   size = "sm",
   color = "primary",
   shade = "main",
@@ -71,6 +73,7 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
+      ref={ref}
       className={clsx("button-base", className, disabled ? "disabled" : "")}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}

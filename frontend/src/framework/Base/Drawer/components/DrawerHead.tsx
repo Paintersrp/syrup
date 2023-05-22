@@ -41,7 +41,7 @@ const DrawerHead: React.FC<DrawerHeadProps> = ({
         </Flexer>
         {children}
       </Flexer>
-      <Divider color={palettes[color].light} thickness={1} />
+      <Divider color={palettes[color].hover} thickness={1} />
     </>
   );
 };

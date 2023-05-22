@@ -5,6 +5,7 @@ export const palettes = {
     dark: "#00152e",
     contrastText: "#fff",
     gold: "#ff8c00",
+    hover: "#6b7c9b5a",
   },
   secondary: {
     main: "#ff8c00",
