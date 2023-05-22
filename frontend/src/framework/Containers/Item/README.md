@@ -1,6 +1,6 @@
 # Item Component
 
-The `Item` component is a flexible item within a container that adjusts its size based on different breakpoints. It allows you to control the width, alignment, and styling of the item within the [Container](https://github.com/Paintersrp/tracker/tree/main/frontend/src/framework/Base/Containers/Container).
+The `Item` component is a flexible item within a container that adjusts its size based on different breakpoints. It allows you to control the width, alignment, and styling of the item within the [Container](https://github.com/Paintersrp/tracker/tree/main/frontend/src/framework/Containers/Container).
 
 ## Props
 
