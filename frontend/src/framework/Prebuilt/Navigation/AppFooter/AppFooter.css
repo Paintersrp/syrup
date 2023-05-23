@@ -39,7 +39,7 @@
 
 .footer-link:hover,
 .footer-app-title:hover {
-  color: var(--color-secondary-main);
+  color: var(--color-secondary-main) !important;
 }
 
 .footer-item {

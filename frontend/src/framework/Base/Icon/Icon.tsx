@@ -4,7 +4,7 @@ import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { colorSwitch } from "../../../utils/styleSwitches/styleSwitches";
 
 interface IconProps {
-  fontSize?: string;
+  size?: string;
   color?: string;
   shade?: "light" | "dark" | "main";
   mt?: CSSProperties["marginTop"];
@@ -19,7 +19,7 @@ interface IconProps {
 }
 
 const Icon: FC<IconProps> = ({
-  fontSize = "1.5rem",
+  size = "1.5rem",
   color = "primary",
   shade = "main",
   mt: marginTop,
@@ -47,17 +47,16 @@ const Icon: FC<IconProps> = ({
   return (
     <FontAwesomeIcon
       className={className}
-      fontSize={fontSize}
+      fontSize={size}
       icon={icon}
       style={{
         ...style,
-        fontSize,
-        marginLeft: marginLeft || 0,
-        marginRight: marginRight || 0,
-        marginBottom: marginBottom || 0,
-        marginTop: marginTop || 0,
-        paddingLeft: paddingLeft || 0,
-        paddingRight: paddingRight || 0,
+        marginLeft: marginLeft && marginLeft,
+        marginRight: marginRight && marginRight,
+        marginBottom: marginBottom && marginBottom,
+        marginTop: marginTop && marginTop,
+        paddingLeft: paddingLeft && paddingLeft,
+        paddingRight: paddingRight && paddingRight,
         color: colors.background || "inherit",
       }}
     />

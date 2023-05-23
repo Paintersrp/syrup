@@ -77,9 +77,9 @@ urlpatterns = [
         TeamMemberBulkAPIView.as_view(),
         name="teammember-bulk-detail",
     ),
-    path(
-        "appinfo/",
-        AppInfoFullView.as_view(),
-        name="app-full",
-    ),
+    # path(
+    #     "appinfo/",
+    #     AppInfoFullView.as_view(),
+    #     name="app-full",
+    # ),
 ]

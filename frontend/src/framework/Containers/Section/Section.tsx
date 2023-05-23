@@ -1,5 +1,5 @@
 import React, { useState, ReactNode, CSSProperties } from "react";
-import "../styles.css";
+import "../Containers.css";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 import { JustificationValue } from "../Flexer/Flexer";
@@ -35,7 +35,7 @@ interface SectionProps {
   centerAlignIconPosition?: string;
 }
 
-function Section({
+const Section: React.FC<SectionProps> = ({
   header,
   children,
   maxWidth = "100%",
@@ -58,7 +58,7 @@ function Section({
   headerAlign = "center",
   headerVar = "h3",
   centerAlignIconPosition = "right",
-}: SectionProps) {
+}) => {
   const [open, setOpen] = useState(true);
 
   return (
@@ -157,5 +157,5 @@ function Section({
       </div>
     </Flexer>
   );
-}
+};
 export default Section;

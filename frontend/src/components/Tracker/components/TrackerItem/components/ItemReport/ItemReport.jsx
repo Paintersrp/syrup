@@ -1,10 +1,11 @@
 import React from "react";
-
-import { ActionButton } from "../../../../../../framework/Prebuilt/Buttons";
-import Divider from "../../../../../../framework/Base/Divider/Divider";
-import Flexer from "../../../../../../framework/Containers/Flexer/Flexer";
-import Text from "../../../../../../framework/Base/Text/Text";
-import Tooltip from "../../../../../../framework/Base/Tooltip/Tooltip";
+import {
+  ActionButton,
+  Divider,
+  Text,
+  Tooltip,
+} from "../../../../../../framework/Base";
+import { Flexer } from "../../../../../../framework/Containers";
 
 import { palettes } from "../../../../../../theme";
 
@@ -65,13 +66,7 @@ const Item = ({ index, item, divider }) => {
   );
 };
 
-const ItemReport = ({
-  openModal,
-  dataArray,
-  headerText,
-  buttonText,
-  position = "left",
-}) => {
+const ItemReport = ({ dataArray, headerText }) => {
   let exampleItems;
 
   if (headerText === "Incomes") {

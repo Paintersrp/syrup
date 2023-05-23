@@ -1,5 +1,4 @@
 import React, { ReactNode, CSSProperties } from "react";
-import "../styles.css";
 
 import { shadowSwitch } from "../../../utils/styleSwitches/styleSwitches";
 import { justificationSwitch, JustificationValue } from "../Flexer/Flexer";
@@ -28,7 +27,7 @@ type SurfaceProps = {
   className?: string;
 };
 
-function Surface({
+const Surface: React.FC<SurfaceProps> = ({
   children,
   maxWidth,
   minHeight,
@@ -50,7 +49,7 @@ function Surface({
   fillHeight = false,
   style,
   className,
-}: SurfaceProps) {
+}) => {
   const containerStyle: CSSProperties = {
     width: "100%",
     minHeight: minHeight,
@@ -88,5 +87,5 @@ function Surface({
       </div>
     </div>
   );
-}
+};
 export default Surface;

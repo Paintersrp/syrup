@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./AppNavbar.css";
 
-import { Navbar, Text } from "../../../Base";
-import { ActionButton } from "../../Buttons";
+import { ActionButton, Navbar, Text } from "../../../Base";
 import { Flexer } from "../../../Containers";
 
 import handleLogout from "../../../../lib/Auth/Logout";
@@ -32,7 +31,6 @@ const AppNavbar: FC<AppNavbarProps> = ({
   children,
 }) => {
   const auth: any = useSelector<any>((state) => state.auth);
-  console.log(auth);
 
   return (
     <Navbar>
@@ -71,6 +69,9 @@ const AppNavbar: FC<AppNavbarProps> = ({
           </Flexer>
         ) : (
           <Flexer j="fe" className="link-container" style={{ marginRight: 24 }}>
+            <Link key="admin" to="/admin">
+              <Text t="h4">Admin</Text>
+            </Link>
             <Link key="logout" to="" onClick={handleLogout}>
               <Text t="h4">Logout</Text>
             </Link>

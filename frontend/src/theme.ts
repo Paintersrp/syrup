@@ -12,26 +12,31 @@ export const palettes = {
     light: "#ffd04d",
     dark: "#c75e00",
     contrastText: "#fff",
+    hover: "#ff8c005a",
   },
   success: {
     light: "#81c784",
     main: "#4caf50",
     dark: "#388e3c",
+    hover: "#4caf505a",
   },
   warning: {
     light: "#ffd54f",
     main: "#ffeb3b",
     dark: "#f57f17",
+    hover: "#ffeb3b5a",
   },
   error: {
     light: "#e57373",
     main: "#f44336",
     dark: "#d32f2f",
+    hover: "#f443365a",
   },
   info: {
     light: "#64b5f6",
     main: "#3f51b5",
     dark: "#1976d2",
+    hover: "#3f51b55a",
   },
   text: {
     dark: "#222",
@@ -40,6 +45,7 @@ export const palettes = {
     secondary: "rgba(0, 0, 0, 0.6)",
     disabled: "rgba(0, 0, 0, 0.38)",
     hint: "rgba(0, 0, 0, 0.38)",
+    hover: "#2225a",
   },
   action: {
     active: "rgba(0, 0, 0, 0.54)",
@@ -53,6 +59,7 @@ export const palettes = {
     default: "#f5f5f5",
     paper: "#f5f5f5",
     light: "#f5f5f5",
+    hover: "#f5f5f55a",
   },
 };
 

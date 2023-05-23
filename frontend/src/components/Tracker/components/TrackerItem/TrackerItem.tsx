@@ -1,10 +1,7 @@
 import React, { useState } from "react";
-
-import { ActionButton } from "../../../../framework/Prebuilt/Buttons";
-import Flexer from "../../../../framework/Containers/Flexer/Flexer";
-import ItemControlModal from "./components/ItemControlModal/ItemControlModal";
-import ItemReport from "./components/ItemReport/ItemReport";
-import Section from "../../../../framework/Containers/Section/Section";
+import { ActionButton } from "../../../../framework/Base";
+import { Flexer, Section } from "../../../../framework/Containers";
+import { ItemControlModal, ItemReport } from "./components";
 import { Data } from "../../Tracker";
 
 interface TrackerItemProps {
@@ -58,13 +55,7 @@ const TrackerItem: React.FC<TrackerItemProps> = ({
           onClick={openModal}
         />
       </Flexer>
-      <ItemReport
-        openModal={openModal}
-        dataArray={dataArray}
-        headerText={headerText}
-        buttonText={buttonText}
-        position={position}
-      />
+      <ItemReport dataArray={dataArray} headerText={headerText} />
       <ItemControlModal
         data={data}
         setData={setData}

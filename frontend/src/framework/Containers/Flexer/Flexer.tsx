@@ -47,12 +47,13 @@ interface FlexerProps {
   a?: JustificationValue | string;
   fd?: CSSProperties["flexDirection"];
   w?: number | string;
+  grow?: boolean;
   children?: ReactNode;
   style?: CSSProperties;
   className?: string;
 }
 
-function Flexer({
+const Flexer: React.FC<FlexerProps> = ({
   mt: marginTop,
   mb: marginBottom,
   pl: paddingLeft,
@@ -60,10 +61,11 @@ function Flexer({
   a: alignItems = "center",
   fd: flexDirection = "row",
   w: width = "100%",
+  grow = false,
   children,
   style,
   className,
-}: FlexerProps) {
+}) => {
   return (
     <div
       className={className}
@@ -77,11 +79,12 @@ function Flexer({
         flexDirection: flexDirection,
         justifyContent: justificationSwitch(justifyContent),
         alignItems: justificationSwitch(alignItems),
+        flexGrow: grow ? 1 : 0,
       }}
     >
       {children}
     </div>
   );
-}
+};
 
 export default Flexer;

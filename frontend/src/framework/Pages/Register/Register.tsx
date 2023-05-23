@@ -6,118 +6,27 @@ import Cookies from "js-cookie";
 import bcrypt from "bcryptjs";
 import "./Register.css";
 
-import { Button, Collapser, Icon, Input, Text } from "../../Base";
+import { ActionButton, Button, Collapser, Icon, Input, Text } from "../../Base";
 import { Container, Flexer, Item, Page, Surface } from "../../Containers";
-import { ActionButton } from "../../Prebuilt";
 
 import { handleDataChange } from "../../../utils/dataHandlers/dataHandlers";
 import axiosInstance from "../../../lib/Axios/axiosInstance";
 import { setAuth, setUser } from "../../../lib/Actions/auth";
 
-interface FormData {
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  password: string;
-  phone: string;
-  address: string;
-  city: string;
-  state: string;
-  zipcode: string;
-  country: string;
-}
-
-const textFields = [
-  {
-    label: "First Name",
-    id: "firstName",
-    autoComplete: "fname",
-  },
-  {
-    label: "Last Name",
-    id: "lastName",
-    autoComplete: "lname",
-  },
-  {
-    label: "Username",
-    id: "username",
-    autoComplete: "username",
-  },
-  {
-    label: "Email Address",
-    id: "email",
-    autoComplete: "email",
-  },
-  {
-    label: "Password",
-    id: "password",
-    autoComplete: "current-password",
-    type: "password",
-  },
-];
-
-const advancedTextFields = [
-  {
-    id: "phone",
-    label: "Phone Number",
-    autoComplete: "phone",
-    type: "tel",
-    grid: 12,
-  },
-  {
-    id: "address",
-    label: "Address",
-    autoComplete: "address",
-    type: "text",
-    grid: 12,
-  },
-  {
-    id: "city",
-    label: "City",
-    autoComplete: "city",
-    type: "text",
-  },
-  {
-    id: "state",
-    label: "State",
-    autoComplete: "state",
-    type: "text",
-  },
-
-  {
-    id: "zipcode",
-    label: "Zipcode",
-    autoComplete: "zipcode",
-    type: "text",
-  },
-  {
-    id: "country",
-    label: "Country",
-    autoComplete: "country",
-    type: "text",
-  },
-];
+import {
+  advancedRegisterFields,
+  registerFields,
+  registerInitialData,
+} from "./const";
 
 const Register: FC = ({}) => {
-  const [formData, setFormData] = useState<FormData>({
-    firstName: "",
-    lastName: "",
-    username: "",
-    email: "",
-    password: "",
-    phone: "",
-    address: "",
-    city: "",
-    state: "",
-    zipcode: "",
-    country: "",
-  });
+  const [formData, setFormData] = useState(registerInitialData);
   const [isAdvanced, setIsAdvanced] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleOpen = () => {
+  const handleOpen = (event: React.MouseEvent) => {
+    event?.preventDefault();
     setIsAdvanced(!isAdvanced);
   };
 
@@ -181,32 +90,82 @@ const Register: FC = ({}) => {
         <Icon
           icon={faCoins}
           color="primary"
-          fontSize="2rem"
+          size="2rem"
           style={{ margin: "8px 8px 16px 8px" }}
         />
-        <Text t="h2" className="register-heading">
+        <Text t="h2" a="c" className="register-heading">
           Register
         </Text>
-        <form className="register-form" onSubmit={submitLogic}>
-          <Container>
-            {textFields.map((textField) => (
-              <Item
-                xs={
-                  textField.id === "firstName" || textField.id === "lastName"
-                    ? 6
-                    : 12
-                }
+        <Container style={{ marginTop: 8 }}>
+          {registerFields.map((field) => (
+            <Item
+              xs={field.id === "firstName" || field.id === "lastName" ? 6 : 12}
+              style={{
+                paddingRight: field.id === "firstName" ? 3 : 0,
+                paddingLeft: field.id === "lastName" ? 3 : 0,
+              }}
+            >
+              <Input
+                id={field.id}
+                name={field.id}
+                type={field.type || "text"}
+                helpText={field.label}
+                value={formData[field.id]}
+                onChange={(e) => handleDataChange(e, setFormData, formData)}
                 style={{
-                  paddingRight: textField.id === "firstName" ? 3 : 0,
-                  paddingLeft: textField.id === "lastName" ? 3 : 0,
+                  marginTop: 8,
+                }}
+                inputStyle={{ marginTop: 2 }}
+              />
+            </Item>
+          ))}
+        </Container>
+        <Flexer fd="column" j="c" mt={16}>
+          <Button
+            type="submit"
+            size="sm"
+            style={{ fontSize: "0.95rem", width: 80 }}
+            onClick={submitLogic}
+          >
+            Submit
+          </Button>
+          <Flexer j="fs" mt={8}>
+            <Link to="/login" className="link-text">
+              <Text>Already have an account? Login</Text>
+            </Link>
+          </Flexer>
+        </Flexer>
+        <Flexer j="je" mt={4}>
+          <Text w="90%" a="r" mr={8}>
+            Advanced Registration
+          </Text>
+          <ActionButton
+            type={isAdvanced ? "close" : "open"}
+            size="t"
+            fontSize="0.9rem"
+            onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleOpen(e)}
+            iconStyle={{ marginTop: 1 }}
+          />
+        </Flexer>
+        <Collapser isOpen={isAdvanced}>
+          <Container>
+            {advancedRegisterFields.map((field) => (
+              <Item
+                xs={field.grid ? field.grid : 6}
+                key={field.id}
+                style={{
+                  paddingRight:
+                    field.id === "city" || field.id === "zipcode" ? 3 : 0,
+                  paddingLeft:
+                    field.id === "state" || field.id === "country" ? 3 : 0,
                 }}
               >
                 <Input
-                  id={textField.id}
-                  name={textField.id}
-                  type={textField.type || "text"}
-                  helpText={textField.label}
-                  value={formData[textField.id]}
+                  id={field.id}
+                  name={field.id}
+                  type={field.type || "text"}
+                  helpText={field.label}
+                  value={formData[field.id]}
                   onChange={(e) => handleDataChange(e, setFormData, formData)}
                   style={{
                     marginTop: 8,
@@ -216,66 +175,7 @@ const Register: FC = ({}) => {
               </Item>
             ))}
           </Container>
-          <Flexer fd="column" j="c" mt={16}>
-            <Button
-              type="submit"
-              size="sm"
-              style={{ fontSize: "0.95rem", width: 80 }}
-            >
-              Submit
-            </Button>
-            <Flexer j="fs" mt={8}>
-              <Link to="/login" className="link-text">
-                <Text>Already have an account? Login</Text>
-              </Link>
-            </Flexer>
-          </Flexer>
-          <Flexer j="je" mt={4}>
-            <Text w="90%" a="r" mr={8}>
-              Advanced Registration
-            </Text>
-            <ActionButton
-              type={isAdvanced ? "close" : "open"}
-              size="t"
-              fontSize="0.9rem"
-              onClick={handleOpen}
-              iconStyle={{ marginTop: 1 }}
-            />
-          </Flexer>
-          <Collapser isOpen={isAdvanced}>
-            <Container>
-              {advancedTextFields.map((textField) => (
-                <Item
-                  xs={textField.grid ? textField.grid : 6}
-                  key={textField.id}
-                  style={{
-                    paddingRight:
-                      textField.id === "city" || textField.id === "zipcode"
-                        ? 3
-                        : 0,
-                    paddingLeft:
-                      textField.id === "state" || textField.id === "country"
-                        ? 3
-                        : 0,
-                  }}
-                >
-                  <Input
-                    id={textField.id}
-                    name={textField.id}
-                    type={textField.type || "text"}
-                    helpText={textField.label}
-                    value={formData[textField.id]}
-                    onChange={(e) => handleDataChange(e, setFormData, formData)}
-                    style={{
-                      marginTop: 8,
-                    }}
-                    inputStyle={{ marginTop: 2 }}
-                  />
-                </Item>
-              ))}
-            </Container>
-          </Collapser>
-        </form>
+        </Collapser>
       </Surface>
     </Page>
   );

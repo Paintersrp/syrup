@@ -2,8 +2,7 @@ import React, { CSSProperties } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import "./Checkbox.css";
-
-import { HelpText } from "../../Prebuilt/Text";
+import HelpText from "../HelpText/HelpText";
 
 interface CheckboxProps {
   checked: boolean;

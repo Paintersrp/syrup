@@ -1,0 +1,35 @@
+.media {
+  position: relative;
+  max-width: 100%;
+}
+
+.media-small {
+  width: 400px;
+  height: 250px;
+}
+
+.media-medium {
+  width: 600px;
+  height: 400px;
+}
+
+.media-large {
+  width: 800px;
+  height: 550px;
+}
+.media-xlarge {
+  width: 1000px;
+  height: 700px;
+}
+
+.media-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.media-caption {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #666;
+}

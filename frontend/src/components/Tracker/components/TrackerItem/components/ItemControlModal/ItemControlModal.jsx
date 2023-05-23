@@ -1,12 +1,9 @@
 import React from "react";
 import "./ItemControlModal.css";
 
-import Button from "../../../../../../framework/Base/Button/Button";
-import Input from "../../../../../../framework/Base/Input/Input";
-import Modal from "../../../../../../framework/Base/Modal/Modal";
-import Flexer from "../../../../../../framework/Containers/Flexer/Flexer";
-
 import { handleDataChange } from "../../../../../../utils/dataHandlers/dataHandlers";
+import { Button, Input, Modal } from "../../../../../../framework/Base";
+import { Flexer } from "../../../../../../framework/Containers";
 
 const ItemControlModal = ({
   open,

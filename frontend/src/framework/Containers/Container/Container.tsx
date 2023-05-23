@@ -8,6 +8,7 @@ interface ContainerProps {
   textAlign?: CSSProperties["textAlign"];
   style?: CSSProperties;
   spacing?: number;
+  className?: string;
 }
 
 interface ChildProps {
@@ -15,7 +16,7 @@ interface ChildProps {
   className?: string;
 }
 
-const Container = ({
+const Container: React.FC<ContainerProps> = ({
   children,
   align = "center",
   justify = "center",
@@ -23,7 +24,8 @@ const Container = ({
   textAlign = "left",
   style,
   spacing = 0,
-}: ContainerProps) => {
+  className,
+}) => {
   const childrenWithSpacing = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
       const childClassName = child.props.className;
@@ -43,6 +45,7 @@ const Container = ({
 
   return (
     <div
+      className={className}
       style={{
         width: "100%",
         display: "flex",

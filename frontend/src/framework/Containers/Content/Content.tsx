@@ -1,5 +1,5 @@
 import React, { useState, ReactNode, CSSProperties } from "react";
-import "../styles.css";
+import "../Containers.css";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
 import { JustificationValue } from "../Flexer/Flexer";
@@ -32,7 +32,7 @@ interface ContentProps {
   headerVar?: TextType;
 }
 
-function Content({
+const Content: React.FC<ContentProps> = ({
   children,
   header = "",
   subheader = "",
@@ -40,7 +40,7 @@ function Content({
   boxShadow = 0,
   pad: padding = 3,
   pl: paddingLeft = 0,
-  pr: paddingRight = 0,
+  pr: paddingRight,
   pt: paddingTop = 0,
   pb: paddingBottom = 0,
   br: borderRadius = 0.5,
@@ -52,7 +52,7 @@ function Content({
   divider = false,
   headerAlign = "center",
   headerVar = "h3",
-}: ContentProps) {
+}) => {
   const [open, setOpen] = useState(true);
 
   return (
@@ -63,10 +63,10 @@ function Content({
         width: "100%",
         padding: 0,
         margin: 0,
-        paddingRight: paddingRight * 8,
-        paddingLeft: paddingLeft * 8,
-        paddingTop: paddingTop * 8,
-        paddingBottom: paddingBottom * 8,
+        paddingRight: paddingRight && paddingRight * 8,
+        paddingLeft: paddingLeft && paddingLeft * 8,
+        paddingTop: paddingTop && paddingTop * 8,
+        paddingBottom: paddingBottom && paddingBottom * 8,
         background: background,
       }}
     >
@@ -123,6 +123,6 @@ function Content({
       </div>
     </div>
   );
-}
+};
 
 export default Content;

@@ -16,7 +16,7 @@ interface DividerProps {
   textAlign?: "left" | "center" | "right";
 }
 
-function Divider({
+const Divider: React.FC<DividerProps> = ({
   mb: marginBottom,
   mt: marginTop,
   mr: marginRight,
@@ -29,7 +29,7 @@ function Divider({
   textColor = "#222",
   textSize = 14,
   textAlign = "center",
-}: DividerProps) {
+}) => {
   const dividerStyle: React.CSSProperties = {
     marginBottom: `${marginBottom}px`,
     marginTop: `${marginTop}px`,
@@ -62,6 +62,6 @@ function Divider({
       )}
     </div>
   );
-}
+};
 
 export default Divider;

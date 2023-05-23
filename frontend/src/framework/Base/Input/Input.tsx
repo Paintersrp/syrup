@@ -1,7 +1,6 @@
-import React, { useState, ChangeEvent, FocusEvent } from "react";
+import React, { useState, ChangeEvent } from "react";
+import HelpText from "../HelpText/HelpText";
 import "./Input.css";
-
-import { HelpText } from "../../Prebuilt/Text";
 
 interface InputProps {
   id?: string;

@@ -67,6 +67,8 @@ const Drawer: FC<DrawerProps> = ({
         style={{
           ...style,
           visibility: isOpen || variant === "permanent" ? "visible" : "hidden",
+          display: "flex",
+          flexDirection: "column",
         }}
       >
         {children}

@@ -38,7 +38,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
             {children}
           </span>
           <Icon
-            fontSize="1rem"
+            size="1rem"
             color={iconColor || "primary"}
             icon={icon}
             style={{ order: textAlign === "right" ? 1 : 2 }}

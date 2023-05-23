@@ -75,7 +75,7 @@ const AppFooter: FC = ({}) => {
                       color="#f5f5f5"
                       mr={4}
                       ml={0}
-                      fontSize="1.2rem"
+                      size="1.2rem"
                     />
                   )}
                   {state === "success" ? "Subscribed" : "Subscribe"}
@@ -90,21 +90,17 @@ const AppFooter: FC = ({}) => {
                   return null;
                 }
                 return (
-                  <div>
-                    <Text>
-                      <Tooltip text={`View ${link.text} Page`} position="right">
-                        <Link
-                          key={link.text}
-                          to={link.to}
-                          className="footer-link"
-                        >
-                          <Text t="body1" className="footer-link-text">
-                            {link.text}
-                          </Text>
-                        </Link>
-                      </Tooltip>
-                    </Text>
-                  </div>
+                  <Tooltip
+                    key={`${link.text}-footer-link`}
+                    text={`View ${link.text} Page`}
+                    position="right"
+                  >
+                    <Link key={link.text} to={link.to} className="footer-link">
+                      <Text t="body1" className="footer-link-text">
+                        {link.text}
+                      </Text>
+                    </Link>
+                  </Tooltip>
                 );
               })}
             </Flexer>
@@ -117,7 +113,10 @@ const AppFooter: FC = ({}) => {
               {SOCIALS.map((platform) => {
                 if (platform.handle) {
                   return (
-                    <span style={{ marginRight: 4 }}>
+                    <span
+                      key={`${platform.name}-footer-social`}
+                      style={{ marginRight: 4 }}
+                    >
                       <Tooltip text={platform.handle} position="bottom">
                         <IconButton
                           size="md"

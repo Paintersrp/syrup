@@ -1,0 +1,14 @@
+.hover-link:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.add-button {
+  background-color: inherit !important;
+  color: var(--color-success-main) !important;
+  box-shadow: none !important;
+}
+
+.add-button:hover {
+  color: #f5f5f5 !important;
+  background-color: var(--color-success-main) !important;
+}

@@ -1,8 +1,8 @@
 .nav-top .link-container {
-  transition: margin-left 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+  transition: margin-left 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 .nav-top .menu-button {
-  transition: margin-left 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+  transition: margin-left 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .link-container a {
@@ -18,9 +18,9 @@
 .link-container a:hover {
   text-decoration: underline;
   text-underline-offset: 4px;
-  color: var(--color-secondary-light);
+  color: var(--color-secondary-main);
 }
 
 .menu-button:hover {
-  color: var(--color-secondary-light);
+  color: var(--color-secondary-main);
 }

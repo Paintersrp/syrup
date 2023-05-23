@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import Text from "../../Base/Text/Text";
-import "../styles.css";
+import "../Containers.css";
 
 type HeaderType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 type HeaderAlign = "l" | "r" | "c" | "left" | "right" | "center";

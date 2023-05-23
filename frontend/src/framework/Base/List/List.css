@@ -16,3 +16,12 @@
   display: flex;
   flex-direction: column;
 }
+.list-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: inherit;
+  color: inherit;
+  margin: 4px 0px;
+  text-underline-offset: 4px;
+}

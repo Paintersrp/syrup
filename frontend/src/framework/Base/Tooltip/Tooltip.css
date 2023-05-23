@@ -29,6 +29,7 @@
   align-items: center;
   font-family: "Roboto";
   white-space: nowrap;
+  overflow: visible !important;
 }
 
 .tooltip-content--top {

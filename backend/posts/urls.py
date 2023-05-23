@@ -4,11 +4,6 @@ from .views import *
 
 urlpatterns = [
     path(
-        "posts/",
-        PostListCreateView.as_view(),
-        name="posts-list",
-    ),
-    path(
         "tags/",
         TagsView.as_view(),
         name="tags-list",
@@ -19,7 +14,12 @@ urlpatterns = [
         name="tags-detail-update-delete",
     ),
     path(
-        "posts/<int:pk>/",
+        "post/",
+        PostListCreateView.as_view(),
+        name="posts-list",
+    ),
+    path(
+        "post/<int:pk>/",
         PostRetrieveUpdateDestroyView.as_view(),
         name="post-detail-update-delete",
     ),

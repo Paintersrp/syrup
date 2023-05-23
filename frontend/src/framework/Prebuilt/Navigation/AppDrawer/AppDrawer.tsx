@@ -1,15 +1,25 @@
 import React, { FC } from "react";
-import { Divider, Drawer, DrawerHead, List, ListItem } from "../../../Base";
-import {
-  faCoins,
-  faEdit,
-  faCancel,
-  faBold,
-  faBorderStyle,
-  faUnderline,
-} from "@fortawesome/free-solid-svg-icons";
 import "./AppDrawer.css";
-import { palettes } from "../../../../theme";
+import {
+  faBusinessTime,
+  faAddressCard,
+  faArrowRightToBracket,
+  faArrowRightFromBracket,
+  faUserPlus,
+  faIdCard,
+} from "@fortawesome/free-solid-svg-icons";
+
+import { Flexer } from "../../../Containers";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+} from "../../../Base";
+
+import { ListItemDataType } from "../../../Base/Drawer/components/DrawerContent";
+import DrawerFooterLinks from "../../../Base/Drawer/components/DrawerFooterLinks";
+import { useSelector } from "react-redux";
 
 interface AppDrawerProps {
   open?: boolean;
@@ -30,31 +40,65 @@ const AppDrawer: FC<AppDrawerProps> = ({
   companyIcon = undefined,
   companyTitle = undefined,
 }) => {
+  const auth: any = useSelector<any>((state) => state.auth);
+
+  const linkListItemData: ListItemDataType[] = [
+    { text: "About", to: "/about", icon: faAddressCard, onClick: handleClose },
+    { text: "WIP", to: "/WIP", icon: faBusinessTime, onClick: handleClose },
+  ];
+
+  const unauthedBottomListItemData: ListItemDataType[] = [
+    {
+      text: "Login",
+      to: "/login",
+      icon: faArrowRightToBracket,
+      onClick: handleClose,
+    },
+    {
+      text: "Register",
+      to: "/register",
+      icon: faUserPlus,
+      onClick: handleClose,
+    },
+  ];
+
+  const authedBottomListItemData: ListItemDataType[] = [
+    {
+      text: "Logout",
+      to: "/logout",
+      icon: faArrowRightFromBracket,
+      onClick: handleClose,
+    },
+    {
+      text: "Profile",
+      to: "/profile",
+      icon: faIdCard,
+      onClick: handleClose,
+    },
+  ];
+
   return (
     <Drawer variant={variant} open={open} onClose={handleClose} side={side}>
-      <div style={{ color }}>
-        <DrawerHead title={companyTitle} icon={companyIcon} />
-        <List j="c" a="c" spacing={0} maxWidth={400} boxShadow={0} px={0}>
-          <ListItem
-            button
-            text="List item 1"
-            className="drawer-list-item"
-            icon={faEdit}
-            iconColor="secondary"
-            onClick={handleClose}
+      <Flexer fd="column" grow style={{ color }}>
+        <DrawerHeader title={companyTitle} icon={companyIcon} />
+        <Flexer j="space-between" fd="column" grow>
+          <DrawerContent
+            items={linkListItemData}
+            itemClass="drawer-list-item"
           />
-
-          <ListItem
-            button
-            text="List item 2"
-            className="drawer-list-item"
-            onClick={handleClose}
-          />
-        </List>
-        <div style={{ width: "100%" }}>
-          <Divider mt={0} color={palettes.primary.hover} />
-        </div>
-      </div>
+          <Flexer fd="column">
+            <DrawerFooterLinks
+              items={
+                auth.is_authenticated
+                  ? authedBottomListItemData
+                  : unauthedBottomListItemData
+              }
+              itemClass="drawer-list-item"
+            />
+            <DrawerFooter title={companyTitle} />
+          </Flexer>
+        </Flexer>
+      </Flexer>
     </Drawer>
   );
 };

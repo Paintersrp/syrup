@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, ReactNode } from "react";
-import { HelpText } from "../../Prebuilt/Text";
 import Divider from "../Divider/Divider";
+import HelpText from "../HelpText/HelpText";
 import Text from "../Text/Text";
 import "./Select.css";
 
@@ -102,7 +102,7 @@ const Select: React.FC<SelectProps> = ({
   );
 };
 
-const Option: React.FC<OptionProps> = ({
+export const Option: React.FC<OptionProps> = ({
   children,
   value,
   isSelected,
@@ -115,4 +115,4 @@ const Option: React.FC<OptionProps> = ({
   );
 };
 
-export { Select, Option };
+export default Select;

@@ -1,0 +1,43 @@
+.collapse-content {
+  width: 100%;
+}
+
+.collapse-content.entering,
+.collapse-content.exiting {
+  transition-timing-function: ease-out;
+}
+
+.collapse-content.entered,
+.collapse-content.exited {
+  transition-timing-function: ease-in;
+}
+
+.collapse-content.entering {
+  animation: slide-down 300ms forwards;
+}
+
+.collapse-content.exiting {
+  animation: slide-up 300ms forwards;
+}
+
+@keyframes slide-down {
+  0% {
+    height: 0;
+    overflow: hidden;
+  }
+  100% {
+    height: auto;
+    overflow: visible;
+  }
+}
+
+@keyframes slide-up {
+  0% {
+    height: auto;
+    overflow: visible;
+  }
+  100% {
+    height: 0;
+    overflow: hidden;
+  }
+}

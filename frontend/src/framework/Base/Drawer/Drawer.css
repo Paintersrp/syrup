@@ -9,7 +9,7 @@
   z-index: 1002;
   transform: translateX(-100%);
   opacity: 0;
-  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .sidedrawer-right {
@@ -59,7 +59,7 @@
   right: 0;
   z-index: 1001;
   background-color: rgba(0, 0, 0, 0.5);
-  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s;
+  transition: all 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .sidedrawer-open .sidedrawer-overlay {

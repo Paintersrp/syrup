@@ -38,7 +38,7 @@ const sizeSwitch = (size: Size): number => {
   switch (size) {
     case "t":
     case "tiny":
-      return 24;
+      return 25.2;
     case "sm":
     case "small":
       return 32;
@@ -116,10 +116,7 @@ const IconButton: React.FC<IconButtonProps> = ({
           : undefined,
       }}
     >
-      <FontAwesomeIcon
-        icon={icon}
-        style={{ ...iconStyle, fontSize, marginLeft: 1 }}
-      />
+      <FontAwesomeIcon icon={icon} style={{ ...iconStyle, fontSize }} />
     </button>
   );
 };

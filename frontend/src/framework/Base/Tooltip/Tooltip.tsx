@@ -1,4 +1,4 @@
-import React, { useState, ReactNode, FC } from "react";
+import React, { useState, ReactNode, FC, CSSProperties } from "react";
 import "./Tooltip.css";
 
 interface TooltipProps {
@@ -6,6 +6,7 @@ interface TooltipProps {
   text?: string;
   position?: "top" | "bottom" | "left" | "right";
   arrow?: boolean;
+  style?: CSSProperties;
 }
 
 const Tooltip: FC<TooltipProps> = ({
@@ -13,6 +14,7 @@ const Tooltip: FC<TooltipProps> = ({
   text,
   position = "bottom",
   arrow = false,
+  style,
 }) => {
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
@@ -30,7 +32,7 @@ const Tooltip: FC<TooltipProps> = ({
   }`;
 
   return (
-    <div className="tooltip-container">
+    <div className="tooltip-container" style={style}>
       <span
         className="tooltip-trigger"
         onMouseEnter={handleMouseEnter}

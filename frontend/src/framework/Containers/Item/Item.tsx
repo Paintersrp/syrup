@@ -11,6 +11,7 @@ interface Props {
   align?: string;
   children: React.ReactNode;
   style?: React.CSSProperties;
+  className?: string;
 }
 
 const Item: React.FC<Props> = ({
@@ -23,6 +24,7 @@ const Item: React.FC<Props> = ({
   align = "center",
   children,
   style = {},
+  className,
 }) => {
   const getBasis = (
     breakpointValue: number | undefined,
@@ -50,7 +52,7 @@ const Item: React.FC<Props> = ({
   };
 
   return (
-    <div className="item" style={itemStyle}>
+    <div className={`item ${className}`} style={itemStyle}>
       {children}
     </div>
   );

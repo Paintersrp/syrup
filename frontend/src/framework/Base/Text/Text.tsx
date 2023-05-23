@@ -17,23 +17,24 @@ export type TextAlign = "left" | "right" | "center";
 
 interface TextProps {
   t?: TextType;
-  mt?: number;
-  mb?: number;
-  mr?: number;
-  ml?: number;
-  pt?: number;
-  pl?: number;
+  mt?: CSSProperties["marginTop"];
+  mb?: CSSProperties["marginBottom"];
+  mr?: CSSProperties["marginRight"];
+  ml?: CSSProperties["marginLeft"];
+  pt?: CSSProperties["paddingTop"];
+  pl?: CSSProperties["paddingLeft"];
   s?: CSSProperties["fontSize"];
   fw?: CSSProperties["fontWeight"];
   a?: AlignmentValue;
   w?: CSSProperties["width"];
+  u?: boolean;
   children?: ReactNode;
   className?: string;
   style?: CSSProperties;
   c?: string;
 }
 
-function alignSwitch(value: AlignmentValue): TextAlign | undefined {
+const alignSwitch = (value: AlignmentValue): TextAlign | undefined => {
   const alignmentMap: Record<AlignmentValue, TextAlign> = {
     l: "left",
     left: "left",
@@ -44,9 +45,9 @@ function alignSwitch(value: AlignmentValue): TextAlign | undefined {
   };
 
   return alignmentMap[value] || undefined;
-}
+};
 
-function typeSwitch(type: TextType): keyof JSX.IntrinsicElements {
+const typeSwitch = (type: TextType): keyof JSX.IntrinsicElements => {
   switch (type) {
     case "h1":
       return "h1";
@@ -68,8 +69,9 @@ function typeSwitch(type: TextType): keyof JSX.IntrinsicElements {
     default:
       return "p";
   }
-}
-function Text({
+};
+
+const Text: React.FC<TextProps> = ({
   t: type = "body1",
   mt: marginTop,
   mb: marginBottom,
@@ -81,16 +83,17 @@ function Text({
   fw: fontWeight,
   a: align = "left",
   w: width = "100%",
+  u: underline = false,
   children,
   className,
   style,
   c: color = "primary",
-}: TextProps) {
+}) => {
   let Component: keyof JSX.IntrinsicElements = typeSwitch(type);
 
   return (
     <Component
-      className={`${type} ${className || ""} text-${color}`}
+      className={`${type} ${className || ""}`}
       style={{
         marginBottom: marginBottom || 0,
         marginTop: marginTop || 0,
@@ -102,12 +105,14 @@ function Text({
         fontWeight: fontWeight,
         textAlign: alignSwitch(align),
         width: width,
+        textDecoration: underline ? "underline" : "",
+        textUnderlineOffset: 4,
         ...style,
       }}
     >
       {children}
     </Component>
   );
-}
+};
 
 export default Text;

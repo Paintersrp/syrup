@@ -1,4 +1,4 @@
-import React, { ReactNode, CSSProperties } from "react";
+import React, { ReactNode, CSSProperties, ReactElement } from "react";
 import "./List.css";
 
 import Divider from "../Divider/Divider";
@@ -9,7 +9,7 @@ import { palettes } from "../../../theme";
 interface ListProps {
   children: ReactNode;
   spacing?: number;
-  divider?: boolean;
+  dividers?: boolean;
   maxWidth?: number;
   boxShadow?: number;
   mb?: number;
@@ -28,12 +28,13 @@ interface ListProps {
   gutter?: boolean;
   fillHeight?: boolean;
   className?: string;
+  style?: CSSProperties;
 }
 
 const List: React.FC<ListProps> = ({
   children,
   spacing = 2,
-  divider = true,
+  dividers = true,
   maxWidth,
   boxShadow = 1,
   mb: marginBottom = 0,
@@ -44,7 +45,7 @@ const List: React.FC<ListProps> = ({
   pr: paddingRight = 0,
   pt: paddingTop = 0,
   pb: paddingBottom = 0,
-  br: borderRadius = 0.5,
+  br: borderRadius,
   b: background = "inherit",
   j: justifyChildren = "flex-start",
   a: alignChildren = "flex-start",
@@ -52,24 +53,35 @@ const List: React.FC<ListProps> = ({
   gutter = false,
   fillHeight = false,
   className,
+  style,
 }) => {
   const childCount = React.Children.count(children);
-  const spacedChildren = React.Children.map(children, (child, index) => {
-    const childStyle =
-      spacing > 0 ? { margin: `${spacing * 4}px 0px` } : undefined;
-    const isLastChild = index === childCount - 1;
-    const renderDivider = !isLastChild && divider;
 
-    return (
-      <React.Fragment key={index}>
-        <div style={childStyle}>{child}</div>
-        {renderDivider && (
-          <span>
-            <Divider color={palettes.primary.hover} />
-          </span>
-        )}
-      </React.Fragment>
-    );
+  const spacedChildren = React.Children.map(children, (child, index) => {
+    if (React.isValidElement(child)) {
+      const hasNoDividerProp = child.props.hasOwnProperty("noDivider");
+      const hasNoSpacingProp = child.props.hasOwnProperty("noSpacing");
+      const childStyle: CSSProperties | undefined = hasNoSpacingProp
+        ? undefined
+        : { padding: `${spacing * 4}px 0px` };
+
+      const isLastChild = index === childCount - 1;
+      const renderDivider = !isLastChild && dividers && !hasNoDividerProp;
+
+      return (
+        <React.Fragment key={index}>
+          {React.cloneElement(child as React.ReactElement, {
+            style: childStyle,
+          })}
+          {renderDivider && (
+            <span>
+              <Divider color={palettes.primary.hover} />
+            </span>
+          )}
+        </React.Fragment>
+      );
+    }
+    return null;
   });
 
   return (
@@ -92,6 +104,7 @@ const List: React.FC<ListProps> = ({
       gutter={gutter}
       fillHeight={fillHeight}
       className={className}
+      style={style}
     >
       {spacedChildren}
     </Surface>

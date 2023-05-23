@@ -2,33 +2,34 @@ from rest_framework import generics
 from rest_framework.response import Response
 from .models import *
 from .serializers import *
-from backend.utils import get_serialized_page_data
+
+# from backend.utils import get_serialized_page_data
 from backend.custom_views import *
 
 
-class AboutFullView(generics.GenericAPIView):
-    def get(self, request, *args, **kwargs):
-        model_dict = {
-            "AboutBlock": {
-                "app_label": "about",
-                "get_first": True,
-            },
-            "MissionStatement": {
-                "app_label": "about",
-                "get_first": True,
-            },
-            "CompanyHistory": {
-                "app_label": "about",
-                "get_first": True,
-            },
-            "Value": {
-                "app_label": "about",
-            },
-        }
+# class AboutFullView(generics.GenericAPIView):
+#     def get(self, request, *args, **kwargs):
+#         model_dict = {
+#             "AboutBlock": {
+#                 "app_label": "about",
+#                 "get_first": True,
+#             },
+#             "MissionStatement": {
+#                 "app_label": "about",
+#                 "get_first": True,
+#             },
+#             "CompanyHistory": {
+#                 "app_label": "about",
+#                 "get_first": True,
+#             },
+#             "Value": {
+#                 "app_label": "about",
+#             },
+#         }
 
-        data = get_serialized_page_data(model_dict, request)
+#         data = get_serialized_page_data(model_dict, request)
 
-        return Response(data)
+#         return Response(data)
 
 
 class AboutBlockAPIView(BaseListView):

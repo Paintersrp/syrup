@@ -10,8 +10,9 @@ import {
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
 
-import { TrackerPage, WIPPage } from "./components";
+import { Tracker, WIPPage } from "./components";
 import { palettes } from "./theme";
+import About from "./framework/Prebuilt/About/About";
 
 // Title of the application
 export const TITLE: string = "DEBLUR";
@@ -35,13 +36,13 @@ export interface Link {
 }
 
 export const LINKS: Link[] = [
-  { to: "/", text: "Home", footer: true, navbar: true, page: <TrackerPage /> },
+  { to: "/", text: "Home", footer: true, navbar: true, page: <Tracker /> },
   {
     to: "/about",
     text: "About",
     footer: true,
     navbar: true,
-    page: <TrackerPage />,
+    page: <About />,
   },
   { to: "/WIP", text: "WIP", footer: true, navbar: true, page: <WIPPage /> },
 ];

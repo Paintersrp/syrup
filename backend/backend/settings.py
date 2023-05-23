@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "authorization",
     "contact",
     "faqs",
+    "jobs",
     "posts",
     "support",
     "tables",
