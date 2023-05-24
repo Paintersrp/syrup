@@ -1,0 +1,25 @@
+.app-stats-root {
+  max-width: 325px !important;
+  margin: 24px !important;
+  padding: 16px 16px 16px 16px !important;
+}
+
+@media (max-width: 600px) {
+  .app-stats-root {
+    margin: 16px 0 16px 0 !important;
+  }
+}
+
+.app-stats-header {
+  background-color: #3f51b5;
+  color: #ffffff;
+  padding: 24px 16px 8px 16px;
+  align-items: flex-start;
+}
+
+.app-stats-list {
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px !important;
+  border-bottom-left-radius: 8px !important;
+  border-bottom-right-radius: 8px !important;
+}

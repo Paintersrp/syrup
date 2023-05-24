@@ -28,7 +28,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
           {item}
           {index !== items.length - 1 && (
             <Icon
-              size="1rem"
+              size="0.7rem"
               icon={separator}
               className="breadcrumb-separator"
             />

@@ -6,7 +6,7 @@ import "./AppNavbar.css";
 import { ActionButton, Navbar, Text } from "../../../Base";
 import { Flexer } from "../../../Containers";
 
-import handleLogout from "../../../../lib/Auth/Logout";
+import LogoutUser from "../../../../utils/helpers/LogoutUser";
 
 interface LinkItem {
   to: string;
@@ -72,7 +72,7 @@ const AppNavbar: FC<AppNavbarProps> = ({
             <Link key="admin" to="/admin">
               <Text t="h4">Admin</Text>
             </Link>
-            <Link key="logout" to="" onClick={handleLogout}>
+            <Link key="logout" to="" onClick={LogoutUser}>
               <Text t="h4">Logout</Text>
             </Link>
             <Link key="profile" to="/profile">

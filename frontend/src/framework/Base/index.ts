@@ -25,6 +25,7 @@ export { default as MenuItem } from "./Menu/components/MenuItem/MenuItem";
 export { default as TreeNode } from "./Tree/TreeNode";
 // export { default as Tree } from "./Tree/Tree";
 
+export { default as Accordion } from "./Accordion/Accordion";
 export { default as ActionButton } from "./ActionButton/ActionButton";
 export { default as Button } from "./Button/Button";
 export { default as Breadcrumbs } from "./Breadcrumbs/Breadcrumbs";
@@ -34,6 +35,8 @@ export { default as Media } from "./Media/Media";
 export { default as Navbar } from "./Navbar/Navbar";
 export { default as Collapser } from "./Collapser/Collapser";
 export { default as Divider } from "./Divider/Divider";
+export { default as Tab } from "./Tabs/Tab";
+export { default as Tabs } from "./Tabs/Tabs";
 export { default as Text } from "./Text/Text";
 export { default as Tooltip } from "./Tooltip/Tooltip";
 export { default as TransferList } from "./TransferList/TransferList";

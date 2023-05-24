@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Routes } from "react-router-dom";
 
 import { WIPPage } from "./components";
-import Dashboard from "./framework/Admin/Dashboard/Dashboard";
+import { MainDashboard, AppDashboard } from "./framework/Admin";
 import { Login, Register } from "./framework/Pages";
 import { LINKS, Link } from "./settings";
 
@@ -12,7 +12,8 @@ function SiteRoutes(): JSX.Element {
       {LINKS.map((item: Link) => (
         <Route key={item.text} path={item.to} element={item.page} />
       ))}
-      <Route key="admin" path="/admin" element={<Dashboard />} />
+      <Route key="admin" path="/admin" element={<MainDashboard />} />
+      <Route path="/admin/model/:str" element={<AppDashboard />} />
       <Route key="login" path="/login" element={<Login />} />
       <Route key="register" path="/register" element={<Register />} />
       <Route path="*" element={<WIPPage />} />

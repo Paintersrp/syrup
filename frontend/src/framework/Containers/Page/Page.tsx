@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { CSSProperties, ReactNode } from "react";
 import Text from "../../Base/Text/Text";
 import "../Containers.css";
 
@@ -11,6 +11,8 @@ interface PageProps {
   backgroundColor?: string;
   headerType?: HeaderType;
   headerAlign?: HeaderAlign;
+  className?: string;
+  style?: CSSProperties;
 }
 
 const Page: React.FC<PageProps> = ({
@@ -19,6 +21,8 @@ const Page: React.FC<PageProps> = ({
   headerAlign = "center",
   headerType = "h1",
   backgroundColor = "#F5F5F5",
+  className,
+  style,
 }) => {
   return (
     <div className="page-root" style={{ backgroundColor }}>
@@ -27,7 +31,9 @@ const Page: React.FC<PageProps> = ({
           {header}
         </Text>
       ) : null}
-      <div className="page-content">{children}</div>
+      <div className={`page-content ${className}`} style={style}>
+        {children}
+      </div>
     </div>
   );
 };

@@ -1,9 +1,0 @@
-.collapser .content {
-  transition: max-height 0.3s ease;
-  max-height: 0;
-  overflow: hidden;
-}
-
-.collapser.open .content {
-  max-height: none;
-}

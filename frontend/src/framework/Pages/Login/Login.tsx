@@ -9,8 +9,8 @@ import "./Login.css";
 import { Button, Checkbox, Icon, Input, Text } from "../../Base";
 import { Flexer, Page, Surface } from "../../Containers";
 
-import axiosInstance from "../../../lib/Axios/axiosInstance";
-import { handleDataChange } from "../../../utils/dataHandlers/dataHandlers";
+import AxiosInstance from "../../../utils/helpers/ApiAxiosInstance";
+import { handleDataChange } from "../../../utils/handlers/dataHandlers";
 import { setAuth, setUser } from "../../../lib/Actions/auth";
 
 interface FormData {
@@ -34,8 +34,7 @@ const Login: FC = ({}) => {
     let salt: string | number;
     let loginData: { username: string; password: string };
 
-    axiosInstance
-      .post("/auth/salt/", { username: formData.username })
+    AxiosInstance.post("/auth/salt/", { username: formData.username })
       .then(async (response) => {
         if (response.data.salt) {
           salt = response.data.salt;
@@ -60,8 +59,7 @@ const Login: FC = ({}) => {
         }
       })
       .then(async (response) => {
-        axiosInstance
-          .post("/auth/login/", loginData)
+        AxiosInstance.post("/auth/login/", loginData)
           .then((response) => {
             dispatch(
               setAuth({
@@ -109,7 +107,7 @@ const Login: FC = ({}) => {
         <Icon
           icon={faCoins}
           color="primary"
-          fontSize="2rem"
+          size="2rem"
           style={{ margin: "8px 8px 16px 8px" }}
         />
         <Text t="h2" a="c" className="login-heading">

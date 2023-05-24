@@ -9,8 +9,8 @@ import "./Register.css";
 import { ActionButton, Button, Collapser, Icon, Input, Text } from "../../Base";
 import { Container, Flexer, Item, Page, Surface } from "../../Containers";
 
-import { handleDataChange } from "../../../utils/dataHandlers/dataHandlers";
-import axiosInstance from "../../../lib/Axios/axiosInstance";
+import { handleDataChange } from "../../../utils/handlers/dataHandlers";
+import AxiosInstance from "../../../utils/helpers/ApiAxiosInstance";
 import { setAuth, setUser } from "../../../lib/Actions/auth";
 
 import {
@@ -46,14 +46,13 @@ const Register: FC = ({}) => {
       password: hashedPassword,
     };
 
-    axiosInstance
-      .post("/auth/register/", {
-        ...formData,
-        password: hashedPassword,
-        salt: salt,
-      })
+    AxiosInstance.post("/auth/register/", {
+      ...formData,
+      password: hashedPassword,
+      salt: salt,
+    })
       .then((res) => {
-        axiosInstance.post("/auth/login/", loginData).then((response) => {
+        AxiosInstance.post("/auth/login/", loginData).then((response) => {
           dispatch(
             setAuth({
               is_authenticated: response.data.authenticated,

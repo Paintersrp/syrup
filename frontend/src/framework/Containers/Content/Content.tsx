@@ -8,7 +8,7 @@ import { TextAlign, TextType } from "../../Base/Text/Text";
 import { Collapser, Divider, IconButton, Text } from "../../Base";
 import { Flexer } from "../../Containers";
 
-import { shadowSwitch } from "../../../utils/styleSwitches/styleSwitches";
+import { shadowSwitch } from "../../../utils/switches/styleSwitches";
 
 interface ContentProps {
   header?: string;
@@ -108,18 +108,31 @@ const Content: React.FC<ContentProps> = ({
           )}
         </Flexer>
         {divider && <Divider />}
+        {collapse ? (
+          <Collapser isOpen={open}>
+            {subheader && (
+              <Text t="body2" className="subheader">
+                {subheader}
+              </Text>
+            )}
 
-        <Collapser isOpen={open}>
-          {subheader && (
-            <Text t="body2" className="subheader">
-              {subheader}
-            </Text>
-          )}
+            <Flexer j={justifyChildren} a={alignChildren} fd={flexDirection}>
+              {children}
+            </Flexer>
+          </Collapser>
+        ) : (
+          <React.Fragment>
+            {subheader && (
+              <Text t="body2" className="subheader">
+                {subheader}
+              </Text>
+            )}
 
-          <Flexer j={justifyChildren} a={alignChildren} fd={flexDirection}>
-            {children}
-          </Flexer>
-        </Collapser>
+            <Flexer j={justifyChildren} a={alignChildren} fd={flexDirection}>
+              {children}
+            </Flexer>
+          </React.Fragment>
+        )}
       </div>
     </div>
   );

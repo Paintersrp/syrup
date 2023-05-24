@@ -6,7 +6,7 @@ import {
   ColorShade,
   ColorState,
   colorSwitch,
-} from "../../../utils/styleSwitches/styleSwitches";
+} from "../../../utils/switches/styleSwitches";
 import { faLessThanEqual } from "@fortawesome/free-solid-svg-icons";
 
 type ButtonType = "button" | "submit" | "reset" | undefined;

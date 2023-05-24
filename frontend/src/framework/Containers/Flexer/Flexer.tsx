@@ -42,7 +42,8 @@ export function justificationSwitch(
 interface FlexerProps {
   mt?: number;
   mb?: number;
-  pl?: number;
+  pl?: CSSProperties["paddingLeft"];
+  pr?: CSSProperties["paddingRight"];
   j?: JustificationValue | string;
   a?: JustificationValue | string;
   fd?: CSSProperties["flexDirection"];
@@ -57,6 +58,7 @@ const Flexer: React.FC<FlexerProps> = ({
   mt: marginTop,
   mb: marginBottom,
   pl: paddingLeft,
+  pr: paddingRight,
   j: justifyContent = "flex-start",
   a: alignItems = "center",
   fd: flexDirection = "row",
@@ -72,9 +74,10 @@ const Flexer: React.FC<FlexerProps> = ({
       style={{
         ...style,
         width: width,
-        marginBottom: marginBottom || 0,
-        marginTop: marginTop || 0,
-        paddingLeft: paddingLeft || 0,
+        marginBottom: marginBottom && marginBottom,
+        marginTop: marginTop && marginTop,
+        paddingLeft: paddingLeft && paddingLeft,
+        paddingRight: paddingRight && paddingRight,
         display: "flex",
         flexDirection: flexDirection,
         justifyContent: justificationSwitch(justifyContent),

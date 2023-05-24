@@ -16,7 +16,7 @@ import IconButton from "../IconButton/IconButton";
 interface ActionButtonProps {
   size?: "t" | "tiny" | "sm" | "small" | "md" | "medium" | "lg" | "large";
   fontSize?: string;
-  color?: "primary" | "secondary";
+  color?: string;
   shade?: "light" | "dark" | "main";
   mt?: number;
   mb?: number;

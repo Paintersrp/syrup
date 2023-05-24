@@ -32,6 +32,9 @@ interface TextProps {
   className?: string;
   style?: CSSProperties;
   c?: string;
+  dangerouslySetInnerHTML?: {
+    __html: string;
+  };
 }
 
 const alignSwitch = (value: AlignmentValue): TextAlign | undefined => {
@@ -88,19 +91,21 @@ const Text: React.FC<TextProps> = ({
   className,
   style,
   c: color = "primary",
+  dangerouslySetInnerHTML,
 }) => {
   let Component: keyof JSX.IntrinsicElements = typeSwitch(type);
 
   return (
     <Component
+      dangerouslySetInnerHTML={dangerouslySetInnerHTML}
       className={`${type} ${className || ""}`}
       style={{
-        marginBottom: marginBottom || 0,
-        marginTop: marginTop || 0,
-        marginRight: marginRight || 0,
-        marginLeft: marginLeft || 0,
-        paddingTop: paddingTop || 0,
-        paddingLeft: paddingLeft || 0,
+        marginBottom: marginBottom && marginBottom,
+        marginTop: marginTop && marginTop,
+        marginRight: marginRight && marginRight,
+        marginLeft: marginLeft && marginLeft,
+        paddingTop: paddingTop && paddingTop,
+        paddingLeft: paddingLeft && paddingLeft,
         fontSize: fontSize,
         fontWeight: fontWeight,
         textAlign: alignSwitch(align),

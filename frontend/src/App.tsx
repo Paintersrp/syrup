@@ -3,12 +3,11 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 
 import SiteRoutes from "./SiteRoutes";
-import ScrollToTop from "./utils/ScrollToTop";
 
-import { AppDrawer, AppFooter, AppNavbar } from "./framework/Prebuilt";
-import { LOGO, TITLE, LINKS } from "./settings";
 import { useDrawer } from "./framework/Base/Drawer/hooks/useDrawer";
-import withAuth from "./lib/Auth/withAuth/withAuth";
+import { AppDrawer, AppFooter, AppNavbar } from "./framework/Prebuilt";
+import { ScrollToTop, WithAuth } from "./utils";
+import { LINKS, LOGO, TITLE } from "./settings";
 
 function App(): JSX.Element {
   const { isDrawerOpen, handleDrawer } = useDrawer();
@@ -34,4 +33,4 @@ function App(): JSX.Element {
   );
 }
 
-export default withAuth(App);
+export default WithAuth(App);

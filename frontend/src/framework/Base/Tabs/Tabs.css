@@ -1,0 +1,59 @@
+.tab-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ebebeb;
+  color: #333333;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: border-bottom-color 0.3s ease;
+}
+
+.tab-button:hover {
+  border-bottom-color: var(--color-primary-light);
+}
+
+.tab-button.active {
+  color: var(--color-primary-light);
+  border-bottom-color: var(--color-primary-light);
+}
+
+.tab-group {
+  display: flex;
+  flex-direction: row;
+}
+
+.tab-buttons {
+  display: flex;
+}
+
+.tab-buttons button {
+  border-top-right-radius: 6px;
+  border-top-left-radius: 6px;
+  padding: 10px 20px;
+  background-color: #ebebeb;
+  color: #333333;
+  font-size: 16px;
+  font-weight: bold;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  transition: border-bottom-color 0.3s ease, color 0.3s ease;
+  box-shadow: var(--shadow-1);
+  margin: 0px 4px 0px 4px;
+}
+
+.tab-buttons button:first-child {
+  margin-left: 0;
+}
+
+.tab-buttons button:hover {
+  border-bottom-color: var(--color-primary-light);
+}
+
+.tab-buttons button.active {
+  color: var(--color-primary-light);
+  border-bottom-color: var(--color-primary-light);
+}

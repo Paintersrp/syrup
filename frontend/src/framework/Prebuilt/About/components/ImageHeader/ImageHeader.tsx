@@ -10,7 +10,7 @@ interface ImageHeaderProps {
 
 const ImageHeader: React.FC<ImageHeaderProps> = ({}) => {
   return (
-    <Flexer j="c" fd="column" className="fade-in" mt={16}>
+    <Flexer j="c" fd="column" className="fade-in" mb={32}>
       <Text t="h2" a="c" className="image-header-title">
         About {TITLE}
       </Text>
@@ -18,7 +18,8 @@ const ImageHeader: React.FC<ImageHeaderProps> = ({}) => {
         className="image-header-media"
         src="https://source.unsplash.com/1400x900/?service"
         altText={`About ${TITLE}`}
-        size="medium"
+        size="lg"
+        boxShadow={1}
       />
     </Flexer>
   );

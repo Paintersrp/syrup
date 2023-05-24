@@ -14,7 +14,7 @@ import {
 } from "../../../Base";
 import { Flexer } from "../../../Containers";
 
-import { handleDataChange } from "../../../../utils/dataHandlers/dataHandlers";
+import { handleDataChange } from "../../../../utils/handlers/dataHandlers";
 import { LOGO, SOCIALS, LINKS, TITLE } from "../../../../settings";
 import { palettes } from "../../../../theme";
 

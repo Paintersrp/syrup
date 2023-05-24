@@ -1,12 +1,9 @@
-import React, { ReactElement, useRef, useState } from "react";
+import React, { ReactElement, useState } from "react";
 
 import {
-  Button,
   Text,
   TransferList,
   TreeNode,
-  Menu,
-  MenuItem,
   List,
   ListItem,
   Select,
@@ -14,7 +11,6 @@ import {
 } from "../../framework/Base";
 
 import { Surface, Page, Flexer } from "../../framework/Containers";
-import { faCoins } from "@fortawesome/free-solid-svg-icons";
 import MenuExamples from "../../framework/Base/Menu/components/MenuExamples/MenuExamples";
 
 const WIPPage = (): ReactElement => {

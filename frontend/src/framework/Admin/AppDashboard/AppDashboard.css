@@ -1,0 +1,9 @@
+.breadcrumb-title {
+  text-align: center;
+  color: black;
+  border-right: 1px solid #666666;
+  margin-right: 16px !important;
+  padding-right: 16px;
+  font-weight: 600;
+  font-family: Roboto;
+}
