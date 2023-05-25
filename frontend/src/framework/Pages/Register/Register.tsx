@@ -6,8 +6,15 @@ import Cookies from "js-cookie";
 import bcrypt from "bcryptjs";
 import "./Register.css";
 
-import { ActionButton, Button, Collapser, Icon, Input, Text } from "../../Base";
-import { Container, Flexer, Item, Page, Surface } from "../../Containers";
+import { ActionButton, Button, Icon, Input, Text } from "../../Base";
+import {
+  Collapser,
+  Container,
+  Flexer,
+  Item,
+  Page,
+  Surface,
+} from "../../Containers";
 
 import { handleDataChange } from "../../../utils/handlers/dataHandlers";
 import AxiosInstance from "../../../utils/helpers/ApiAxiosInstance";

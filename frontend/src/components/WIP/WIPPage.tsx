@@ -12,6 +12,8 @@ import {
 
 import { Surface, Page, Flexer } from "../../framework/Containers";
 import MenuExamples from "../../framework/Base/Menu/components/MenuExamples/MenuExamples";
+import Carousel from "../../framework/Containers/Carousel/Carousel";
+import Tiers from "../Landing/components/test/Tiers";
 
 const WIPPage = (): ReactElement => {
   const leftItems = [
@@ -118,6 +120,25 @@ const WIPPage = (): ReactElement => {
             <Option value="Enchiladas">Enchiladas</Option>
           </Select>
         </div>
+        <Carousel autoplay style={{ marginBottom: 96 }}>
+          <img
+            src="https://source.unsplash.com/1400x901/?service"
+            alt="Image 1"
+          />
+          <img
+            src="https://source.unsplash.com/1400x902/?service"
+            alt="Image 2"
+          />
+          <img
+            src="https://source.unsplash.com/1400x903/?service"
+            alt="Image 3"
+          />
+          <img
+            src="https://source.unsplash.com/1400x900/?service"
+            alt="Image 4"
+          />
+        </Carousel>
+        <Tiers />
       </Flexer>
     </Page>
   );

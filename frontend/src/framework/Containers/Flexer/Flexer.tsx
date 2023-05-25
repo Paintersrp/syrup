@@ -52,6 +52,7 @@ interface FlexerProps {
   children?: ReactNode;
   style?: CSSProperties;
   className?: string;
+  noSpacing?: boolean;
 }
 
 const Flexer: React.FC<FlexerProps> = ({

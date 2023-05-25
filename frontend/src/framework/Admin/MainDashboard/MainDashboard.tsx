@@ -93,12 +93,12 @@ function MainDashboard() {
                 />
               </Flexer>
               <Container spacing={0} className="dash-inner-container">
-                {RenderSections({
-                  models,
-                  configs,
-                  openAppSections,
-                  setOpenAppSections,
-                })}
+                <RenderSections
+                  models={models}
+                  configs={configs}
+                  openAppSections={openAppSections}
+                  setOpenAppSections={setOpenAppSections}
+                />
               </Container>
               {/* <RecentActions
               actionsOpen={actionsOpen}

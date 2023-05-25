@@ -7,7 +7,7 @@ import SiteRoutes from "./SiteRoutes";
 import { useDrawer } from "./framework/Base/Drawer/hooks/useDrawer";
 import { AppDrawer, AppFooter, AppNavbar } from "./framework/Prebuilt";
 import { ScrollToTop, WithAuth } from "./utils";
-import { LINKS, LOGO, TITLE } from "./settings";
+import { LINKS, LOGO, TITLE } from "./config";
 
 function App(): JSX.Element {
   const { isDrawerOpen, handleDrawer } = useDrawer();

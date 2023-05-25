@@ -1,0 +1,62 @@
+.hero-overlay {
+  padding: 16px 0 8px 0;
+  margin-top: 60px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.hero-container {
+  height: 100%;
+  background: url(https://source.unsplash.com/1400x900/?service) no-repeat
+    center center fixed;
+  background-size: cover;
+  max-width: 100%;
+  min-height: 700px;
+  border-radius: 0;
+}
+
+@media (max-width: 600px) {
+  .hero-overlay {
+    margin-top: 60px;
+  }
+}
+
+@media (max-width: 960px) {
+  .hero-container {
+    border-radius: 0;
+  }
+}
+
+/* Header */
+@media (min-width: 768px) {
+  .hero-header-root {
+    text-align: center !important;
+  }
+}
+
+.hero-header-title {
+  font-family: "Poppins";
+  font-weight: 700 !important;
+  text-transform: uppercase;
+  margin-bottom: 0 !important;
+  font-size: 1.75rem !important;
+  color: var(--color-secondary-main);
+}
+
+.hero-header-subtitle {
+  font-size: 0.95rem !important;
+  color: #f5f5f5;
+  margin-bottom: 8px !important;
+}
+
+@media (max-width: 599px) {
+  .hero-header-subtitle {
+    margin-bottom: 12px;
+  }
+}
+
+.hero-header-description {
+  max-width: 500px !important;
+  color: #b6babf !important;
+  margin-bottom: 32px;
+  text-align: center;
+}

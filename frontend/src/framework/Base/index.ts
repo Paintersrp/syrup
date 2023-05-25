@@ -33,7 +33,6 @@ export { default as Checkbox } from "./Checkbox/Checkbox";
 export { default as Modal } from "./Modal/Modal";
 export { default as Media } from "./Media/Media";
 export { default as Navbar } from "./Navbar/Navbar";
-export { default as Collapser } from "./Collapser/Collapser";
 export { default as Divider } from "./Divider/Divider";
 export { default as Tab } from "./Tabs/Tab";
 export { default as Tabs } from "./Tabs/Tabs";

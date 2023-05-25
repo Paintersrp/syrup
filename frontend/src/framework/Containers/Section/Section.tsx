@@ -5,8 +5,8 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { JustificationValue } from "../Flexer/Flexer";
 import { TextAlign, TextType } from "../../Base/Text/Text";
 
-import { Collapser, Divider, IconButton, Text } from "../../Base";
-import { Flexer } from "../../Containers";
+import { Divider, IconButton, Text } from "../../Base";
+import { Flexer, Collapser } from "../../Containers";
 
 import { shadowSwitch } from "../../../utils/switches/styleSwitches";
 
@@ -148,12 +148,19 @@ const Section: React.FC<SectionProps> = ({
           )}
         </Flexer>
         {divider && <Divider mt={2} mb={8} color="rgba(0, 0, 0, 0.38)" />}
-
-        <Collapser isOpen={open}>
-          <Flexer j={justifyChildren} a={alignChildren} fd={flexDirection}>
-            {children}
-          </Flexer>
-        </Collapser>
+        {collapse ? (
+          <Collapser isOpen={open}>
+            <Flexer j={justifyChildren} a={alignChildren} fd={flexDirection}>
+              {children}
+            </Flexer>
+          </Collapser>
+        ) : (
+          <React.Fragment>
+            <Flexer j={justifyChildren} a={alignChildren} fd={flexDirection}>
+              {children}
+            </Flexer>
+          </React.Fragment>
+        )}
       </div>
     </Flexer>
   );

@@ -5,8 +5,8 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { JustificationValue } from "../Flexer/Flexer";
 import { TextAlign, TextType } from "../../Base/Text/Text";
 
-import { Collapser, Divider, IconButton, Text } from "../../Base";
-import { Flexer } from "../../Containers";
+import { Divider, IconButton, Text } from "../../Base";
+import { Flexer, Collapser } from "../../Containers";
 
 import { shadowSwitch } from "../../../utils/switches/styleSwitches";
 

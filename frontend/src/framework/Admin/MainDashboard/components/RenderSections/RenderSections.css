@@ -8,6 +8,11 @@
   border-bottom-right-radius: 0px;
   border-bottom-left-radius: 0px;
   display: flex;
+  transition: border-radius 500ms cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.card-header.closed {
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
 }
 
 .model-icon {
@@ -35,8 +40,8 @@
 }
 
 .list-border-radius {
-  border-top-right-radius: 0px !important;
-  border-top-left-radius: 0px !important;
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
 }
 
 .launch-button {

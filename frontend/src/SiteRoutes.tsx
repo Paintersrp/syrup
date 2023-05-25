@@ -4,7 +4,8 @@ import { Route, Routes } from "react-router-dom";
 import { WIPPage } from "./components";
 import { MainDashboard, AppDashboard } from "./framework/Admin";
 import { Login, Register } from "./framework/Pages";
-import { LINKS, Link } from "./settings";
+import { LINKS } from "./config";
+import { Link } from "./config/links";
 
 function SiteRoutes(): JSX.Element {
   return (
