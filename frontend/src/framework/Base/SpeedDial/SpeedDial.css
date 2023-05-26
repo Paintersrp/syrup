@@ -1,0 +1,92 @@
+.speed-dial {
+  position: fixed;
+  z-index: 9999;
+}
+
+.speed-dial--top-left {
+  top: 20px;
+  left: 20px;
+}
+
+.speed-dial--top-right {
+  top: 20px;
+  right: 20px;
+}
+
+.speed-dial--bottom-left {
+  bottom: 20px;
+  left: 20px;
+}
+
+.speed-dial--bottom-right {
+  bottom: 20px;
+  right: 20px;
+}
+
+.main-fab {
+  position: relative;
+  border-radius: 50%;
+  background-color: #2196f3;
+  color: #fff;
+  font-size: 24px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.main-fab:hover {
+  background-color: #1976d2;
+}
+
+.speed-dial-menu {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background-color: inherit;
+  border-radius: 4px;
+  z-index: 9998;
+}
+
+.speed-dial-menu--up {
+  bottom: 60px;
+  right: 10px;
+}
+
+.speed-dial-menu--down {
+  top: 100px;
+  right: 10px;
+}
+
+.speed-dial-menu--left {
+  left: 0px;
+}
+
+.speed-dial-menu--right {
+  left: 80px;
+}
+
+.speed-dial-item {
+  display: flex !important;
+  align-items: center !important;
+  padding: 8px !important;
+  background-color: inherit;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.speed-dial-item:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.speed-dial-item:hover {
+  background-color: #e0e0e0;
+}
+
+.speed-dial-label {
+  margin-left: 8px;
+}

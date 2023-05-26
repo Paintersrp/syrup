@@ -1,5 +1,6 @@
 import React, { useEffect, useState, MouseEvent, CSSProperties } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { colorSwitch } from "../../../utils/switches/styleSwitches";
 import clsx from "clsx";
 import "./IconButton.css";
@@ -18,20 +19,20 @@ export type Size =
 
 interface IconButtonProps {
   size?: Size;
-  fontSize?: string;
+  fontSize?: CSSProperties["fontSize"];
   shade?: Shade;
-  color?: string;
-  manualHoverColor?: string;
+  color?: CSSProperties["color"];
+  manualHoverColor?: CSSProperties["color"];
   invertColors?: boolean;
-  mt?: number;
-  mb?: number;
-  pl?: number;
-  pr?: number;
+  mt?: CSSProperties["marginTop"];
+  mb?: CSSProperties["marginBottom"];
+  pl?: CSSProperties["paddingLeft"];
+  pr?: CSSProperties["paddingRight"];
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   className?: string;
   style?: CSSProperties;
   iconStyle?: CSSProperties;
-  icon: any;
+  icon: IconDefinition;
 }
 
 const sizeSwitch = (size: Size): number => {

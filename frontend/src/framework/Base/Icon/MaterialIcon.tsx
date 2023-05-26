@@ -1,9 +1,7 @@
 import React, { FC, useEffect, useState, CSSProperties } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { colorSwitch } from "../../../utils/switches/styleSwitches";
 
-interface Icon2Props {
+interface MaterialIconProps {
   size?: string;
   color?: string;
   shade?: "light" | "dark" | "main";
@@ -15,11 +13,11 @@ interface Icon2Props {
   paddingRight?: number;
   className?: string;
   style?: CSSProperties;
-  icon: IconDefinition;
+  icon: string;
 }
 
-const Icon: FC<Icon2Props> = ({
-  size = "1.5rem",
+const MaterialIcon: FC<MaterialIconProps> = ({
+  size = "24px",
   color = "primary",
   shade = "main",
   mt: marginTop,
@@ -45,10 +43,8 @@ const Icon: FC<Icon2Props> = ({
   }
 
   return (
-    <FontAwesomeIcon
-      className={className}
-      fontSize={size}
-      icon={icon}
+    <span
+      className={`material-icons ${className}`}
       style={{
         ...style,
         marginLeft: marginLeft && marginLeft,
@@ -58,9 +54,12 @@ const Icon: FC<Icon2Props> = ({
         paddingLeft: paddingLeft && paddingLeft,
         paddingRight: paddingRight && paddingRight,
         color: colors.background || "inherit",
+        fontSize: size,
       }}
-    />
+    >
+      {icon}
+    </span>
   );
 };
 
-export default Icon;
+export default MaterialIcon;

@@ -1,0 +1,48 @@
+.table-root {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.table-head {
+  background-color: #f2f2f2;
+}
+
+.table-row {
+  background-color: #ffffff;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.table-row:hover {
+  background-color: #f8f8f8;
+}
+
+.table-cell {
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+  color: #333333;
+  text-align: left;
+}
+
+.table-cell:first-child {
+  border-left: 1px solid #e0e0e0;
+}
+
+.table-cell:last-child {
+  border-right: 1px solid #e0e0e0;
+}
+
+.table-cell:nth-child(odd) {
+  background-color: #f6f6f6;
+}
+
+.table-cell:nth-child(even) {
+  background-color: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .table-cell {
+    padding: 12px;
+  }
+}

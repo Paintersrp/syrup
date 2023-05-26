@@ -1,13 +1,13 @@
 import React, { useEffect, useState, CSSProperties, ReactNode } from "react";
 import clsx from "clsx";
 import "./Button.css";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import {
   ColorShade,
   ColorState,
   colorSwitch,
 } from "../../../utils/switches/styleSwitches";
-import { faLessThanEqual } from "@fortawesome/free-solid-svg-icons";
 
 type ButtonType = "button" | "submit" | "reset" | undefined;
 type ButtonSize =
@@ -31,6 +31,14 @@ interface ButtonProps {
   className?: string | undefined;
   style?: CSSProperties;
   disabled?: boolean;
+  startIcon?: IconProp;
+  endIcon?: IconProp;
+  ariaLabel?: string;
+  ariaDescribedBy?: string;
+  ariaExpanded?: boolean;
+  ariaHasPopup?: "menu" | "listbox" | "tree" | "grid" | "dialog" | undefined;
+  ariaControls?: string;
+  ariaPressed?: boolean | "mixed";
 }
 
 const sizeSwitch = (size: ButtonSize): string => {
@@ -63,6 +71,14 @@ const Button: React.FC<ButtonProps> = ({
   className = undefined,
   style,
   disabled = false,
+  startIcon,
+  endIcon,
+  ariaLabel,
+  ariaDescribedBy,
+  ariaExpanded,
+  ariaHasPopup,
+  ariaControls,
+  ariaPressed,
 }) => {
   const [colors, setColors] = useState<ColorState>(colorSwitch(color, shade));
   const [hover, setHover] = useState<boolean>(false);
@@ -88,8 +104,20 @@ const Button: React.FC<ButtonProps> = ({
         padding: sizeSwitch(size),
         backgroundColor: hover ? colors.hover : colors.background,
       }}
+      aria-label={ariaLabel}
+      aria-describedby={ariaDescribedBy}
+      aria-expanded={ariaExpanded}
+      aria-haspopup={ariaHasPopup}
+      aria-controls={ariaControls}
+      aria-pressed={ariaPressed}
     >
+      {startIcon && (
+        <FontAwesomeIcon icon={startIcon} className="button-icon start-icon" />
+      )}
       {children}
+      {endIcon && (
+        <FontAwesomeIcon icon={endIcon} className="button-icon end-icon" />
+      )}
     </button>
   );
 };
