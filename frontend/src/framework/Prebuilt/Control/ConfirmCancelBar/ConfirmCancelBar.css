@@ -1,0 +1,23 @@
+.confirm-button {
+  margin-right: 2px;
+  background-color: inherit !important;
+  color: var(--color-success-main) !important;
+  box-shadow: none !important;
+}
+
+.confirm-button:hover {
+  color: #f5f5f5 !important;
+  background-color: var(--color-success-main) !important;
+}
+
+.cancel-button {
+  margin-left: 2px;
+  background-color: inherit !important;
+  color: var(--color-error-main) !important;
+  box-shadow: none !important;
+}
+
+.cancel-button:hover {
+  color: #f5f5f5 !important;
+  background-color: var(--color-error-main) !important;
+}

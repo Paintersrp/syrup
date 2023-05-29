@@ -1,0 +1,7 @@
+.confirm-modal-root {
+  padding: 16px 24px 12px 24px;
+}
+
+.confirm-warning {
+  color: var(--color-error-main);
+}

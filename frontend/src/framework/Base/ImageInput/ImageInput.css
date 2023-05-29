@@ -1,0 +1,7 @@
+.input-button {
+  cursor: pointer;
+  background-color: none !important;
+  padding: 8px !important;
+  margin-bottom: 24px;
+  margin: 4px;
+}

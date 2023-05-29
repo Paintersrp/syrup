@@ -30,6 +30,7 @@ interface ContentProps {
   divider?: boolean;
   headerAlign?: TextAlign;
   headerVar?: TextType;
+  className?: string;
 }
 
 const Content: React.FC<ContentProps> = ({
@@ -52,6 +53,7 @@ const Content: React.FC<ContentProps> = ({
   divider = false,
   headerAlign = "center",
   headerVar = "h3",
+  className,
 }) => {
   const [open, setOpen] = useState(true);
 
@@ -69,6 +71,7 @@ const Content: React.FC<ContentProps> = ({
         paddingBottom: paddingBottom && paddingBottom * 8,
         background: background,
       }}
+      className={className}
     >
       <div
         style={{

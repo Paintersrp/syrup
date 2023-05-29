@@ -1,12 +1,14 @@
 .tooltip-container {
   position: relative;
   display: inline-block;
+  z-index: 1000;
 }
 
 .tooltip-trigger {
   position: relative;
   cursor: pointer;
   width: 100%;
+  z-index: 1000;
 }
 
 .tooltip-content {
@@ -34,7 +36,7 @@
 }
 
 .tooltip-content--top {
-  top: calc(-100% - 15px);
+  top: calc(-100% - 5px);
   left: 50%;
   transform: translateX(-50%);
 }

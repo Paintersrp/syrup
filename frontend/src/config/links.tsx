@@ -1,7 +1,7 @@
 import React from "react";
+import { WIP } from "../components";
 import About from "../components/About/About";
 import Landing from "../components/Landing/Landing";
-import WIPPage from "../components/WIP/WIPPage";
 
 export interface Link {
   to: string;
@@ -26,5 +26,5 @@ export const LINKS: Link[] = [
     navbar: true,
     page: <About />,
   },
-  { to: "/WIP", text: "WIP", footer: true, navbar: true, page: <WIPPage /> },
+  { to: "/WIP", text: "WIP", footer: true, navbar: true, page: <WIP /> },
 ];

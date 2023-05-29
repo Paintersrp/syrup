@@ -12,6 +12,8 @@ interface FABProps {
   className?: string;
 }
 
+// color additions
+
 const FAB: React.FC<FABProps> = ({
   icon,
   label,

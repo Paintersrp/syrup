@@ -1,11 +1,11 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 
-import { WIPPage } from "./components";
 import { MainDashboard, AppDashboard } from "./framework/Admin";
 import { Login, Register } from "./framework/Pages";
 import { LINKS } from "./config";
 import { Link } from "./config/links";
+import { WIP } from "./components";
 
 function SiteRoutes(): JSX.Element {
   return (
@@ -17,7 +17,7 @@ function SiteRoutes(): JSX.Element {
       <Route path="/admin/model/:str" element={<AppDashboard />} />
       <Route key="login" path="/login" element={<Login />} />
       <Route key="register" path="/register" element={<Register />} />
-      <Route path="*" element={<WIPPage />} />
+      <Route path="*" element={<WIP />} />
     </Routes>
   );
 }

@@ -1,0 +1,54 @@
+.buttonbar-button-secondary {
+  background-color: inherit !important;
+  color: var(--color-secondary-main) !important;
+  box-shadow: none !important;
+}
+
+.buttonbar-button-secondary:hover {
+  color: #f5f5f5 !important;
+  background-color: var(--color-secondary-main) !important;
+}
+
+.buttonbar-button-primary {
+  background-color: inherit !important;
+  color: var(--color-primary-main) !important;
+  box-shadow: none !important;
+}
+
+.buttonbar-button-primary:hover {
+  color: #f5f5f5 !important;
+  background-color: var(--color-primary-main) !important;
+}
+
+.buttonbar-button-success {
+  background-color: inherit !important;
+  color: var(--color-success-main) !important;
+  box-shadow: none !important;
+}
+
+.buttonbar-button-success:hover {
+  color: #f5f5f5 !important;
+  background-color: var(--color-success-main) !important;
+}
+
+.buttonbar-button-info {
+  background-color: inherit !important;
+  color: var(--color-info-light) !important;
+  box-shadow: none !important;
+}
+
+.buttonbar-button-info:hover {
+  color: #f5f5f5 !important;
+  background-color: var(--color-info-light) !important;
+}
+
+.buttonbar-button-error {
+  background-color: inherit !important;
+  color: var(--color-error-main) !important;
+  box-shadow: none !important;
+}
+
+.buttonbar-button-error:hover {
+  color: #f5f5f5 !important;
+  background-color: var(--color-error-main) !important;
+}

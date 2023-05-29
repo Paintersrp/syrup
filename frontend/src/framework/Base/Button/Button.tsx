@@ -1,13 +1,13 @@
 import React, { useEffect, useState, CSSProperties, ReactNode } from "react";
 import clsx from "clsx";
 import "./Button.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+
 import {
   ColorShade,
   ColorState,
   colorSwitch,
 } from "../../../utils/switches/styleSwitches";
+import MaterialIcon from "../Icon/MaterialIcon";
 
 type ButtonType = "button" | "submit" | "reset" | undefined;
 type ButtonSize =
@@ -31,8 +31,8 @@ interface ButtonProps {
   className?: string | undefined;
   style?: CSSProperties;
   disabled?: boolean;
-  startIcon?: IconProp;
-  endIcon?: IconProp;
+  startIcon?: string;
+  endIcon?: string;
   ariaLabel?: string;
   ariaDescribedBy?: string;
   ariaExpanded?: boolean;
@@ -112,11 +112,11 @@ const Button: React.FC<ButtonProps> = ({
       aria-pressed={ariaPressed}
     >
       {startIcon && (
-        <FontAwesomeIcon icon={startIcon} className="button-icon start-icon" />
+        <MaterialIcon icon={startIcon} size="18px" mr={6} color="#f5f5f5" />
       )}
       {children}
       {endIcon && (
-        <FontAwesomeIcon icon={endIcon} className="button-icon end-icon" />
+        <MaterialIcon icon={endIcon} size="18px" ml={6} color="#f5f5f5" />
       )}
     </button>
   );

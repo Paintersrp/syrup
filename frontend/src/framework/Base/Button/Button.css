@@ -13,3 +13,19 @@
   opacity: 0.8;
   pointer-events: none;
 }
+
+.button-icon {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  color: "#f5f5f5" !important;
+}
+
+.start-icon {
+  margin-right: 0.25rem;
+  margin-left: 0;
+}
+
+.end-icon {
+  margin-right: 0;
+  margin-left: 0.25rem;
+}

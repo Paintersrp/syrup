@@ -70,7 +70,7 @@ const Media: React.FC<MediaProps> = ({
           style={{ ...imageStyle, boxShadow: shadowSwitch(boxShadow) }}
         />
       </div>
-      {caption && <p className="media-caption">{caption}</p>}
+      {caption && <div className="media-caption">{caption}</div>}
     </div>
   );
 };

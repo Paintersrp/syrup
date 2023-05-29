@@ -11,6 +11,7 @@
 }
 
 .value-container {
-  min-width: 250px;
+  min-width: 100%;
   margin: 8px 0px;
+  z-index: 1;
 }

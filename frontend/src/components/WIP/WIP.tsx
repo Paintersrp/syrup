@@ -1,28 +1,22 @@
-import React, { ReactElement, useState } from "react";
-
-import { Surface, Page, Flexer, Carousel } from "../../framework/Containers";
+import React, { useState } from "react";
 import {
+  Option,
+  Select,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
   Text,
   TransferList,
   TreeNode,
-  Select,
-  Option,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
-  TableBody,
-  FAB,
 } from "../../framework/Base";
 
-import MenuExamples from "../../framework/Base/Menu/components/MenuExamples/MenuExamples";
-import Tiers from "../Landing/components/test/Tiers";
-import {
-  SpeedDial,
-  SpeedDialItem,
-} from "../../framework/Base/SpeedDial/SpeedDial";
+import { Page, Flexer, Surface, Carousel } from "../../framework/Containers";
 
-const WIPPage = (): ReactElement => {
+interface WIPProps {}
+
+const WIP: React.FC<WIPProps> = ({}) => {
   const leftItems = [
     { id: "1", name: "Item 1" },
     { id: "2", name: "Item 2" },
@@ -44,10 +38,10 @@ const WIPPage = (): ReactElement => {
   ];
 
   const [selectedValue, setSelectedValue] = useState("");
+  const [formData, setFormData] = useState([]);
 
   const handleChange = (value: string) => {
     setSelectedValue(value);
-    // Do something with the selected value
   };
 
   const handleItemClick = (label: string) => {
@@ -140,7 +134,7 @@ const WIPPage = (): ReactElement => {
         </Carousel>
 
         {/* Tiers */}
-        <Tiers />
+        {/* <Tiers /> */}
 
         {/* .. */}
 
@@ -168,31 +162,9 @@ const WIPPage = (): ReactElement => {
             </TableBody>
           </Table>
         </Surface>
-        <FAB
-          icon="subject"
-          onClick={() => console.log("Hi")}
-          style={{ marginRight: 52 }}
-        />
-        <SpeedDial position="bottom-right" direction="up">
-          <SpeedDialItem
-            label="Item 1"
-            icon="cancel"
-            onClick={() => console.log("Item 1 clicked")}
-          />
-          <SpeedDialItem
-            label="Item 2"
-            icon="edit"
-            onClick={() => console.log("Item 2 clicked")}
-          />
-          <SpeedDialItem
-            label="Item 3"
-            icon="launch"
-            onClick={() => console.log("Item 3 clicked")}
-          />
-        </SpeedDial>
       </Flexer>
     </Page>
   );
 };
 
-export default WIPPage;
+export default WIP;

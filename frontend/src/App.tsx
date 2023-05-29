@@ -5,7 +5,12 @@ import "./App.css";
 import SiteRoutes from "./SiteRoutes";
 
 import { useDrawer } from "./framework/Base/Drawer/hooks/useDrawer";
-import { AppDrawer, AppFooter, AppNavbar } from "./framework/Prebuilt";
+import {
+  AppDrawer,
+  AppFooter,
+  AppNavbar,
+  ScrollToTopFAB,
+} from "./framework/Prebuilt";
 import { ScrollToTop, WithAuth } from "./utils";
 import { LINKS, LOGO, TITLE } from "./config";
 
@@ -15,6 +20,7 @@ function App(): JSX.Element {
   return (
     <Router>
       <ScrollToTop />
+      <ScrollToTopFAB />
       <AppNavbar
         menuButton
         menuOpen={isDrawerOpen}

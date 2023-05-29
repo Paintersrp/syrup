@@ -1,2 +1,2 @@
-export { default as WIPPage } from "./WIP/WIPPage";
+export * from "./WIP";
 export * from "./About";

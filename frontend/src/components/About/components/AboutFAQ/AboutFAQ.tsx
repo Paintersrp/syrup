@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+
 import { Accordion, Tab, Tabs, Text } from "../../../../framework/Base";
 import { Flexer } from "../../../../framework/Containers";
+import { ButtonBar } from "../../../../framework/Prebuilt";
 
-interface AboutFAQProps {
-  // Add your prop types here
-}
+interface AboutFAQProps {}
 
 const AboutFAQ: React.FC<AboutFAQProps> = ({}) => {
   const [tabState, setTabState] = useState(0);
@@ -13,7 +13,11 @@ const AboutFAQ: React.FC<AboutFAQProps> = ({}) => {
     <Flexer j="fs" a="fs" fd="column" mt={64} mb={64}>
       <Flexer j="sb" className="values-container">
         <Text t="h3">Frequently Asked Questions</Text>
-        Edit/Admin
+        <ButtonBar
+          editClick={() => console.log("Edit")}
+          adminLink="About"
+          tooltipPosition="top"
+        />
         {/* {editMode && <AdminButton tooltipText="Values" link="value" />} */}
       </Flexer>
       <Tabs>

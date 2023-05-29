@@ -11,6 +11,8 @@ export { default as IconButton } from "./IconButton/IconButton";
 
 // Input Elements
 export { default as Input } from "./Input/Input";
+export { default as ImageInput } from "./ImageInput/ImageInput";
+export { default as RichTextInput } from "./RichTextInput/RichTextInput";
 export { default as Select, Option } from "./Select/Select";
 
 // List Elements
@@ -42,9 +44,12 @@ export { default as Breadcrumbs } from "./Breadcrumbs/Breadcrumbs";
 export { default as Checkbox } from "./Checkbox/Checkbox";
 export { default as Divider } from "./Divider/Divider";
 export { default as FAB } from "./FAB/FAB";
+export { default as FormGenerator } from "./FormGenerator/FormGenerator";
+export { default as HelpText } from "./HelpText/HelpText";
 export { default as Modal } from "./Modal/Modal";
 export { default as Media } from "./Media/Media";
 export { default as Navbar } from "./Navbar/Navbar";
+export { SpeedDial, SpeedDialItem } from "./SpeedDial/SpeedDial";
 export { default as Tab } from "./Tabs/Tab";
 export { default as Tabs } from "./Tabs/Tabs";
 export { default as Text } from "./Text/Text";

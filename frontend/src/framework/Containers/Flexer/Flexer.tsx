@@ -40,8 +40,8 @@ export function justificationSwitch(
 }
 
 interface FlexerProps {
-  mt?: number;
-  mb?: number;
+  mt?: CSSProperties["marginTop"];
+  mb?: CSSProperties["marginBottom"];
   pl?: CSSProperties["paddingLeft"];
   pr?: CSSProperties["paddingRight"];
   j?: JustificationValue | string;

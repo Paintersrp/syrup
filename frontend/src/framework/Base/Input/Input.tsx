@@ -8,7 +8,7 @@ interface InputProps {
   type?: string;
   helpText?: string;
   helpPosition?: "top" | "bottom";
-  value?: string;
+  value?: string | number | undefined;
   onChange?: (
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;

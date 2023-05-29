@@ -1,10 +1,12 @@
 import React, { useState, ReactNode, FC, CSSProperties } from "react";
 import "./Tooltip.css";
 
+export type TooltipPosition = "top" | "bottom" | "left" | "right" | undefined;
+
 interface TooltipProps {
   children: ReactNode;
   text?: string;
-  position?: "top" | "bottom" | "left" | "right";
+  position?: TooltipPosition;
   arrow?: boolean;
   style?: CSSProperties;
 }
