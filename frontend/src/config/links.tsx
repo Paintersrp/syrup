@@ -3,7 +3,7 @@ import { WIP } from "../components";
 import About from "../components/About/About";
 import Landing from "../components/Landing/Landing";
 
-export interface Link {
+export interface LinkType {
   to: string;
   text: string;
   footer: boolean;
@@ -11,7 +11,7 @@ export interface Link {
   page: React.ReactNode;
 }
 
-export const LINKS: Link[] = [
+export const LINKS: LinkType[] = [
   {
     to: "/",
     text: "Home",
@@ -26,5 +26,11 @@ export const LINKS: Link[] = [
     navbar: true,
     page: <About />,
   },
-  { to: "/WIP", text: "WIP", footer: true, navbar: true, page: <WIP /> },
+  {
+    to: "/WIP",
+    text: "WIP",
+    footer: true,
+    navbar: true,
+    page: <WIP />,
+  },
 ];

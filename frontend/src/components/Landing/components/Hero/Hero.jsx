@@ -5,6 +5,8 @@ import "./Hero.css";
 import { Flexer } from "../../../../framework/Containers";
 import { Button, Text } from "../../../../framework/Base";
 import { Link } from "react-router-dom";
+import { ButtonBar } from "../../../../framework/Prebuilt";
+import HeroEdit from "./HeroEdit/HeroEdit";
 
 // function Hero({ data, contactData, socialData, editMode, form = true }) {
 function Hero({}) {
@@ -20,19 +22,6 @@ function Hero({}) {
   return (
     <Flexer j="c" a="fs" className="hero-container">
       <Flexer fd="column" className="hero-overlay">
-        {/* {!editing && editMode ? (
-            <>
-              <EditDeleteButtonMenu
-                editClick={() => setEditing(!editing)}
-                hideDelete
-                placement="top"
-                position="center"
-                finalColor="white"
-                adminLink="heroblock"
-                text="Hero Block"
-              />
-            </>
-          ) : null} */}
         {!editing ? (
           <Flexer fd="column" className="hero-header-root">
             <Text a="c" className="hero-header-title">
@@ -52,13 +41,22 @@ function Hero({}) {
                 <Button>Placeholder</Button>
               </Link>
             </Flexer>
+            <ButtonBar
+              justifyContent="c"
+              editClick={() => setEditing(!editing)}
+              adminLink="heroblock"
+              text="Hero"
+              tooltipPosition="bottom"
+              mt={8}
+            />
           </Flexer>
-        ) : null}
-        {/*  <HeroBlockEdit
-              heroBlock={heroData}
-              onUpdate={updateHeroBlock}
-              handleCancel={() => setEditing(!editing)}
-        />*/}
+        ) : (
+          <HeroEdit
+            heroBlock={{ title: "1", subtitle: "2" }}
+            onUpdate={updateHeroBlock}
+            handleCancel={() => setEditing(!editing)}
+          />
+        )}
 
         {/* <Grid item xs={12} md={12}>
             <ContactButtons contactData={contactData} />

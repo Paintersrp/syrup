@@ -1,0 +1,82 @@
+from django.urls import path
+from .views import *
+
+
+urlpatterns = [
+    path(
+        "landing/",
+        LandingFullTestView.as_view(),
+        name="landing-full",
+    ),    
+    path(
+        "process/",
+        ProcessAPIView.as_view(),
+        name="process-list",
+    ),
+    path(
+        "process/<int:pk>/",
+        ProcessDetailAPIView.as_view(),
+        name="process-detail",
+    ),
+    path(
+        "process/bulk/",
+        ProcessBulkAPIView.as_view(),
+        name="process-bulk-detail",
+    ),
+    path(
+        "heroblock/main/",
+        HeroBlockMainAPIView.as_view(),
+        name="heroblock-single",
+    ),
+    path(
+        "heroblock/",
+        HeroBlockAPIView.as_view(),
+        name="heroblock-list",
+    ),
+    path(
+        "heroblock/<int:pk>/",
+        HeroBlockDetailAPIView.as_view(),
+        name="heroblock-detail",
+    ),
+    path(
+        "heroblock/bulk/",
+        HeroBlockBulkAPIView.as_view(),
+        name="heroblock-bulk-detail",
+    ),
+    path(
+        "titleblock/",
+        TitleBlockAPIView.as_view(),
+        name="titleblock-list",
+    ),
+    path(
+        "titleblock/<int:pk>/",
+        TitleBlockUpdateAPIView.as_view(),
+        name="titleblock-update",
+    ),
+    path(
+        "titleblock/<str:name>/",
+        TitleBlockDetailAPIView.as_view(),
+        name="titleblock-search",
+    ),
+    path(
+        "titleblock/del/bulk/",
+        TitleBlockBulkAPIView.as_view(),
+        name="titleblock-bulk-detail",
+    ),
+    
+    path(
+        "latestnews/",
+        LatestPostsAPIView.as_view(),
+        name="latestposts-list",
+    ),
+    path(
+        "latestposts/<int:pk>/",
+        LatestPostsDetailView.as_view(),
+        name="latestposts-detail",
+    ),
+    path(
+        "latestposts/bulk/",
+        LatestPostsBulkAPIView.as_view(),
+        name="latestposts-bulk-detail",
+    ),
+]

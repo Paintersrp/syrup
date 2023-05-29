@@ -7,7 +7,7 @@ import {
   ButtonBar,
   ConfirmationModal,
 } from "../../../../../../framework/Prebuilt";
-import { Icon, Text } from "../../../../../../framework/Base";
+import { Icon, MaterialIcon, Text } from "../../../../../../framework/Base";
 import { Flexer } from "../../../../../../framework/Containers";
 import { ValueType } from "../../Values";
 import ValueEdit from "../ValueEdit/ValueEdit";
@@ -63,7 +63,7 @@ const Value: React.FC<ValueProps> = ({ value, index, start }) => {
     <Flexer key={index}>
       {!editing ? (
         <div className="value-container fade-in">
-          <Icon
+          <MaterialIcon
             size="2rem"
             icon={valueData.icon}
             className={index % 2 === start ? "value-icon" : "value-icon-alt"}

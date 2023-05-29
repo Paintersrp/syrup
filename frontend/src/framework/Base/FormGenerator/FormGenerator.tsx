@@ -1,17 +1,17 @@
-import React, { FormEvent, ChangeEvent } from "react";
+import React, { FormEvent, ChangeEvent, CSSProperties } from "react";
 
 import { Input, Text } from "..";
 import { Container, Flexer, Item, Surface } from "../../Containers";
 import { ConfirmCancelBar } from "../../Prebuilt";
+import IconMixin from "./mixins/IconMixin/IconMixin";
 
 interface FormGeneratorProps {
   title?: string;
   handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
-  handleChange: (
-    event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-  ) => void;
+  handleChange: any;
   handleCancel: () => void;
   handleManyToManyChange?: () => void;
+  handleSwitchChange?: (event: any) => void;
   formData: any;
   width?: string;
   excludeKeys?: string[];
@@ -23,10 +23,9 @@ interface FormGeneratorProps {
   newImage?: string;
   newImageName?: string;
   boxShadow?: boolean;
-  fadeIn?: boolean;
   placement?: "top" | "right" | "bottom" | "left";
-  mt?: number;
-  mb?: number;
+  mt?: CSSProperties["marginTop"];
+  mb?: CSSProperties["marginBottom"];
   px?: number;
   py?: number;
 }
@@ -37,6 +36,7 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
   handleChange,
   handleCancel,
   handleManyToManyChange,
+  handleSwitchChange,
   formData,
   width = "100%",
   excludeKeys = [],
@@ -48,7 +48,6 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
   newImage = "",
   newImageName = "",
   boxShadow = false,
-  fadeIn = true,
   placement = "bottom",
   mt: marginTop = 3,
   mb: marginBottom = 3,
@@ -56,12 +55,7 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
   py: paddingY = 3,
 }) => {
   return (
-    <Flexer
-      fd="column"
-      className={fadeIn ? "fade-in" : ""}
-      mt={marginTop}
-      mb={marginBottom}
-    >
+    <Flexer fd="column" mt={marginTop} mb={marginBottom}>
       <Surface
         boxShadow={boxShadow ? 1 : 0}
         px={paddingX}
@@ -87,11 +81,7 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
             {Object.keys(formData).map((key) => {
               if (!excludeKeys.includes(key)) {
                 return (
-                  <Item
-                    xs={12}
-                    sm={!smallKeys.includes(key) ? 12 : 6}
-                    style={{ padding: "0px 4px" }}
-                  >
+                  <Item xs={12} sm={!smallKeys.includes(key) ? 12 : 6}>
                     <Input
                       key={key}
                       id={key}
@@ -125,11 +115,14 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
                 formData={formData}
               />
             </>
-          ) : null}
-          {iconMixin ? (
-            <IconSelectMixin handleChange={handleChange} formData={formData} />
-          ) : null} */}
-
+          ) : null}*/}
+          {iconMixin && (
+            <IconMixin
+              fieldName="icon"
+              handleChange={handleChange}
+              formData={formData}
+            />
+          )}
           <ConfirmCancelBar
             handleConfirm={handleSubmit}
             handleCancel={handleCancel}

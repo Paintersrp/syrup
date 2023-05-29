@@ -4,12 +4,12 @@ from backend.customs import *
 
 
 @metadata(**ABOUT_BLOCK_METADATA)
-class AboutBlock(models.Model):
+class AboutHeader(models.Model):
     name = CustomCharField(
         max_length=100,
         unique=True,
         md_column_count=12,
-        verbose_name="About Block Name",
+        verbose_name="Referential Name",
         help_text="Referential Name",
     )
     title = CustomCharField(
@@ -21,7 +21,7 @@ class AboutBlock(models.Model):
     image = CustomImageFieldField(
         upload_to="about",
         verbose_name="Image",
-        help_text="Help Text Placeholder",
+        help_text="Header Image",
     )
 
     def __str__(self):

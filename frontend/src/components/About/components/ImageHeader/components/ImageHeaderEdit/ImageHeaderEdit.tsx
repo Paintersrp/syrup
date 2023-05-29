@@ -61,7 +61,7 @@ const ImageHeaderEdit: React.FC<ImageHeaderEditProps> = ({
   return (
     <Content
       header="About Header Edit"
-      boxShadow={1}
+      boxShadow={0}
       className="fade-in"
       pad={3}
       br={1.5}
@@ -84,6 +84,7 @@ const ImageHeaderEdit: React.FC<ImageHeaderEditProps> = ({
                   headerType="h4"
                   src={data.image}
                   mb={0}
+                  imageSize="md"
                 />
               )}
               {newImage ? (

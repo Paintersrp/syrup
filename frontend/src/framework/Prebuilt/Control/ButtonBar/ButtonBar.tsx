@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import {
   faScrewdriverWrench,
@@ -19,6 +19,7 @@ type ButtonBarProps = {
   text?: string;
   obj?: string | number | null;
   iconColor?: string;
+  mt?: CSSProperties["marginTop"];
 };
 
 const ButtonBar: React.FC<ButtonBarProps> = ({
@@ -30,9 +31,10 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
   text = "",
   obj = null,
   iconColor = "secondary",
+  mt: marginTop,
 }) => {
   return (
-    <Flexer j={justifyContent}>
+    <Flexer j={justifyContent} mt={marginTop}>
       {editClick && (
         <Tooltip
           text={obj ? `Edit ${text} Object: ${obj}` : `Edit ${text}`}

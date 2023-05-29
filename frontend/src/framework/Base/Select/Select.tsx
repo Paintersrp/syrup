@@ -1,14 +1,26 @@
-import React, { useState, useEffect, useRef, ReactNode } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  ReactNode,
+  CSSProperties,
+} from "react";
 import Divider from "../Divider/Divider";
 import HelpText from "../HelpText/HelpText";
+import MaterialIcon from "../Icon/MaterialIcon";
 import Text from "../Text/Text";
 import "./Select.css";
 
 interface SelectProps {
   children: ReactNode;
-  onChange: (selectedValue: string) => void;
+  onChange: (event: any) => void;
   dividers?: boolean;
   label?: string;
+  name?: string;
+  style?: CSSProperties;
+  className?: string;
+  iconMixin?: boolean;
+  value?: any;
 }
 
 interface OptionProps {
@@ -23,8 +35,13 @@ const Select: React.FC<SelectProps> = ({
   onChange,
   dividers = true,
   label = "Select an Option",
+  name,
+  style,
+  className,
+  iconMixin = false,
+  value,
 }) => {
-  const [selectedOption, setSelectedOption] = useState<string>("");
+  const [selectedOption, setSelectedOption] = useState<string>(value || "");
   const [isOptionsVisible, setIsOptionsVisible] = useState<boolean>(false);
   const selectRef = useRef<HTMLDivElement>(null);
 
@@ -48,7 +65,15 @@ const Select: React.FC<SelectProps> = ({
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = event.target.value;
     setSelectedOption(selectedValue);
-    onChange(selectedValue);
+
+    const syntheticEvent = {
+      target: {
+        value: selectedValue,
+        name: name,
+      },
+    } as React.ChangeEvent<HTMLSelectElement>;
+
+    onChange(syntheticEvent);
   };
 
   const handleToggleOptions = () => {
@@ -64,7 +89,7 @@ const Select: React.FC<SelectProps> = ({
       } as React.ChangeEvent<HTMLSelectElement>;
 
       return (
-        <>
+        <React.Fragment>
           {shouldRenderDivider && <Divider />}
           {React.cloneElement(child, {
             isSelected: selectedOption === child.props.value,
@@ -73,7 +98,7 @@ const Select: React.FC<SelectProps> = ({
               handleToggleOptions();
             },
           })}
-        </>
+        </React.Fragment>
       );
     }
 
@@ -81,19 +106,25 @@ const Select: React.FC<SelectProps> = ({
   });
 
   return (
-    <div className="select" ref={selectRef}>
+    <div className={`select ${className}`} ref={selectRef} style={style}>
       <HelpText>{label}</HelpText>
       <div className="selected-option" onClick={handleToggleOptions}>
+        {iconMixin && (
+          <MaterialIcon size="20px" icon={selectedOption} mr={12} />
+        )}
         <Text>{selectedOption || "\u00A0"}</Text>
       </div>
-      <div className={`options ${isOptionsVisible ? "visible" : ""}`}>
-        {options}
+      <div style={style}>
+        <div className={`options ${isOptionsVisible ? "visible" : ""}`}>
+          {options}
+        </div>
       </div>
       <select
         className="hidden-select"
         value={selectedOption}
         onChange={handleSelectChange}
         onClick={handleToggleOptions}
+        name={name}
       >
         <option value="" disabled hidden></option>
         {children}

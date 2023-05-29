@@ -4,10 +4,12 @@
   margin-top: 4px;
 }
 .value-icon {
+  z-index: 1;
   color: var(--color-primary-main);
 }
 .value-icon-alt {
   color: var(--color-secondary-main) !important;
+  z-index: 1;
 }
 
 .value-container {

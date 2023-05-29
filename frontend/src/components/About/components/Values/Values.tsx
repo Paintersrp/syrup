@@ -10,7 +10,7 @@ import { Value } from "./components";
 export interface ValueType {
   id: number;
   title: string;
-  icon: IconDefinition;
+  icon: string;
 }
 interface ValuesProps {
   valuesData: ValueType[];

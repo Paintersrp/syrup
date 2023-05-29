@@ -6,7 +6,7 @@ export { default as DrawerContent } from "./Drawer/components/DrawerContent";
 
 // Icon Elements
 export { default as Icon } from "./Icon/Icon";
-export { default as MaterialIcon } from "./Icon/MaterialIcon";
+export { default as MaterialIcon, ICON_OPTIONS } from "./Icon/MaterialIcon";
 export { default as IconButton } from "./IconButton/IconButton";
 
 // Input Elements

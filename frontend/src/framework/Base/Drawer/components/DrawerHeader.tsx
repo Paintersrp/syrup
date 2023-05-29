@@ -23,7 +23,7 @@ const DrawerHeader: React.FC<DrawerHeaderProps> = ({
 }) => {
   return (
     <React.Fragment>
-      <Flexer j={justifyContent} a={alignItems} style={{ height: 63 }}>
+      <Flexer j={justifyContent} a={alignItems} style={{ height: 53 }}>
         <Flexer j="c">
           {icon && (
             <span

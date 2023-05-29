@@ -12,6 +12,7 @@ interface ImageHeaderProps {
   src?: string;
   mb?: CSSProperties["marginBottom"];
   fade?: boolean;
+  boxShadow?: boolean;
   imageSize?:
     | "xsmall"
     | "xs"
@@ -31,6 +32,7 @@ const ImageHeader: React.FC<ImageHeaderProps> = ({
   src = "https://source.unsplash.com/1400x900/?service",
   mb: marginBottom = 32,
   fade = false,
+  boxShadow = false,
   imageSize = "lg",
 }) => {
   return (
@@ -51,7 +53,7 @@ const ImageHeader: React.FC<ImageHeaderProps> = ({
           src={src}
           altText={header}
           size={imageSize}
-          boxShadow={1}
+          boxShadow={boxShadow ? 1 : 0}
         />
       )}
     </Flexer>

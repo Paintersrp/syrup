@@ -1,14 +1,12 @@
 .tooltip-container {
   position: relative;
   display: inline-block;
-  z-index: 1000;
 }
 
 .tooltip-trigger {
   position: relative;
   cursor: pointer;
   width: 100%;
-  z-index: 1000;
 }
 
 .tooltip-content {
@@ -62,43 +60,3 @@
 .tooltip-content[style*="visibility: visible"] {
   opacity: 1;
 }
-
-/* .tooltip-content--top::after,
-.tooltip-content--bottom::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  border-width: 8px;
-  border-style: solid;
-}
-
-.tooltip-content--top::after {
-  bottom: -16px;
-  border-color: var(--color-primary-main) transparent transparent transparent;
-}
-
-.tooltip-content--bottom::after {
-  top: -16px;
-  border-color: transparent transparent var(--color-primary-main) transparent;
-}
-
-.tooltip-content--right::after,
-.tooltip-content--left::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  border-width: 8px;
-  border-style: solid;
-}
-
-.tooltip-content--right::after {
-  left: -16px;
-  border-color: transparent var(--color-primary-main) transparent transparent;
-}
-
-.tooltip-content--left::after {
-  right: -16px;
-  border-color: transparent transparent transparent var(--color-primary-main);
-} */

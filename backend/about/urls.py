@@ -62,9 +62,9 @@ urlpatterns = [
         CompanyHistoryBulkAPIView.as_view(),
         name="companyhistory-bulk-detail",
     ),
-    # path(
-    #     "about/",
-    #     AboutFullView.as_view(),
-    #     name="about-full",
-    # ),
+    path(
+        "about/",
+        AboutFullView.as_view(),
+        name="about-full",
+    ),
 ]

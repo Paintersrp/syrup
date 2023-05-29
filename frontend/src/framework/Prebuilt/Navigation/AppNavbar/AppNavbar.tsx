@@ -3,22 +3,18 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./AppNavbar.css";
 
-import { ActionButton, Navbar, Text } from "../../../Base";
+import { ActionButton, MaterialIcon, Navbar, Text } from "../../../Base";
 import { Flexer } from "../../../Containers";
 
 import LogoutUser from "../../../../utils/helpers/LogoutUser";
-
-interface LinkItem {
-  to: string;
-  text: string;
-}
+import { LinkType } from "../../../../config/links";
 
 interface AppNavbarProps {
   menuButton?: boolean;
   drawerSize?: number;
   menuOnClick?: () => void;
   menuOpen?: boolean;
-  links: LinkItem[];
+  links: LinkType[];
   children?: ReactNode;
 }
 
@@ -51,11 +47,16 @@ const AppNavbar: FC<AppNavbarProps> = ({
           className="link-container"
           style={{ marginLeft: !menuOpen ? 80 : 80 + drawerSize }}
         >
-          {links.map((item, index) => (
-            <Link key={index} to={item.to}>
-              <Text t="h4">{item.text}</Text>
-            </Link>
-          ))}
+          {links.map((item, index) => {
+            if (!item.navbar) {
+              return null;
+            }
+            return (
+              <Link key={index} to={item.to}>
+                <Text t="h4">{item.text}</Text>
+              </Link>
+            );
+          })}
         </Flexer>
 
         {!auth.is_authenticated ? (
@@ -69,15 +70,12 @@ const AppNavbar: FC<AppNavbarProps> = ({
           </Flexer>
         ) : (
           <Flexer j="fe" className="link-container" style={{ marginRight: 24 }}>
-            <Link key="admin" to="/admin">
-              <Text t="h4">Admin</Text>
-            </Link>
-            <Link key="logout" to="" onClick={LogoutUser}>
+            <Link key="logout" to="/" onClick={LogoutUser}>
               <Text t="h4">Logout</Text>
             </Link>
-            <Link key="profile" to="/profile">
+            {/* <Link key="profile" to="/profile">
               <Text t="h4">Profile</Text>
-            </Link>
+            </Link> */}
           </Flexer>
         )}
       </Flexer>

@@ -40,8 +40,8 @@ const WIP: React.FC<WIPProps> = ({}) => {
   const [selectedValue, setSelectedValue] = useState("");
   const [formData, setFormData] = useState([]);
 
-  const handleChange = (value: string) => {
-    setSelectedValue(value);
+  const handleChange = (event: any) => {
+    setSelectedValue(event.target.value);
   };
 
   const handleItemClick = (label: string) => {
@@ -109,6 +109,10 @@ const WIP: React.FC<WIPProps> = ({}) => {
           <Select onChange={handleChange}>
             <Option value="Tacos">Tacos</Option>
             <Option value="Burritos">Burritos</Option>
+            <Option value="Enchiladas">Enchiladas</Option>
+            <Option value="Waffles">Waffles</Option>
+            <Option value="Enchiladas">Enchiladas</Option>
+            <Option value="Enchiladas">Enchiladas</Option>
             <Option value="Enchiladas">Enchiladas</Option>
           </Select>
         </div>

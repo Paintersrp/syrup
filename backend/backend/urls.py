@@ -70,6 +70,10 @@ urlpatterns = (
         ),
         path(
             "api/",
+            include("landing.urls"),
+        ),
+        path(
+            "api/",
             include("tables.urls"),
         ),
         path(
@@ -79,6 +83,10 @@ urlpatterns = (
         path(
             "api/",
             include("about.urls"),
+        ),
+        path(
+            "api/",
+            include("services.urls"),
         ),
         path(
             "api/",

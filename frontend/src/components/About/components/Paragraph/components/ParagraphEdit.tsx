@@ -33,7 +33,7 @@ const ParagraphEdit = ({ content, onUpdate, type, handleCancel }) => {
 
     try {
       await ApiAxiosInstance.patch(
-        `http://localhost:8000/api/${contentType}/1/`,
+        `http://localhost:8000/api/${contentType}/${content.id}/`,
         formData
       ).then((res) => {
         setData(res.data);

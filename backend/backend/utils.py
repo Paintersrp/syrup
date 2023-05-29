@@ -2,6 +2,7 @@ from auditlog.models import LogEntry
 from django.contrib.contenttypes.models import ContentType
 from django.utils import timezone
 from django.db import models
+from django.apps import apps
 
 
 def get_filter_choices(model, filter_options):
@@ -105,3 +106,29 @@ def create_log_entry(action, username, instance, changes):
         timestamp=timezone.now(),
     )
     log_entry.save()
+
+
+def get_serialized_page_data(model_dict, request):
+    data = {}
+    for model_name, model_options in model_dict.items():
+        many = True
+        app_label = model_options.get("app_label", {})
+        model = apps.get_model(app_label=app_label, model_name=model_name)
+
+        if model_options.get("filter", False):
+            queryset = model.objects.filter(**model_options.get("filter", {}))
+
+        elif model_options.get("get_first", False):
+            queryset = model.objects.first()
+            many = False
+
+        else:
+            queryset = model.objects.all()
+
+        serializer = model.serializer_class(
+            instance=queryset, many=many, context={"request": request}
+        )
+
+        data[model_name] = serializer.data
+
+    return data

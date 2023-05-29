@@ -13,7 +13,7 @@ class AboutBlockSerializer(serializers.ModelSerializer):
     ]
 
     class Meta:
-        model = AboutBlock
+        model = AboutHeader
         fields = "__all__"
 
     def perform_update(self, serializer):
@@ -59,7 +59,7 @@ class ValueSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-AboutBlock.serializer_class = AboutBlockSerializer
+AboutHeader.serializer_class = AboutBlockSerializer
 CompanyHistory.serializer_class = CompanyHistorySerializer
 MissionStatement.serializer_class = MissionStatementSerializer
 TeamMember.serializer_class = TeamMemberSerializer

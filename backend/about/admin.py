@@ -19,29 +19,7 @@ class CustomAboutBlockAdmin(admin.ModelAdmin):
     thumbnail_tag.short_description = "Thumbnail"
 
 
-class CustomCompanyHistoryAdmin(admin.ModelAdmin):
-    fields = ["title", "body1", "body2", "body3"]
-
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        for field in self.fields:
-            form.base_fields[field].required = False
-            form.base_fields[field].blank = True
-        return form
-
-
-class CustomMissionStatementAdmin(admin.ModelAdmin):
-    fields = ["title", "body1", "body2", "body3"]
-
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        for field in self.fields:
-            form.base_fields[field].required = False
-            form.base_fields[field].blank = True
-        return form
-
-
 admin.site.register(Value)
-admin.site.register(CompanyHistory, CustomCompanyHistoryAdmin)
-admin.site.register(MissionStatement, CustomMissionStatementAdmin)
-admin.site.register(AboutBlock, CustomAboutBlockAdmin)
+admin.site.register(CompanyHistory)
+admin.site.register(MissionStatement)
+admin.site.register(AboutHeader, CustomAboutBlockAdmin)
