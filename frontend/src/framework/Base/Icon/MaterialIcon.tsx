@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState, CSSProperties } from "react";
 import { colorSwitch } from "../../../utils/switches/styleSwitches";
 
 interface MaterialIconProps {
-  size?: string;
+  size?: CSSProperties["fontSize"];
   color?: string;
   shade?: "light" | "dark" | "main";
   mt?: CSSProperties["marginTop"];

@@ -8,6 +8,8 @@ import {
   colorSwitch,
 } from "../../../utils/switches/styleSwitches";
 import MaterialIcon from "../Icon/MaterialIcon";
+import { Flexer } from "../../Containers";
+import Text from "../Text/Text";
 
 type ButtonType = "button" | "submit" | "reset" | undefined;
 type ButtonSize =
@@ -23,8 +25,14 @@ type ButtonSize =
 interface ButtonProps {
   ref?: React.LegacyRef<HTMLButtonElement> | null;
   size?: ButtonSize;
+  w?: CSSProperties["width"];
+  ml?: CSSProperties["marginLeft"];
+  mr?: CSSProperties["marginRight"];
+  mt?: CSSProperties["marginTop"];
+  mb?: CSSProperties["marginBottom"];
   color?: string;
   shade?: ColorShade;
+  manualHover?: string;
   type?: ButtonType;
   children: ReactNode;
   onClick?: (event: any) => void;
@@ -33,12 +41,14 @@ interface ButtonProps {
   disabled?: boolean;
   startIcon?: string;
   endIcon?: string;
+  href?: string | undefined;
   ariaLabel?: string;
   ariaDescribedBy?: string;
   ariaExpanded?: boolean;
   ariaHasPopup?: "menu" | "listbox" | "tree" | "grid" | "dialog" | undefined;
   ariaControls?: string;
   ariaPressed?: boolean | "mixed";
+  iconSize?: CSSProperties["fontSize"];
 }
 
 const sizeSwitch = (size: ButtonSize): string => {
@@ -63,8 +73,14 @@ const sizeSwitch = (size: ButtonSize): string => {
 const Button: React.FC<ButtonProps> = ({
   ref,
   size = "sm",
+  w: width = "auto",
+  ml: marginLeft,
+  mr: marginRight,
+  mt: marginTop,
+  mb: marginBottom,
   color = "primary",
   shade = "main",
+  manualHover,
   type = undefined,
   children,
   onClick,
@@ -73,12 +89,14 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   startIcon,
   endIcon,
+  href,
   ariaLabel,
   ariaDescribedBy,
   ariaExpanded,
   ariaHasPopup,
   ariaControls,
   ariaPressed,
+  iconSize = "18px",
 }) => {
   const [colors, setColors] = useState<ColorState>(colorSwitch(color, shade));
   const [hover, setHover] = useState<boolean>(false);
@@ -87,22 +105,37 @@ const Button: React.FC<ButtonProps> = ({
     setColors(colorSwitch(color, shade));
   }, [color, shade]);
 
+  const handleHref = () => {
+    if (href) {
+      window.location.href = href;
+    }
+  };
+
   return (
     <button
       ref={ref}
       className={clsx("button-base", className, disabled ? "disabled" : "")}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      onClick={onClick}
+      onClick={href ? handleHref : onClick}
       type={type}
       disabled={disabled}
       style={{
         ...style,
+        width: width,
+        marginLeft: marginLeft,
+        marginRight: marginRight,
+        marginTop: marginTop,
+        marginBottom: marginBottom,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
         padding: sizeSwitch(size),
-        backgroundColor: hover ? colors.hover : colors.background,
+        backgroundColor: hover
+          ? manualHover
+            ? manualHover
+            : colors.hover
+          : colors.background,
       }}
       aria-label={ariaLabel}
       aria-describedby={ariaDescribedBy}
@@ -111,13 +144,22 @@ const Button: React.FC<ButtonProps> = ({
       aria-controls={ariaControls}
       aria-pressed={ariaPressed}
     >
-      {startIcon && (
-        <MaterialIcon icon={startIcon} size="18px" mr={6} color="#f5f5f5" />
-      )}
-      {children}
-      {endIcon && (
-        <MaterialIcon icon={endIcon} size="18px" ml={6} color="#f5f5f5" />
-      )}
+      <Flexer a="c" j="c">
+        {startIcon && (
+          <MaterialIcon
+            icon={startIcon}
+            size={iconSize}
+            mr={6}
+            color="#f5f5f5"
+          />
+        )}
+        <Text a="c" t="button" fw="600" s="0.85rem">
+          {children}
+        </Text>
+        {endIcon && (
+          <MaterialIcon icon={endIcon} size={iconSize} ml={6} color="#f5f5f5" />
+        )}
+      </Flexer>
     </button>
   );
 };

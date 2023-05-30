@@ -44,6 +44,7 @@ export const palettes = {
     primary: "rgba(0, 0, 0, 1)",
     secondary: "rgba(0, 0, 0, 0.6)",
     disabled: "rgba(0, 0, 0, 0.38)",
+    min: "rgba(0, 0, 0, 0.19)",
     hint: "rgba(0, 0, 0, 0.38)",
     hover: "#2225a",
   },

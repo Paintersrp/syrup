@@ -15,6 +15,7 @@ interface CarouselProps {
   autoplayDuration?: number;
   style?: React.CSSProperties;
   className?: string;
+  iconColor?: string;
 }
 
 const Carousel: React.FC<CarouselProps> = ({
@@ -23,6 +24,7 @@ const Carousel: React.FC<CarouselProps> = ({
   autoplayDuration = 3000,
   style,
   className,
+  iconColor = "#fff",
 }) => {
   const [currentSlide, setCurrentSlide] = useState<number>(0);
   const [autoplayEnabled, setAutoplayEnabled] = useState<boolean>(autoplay);
@@ -62,8 +64,8 @@ const Carousel: React.FC<CarouselProps> = ({
   }, [autoplayEnabled, autoplayDuration]);
 
   return (
-    <div className={`carousel-container ${className}`} style={style}>
-      <div className="carousel">
+    <div className={`carousel-container ${className}`}>
+      <div className="carousel" style={style}>
         <div
           className="slides"
           style={{ transform: `translateX(-${currentSlide * 100}%)` }}
@@ -75,10 +77,10 @@ const Carousel: React.FC<CarouselProps> = ({
           ))}
         </div>
         <button className="prev-button" onClick={handlePreviousSlide}>
-          <Icon icon={faChevronLeft} color="#fff" />
+          <Icon icon={faChevronLeft} color={iconColor} />
         </button>
         <button className="next-button" onClick={handleNextSlide}>
-          <Icon icon={faChevronRight} color="#fff" />
+          <Icon icon={faChevronRight} color={iconColor} />
         </button>
         <div className="indicators">
           {children.map((_, index) => (
@@ -91,9 +93,9 @@ const Carousel: React.FC<CarouselProps> = ({
         </div>
         <button className="autoplay-toggle" onClick={handleAutoplayToggle}>
           {autoplayEnabled ? (
-            <Icon icon={faPause} color="#fff" />
+            <Icon icon={faPause} color={iconColor} />
           ) : (
-            <Icon icon={faPlay} color="#fff" />
+            <Icon icon={faPlay} color={iconColor} />
           )}
         </button>
       </div>

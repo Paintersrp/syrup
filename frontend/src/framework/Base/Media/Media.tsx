@@ -7,9 +7,11 @@ interface MediaProps {
   altText: string;
   caption?: string;
   className?: string;
+  mediaClass?: string;
   style?: React.CSSProperties;
   imageStyle?: React.CSSProperties;
   size?:
+    | "card"
     | "xsmall"
     | "xs"
     | "small"
@@ -29,6 +31,7 @@ const Media: React.FC<MediaProps> = ({
   altText,
   caption,
   className,
+  mediaClass,
   style,
   imageStyle,
   size = "medium",
@@ -37,6 +40,8 @@ const Media: React.FC<MediaProps> = ({
 }) => {
   const getSizeClass = (): string => {
     switch (size) {
+      case "card":
+        return "media-card";
       case "xsmall":
       case "xs":
         return "media-xsmall";
@@ -64,7 +69,9 @@ const Media: React.FC<MediaProps> = ({
     >
       <div>
         <img
-          className={`media-image ${!manualSize && getSizeClass()}`}
+          className={`media-image ${
+            !manualSize && getSizeClass()
+          } ${mediaClass}`}
           src={src}
           alt={altText}
           style={{ ...imageStyle, boxShadow: shadowSwitch(boxShadow) }}

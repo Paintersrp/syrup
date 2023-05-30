@@ -3,7 +3,7 @@ from .models import *
 from posts.serializers import PostSerializer
 
 
-class HeroBlockSerializer(serializers.ModelSerializer):
+class HeroHeaderSerializer(serializers.ModelSerializer):
     FIELD_KEYS = [
         "name",
         "title",
@@ -15,7 +15,7 @@ class HeroBlockSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class TitleBlockSerializer(serializers.ModelSerializer):
+class SectionHeaderSerializer(serializers.ModelSerializer):
     FIELD_KEYS = [
         "name",
         "title",
@@ -55,6 +55,6 @@ class LatestPostsSerializer(serializers.ModelSerializer):
 
 
 LatestPosts.serializer_class = LatestPostsSerializer
-HeroHeader.serializer_class = HeroBlockSerializer
-SectionHeader.serializer_class = TitleBlockSerializer
+HeroHeader.serializer_class = HeroHeaderSerializer
+SectionHeader.serializer_class = SectionHeaderSerializer
 Process.serializer_class = ProcessSerializer

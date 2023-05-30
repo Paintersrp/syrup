@@ -7,7 +7,9 @@ import { Breadcrumbs, IconButton, Text } from "../../Base";
 import { Container, Content, Flexer, Page } from "../../Containers";
 import { RenderSections } from "./components";
 
-function MainDashboard() {
+interface MainDashboardProps {}
+
+const MainDashboard: React.FC<MainDashboardProps> = () => {
   const [models, setModels] = useState({});
   const [collapsed, setCollapsed] = useState(false);
   const [configs, setConfigs] = useState({});
@@ -111,7 +113,7 @@ function MainDashboard() {
       </Content>
     </Page>
   );
-}
+};
 
 export default MainDashboard;
 

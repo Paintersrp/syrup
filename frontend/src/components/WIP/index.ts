@@ -1,1 +1,3 @@
-export { default as WIP } from "./WIP";
+import WIP from "./WIP";
+
+export { WIP };

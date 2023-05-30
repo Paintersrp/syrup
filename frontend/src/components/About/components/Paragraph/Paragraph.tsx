@@ -27,6 +27,7 @@ const Paragraph: React.FC<ParagraphProps> = ({
   text,
   onUpdate,
 }) => {
+  console.log("ediitMode", editMode);
   return (
     <Flexer mt={32} mb={32} fd="column">
       {!editState ? (
@@ -34,14 +35,14 @@ const Paragraph: React.FC<ParagraphProps> = ({
           <Flexer j="sb" className="paragraph-section-title fade-in">
             <Text t="h3">{data.title}</Text>
 
-            {!editState ? (
+            {!editState && editMode && (
               <ButtonBar
                 editClick={() => setEdit(!editState)}
                 adminLink={adminLink}
                 tooltipPosition="top"
                 text={text}
               />
-            ) : null}
+            )}
           </Flexer>
 
           {data.body ? (

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import "./Value.css";
 
@@ -7,20 +6,22 @@ import {
   ButtonBar,
   ConfirmationModal,
 } from "../../../../../../framework/Prebuilt";
-import { Icon, MaterialIcon, Text } from "../../../../../../framework/Base";
+import {
+  FormGenerator,
+  MaterialIcon,
+  Text,
+} from "../../../../../../framework/Base";
 import { Flexer } from "../../../../../../framework/Containers";
 import { ValueType } from "../../Values";
-import ValueEdit from "../ValueEdit/ValueEdit";
 
 interface ValueProps {
   value: ValueType;
   index: number;
   start: number;
+  editMode: boolean;
 }
 
-const Value: React.FC<ValueProps> = ({ value, index, start }) => {
-  const auth = useSelector((state: any) => state.auth);
-
+const Value: React.FC<ValueProps> = ({ value, index, start, editMode }) => {
   const [valueData, setValueData] = useState<ValueType>(value);
   const [editing, setEditing] = useState(false);
   const [open, setOpen] = useState(false);
@@ -72,7 +73,7 @@ const Value: React.FC<ValueProps> = ({ value, index, start }) => {
             {valueData.title}
           </Text>
           <Flexer a="c" j="fe" w="90%">
-            {!editing && (
+            {!editing && editMode && (
               <React.Fragment>
                 <ButtonBar
                   editClick={() => setEditing(!editing)}
@@ -86,10 +87,19 @@ const Value: React.FC<ValueProps> = ({ value, index, start }) => {
           </Flexer>
         </div>
       ) : (
-        <ValueEdit
-          value={valueData}
+        <FormGenerator
+          endpoint={`value/${valueData.id}/`}
           onUpdate={updateValue}
+          data={valueData}
+          title="Edit"
+          width="90%"
+          excludeKeys={["id", "icon"]}
           handleCancel={() => setEditing(!editing)}
+          iconMixin
+          px={1.5}
+          py={1.5}
+          boxShadow
+          placement="top"
         />
       )}
       <ConfirmationModal

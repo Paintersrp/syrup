@@ -8,13 +8,13 @@ import {
   faGithub,
 } from "@fortawesome/free-brands-svg-icons";
 
-export interface Social {
+export interface SocialType {
   name: string;
   icon: IconDefinition;
   handle: string;
 }
 
-export const SOCIALS: Social[] = [
+export const SOCIALS: SocialType[] = [
   { name: "facebook", icon: faFacebookSquare, handle: "Test" },
   { name: "twitter", icon: faTwitter, handle: "Test" },
   { name: "instagram", icon: faInstagram, handle: "Test" },

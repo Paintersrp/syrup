@@ -20,6 +20,7 @@ type ButtonBarProps = {
   obj?: string | number | null;
   iconColor?: string;
   mt?: CSSProperties["marginTop"];
+  dense?: boolean;
 };
 
 const ButtonBar: React.FC<ButtonBarProps> = ({
@@ -32,6 +33,7 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
   obj = null,
   iconColor = "secondary",
   mt: marginTop,
+  dense = "false",
 }) => {
   return (
     <Flexer j={justifyContent} mt={marginTop}>
@@ -42,11 +44,11 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
         >
           <IconButton
             aria-label="Edit"
-            size="small"
-            fontSize="1.2rem"
+            size={dense ? "tiny" : `small`}
+            fontSize={dense ? "1rem" : "1.2rem"}
             onClick={editClick}
             icon={faEdit}
-            style={{ marginRight: 5, marginBottom: 5 }}
+            style={{ marginRight: dense ? 1 : 5, marginBottom: dense ? 1 : 5 }}
             className={`buttonbar-button-${iconColor}`}
           />
         </Tooltip>
@@ -58,11 +60,11 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
         >
           <IconButton
             aria-label="Delete"
-            size="small"
-            fontSize="1.2rem"
+            size={dense ? "tiny" : `small`}
+            fontSize={dense ? "1rem" : "1.2rem"}
             onClick={deleteClick}
             icon={faTrash}
-            style={{ marginRight: 5, marginBottom: 5 }}
+            style={{ marginRight: dense ? 1 : 5, marginBottom: dense ? 1 : 5 }}
             className={`buttonbar-button-${iconColor}`}
           />
         </Tooltip>
@@ -72,11 +74,14 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
           <Link to={`/admin/${adminLink}`}>
             <IconButton
               aria-label="Admin Panel"
-              size="small"
-              fontSize="1.2rem"
+              size={dense ? "tiny" : `small`}
+              fontSize={dense ? "1rem" : "1.2rem"}
               onClick={deleteClick}
               icon={faScrewdriverWrench}
-              style={{ marginRight: 5, marginBottom: 5 }}
+              style={{
+                marginRight: dense ? 0 : 5,
+                marginBottom: dense ? 0 : 5,
+              }}
               className={`buttonbar-button-${iconColor}`}
             />
           </Link>

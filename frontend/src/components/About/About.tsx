@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { ApiAxiosInstance } from "../../utils";
 import "./About.css";
 
@@ -18,8 +18,7 @@ interface AboutProps {}
 const About: React.FC<AboutProps> = ({}) => {
   const [error, setError] = useState([]);
   const [tabState, setTabState] = useState(0);
-  const auth = useSelector((state: any) => state.auth);
-  const dispatch = useDispatch();
+  const editMode = useSelector((state: any) => state.editMode.editMode);
 
   const [data, setData] = useState<any>([]);
   const [ready, setReady] = useState(false);
@@ -80,7 +79,7 @@ const About: React.FC<AboutProps> = ({}) => {
   return (
     <Page>
       <Surface id="test" maxWidth={900} j="c" a="c">
-        {!editTitle && (
+        {!editTitle && editMode && (
           <Flexer j="fe">
             <ButtonBar
               editClick={() => setEditTitle(!editTitle)}
@@ -106,6 +105,7 @@ const About: React.FC<AboutProps> = ({}) => {
         )}
         <Paragraph
           data={missionData}
+          editMode={editMode}
           editState={editMission}
           setEdit={setEditMission}
           onUpdate={updateMission}
@@ -114,14 +114,15 @@ const About: React.FC<AboutProps> = ({}) => {
         />
         <Paragraph
           data={historyData}
+          editMode={editMode}
           editState={editHistory}
           setEdit={setEditHistory}
           onUpdate={updateHistory}
           text="Company History"
           adminLink="companyhistory"
         />
-        <Values valuesData={valuesData} />
-        <AboutFAQ />
+        <Values valuesData={valuesData} editMode={editMode} />
+        <AboutFAQ editMode={editMode}/>
       </Surface>
     </Page>
   );

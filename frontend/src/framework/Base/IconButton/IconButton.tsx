@@ -28,6 +28,7 @@ interface IconButtonProps {
   mb?: CSSProperties["marginBottom"];
   pl?: CSSProperties["paddingLeft"];
   pr?: CSSProperties["paddingRight"];
+  href?: string | undefined;
   onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   className?: string;
   style?: CSSProperties;
@@ -65,6 +66,7 @@ const IconButton: React.FC<IconButtonProps> = ({
   mb: marginBottom,
   pl: paddingLeft,
   pr: paddingRight,
+  href,
   onClick = () => {},
   className,
   style,
@@ -83,6 +85,12 @@ const IconButton: React.FC<IconButtonProps> = ({
     setColors(colorSwitch(color, shade));
   }, [color, shade]);
 
+  const handleHref = () => {
+    if (href) {
+      window.location.href = href;
+    }
+  };
+
   if (!colors) {
     return null;
   }
@@ -90,7 +98,7 @@ const IconButton: React.FC<IconButtonProps> = ({
   return (
     <button
       className={clsx("collapse-button", className)}
-      onClick={onClick}
+      onClick={href ? handleHref : onClick}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       style={{

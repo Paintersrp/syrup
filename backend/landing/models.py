@@ -23,19 +23,23 @@ class HeroHeader(models.Model):
         help_text="Header",
     )
 
-    heading = CustomTextField(
+    subtitle = CustomTextField(
         max_length=500,
         md_column_count=6,
         verbose_name="Subtitle",
-        help_text="Subheader",
+        help_text="Subtitle",
         min_rows=3,
+        null=True,
+        blank=True,
     )
-    text = CustomTextField(
+    description = CustomTextField(
         max_length=500,
         md_column_count=6,
         verbose_name="Description",
         help_text="Description",
         min_rows=3,
+        null=True,
+        blank=True,
     )
     buttonText = CustomCharField(
         max_length=50,
@@ -70,18 +74,18 @@ class SectionHeader(models.Model):
         db_index=True,
     )
 
-    title = CustomCharField(
-        max_length=100,
-        md_column_count=6,
-        verbose_name="Header",
-        help_text="Header Text",
-    )
-
     subtitle = CustomCharField(
         max_length=100,
         md_column_count=6,
         verbose_name="Subheader",
         help_text="Subheader Text",
+    )
+
+    title = CustomCharField(
+        max_length=100,
+        md_column_count=6,
+        verbose_name="Header",
+        help_text="Header Text",
     )
 
     description = CustomTextField(

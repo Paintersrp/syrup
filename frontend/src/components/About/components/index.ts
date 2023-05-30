@@ -1,4 +1,6 @@
+import Paragraph from "./Paragraph/Paragraph";
+import Values from "./Values/Values";
+import AboutFAQ from "./AboutFAQ/AboutFAQ";
+
 export * from "./ImageHeader";
-export { default as Paragraph } from "./Paragraph/Paragraph";
-export { default as Values } from "./Values/Values";
-export { default as AboutFAQ } from "./AboutFAQ/AboutFAQ";
+export { Paragraph, Values, AboutFAQ };

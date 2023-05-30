@@ -1,9 +1,21 @@
-export { default as Carousel } from "./Carousel/Carousel";
-export { default as Collapser } from "./Collapser/Collapser";
-export { default as Container } from "./Container/Container";
-export { default as Content } from "./Content/Content";
-export { default as Flexer } from "./Flexer/Flexer";
-export { default as Item } from "./Item/Item";
-export { default as Page } from "./Page/Page";
-export { default as Section } from "./Section/Section";
-export { default as Surface } from "./Surface/Surface";
+import Carousel from "./Carousel/Carousel";
+import Collapser from "./Collapser/Collapser";
+import Container from "./Container/Container";
+import Content from "./Content/Content";
+import Flexer from "./Flexer/Flexer";
+import Item from "./Item/Item";
+import Page from "./Page/Page";
+import Section from "./Section/Section";
+import Surface from "./Surface/Surface";
+
+export {
+  Carousel,
+  Collapser,
+  Container,
+  Content,
+  Flexer,
+  Item,
+  Page,
+  Section,
+  Surface,
+};

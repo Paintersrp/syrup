@@ -1,0 +1,18 @@
+.tag {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 16px;
+  background-color: #e0e0e0;
+  color: #333;
+  font-size: 14px;
+  line-height: 1;
+  cursor: default;
+  transition: background-color 0.3s ease;
+}
+
+.tag-delete-icon {
+  margin-left: 2px;
+  font-size: 14px;
+  cursor: pointer;
+}

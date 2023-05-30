@@ -1,4 +1,6 @@
-export { default as AppDetails } from "./AppDetails/AppDetails";
-export { default as AppLinks } from "./AppLinks/AppLinks";
-export { default as AppStats } from "./AppStats/AppStats";
-export { default as PanelHeader } from "./PanelHeader/PanelHeader";
+import AppDetails from "./AppDetails/AppDetails";
+import AppLinks from "./AppLinks/AppLinks";
+import AppStats from "./AppStats/AppStats";
+import PanelHeader from "./PanelHeader/PanelHeader";
+
+export { AppDetails, AppLinks, AppStats, PanelHeader };

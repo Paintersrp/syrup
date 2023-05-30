@@ -1,15 +1,18 @@
-import React, { FC, useEffect, useState, useRef } from "react";
-import { Tooltip, FAB } from "../../../Base";
+import React, { FC, useEffect, useState } from "react";
+import { FAB, Tooltip } from "../../../../Base";
+
 import "./ScrollToTopFAB.css";
 
-function scrollToTop() {
+interface ScrollToTopFABProps {}
+
+const scrollToTop = () => {
   window.scrollTo({
     top: 0,
     behavior: "smooth",
   });
-}
+};
 
-export const ScrollToTopFAB: FC = () => {
+export const ScrollToTopFAB: FC<ScrollToTopFABProps> = () => {
   const [showFab, setShowFab] = useState(false);
 
   useEffect(() => {

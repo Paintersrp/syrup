@@ -30,7 +30,7 @@ const Input: React.FC<InputProps> = ({
   helpPosition = "top",
   value,
   onChange,
-  rows = 1,
+  rows = 4,
   multiline = false,
   required = false,
   error = false,
@@ -63,7 +63,7 @@ const Input: React.FC<InputProps> = ({
         </HelpText>
       )}
       <InputComponent
-        className={`${className} base-input`}
+        className={`${className} base-input ${InputComponent}`}
         id={id || name}
         name={name}
         value={value}
@@ -77,7 +77,7 @@ const Input: React.FC<InputProps> = ({
         onBlur={handleBlur}
         style={{
           ...inputStyle,
-          minHeight: multiline ? 169.5 : undefined,
+          minHeight: multiline ? 30 * rows : undefined,
           order: helpPosition === "top" ? 2 : 1,
         }}
       />

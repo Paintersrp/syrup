@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import "./AppDrawer.css";
 import {
   faBusinessTime,
@@ -9,6 +10,7 @@ import {
   faIdCard,
   faHome,
   faWrench,
+  faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { Flexer } from "../../../Containers";
@@ -21,7 +23,6 @@ import {
 
 import { ListItemDataType } from "../../../Base/Drawer/components/DrawerContent";
 import DrawerFooterLinks from "../../../Base/Drawer/components/DrawerFooterLinks";
-import { useSelector } from "react-redux";
 import { LogoutUser } from "../../../../utils";
 
 interface AppDrawerProps {
@@ -43,12 +44,24 @@ const AppDrawer: FC<AppDrawerProps> = ({
   companyIcon = undefined,
   companyTitle = undefined,
 }) => {
+  const dispatch = useDispatch();
   const auth: any = useSelector<any>((state) => state.auth);
+  const editmode: any = useSelector<any>((state) => state.editMode);
+
+  const handleEditClick = () => {
+    if (editmode.editMode) {
+      dispatch({ type: "TOGGLE_EDITMODE_OFF" });
+    } else {
+      dispatch({ type: "TOGGLE_EDITMODE_ON" });
+    }
+    handleClose();
+  };
 
   const handleLogout = () => {
     LogoutUser();
     handleClose();
   };
+
   const linkListItemData: ListItemDataType[] = [
     { text: "Home", to: "/", icon: faHome, onClick: handleClose },
     { text: "About", to: "/about", icon: faAddressCard, onClick: handleClose },
@@ -71,6 +84,12 @@ const AppDrawer: FC<AppDrawerProps> = ({
   ];
 
   const authedBottomListItemData: ListItemDataType[] = [
+    {
+      text: "Edit Mode",
+      to: "",
+      icon: faEdit,
+      onClick: handleEditClick,
+    },
     {
       text: "Admin",
       to: "/admin",

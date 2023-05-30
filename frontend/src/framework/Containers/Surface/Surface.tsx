@@ -67,6 +67,7 @@ const Surface: React.FC<SurfaceProps> = ({
     paddingLeft: paddingLeft * 8,
     marginBottom: gutter ? 16 : marginBottom,
     background: background,
+    borderRadius: borderRadius * 8,
     ...style,
   };
 
@@ -84,7 +85,7 @@ const Surface: React.FC<SurfaceProps> = ({
 
   return (
     <div style={containerStyle} id={id}>
-      <div className={className} style={contentStyle}>
+      <div style={contentStyle} className={className}>
         {children}
       </div>
     </div>

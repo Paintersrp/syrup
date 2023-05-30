@@ -97,7 +97,7 @@
 }
 
 .indicator.active {
-  background-color: #f00;
+  background-color: var(--color-secondary-main);
 }
 
 .autoplay-toggle {

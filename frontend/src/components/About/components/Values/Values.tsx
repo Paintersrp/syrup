@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import "./Values.css";
 
 import { Text } from "../../../../framework/Base";
@@ -14,9 +13,10 @@ export interface ValueType {
 }
 interface ValuesProps {
   valuesData: ValueType[];
+  editMode: boolean;
 }
 
-const Values: React.FC<ValuesProps> = ({ valuesData }) => {
+const Values: React.FC<ValuesProps> = ({ valuesData, editMode }) => {
   const [loading, setLoading] = useState(true);
   const [rowOne, setRowOne] = useState<ValueType[] | null>(null);
   const [rowTwo, setRowTwo] = useState<ValueType[] | null>(null);
@@ -47,20 +47,34 @@ const Values: React.FC<ValuesProps> = ({ valuesData }) => {
     <div className="values-root">
       <Flexer j="sb" className="values-container">
         <Text t="h3">Core Values</Text>
-        <ButtonBar adminLink="About" tooltipPosition="top" text="Values" />
+        {editMode && (
+          <ButtonBar adminLink="About" tooltipPosition="top" text="Values" />
+        )}
       </Flexer>
 
       <Flexer j="sb" fd="row" className="fade-in">
         <Flexer fd="column">
           {rowOne &&
             rowOne.map((value, index) => (
-              <Value key={value.id} value={value} index={index} start={0} />
+              <Value
+                key={value.id}
+                value={value}
+                index={index}
+                start={0}
+                editMode={editMode}
+              />
             ))}
         </Flexer>
         <Flexer fd="column" mt={32} mb={32}>
           {rowTwo &&
             rowTwo.map((value, index) => (
-              <Value key={value.id} value={value} index={index} start={1} />
+              <Value
+                key={value.id}
+                value={value}
+                index={index}
+                start={1}
+                editMode={editMode}
+              />
             ))}
         </Flexer>
       </Flexer>

@@ -4,21 +4,24 @@ import { Accordion, Tab, Tabs, Text } from "../../../../framework/Base";
 import { Flexer } from "../../../../framework/Containers";
 import { ButtonBar } from "../../../../framework/Prebuilt";
 
-interface AboutFAQProps {}
+interface AboutFAQProps {
+  editMode: boolean;
+}
 
-const AboutFAQ: React.FC<AboutFAQProps> = ({}) => {
+const AboutFAQ: React.FC<AboutFAQProps> = ({ editMode }) => {
   const [tabState, setTabState] = useState(0);
 
   return (
     <Flexer j="fs" a="fs" fd="column" mt={64} mb={64}>
       <Flexer j="sb" className="values-container">
         <Text t="h3">Frequently Asked Questions</Text>
-        <ButtonBar
-          editClick={() => console.log("Edit")}
-          adminLink="About"
-          tooltipPosition="top"
-        />
-        {/* {editMode && <AdminButton tooltipText="Values" link="value" />} */}
+        {editMode && (
+          <ButtonBar
+            editClick={() => console.log("Edit")}
+            adminLink="About"
+            tooltipPosition="top"
+          />
+        )}
       </Flexer>
       <Tabs>
         <Tab onClick={() => setTabState(0)} text="Tab 1" />

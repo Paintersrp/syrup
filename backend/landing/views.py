@@ -42,11 +42,11 @@ class LandingFullTestView(generics.GenericAPIView):
         return Response(data)
 
 
-class HeroBlockMainAPIView(
+class HeroHeaderMainAPIView(
     mixins.RetrieveModelMixin, mixins.UpdateModelMixin, generics.GenericAPIView
 ):
     queryset = HeroHeader.objects.all()
-    serializer_class = HeroBlockSerializer
+    serializer_class = HeroHeaderSerializer
 
     def get_object(self):
         return HeroHeader.objects.first()
@@ -61,46 +61,46 @@ class HeroBlockMainAPIView(
         return self.update(request, *args, **kwargs)
 
 
-class HeroBlockAPIView(BaseListView):
+class HeroHeaderAPIView(BaseListView):
     queryset = HeroHeader.objects.all()
-    serializer_class = HeroBlockSerializer
+    serializer_class = HeroHeaderSerializer
     model_class = HeroHeader
 
 
-class HeroBlockDetailAPIView(BaseDetailView):
+class HeroHeaderDetailAPIView(BaseDetailView):
     queryset = HeroHeader.objects.all()
-    serializer_class = HeroBlockSerializer
+    serializer_class = HeroHeaderSerializer
     model_class = HeroHeader
 
 
-class HeroBlockBulkAPIView(BaseBulkView):
+class HeroHeaderBulkAPIView(BaseBulkView):
     queryset = HeroHeader.objects.all()
-    serializer_class = HeroBlockSerializer
+    serializer_class = HeroHeaderSerializer
     model_class = HeroHeader
 
 
-class TitleBlockAPIView(BaseListView):
+class SectionHeaderAPIView(BaseListView):
     queryset = SectionHeader.objects.all()
-    serializer_class = TitleBlockSerializer
+    serializer_class = SectionHeaderSerializer
     model_class = SectionHeader
 
 
-class TitleBlockUpdateAPIView(BaseDetailView):
+class SectionHeaderUpdateAPIView(BaseDetailView):
     queryset = SectionHeader.objects.all()
-    serializer_class = TitleBlockSerializer
+    serializer_class = SectionHeaderSerializer
     model_class = SectionHeader
 
 
-class TitleBlockDetailAPIView(BaseDetailView):
+class SectionHeaderDetailAPIView(BaseDetailView):
     queryset = SectionHeader.objects.all()
-    serializer_class = TitleBlockSerializer
+    serializer_class = SectionHeaderSerializer
     model_class = SectionHeader
     lookup_field = "name"
 
 
-class TitleBlockBulkAPIView(BaseBulkView):
+class SectionHeaderBulkAPIView(BaseBulkView):
     queryset = SectionHeader.objects.all()
-    serializer_class = TitleBlockSerializer
+    serializer_class = SectionHeaderSerializer
     model_class = SectionHeader
 
 

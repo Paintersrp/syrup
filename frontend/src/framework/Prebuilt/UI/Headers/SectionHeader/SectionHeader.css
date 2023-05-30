@@ -1,0 +1,18 @@
+.section-header-subtitle {
+  font-size: 0.95rem !important;
+  font-weight: 600 !important;
+  color: var(--color-secondary-main);
+}
+
+.section-header-title {
+  font-size: 2rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px;
+}
+
+.section-header-description {
+  font-size: 0.95rem !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.1px !important;
+  margin-bottom: 16px;
+}

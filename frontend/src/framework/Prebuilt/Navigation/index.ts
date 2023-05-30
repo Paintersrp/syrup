@@ -1,3 +1,5 @@
-export { default as AppDrawer } from "./AppDrawer/AppDrawer";
-export { default as AppFooter } from "./AppFooter/AppFooter";
-export { default as AppNavbar } from "./AppNavbar/AppNavbar";
+import AppDrawer from "./AppDrawer/AppDrawer";
+import AppFooter from "./AppFooter/AppFooter";
+import AppNavbar from "./AppNavbar/AppNavbar";
+
+export { AppDrawer, AppFooter, AppNavbar };

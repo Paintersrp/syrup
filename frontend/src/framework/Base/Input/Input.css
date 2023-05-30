@@ -44,13 +44,11 @@
 }
 
 .base-input[type="number"] {
-  /* Firefox */
   appearance: textfield;
 }
 
 .base-input[type="number"]::-webkit-inner-spin-button,
 .base-input[type="number"]::-webkit-outer-spin-button {
-  /* WebKit/Blink */
   -webkit-appearance: none;
   margin: 0;
 }

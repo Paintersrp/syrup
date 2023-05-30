@@ -1,1 +1,3 @@
-export { default as ImageHeaderEdit } from "./ImageHeaderEdit/ImageHeaderEdit";
+import ImageHeaderEdit from "./ImageHeaderEdit/ImageHeaderEdit";
+
+export { ImageHeaderEdit };

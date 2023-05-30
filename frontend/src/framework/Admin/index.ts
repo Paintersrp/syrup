@@ -1,2 +1,4 @@
-export { default as MainDashboard } from "./MainDashboard/MainDashboard";
-export { default as AppDashboard } from "./AppDashboard/AppDashboard";
+import AppDashboard from "./AppDashboard/AppDashboard";
+import MainDashboard from "./MainDashboard/MainDashboard";
+
+export { AppDashboard, MainDashboard };

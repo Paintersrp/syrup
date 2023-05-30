@@ -10,7 +10,8 @@ export type TextType =
   | "subtitle1"
   | "subtitle2"
   | "body1"
-  | "body2";
+  | "body2"
+  | "button";
 
 export type AlignmentValue = "l" | "left" | "r" | "right" | "c" | "center";
 export type TextAlign = "left" | "right" | "center";
@@ -68,6 +69,7 @@ const typeSwitch = (type: TextType): keyof JSX.IntrinsicElements => {
     case "subtitle2":
     case "body1":
     case "body2":
+    case "button":
       return "p";
     default:
       return "p";

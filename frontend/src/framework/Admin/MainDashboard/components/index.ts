@@ -1,3 +1,5 @@
-export { default as RenderSections } from "./RenderSections/RenderSections";
-export { default as RenderModels } from "./RenderModels/RenderModels";
-export { RenderIcon } from "./RenderIcon/RenderIcon";
+import { RenderIcon } from "./RenderIcon/RenderIcon";
+import RenderModels from "./RenderModels/RenderModels";
+import RenderSections from "./RenderSections/RenderSections";
+
+export { RenderIcon, RenderModels, RenderSections };

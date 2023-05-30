@@ -1,2 +1,4 @@
-export { default as Login } from "./Login/Login";
-export { default as Register } from "./Register/Register";
+import Login from "./Login/Login";
+import Register from "./Register/Register";
+
+export { Login, Register };

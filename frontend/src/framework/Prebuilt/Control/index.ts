@@ -1,3 +1,5 @@
-export { default as ButtonBar } from "./ButtonBar/ButtonBar";
-export { default as ConfirmCancelBar } from "./ConfirmCancelBar/ConfirmCancelBar";
-export { default as ConfirmationModal } from "./ConfirmationModal/ConfirmationModal";
+import ButtonBar from "./ButtonBar/ButtonBar";
+import ConfirmCancelBar from "./ConfirmCancelBar/ConfirmCancelBar";
+import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
+
+export { ButtonBar, ConfirmCancelBar, ConfirmationModal };

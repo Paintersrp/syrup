@@ -64,7 +64,9 @@ const AppFooter: FC = ({}) => {
                   disabled={state === "success"}
                   color="secondary"
                   size="md"
-                  style={{ marginTop: 16, fontSize: "1rem", width: 105 }}
+                  mt={16}
+                  w={105}
+                  style={{ fontSize: "1rem" }}
                   onClick={() =>
                     setState(state === "success" ? "initial" : "success")
                   }

@@ -7,17 +7,21 @@ import { Container, Content, Flexer, Item, Page } from "../../Containers";
 import { AppDetails, AppLinks, AppStats } from "./components";
 import { ApiAxiosInstance } from "../../../utils";
 
-function AppDashboard() {
-  const [models, setModels] = useState({});
-  const [config, setConfig] = useState<any>({});
-  const [linksOpen, setLinksOpen] = useState(false);
-  const [appOpen, setAppOpen] = useState(false);
-  const [appStatsOpen, setAppStatsOpen] = useState(false);
-  const [collapsed, setCollapsed] = useState(false);
-  const { str } = useParams();
+interface AppDashboardProps {
+  str?: string;
+}
 
-  const [recentActions, setRecentActions] = useState([]);
-  const [actionsOpen, setActionsOpen] = useState(false);
+const AppDashboard: React.FC<AppDashboardProps> = ({ str }) => {
+  const [models, setModels] = useState<{}>({});
+  const [config, setConfig] = useState<any>({});
+  const [linksOpen, setLinksOpen] = useState<boolean>(false);
+  const [appOpen, setAppOpen] = useState<boolean>(false);
+  const [appStatsOpen, setAppStatsOpen] = useState<boolean>(false);
+  const [collapsed, setCollapsed] = useState<boolean>(false);
+  const { str: paramStr } = useParams();
+
+  const [recentActions, setRecentActions] = useState<any[]>([]);
+  const [actionsOpen, setActionsOpen] = useState<boolean>(false);
 
   const handleCollapseAll = () => {
     setAppOpen(false);
@@ -141,6 +145,6 @@ function AppDashboard() {
       </Content>
     </Page>
   );
-}
+};
 
 export default AppDashboard;

@@ -103,5 +103,5 @@ class PostAdmin(admin.ModelAdmin):
         obj.save()
 
 
-admin.site.register(Post, PostAdmin)
+admin.site.register(Post)
 admin.site.register(PostTag)

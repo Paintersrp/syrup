@@ -3,94 +3,94 @@ import { ApiAxiosInstance } from "../../utils";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Page } from "../../framework/Containers";
-import { Hero } from "./components";
+import { Hero, LatestPosts, Processes } from "./components";
 
-function Landing({}) {
+interface LandingProps {}
+
+const Landing: React.FC<LandingProps> = () => {
   const dispatch: any = useDispatch();
+  const editMode: boolean = useSelector(
+    (state: any) => state.editMode.editMode
+  );
 
-  const [error, setError] = useState();
-  const [data, setData] = useState({});
-  const [heroData, setHeroData] = useState({});
-  const [processData, setProcessData] = useState({});
-  const [newsData, setNewsData] = useState({});
-  const [serviceData, setServiceData] = useState({});
-  const [contactData, setContactData] = useState({});
-  const [socialsData, setSocialsData] = useState({});
-  const [processBlock, setProcessBlock] = useState([]);
-  const [newsBlock, setNewsBlock] = useState([]);
+  const [ready, setReady] = useState(false);
+  const [error, setError] = useState<any>();
   const [editing, setEditing] = useState(false);
-  const editmode = useSelector<any>((state) => state.editmode);
+
+  const [heroData, setHeroData] = useState<any>({});
+
+  const [contactData, setContactData] = useState<any>({});
+  const [socialsData, setSocialsData] = useState<any>({});
+
+  const [serviceData, setServiceData] = useState<any>({});
+
+  const [processData, setProcessData] = useState<any>({});
+  const [processHeader, setProcessHeader] = useState<any[]>([]);
+
+  const [postsData, setPostsData] = useState<any>({});
+  const [postsHeader, setPostsHeader] = useState<any[]>([]);
 
   useEffect(() => {
     dispatch({ type: "FETCH_DATA_REQUEST" });
     const fetchData = async () => {
-      ApiAxiosInstance.get("/landing/")
-        .then((response) => {
-          setData(response.data);
-          setHeroData(response.data.HeroBlock);
-          setProcessData(response.data.Process);
-          setProcessBlock(
-            response.data.TitleBlock.find((tb) => tb.name === "process")
-          );
-          setNewsBlock(
-            response.data.TitleBlock.find((tb) => tb.name === "news")
-          );
-          setNewsData(response.data.Articles);
-          setContactData(response.data.ContactInformation);
-          setSocialsData(response.data.Socials);
-          setServiceData(response.data.ServiceTier);
-          dispatch({ type: "FETCH_DATA_SUCCESS" });
-        })
-        .catch((err) => {
-          console.log("ERROR: ", err);
-          setError(err.error);
-        })
-        .then(dispatch({ type: "FETCH_DATA_FAILURE" }));
+      try {
+        const response = await ApiAxiosInstance.get("/landing/");
+        setHeroData(response.data.HeroHeader);
+
+        setContactData(response.data.ContactInformation);
+        setSocialsData(response.data.Socials);
+
+        setServiceData(response.data.ServiceTier);
+
+        setProcessData(response.data.Process);
+        setProcessHeader(
+          response.data.SectionHeader.find((tb: any) => tb.name === "process")
+        );
+
+        setPostsData(response.data.Post);
+        setPostsHeader(
+          response.data.SectionHeader.find((tb: any) => tb.name === "news")
+        );
+
+        dispatch({ type: "FETCH_DATA_SUCCESS" });
+        setReady(true);
+      } catch (err) {
+        setError(err);
+        dispatch({ type: "FETCH_DATA_FAILURE" });
+      }
     };
     fetchData();
-  }, []);
+  }, [dispatch]);
 
-  //   if (error) {
-  //     return (
-  //       <ErrorPage
-  //         message={error.message}
-  //         description={error.description}
-  //         instructions={error.instructions}
-  //         thanks={error.thanks}
-  //       />
-  //     );
-  //   }
+  if (!ready) {
+    return null;
+  }
 
   return (
     <Page>
-      <Hero />
-      {/*
-      <FABMenu
-        editing={editing}
-        setEditing={setEditing}
-        handleUpdate={handleUpdate}
+      <Hero
+        data={heroData}
+        editMode={editMode}
+        contactData={contactData}
+        socialsData={socialsData}
       />
-      {Object.keys(data).length > 0 && (
-        <>
-          <Hero
-            data={data.HeroBlock}
-            contactData={data.ContactInformation}
-            socialData={data.Socials}
-            editMode={editmode.editMode}
-            form={true}
-          />
-          <Pricing serviceData={serviceData} />
-          <Processes
-            processData={processData}
-            blockData={data.TitleBlock.find((tb) => tb.name === "process")}
-          />
-          <LatestNews articlesData={newsData} blockData={newsBlock} />
-          <NewsletterForm editMode={editmode.editMode} />
-          <IconScroller />
-        </>
-      )} */}
+      {/* <Pricing serviceData={serviceData} />  */}
+      <Processes
+        processData={processData}
+        headerData={processHeader}
+        editMode={editMode}
+      />
+      <LatestPosts
+        postsData={postsData}
+        headerData={postsHeader}
+        editMode={editMode}
+      />
+      {/*                     
+          <NewsletterForm editMode={editMode} />
+          <IconScroller />       
+       */}
     </Page>
   );
-}
+};
 
 export default Landing;

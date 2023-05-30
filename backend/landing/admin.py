@@ -8,7 +8,7 @@ admin_site.site_header = "EDGELORDS"
 
 
 class CustomHeroBlockAdmin(admin.ModelAdmin):
-    list_display = ("title", "heading", "text", "buttonText")
+    list_display = ("title", "subtitle", "description", "buttonText")
 
 
 class CustomProcessAdmin(admin.ModelAdmin):

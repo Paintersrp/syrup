@@ -1,2 +1,4 @@
-export { default as ImageHeader } from "./ImageHeader";
+import ImageHeader from "./ImageHeader";
+
 export * from "./components";
+export { ImageHeader };

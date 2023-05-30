@@ -53,6 +53,7 @@ interface FlexerProps {
   style?: CSSProperties;
   className?: string;
   noSpacing?: boolean;
+  fade?: boolean;
 }
 
 const Flexer: React.FC<FlexerProps> = ({
@@ -68,10 +69,11 @@ const Flexer: React.FC<FlexerProps> = ({
   children,
   style,
   className,
+  fade = false,
 }) => {
   return (
     <div
-      className={className}
+      className={`${className} ${fade ? "fade-in" : ""}`}
       style={{
         ...style,
         width: width,
