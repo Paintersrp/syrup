@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./AppNavbar.css";
 
-import { ActionButton, MaterialIcon, Navbar, Text } from "../../../Base";
+import { ActionButton, Navbar, Text } from "../../../Base";
 import { Flexer } from "../../../Containers";
 
 import LogoutUser from "../../../../utils/helpers/LogoutUser";
 import { LinkType } from "../../../../config/links";
+import { palettes } from "../../../../theme";
 
 interface AppNavbarProps {
   menuButton?: boolean;
@@ -38,6 +39,7 @@ const AppNavbar: FC<AppNavbarProps> = ({
             position: "absolute",
             marginLeft: !menuOpen ? 12 : 12 + drawerSize,
           }}
+          iconStyle={{ color: palettes.secondary.main }}
           className="menu-button"
           type="menu"
         />

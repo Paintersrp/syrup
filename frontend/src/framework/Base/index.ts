@@ -45,7 +45,7 @@ import Input from "./Input/Input";
 import ImageInput from "./ImageInput/ImageInput";
 import RichTextInput from "./RichTextInput/RichTextInput";
 import Select from "./Select/Select";
-import Option from "./Select/Select";
+import Option from "./Option/Option";
 export { Input, ImageInput, RichTextInput, Select, Option };
 
 // List Components
@@ -76,13 +76,24 @@ import { SpeedDial, SpeedDialItem } from "./SpeedDial/SpeedDial";
 export { SpeedDial, SpeedDialItem };
 
 // Table Components
+import TableSortCell from "./TableSortCell/TableSortCell";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "./Table/Table";
 export {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-} from "./Table/Table";
+  TableSortCell,
+};
 
 // Tab Components
 import Tab from "./Tabs/Tab";
@@ -101,6 +112,10 @@ import HelpText from "./HelpText/HelpText";
 import Text from "./Text/Text";
 export { HelpText, Text };
 
+//ToggleButton Components
+import ToggleButton from "./ToggleButton/ToggleButton";
+import ToggleButtonGroup from "./ToggleButtonGroup/ToggleButtonGroup";
+export { ToggleButton, ToggleButtonGroup };
 // Tooltip Components
 import Tooltip from "./Tooltip/Tooltip";
 export { Tooltip };

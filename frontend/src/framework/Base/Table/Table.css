@@ -1,48 +1,91 @@
-.table-root {
+.table-container {
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+}
+
+.table-root-small {
   width: 100%;
   border-collapse: collapse;
   font-family: Arial, sans-serif;
   font-size: 14px;
 }
 
+.table-root-medium {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.table-root-large {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.table-root-small .table-head .table-row .table-cell {
+  padding: 2px;
+}
+
+.table-root-small .table-body .table-row .table-cell {
+  padding: 2px;
+}
+
+.table-root-medium .table-head .table-row .table-cell {
+  padding: 4px;
+}
+
+.table-root-medium .table-body .table-row .table-cell {
+  padding: 4px;
+}
+
+.table-root-large .table-head .table-row .table-cell {
+  padding: 8px;
+}
+
+.table-root-large .table-body .table-row .table-cell {
+  padding: 8px;
+}
+
+.table-root-xlarge .table-head .table-row .table-cell {
+  padding: 12px;
+}
+
+.table-root-xlarge .table-body .table-row .table-cell {
+  padding: 12px;
+}
+
 .table-head {
   background-color: #f2f2f2;
 }
 
-.table-row {
-  background-color: #ffffff;
-  transition: background-color 0.3s ease-in-out;
+.table-row .table-cell {
+  background-color: #f5f5f5;
 }
 
-.table-row:hover {
+.table-cell:hover {
   background-color: #f8f8f8;
 }
 
 .table-cell {
-  padding: 16px;
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid var(--color-text-min-visible);
+  border-right: 1px solid var(--color-text-min-visible);
   color: #333333;
-  text-align: left;
+  transition: background-color 0.1s ease;
 }
 
 .table-cell:first-child {
-  border-left: 1px solid #e0e0e0;
+  border-left: none;
 }
 
 .table-cell:last-child {
-  border-right: 1px solid #e0e0e0;
-}
-
-.table-cell:nth-child(odd) {
-  background-color: #f6f6f6;
-}
-
-.table-cell:nth-child(even) {
-  background-color: #ffffff;
+  border-right: none;
 }
 
 @media (max-width: 768px) {
   .table-cell {
-    padding: 12px;
+    padding: 4px;
   }
 }

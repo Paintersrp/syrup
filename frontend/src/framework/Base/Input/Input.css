@@ -4,9 +4,25 @@
   width: 100%;
 }
 
+.input-small {
+  padding: 2px;
+  padding-left: 6px;
+}
+.input-medium {
+  padding: 4px;
+  padding-left: 6px;
+}
+.input-large {
+  padding: 8px;
+  padding-left: 6px;
+}
+.input-xlarge {
+  padding: 12px;
+  padding-left: 6px;
+}
+
 .base-input {
   width: 100%;
-  padding: 8px;
   font-size: 0.9rem;
   line-height: 1.5;
   color: #495057;

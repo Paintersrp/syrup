@@ -26,7 +26,6 @@ const LatestPosts: React.FC<LatestPostsProps> = ({
           editMode={editMode}
           formTitle="Edit Latest Posts Header"
         />
-
         <PostCards
           posts={postsData}
           // carousel={isSmallScreen ? true : false}

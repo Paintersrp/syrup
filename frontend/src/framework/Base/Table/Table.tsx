@@ -8,15 +8,55 @@ type SharedTableProps = {
   style?: CSSProperties;
 };
 
+type TableContainerProps = SharedTableProps & {
+  mb?: CSSProperties["marginBottom"];
+  mt?: CSSProperties["marginTop"];
+  minWidth?: CSSProperties["minWidth"];
+};
+
+type TableProps = SharedTableProps & {
+  size?: "small" | "medium" | "large" | "xlarge";
+};
+
 type TableCellProps = SharedTableProps & {
   a?: "left" | "center" | "right";
   fw?: CSSProperties["fontWeight"];
   s?: CSSProperties["fontSize"];
 };
 
-const Table: React.FC<SharedTableProps> = ({ children, className, style }) => {
+const TableContainer: React.FC<TableContainerProps> = ({
+  children,
+  className,
+  style,
+  mb: marginBottom,
+  mt: marginTop,
+  minWidth,
+}) => {
   return (
-    <table className={`table-root ${className}`} style={style}>
+    <div
+      className={`table-container ${className}`}
+      style={{
+        ...style,
+        marginBottom: marginBottom,
+        marginTop: marginTop,
+        minWidth: minWidth,
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+const Table: React.FC<TableProps> = ({
+  children,
+  className,
+  style,
+  size = "medium",
+}) => {
+  return (
+    <table
+      className={`table-root${size ? `-${size}` : ""} ${className}`}
+      style={style}
+    >
       {children}
     </table>
   );
@@ -79,4 +119,4 @@ const TableCell: React.FC<TableCellProps> = ({
   );
 };
 
-export { Table, TableHead, TableRow, TableCell, TableBody };
+export { Table, TableContainer, TableHead, TableRow, TableCell, TableBody };

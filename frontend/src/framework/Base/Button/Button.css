@@ -10,8 +10,9 @@
 }
 
 .button-base.disabled {
-  opacity: 0.8;
+  opacity: 0.5;
   pointer-events: none;
+  cursor: not-allowed !important;
 }
 
 .button-icon {

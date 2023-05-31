@@ -9,10 +9,7 @@
   border: 1px solid #e6e6e6;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 999;
-  min-width: 100px;
   display: flex;
-  flex-wrap: nowrap;
-  white-space: nowrap;
   border-radius: 4px;
   animation-duration: 0.3s;
   animation-timing-function: ease-in-out;

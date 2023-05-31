@@ -10,7 +10,16 @@
   border-radius: 4px;
   cursor: pointer;
   text-align: left;
-  padding-left: 12px;
+  transition: background-color 0.3s;
+  display: flex;
+  align-items: center;
+}
+.selected-option-dense {
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
   transition: background-color 0.3s;
   display: flex;
   align-items: center;
@@ -76,21 +85,6 @@
   to {
     opacity: 1;
   }
-}
-
-.option {
-  padding: 8px;
-  cursor: pointer;
-  text-align: left;
-  padding-left: 12px;
-  transition: background-color 0.3s;
-  z-index: 9999;
-}
-
-.option:hover,
-.option:focus,
-.option.selected {
-  background-color: #f5f5f5;
 }
 
 .hidden-select {

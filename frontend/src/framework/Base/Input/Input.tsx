@@ -20,6 +20,7 @@ interface InputProps {
   style?: React.CSSProperties;
   inputStyle?: React.CSSProperties;
   className?: string;
+  size?: "small" | "medium" | "large" | "xlarge";
 }
 
 const Input: React.FC<InputProps> = ({
@@ -38,6 +39,7 @@ const Input: React.FC<InputProps> = ({
   style,
   inputStyle,
   className = "",
+  size = "large",
 }) => {
   const [focused, setFocused] = useState<boolean>(false);
 
@@ -63,7 +65,7 @@ const Input: React.FC<InputProps> = ({
         </HelpText>
       )}
       <InputComponent
-        className={`${className} base-input ${InputComponent}`}
+        className={`${className} base-input ${InputComponent} input-${size}`}
         id={id || name}
         name={name}
         value={value}

@@ -9,6 +9,7 @@ interface ListItemTextOnlyProps {
   subtext?: string;
   textAlign?: "left" | "right" | "center";
   to?: string;
+  noGutters?: boolean;
 }
 
 const ListItemTextOnly: FC<ListItemTextOnlyProps> = ({
@@ -16,6 +17,7 @@ const ListItemTextOnly: FC<ListItemTextOnlyProps> = ({
   subtext,
   textAlign = "left",
   to,
+  noGutters,
 }) => {
   return (
     <React.Fragment>
@@ -24,8 +26,8 @@ const ListItemTextOnly: FC<ListItemTextOnlyProps> = ({
           <Flexer
             fd="column"
             style={{
-              marginRight: textAlign === "right" ? 16 : 0,
-              marginLeft: textAlign !== "right" ? 16 : 0,
+              marginRight: noGutters ? 0 : textAlign === "right" ? 16 : 0,
+              marginLeft: noGutters ? 0 : textAlign !== "right" ? 16 : 0,
             }}
           >
             <Text t="h5" a={textAlign}>
@@ -42,8 +44,8 @@ const ListItemTextOnly: FC<ListItemTextOnlyProps> = ({
         <Flexer
           fd="column"
           style={{
-            marginRight: textAlign === "right" ? 16 : 0,
-            marginLeft: textAlign !== "right" ? 16 : 0,
+            marginRight: noGutters ? 0 : textAlign === "right" ? 16 : 0,
+            marginLeft: noGutters ? 0 : textAlign !== "right" ? 16 : 0,
           }}
         >
           <Text t="h5" a={textAlign}>

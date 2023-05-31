@@ -12,7 +12,7 @@ interface CheckboxProps {
   style?: CSSProperties;
   mt?: CSSProperties["marginTop"];
   mb?: CSSProperties["marginBottom"];
-  invert: boolean;
+  invert?: boolean;
 }
 
 const Checkbox: React.FC<CheckboxProps> = ({
@@ -41,20 +41,22 @@ const Checkbox: React.FC<CheckboxProps> = ({
         className="checkbox__checkmark"
         style={{
           order: invert ? 2 : 1,
-          marginRight: invert ? 0 : 8,
-          marginLeft: invert ? 8 : 0,
+          marginRight: !label ? 0 : invert ? 0 : 8,
+          marginLeft: !label ? 0 : invert ? 8 : 0,
         }}
       >
         {checked && <FontAwesomeIcon icon={faCheck} />}
       </span>
-      <HelpText
-        a={invert ? "r" : "l"}
-        mt={0}
-        mb={0}
-        style={{ order: invert ? 1 : 2 }}
-      >
-        {label}
-      </HelpText>
+      {label && (
+        <HelpText
+          a={invert ? "r" : "l"}
+          mt={0}
+          mb={0}
+          style={{ order: invert ? 1 : 2 }}
+        >
+          {label}
+        </HelpText>
+      )}
     </label>
   );
 };

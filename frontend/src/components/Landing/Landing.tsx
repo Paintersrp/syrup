@@ -3,7 +3,7 @@ import { ApiAxiosInstance } from "../../utils";
 import { useDispatch, useSelector } from "react-redux";
 
 import { Page } from "../../framework/Containers";
-import { Hero, LatestPosts, Processes } from "./components";
+import { Hero, LatestPosts, Processes, Services } from "./components";
 
 interface LandingProps {}
 
@@ -74,7 +74,8 @@ const Landing: React.FC<LandingProps> = () => {
         contactData={contactData}
         socialsData={socialsData}
       />
-      {/* <Pricing serviceData={serviceData} />  */}
+      {/* <Services serviceData={serviceData} />  */}
+      <Services />
       <Processes
         processData={processData}
         headerData={processHeader}

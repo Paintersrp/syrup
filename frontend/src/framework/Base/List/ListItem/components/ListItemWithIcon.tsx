@@ -13,6 +13,7 @@ interface ListItemWithIconProps {
   iconColor?: string;
   textAlign?: "left" | "right" | "center";
   to?: string;
+  noGutters?: boolean;
 }
 
 const ListItemWithIcon: FC<ListItemWithIconProps> = ({
@@ -22,6 +23,7 @@ const ListItemWithIcon: FC<ListItemWithIconProps> = ({
   iconColor = "primary",
   textAlign = "left",
   to,
+  noGutters,
 }) => {
   return (
     <React.Fragment>
@@ -35,16 +37,29 @@ const ListItemWithIcon: FC<ListItemWithIconProps> = ({
               style={{
                 order: textAlign === "right" || textAlign === "center" ? 0 : 2,
               }}
-              mr={textAlign !== "right" ? 16 : 0}
-              ml={textAlign === "right" ? 16 : textAlign === "center" ? 24 : 0}
+              mr={noGutters ? 0 : textAlign !== "right" ? 16 : 0}
+              ml={
+                noGutters
+                  ? 0
+                  : textAlign === "right"
+                  ? 16
+                  : textAlign === "center"
+                  ? 24
+                  : 0
+              }
             />
             <Flexer
               fd="column"
               style={{
                 order: textAlign === "right" ? 1 : 0,
-                marginRight:
-                  textAlign === "right" ? 16 : textAlign === "center" ? 62 : 0,
-                marginLeft: textAlign === "left" ? 16 : 0,
+                marginRight: noGutters
+                  ? 0
+                  : textAlign === "right"
+                  ? 16
+                  : textAlign === "center"
+                  ? 62
+                  : 0,
+                marginLeft: noGutters ? 0 : textAlign === "left" ? 16 : 0,
               }}
             >
               <Text t="h5" a={textAlign}>
@@ -67,16 +82,29 @@ const ListItemWithIcon: FC<ListItemWithIconProps> = ({
             style={{
               order: textAlign === "right" || textAlign === "center" ? 0 : 2,
             }}
-            mr={textAlign !== "right" ? 16 : 0}
-            ml={textAlign === "right" ? 16 : textAlign === "center" ? 24 : 0}
+            mr={noGutters ? 0 : textAlign !== "right" ? 16 : 0}
+            ml={
+              noGutters
+                ? 0
+                : textAlign === "right"
+                ? 16
+                : textAlign === "center"
+                ? 24
+                : 0
+            }
           />
           <Flexer
             fd="column"
             style={{
               order: textAlign === "right" ? 1 : 0,
-              marginRight:
-                textAlign === "right" ? 16 : textAlign === "center" ? 62 : 0,
-              marginLeft: textAlign === "left" ? 16 : 0,
+              marginRight: noGutters
+                ? 0
+                : textAlign === "right"
+                ? 16
+                : textAlign === "center"
+                ? 62
+                : 0,
+              marginLeft: noGutters ? 0 : textAlign === "left" ? 16 : 0,
             }}
           >
             <Text t="h5" a={textAlign}>

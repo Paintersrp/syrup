@@ -1,0 +1,12 @@
+.sort-cell-root {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+}
+
+/* "&:hover": {
+        color: "blue", // Update with your desired hover color
+      } */

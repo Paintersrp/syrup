@@ -17,6 +17,7 @@ interface ListItemProps {
   iconColor?: string;
   textAlign?: "left" | "right" | "center";
   to?: string;
+  noGutters?: boolean;
 }
 
 const ListItem: FC<ListItemProps> = ({
@@ -30,6 +31,7 @@ const ListItem: FC<ListItemProps> = ({
   iconColor = "primary",
   textAlign = "left",
   to,
+  noGutters,
 }) => {
   return (
     <div
@@ -45,6 +47,7 @@ const ListItem: FC<ListItemProps> = ({
           iconColor={iconColor}
           textAlign={textAlign}
           to={to}
+          noGutters={noGutters}
         />
       ) : (
         <ListItemTextOnly
@@ -52,6 +55,7 @@ const ListItem: FC<ListItemProps> = ({
           subtext={subtext}
           textAlign={textAlign}
           to={to}
+          noGutters={noGutters}
         />
       )}
     </div>

@@ -5,9 +5,13 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   Text,
+  ToggleButton,
+  ToggleButtonGroup,
+  Tooltip,
   TransferList,
   TreeNode,
 } from "../../framework/Base";
@@ -46,6 +50,15 @@ const WIP: React.FC<WIPProps> = ({}) => {
 
   const handleItemClick = (label: string) => {
     console.log(`Clicked on "${label}"`);
+  };
+
+  const [selectedValueToggle, setSelectedValueToggle] = useState<string | null>(
+    null
+  );
+
+  const handleValueChange = (value: string | null) => {
+    console.log(value);
+    setSelectedValueToggle(value);
   };
 
   return (
@@ -142,7 +155,7 @@ const WIP: React.FC<WIPProps> = ({}) => {
 
         {/* .. */}
 
-        <Surface maxWidth={1000} j="c" a="c" boxShadow={1} mb={8} py={0} px={0}>
+        <TableContainer mt={20} mb={40} minWidth={600}>
           <Table>
             <TableHead>
               <TableRow>
@@ -165,7 +178,17 @@ const WIP: React.FC<WIPProps> = ({}) => {
               ))}
             </TableBody>
           </Table>
-        </Surface>
+        </TableContainer>
+        <ToggleButtonGroup
+          value={selectedValueToggle}
+          onChange={handleValueChange}
+        >
+          <ToggleButton value="option1">Option 1</ToggleButton>
+
+          <ToggleButton value="option2">Option 2</ToggleButton>
+          <ToggleButton value="option3">Option 3</ToggleButton>
+        </ToggleButtonGroup>
+        <p>Selected Value: {selectedValueToggle}</p>
       </Flexer>
     </Page>
   );

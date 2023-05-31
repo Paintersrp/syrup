@@ -1,4 +1,10 @@
-import React, { useState, useRef, useEffect, ReactNode } from "react";
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  ReactNode,
+  CSSProperties,
+} from "react";
 import "./Menu.css";
 
 import Button from "../Button/Button";
@@ -10,6 +16,7 @@ interface MenuProps {
   manualButton?: ReactNode;
   dividers?: boolean;
   buttonText?: string;
+  style?: CSSProperties;
 }
 
 const Menu: React.FC<MenuProps> = ({
@@ -18,6 +25,7 @@ const Menu: React.FC<MenuProps> = ({
   manualButton,
   dividers = false,
   buttonText = "Open Menu",
+  style,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -40,28 +48,31 @@ const Menu: React.FC<MenuProps> = ({
   };
 
   const getMenuStyle = () => {
-    const style: React.CSSProperties = { display: getMenuPosition() };
+    const menuStyle: React.CSSProperties = {
+      display: getMenuPosition(),
+      ...style,
+    };
 
     if (position.includes("top")) {
-      style.bottom = "100%";
-      style.marginBottom = "5px";
+      menuStyle.bottom = "100%";
+      menuStyle.marginBottom = "5px";
     } else {
-      style.top = "100%";
-      style.marginTop = "5px";
+      menuStyle.top = "100%";
+      menuStyle.marginTop = "5px";
     }
 
     if (position.includes("left")) {
-      style.left = "0";
-      style.transform = "translateX(-90%)";
+      menuStyle.left = "0";
+      menuStyle.transform = "translateX(-90%)";
     } else if (position.includes("right")) {
-      style.right = "0";
-      style.transform = "translateX(90%)";
+      menuStyle.right = "0";
+      menuStyle.transform = "translateX(90%)";
     } else {
-      style.left = "50%";
-      style.transform = "translateX(-50%)";
+      menuStyle.left = "50%";
+      menuStyle.transform = "translateX(-50%)";
     }
 
-    return style;
+    return menuStyle;
   };
 
   useEffect(() => {

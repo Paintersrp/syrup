@@ -1,5 +1,12 @@
 import ButtonBar from "./ButtonBar/ButtonBar";
 import ConfirmCancelBar from "./ConfirmCancelBar/ConfirmCancelBar";
 import ConfirmationModal from "./ConfirmationModal/ConfirmationModal";
+import { Pagination, usePagination } from "./Pagination";
 
-export { ButtonBar, ConfirmCancelBar, ConfirmationModal };
+export {
+  Pagination,
+  usePagination,
+  ButtonBar,
+  ConfirmCancelBar,
+  ConfirmationModal,
+};

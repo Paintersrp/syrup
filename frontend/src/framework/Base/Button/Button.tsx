@@ -49,6 +49,7 @@ interface ButtonProps {
   ariaControls?: string;
   ariaPressed?: boolean | "mixed";
   iconSize?: CSSProperties["fontSize"];
+  textSize?: CSSProperties["fontSize"];
 }
 
 const sizeSwitch = (size: ButtonSize): string => {
@@ -97,6 +98,7 @@ const Button: React.FC<ButtonProps> = ({
   ariaControls,
   ariaPressed,
   iconSize = "18px",
+  textSize = "0.85rem",
 }) => {
   const [colors, setColors] = useState<ColorState>(colorSwitch(color, shade));
   const [hover, setHover] = useState<boolean>(false);
@@ -153,7 +155,7 @@ const Button: React.FC<ButtonProps> = ({
             color="#f5f5f5"
           />
         )}
-        <Text a="c" t="button" fw="600" s="0.85rem">
+        <Text a="c" t="button" fw="600" s={textSize}>
           {children}
         </Text>
         {endIcon && (

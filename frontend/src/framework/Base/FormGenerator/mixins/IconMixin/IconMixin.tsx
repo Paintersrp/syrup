@@ -1,8 +1,8 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import { Flexer } from "../../../../Containers";
-import HelpText from "../../../HelpText/HelpText";
 import MaterialIcon, { ICON_OPTIONS } from "../../../Icon/MaterialIcon";
-import Select, { Option } from "../../../Select/Select";
+import Option from "../../../Option/Option";
+import Select from "../../../Select/Select";
 import Text from "../../../Text/Text";
 
 interface IconMixin {

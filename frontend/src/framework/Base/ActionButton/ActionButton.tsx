@@ -10,7 +10,7 @@ import {
   faEdit,
   faTrashAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import IconButton from "../IconButton/IconButton";
 
 interface ActionButtonProps {
@@ -53,7 +53,7 @@ const ActionButton: FC<ActionButtonProps> = ({
   iconStyle,
   type = "menu",
 }) => {
-  const getIconByType = (type: ActionButtonProps["type"]): IconProp => {
+  const getIconByType = (type: ActionButtonProps["type"]): IconDefinition => {
     switch (type) {
       case "menu":
         return faBars;

@@ -4,6 +4,7 @@ import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { colorSwitch } from "../../../utils/switches/styleSwitches";
 import clsx from "clsx";
 import "./IconButton.css";
+import MaterialIcon from "../Icon/MaterialIcon";
 
 type Shade = "light" | "dark" | "main";
 
@@ -33,7 +34,11 @@ interface IconButtonProps {
   className?: string;
   style?: CSSProperties;
   iconStyle?: CSSProperties;
-  icon: IconDefinition;
+  iconColor?: string;
+  iconHoverColor?: string;
+  icon?: IconDefinition | undefined;
+  material?: string;
+  disabled?: boolean;
 }
 
 const sizeSwitch = (size: Size): number => {
@@ -71,7 +76,11 @@ const IconButton: React.FC<IconButtonProps> = ({
   className,
   style,
   iconStyle,
+  iconColor = "#fff",
+  iconHoverColor = "#fff",
   icon,
+  material,
+  disabled,
 }) => {
   const [sizeValue, setSizeValue] = useState<number | undefined>();
   const [hover, setHover] = useState(false);
@@ -97,6 +106,7 @@ const IconButton: React.FC<IconButtonProps> = ({
 
   return (
     <button
+      disabled={disabled}
       className={clsx("collapse-button", className)}
       onClick={href ? handleHref : onClick}
       onMouseEnter={() => setHover(true)}
@@ -122,10 +132,23 @@ const IconButton: React.FC<IconButtonProps> = ({
               ? manualHoverColor
               : colors.hover
             : "#fff"
-          : undefined,
+          : "inherit",
       }}
     >
-      <FontAwesomeIcon icon={icon} style={{ ...iconStyle, fontSize }} />
+      {material ? (
+        <MaterialIcon
+          icon={material}
+          size={fontSize}
+          style={{ ...iconStyle }}
+          color={!hover ? iconColor : iconHoverColor}
+        />
+      ) : (
+        <React.Fragment>
+          {icon && (
+            <FontAwesomeIcon icon={icon} style={{ ...iconStyle, fontSize }} />
+          )}
+        </React.Fragment>
+      )}
     </button>
   );
 };

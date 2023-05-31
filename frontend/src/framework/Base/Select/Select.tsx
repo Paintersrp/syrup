@@ -8,38 +8,36 @@ import React, {
 import Divider from "../Divider/Divider";
 import HelpText from "../HelpText/HelpText";
 import MaterialIcon from "../Icon/MaterialIcon";
+import { OptionProps } from "../Option/Option";
 import Text from "../Text/Text";
 import "./Select.css";
 
 interface SelectProps {
   children: ReactNode;
-  onChange: (event: any) => void;
+  onChange?: (event: any) => void;
   dividers?: boolean;
   label?: string;
   name?: string;
   style?: CSSProperties;
+  textStyle?: CSSProperties;
   className?: string;
   iconMixin?: boolean;
   value?: any;
-}
-
-interface OptionProps {
-  children?: ReactNode;
-  value?: string;
-  isSelected?: boolean;
-  onClick?: () => void;
+  dense?: boolean;
 }
 
 const Select: React.FC<SelectProps> = ({
   children,
   onChange,
   dividers = true,
-  label = "Select an Option",
+  label,
   name,
   style,
+  textStyle = { paddingLeft: 4 },
   className,
   iconMixin = false,
   value,
+  dense,
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>(value || "");
   const [isOptionsVisible, setIsOptionsVisible] = useState<boolean>(false);
@@ -73,7 +71,9 @@ const Select: React.FC<SelectProps> = ({
       },
     } as React.ChangeEvent<HTMLSelectElement>;
 
-    onChange(syntheticEvent);
+    if (onChange) {
+      onChange(syntheticEvent);
+    }
   };
 
   const handleToggleOptions = () => {
@@ -107,12 +107,15 @@ const Select: React.FC<SelectProps> = ({
 
   return (
     <div className={`select ${className}`} ref={selectRef} style={style}>
-      <HelpText>{label}</HelpText>
-      <div className="selected-option" onClick={handleToggleOptions}>
+      {label && <HelpText>{label}</HelpText>}
+      <div
+        className={dense ? "selected-option-dense" : "selected-option"}
+        onClick={handleToggleOptions}
+      >
         {iconMixin && (
           <MaterialIcon size="20px" icon={selectedOption} mr={12} />
         )}
-        <Text>{selectedOption || "\u00A0"}</Text>
+        <Text style={textStyle}>{selectedOption || "\u00A0"}</Text>
       </div>
       <div style={style}>
         <div className={`options ${isOptionsVisible ? "visible" : ""}`}>
@@ -129,19 +132,6 @@ const Select: React.FC<SelectProps> = ({
         <option value="" disabled hidden></option>
         {children}
       </select>
-    </div>
-  );
-};
-
-export const Option: React.FC<OptionProps> = ({
-  children,
-  value,
-  isSelected,
-  onClick,
-}) => {
-  return (
-    <div className={`option ${isSelected ? "selected" : ""}`} onClick={onClick}>
-      <Text>{children}</Text>
     </div>
   );
 };

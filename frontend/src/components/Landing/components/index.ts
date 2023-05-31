@@ -1,7 +1,6 @@
 import Hero from "./Hero/Hero";
-import Processes from "./Processes/Processes";
 import LatestPosts from "./LatestPosts/LatestPosts";
+import Processes from "./Processes/Processes";
+import Services from "./Services/Services";
 
-export { Hero };
-export { Processes };
-export { LatestPosts };
+export { Hero, LatestPosts, Processes, Services };
