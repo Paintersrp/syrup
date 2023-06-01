@@ -3,6 +3,11 @@
   max-width: 100%;
 }
 
+.media-mini {
+  width: 128px;
+  height: 90px;
+}
+
 .media-card {
   width: 325px;
   height: 182.81px;

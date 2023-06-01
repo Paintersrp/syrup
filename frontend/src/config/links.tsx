@@ -1,6 +1,7 @@
 import React from "react";
 import { WIP } from "../components";
 import About from "../components/About/About";
+import { Contact } from "../components/Contact";
 import Landing from "../components/Landing/Landing";
 
 export interface LinkType {
@@ -25,6 +26,13 @@ export const LINKS: LinkType[] = [
     footer: true,
     navbar: true,
     page: <About />,
+  },
+  {
+    to: "/contact",
+    text: "Contact",
+    footer: true,
+    navbar: true,
+    page: <Contact />,
   },
   {
     to: "/WIP",

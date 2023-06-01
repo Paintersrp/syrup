@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from "react";
 
 import {
+  ModelTableBody,
+  ModelTableControl,
+  ModelTableHead,
+} from "./components";
+import {
   ConfirmationModal,
   Pagination,
   usePagination,
 } from "../../../../../../Prebuilt";
 import { Table, TableContainer } from "../../../../../../Base";
-import {
-  ModelTableBody,
-  ModelTableControl,
-  ModelTableHead,
-} from "./components";
 import { Surface } from "../../../../../../Containers";
 
 interface ModelTableProps {
@@ -30,7 +30,6 @@ interface ModelTableProps {
     booleanValue: boolean
   ) => void;
   type: string | null;
-  formattedAppName: string | null;
 }
 
 const ModelTable: React.FC<ModelTableProps> = ({
@@ -46,7 +45,6 @@ const ModelTable: React.FC<ModelTableProps> = ({
   handleMultipleDeleteAction,
   updateMultipleItems,
   type,
-  formattedAppName,
 }) => {
   const [selectedItems, setSelectedItems] = useState<any[]>([]);
   const [selectedAction, setSelectedAction] = useState<string>("");
@@ -168,7 +166,7 @@ const ModelTable: React.FC<ModelTableProps> = ({
   };
 
   return (
-    <Surface boxShadow={1} pt={4} pb={2}>
+    <Surface boxShadow={0} pt={4} pb={0} py={2} px={1}>
       <ModelTableControl
         modelName={model.model_name}
         keys={keys}

@@ -1,14 +1,15 @@
 import React from "react";
 
-import { Flexer } from "../../../../framework/Containers";
 import {
   SectionHeader,
   SectionHeaderData,
 } from "../../../../framework/Prebuilt";
-import { Post, PostCards } from "./components";
+import { Flexer } from "../../../../framework/Containers";
+import { PostData } from "../../Landing";
+import { PostCards } from "./components";
 
 interface LatestPostsProps {
-  postsData: Post[];
+  postsData: PostData[];
   headerData: SectionHeaderData | any;
   editMode: boolean;
 }
@@ -19,7 +20,7 @@ const LatestPosts: React.FC<LatestPostsProps> = ({
   editMode,
 }) => {
   return (
-    <Flexer j="c" a="c" mb={24} style={{ minWidth: 325 }}>
+    <Flexer j="c" a="c" mb={0} style={{ minWidth: 325 }}>
       <Flexer fd="column" style={{ maxWidth: 1200, padding: 20 }}>
         <SectionHeader
           headerData={headerData}

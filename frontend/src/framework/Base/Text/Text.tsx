@@ -92,7 +92,7 @@ const Text: React.FC<TextProps> = ({
   children,
   className,
   style,
-  c: color = "primary",
+  c: color,
   dangerouslySetInnerHTML,
 }) => {
   let Component: keyof JSX.IntrinsicElements = typeSwitch(type);
@@ -112,6 +112,7 @@ const Text: React.FC<TextProps> = ({
         fontWeight: fontWeight,
         textAlign: alignSwitch(align),
         width: width,
+        color: color && color,
         textDecoration: underline ? "underline" : "",
         textUnderlineOffset: 4,
         ...style,

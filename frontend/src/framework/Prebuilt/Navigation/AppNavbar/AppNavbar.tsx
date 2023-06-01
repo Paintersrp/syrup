@@ -8,7 +8,7 @@ import { Flexer } from "../../../Containers";
 
 import LogoutUser from "../../../../utils/helpers/LogoutUser";
 import { LinkType } from "../../../../config/links";
-import { palettes } from "../../../../theme";
+import { palettes } from "../../../../utils/theming/theme";
 
 interface AppNavbarProps {
   menuButton?: boolean;
@@ -39,9 +39,10 @@ const AppNavbar: FC<AppNavbarProps> = ({
             position: "absolute",
             marginLeft: !menuOpen ? 12 : 12 + drawerSize,
           }}
-          iconStyle={{ color: palettes.secondary.main }}
           className="menu-button"
           type="menu"
+          iconColor={palettes.secondary.main}
+          iconHoverColor={palettes.secondary.main}
         />
       )}
       <Flexer j="sb">

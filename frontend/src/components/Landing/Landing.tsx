@@ -1,9 +1,44 @@
 import React, { useEffect, useState } from "react";
-import { ApiAxiosInstance } from "../../utils";
 import { useDispatch, useSelector } from "react-redux";
 
+import {
+  Hero,
+  IconScroller,
+  LatestPosts,
+  Processes,
+  Services,
+} from "./components";
+import { ApiAxiosInstance } from "../../utils";
 import { Page } from "../../framework/Containers";
-import { Hero, LatestPosts, Processes, Services } from "./components";
+import { ContactInformationData } from "../Contact/Contact";
+import { SocialType } from "../../config";
+import { SectionHeaderData } from "../../framework/Prebuilt";
+
+export interface HeroData {
+  title: string;
+  subtitle: string;
+  description: string;
+  buttonText: string;
+}
+
+export interface PostData {
+  id: string;
+  content: string;
+  image: string;
+  title: string;
+  author_details: {
+    first_name: string;
+    last_name: string;
+  };
+  tags: any;
+}
+
+export interface ProcessData {
+  id: string;
+  icon: string;
+  title: string;
+  description: string;
+}
 
 interface LandingProps {}
 
@@ -15,20 +50,19 @@ const Landing: React.FC<LandingProps> = () => {
 
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<any>();
-  const [editing, setEditing] = useState(false);
-
-  const [heroData, setHeroData] = useState<any>({});
-
-  const [contactData, setContactData] = useState<any>({});
-  const [socialsData, setSocialsData] = useState<any>({});
 
   const [serviceData, setServiceData] = useState<any>({});
-
-  const [processData, setProcessData] = useState<any>({});
-  const [processHeader, setProcessHeader] = useState<any[]>([]);
-
-  const [postsData, setPostsData] = useState<any>({});
-  const [postsHeader, setPostsHeader] = useState<any[]>([]);
+  const [heroData, setHeroData] = useState<HeroData | any>({});
+  const [socialsData, setSocialsData] = useState<SocialType | any>({});
+  const [contactData, setContactData] = useState<ContactInformationData | any>(
+    {}
+  );
+  const [processData, setProcessData] = useState<ProcessData | any>({});
+  const [processHeader, setProcessHeader] = useState<SectionHeaderData | any>(
+    []
+  );
+  const [postsData, setPostsData] = useState<PostData | any>({});
+  const [postsHeader, setPostsHeader] = useState<SectionHeaderData | any>([]);
 
   useEffect(() => {
     dispatch({ type: "FETCH_DATA_REQUEST" });
@@ -86,10 +120,7 @@ const Landing: React.FC<LandingProps> = () => {
         headerData={postsHeader}
         editMode={editMode}
       />
-      {/*                     
-          <NewsletterForm editMode={editMode} />
-          <IconScroller />       
-       */}
+      <IconScroller />
     </Page>
   );
 };

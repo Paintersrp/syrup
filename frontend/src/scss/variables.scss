@@ -1,0 +1,30 @@
+@for $i from 1 through 100 {
+  $value: #{$i}px;
+  .p-l-#{$i} {
+    padding-left: $value !important;
+  }
+}
+@for $i from 1 through 100 {
+  $value: #{$i}px;
+  .p-r-#{$i} {
+    padding-right: $value !important;
+  }
+}
+@for $i from 1 through 100 {
+  $value: #{$i}px;
+  .p-t-#{$i} {
+    padding-top: $value !important;
+  }
+}
+@for $i from 1 through 100 {
+  $value: #{$i}px;
+  .p-b-#{$i} {
+    padding-bottom: $value !important;
+  }
+}
+@for $i from 1 through 100 {
+  $value: #{$i}px;
+  .p-w-#{$i} {
+    padding: $value !important;
+  }
+}

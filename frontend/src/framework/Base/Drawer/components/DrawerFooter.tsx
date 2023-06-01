@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import { palettes } from "../../../../theme";
+import { palettes } from "../../../../utils/theming/theme";
 
 import Flexer from "../../../Containers/Flexer/Flexer";
 import Divider from "../../Divider/Divider";

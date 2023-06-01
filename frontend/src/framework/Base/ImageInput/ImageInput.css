@@ -2,6 +2,11 @@
   cursor: pointer;
   background-color: none !important;
   padding: 8px !important;
-  margin-bottom: 24px;
-  margin: 4px;
+  margin-bottom: 12px;
+}
+.input-button-dense {
+  cursor: pointer;
+  background-color: none !important;
+  padding: 4px !important;
+  margin-bottom: 12px;
 }

@@ -3,23 +3,12 @@ import axios from "axios";
 
 import { Carousel, Container } from "../../../../../../framework/Containers";
 import { ConfirmationModal } from "../../../../../../framework/Prebuilt";
-import { palettes } from "../../../../../../theme";
+import { palettes } from "../../../../../../utils/theming/theme";
 import { PostCard } from "./components";
-
-export interface Post {
-  id: string;
-  content: string;
-  image: string;
-  title: string;
-  author_details: {
-    first_name: string;
-    last_name: string;
-  };
-  tags: any;
-}
+import { PostData } from "../../../../Landing";
 
 interface PostCardsProps {
-  posts: Post[];
+  posts: PostData[];
   carousel?: boolean;
   editMode?: boolean;
 }
@@ -56,7 +45,7 @@ const PostCards: React.FC<PostCardsProps> = ({
 
   return (
     <React.Fragment>
-      <Container style={{ marginTop: 32, marginBottom: 64 }}>
+      <Container style={{ marginTop: 32, marginBottom: 32 }}>
         {carousel ? (
           <Carousel
             autoplay={false}

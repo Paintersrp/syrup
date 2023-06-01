@@ -1,6 +1,7 @@
 import React, { CSSProperties } from "react";
+
 import { TITLE } from "../../../../config";
-import { Media, Text } from "../../../../framework/Base";
+import { Media, MediaSizes, Text } from "../../../../framework/Base";
 import { Flexer } from "../../../../framework/Containers";
 import { TextType } from "../../../../framework/Base/Text/Text";
 
@@ -13,17 +14,7 @@ interface ImageHeaderProps {
   mb?: CSSProperties["marginBottom"];
   fade?: boolean;
   boxShadow?: boolean;
-  imageSize?:
-    | "xsmall"
-    | "xs"
-    | "small"
-    | "sm"
-    | "medium"
-    | "md"
-    | "large"
-    | "lg"
-    | "xlarge"
-    | "xl";
+  imageSize?: MediaSizes;
 }
 
 const ImageHeader: React.FC<ImageHeaderProps> = ({

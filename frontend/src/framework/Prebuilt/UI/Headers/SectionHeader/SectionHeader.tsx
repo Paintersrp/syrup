@@ -4,7 +4,7 @@ import "./SectionHeader.css";
 import { FadeOnScroll } from "../../Animations";
 import { Divider, FormGenerator, Text } from "../../../../Base";
 import { Flexer } from "../../../../Containers";
-import { palettes } from "../../../../../theme";
+import { palettes } from "../../../../../utils/theming/theme";
 import { ButtonBar } from "../../../Control";
 
 type AlignmentType = "Left" | "Right" | "Center" | "left" | "right" | "center";

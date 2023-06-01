@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import "./MainDashboard.css";
 
 import { ApiAxiosInstance } from "../../../utils";
 import { Breadcrumbs, IconButton, Text } from "../../Base";
 import { Container, Content, Flexer, Page } from "../../Containers";
 import { RenderSections } from "./components";
+import { RecentActions } from "../AdminLog";
 
 interface MainDashboardProps {}
 
@@ -88,10 +88,11 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
                   {collapsed ? "Open All" : "Collapse All"}
                 </Text>
                 <IconButton
-                  fontSize="0.8rem"
+                  fontSize="21px"
                   size="t"
-                  icon={collapsed ? faChevronDown : faChevronUp}
+                  material={collapsed ? "expand_more" : "expand_less"}
                   onClick={collapsed ? handleOpenAll : handleCollapseAll}
+                  iconColor="#fff"
                 />
               </Flexer>
               <Container spacing={0} className="dash-inner-container">
@@ -102,11 +103,15 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
                   setOpenAppSections={setOpenAppSections}
                 />
               </Container>
-              {/* <RecentActions
-              actionsOpen={actionsOpen}
-              setActionsOpen={setActionsOpen}
-              recentActions={recentActions}
-            /> */}
+              <RecentActions
+                actionsOpen={actionsOpen}
+                setActionsOpen={setActionsOpen}
+                recentActions={recentActions}
+                appName=""
+                modelName=""
+                px={1.5}
+                py={1}
+              />
             </Flexer>
           </React.Fragment>
         )}

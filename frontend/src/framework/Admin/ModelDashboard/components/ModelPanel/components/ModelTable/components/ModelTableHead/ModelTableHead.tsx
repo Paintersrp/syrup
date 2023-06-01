@@ -5,8 +5,8 @@ import {
   TableCell,
   TableHead,
   TableRow,
+  TableSortCell,
 } from "../../../../../../../../Base";
-import SortCellHeader from "../../../../../../../../Base/TableSortCell/TableSortCell";
 
 interface Metadata {
   [key: string]: {
@@ -58,10 +58,18 @@ const ModelTableHead: React.FC<ModelTableHeadProps> = ({
             onChange={toggleSelectAll}
           />
         </TableCell>
+        <TableCell a="center" fw="bolder" style={{ width: "5%", minWidth: 35 }}>
+          <TableSortCell
+            active={orderBy === "id"}
+            direction={orderBy === "id" ? order : "asc"}
+            onClick={() => handleSort("id")}
+            label="ID"
+          />
+        </TableCell>
         {keys.map((key) => (
           <React.Fragment key={key}>
-            <TableCell a="center" fw="bold">
-              <SortCellHeader
+            <TableCell a="center" fw={800}>
+              <TableSortCell
                 active={orderBy === key}
                 direction={orderBy === key ? order : "asc"}
                 onClick={() => handleSort(key)}
@@ -71,16 +79,6 @@ const ModelTableHead: React.FC<ModelTableHeadProps> = ({
                     : metadata[key].verbose_name
                 }
               />
-              {/* <div
-                active={orderBy === key}
-                direction={orderBy === key ? order : "asc"}
-                onClick={() => handleSort(key)}
-                style={{ fontWeight: "bold" }}
-              >
-                {metadata[key].verbose_name === "image"
-                  ? "Thumbnail"
-                  : metadata[key].verbose_name}
-              </div> */}
             </TableCell>
             {metadata[key].verbose_name === "Tag Name" && (
               <TableCell key="count" fw="bold">

@@ -8,7 +8,7 @@ import { TextAlign, TextType } from "../../Base/Text/Text";
 import { Divider, IconButton, Text } from "../../Base";
 import { Flexer, Collapser } from "../../Containers";
 
-import { shadowSwitch } from "../../../utils/switches/styleSwitches";
+import { shadowSwitch } from "../../../utils/theming/styleSwitches";
 
 interface SectionProps {
   header?: string;

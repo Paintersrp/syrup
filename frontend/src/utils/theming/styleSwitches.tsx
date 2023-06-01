@@ -1,4 +1,4 @@
-import { palettes } from "../../theme";
+import { palettes } from "./theme";
 
 export const shadowSwitch = (value: number): string => {
   switch (value) {

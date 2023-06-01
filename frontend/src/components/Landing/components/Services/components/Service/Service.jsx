@@ -8,7 +8,7 @@ import {
   Text,
 } from "../../../../../../framework/Base";
 import { Flexer } from "../../../../../../framework/Containers";
-import { palettes } from "../../../../../../theme";
+import { palettes } from "../../../../../../utils/theming/theme";
 
 const Service = ({ service }) => {
   return (

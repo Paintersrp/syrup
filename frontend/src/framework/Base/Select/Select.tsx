@@ -24,6 +24,7 @@ interface SelectProps {
   iconMixin?: boolean;
   value?: any;
   dense?: boolean;
+  size?: "small" | "medium" | "large" | "xlarge";
 }
 
 const Select: React.FC<SelectProps> = ({
@@ -38,6 +39,7 @@ const Select: React.FC<SelectProps> = ({
   iconMixin = false,
   value,
   dense,
+  size,
 }) => {
   const [selectedOption, setSelectedOption] = useState<string>(value || "");
   const [isOptionsVisible, setIsOptionsVisible] = useState<boolean>(false);

@@ -4,7 +4,7 @@ import "./List.css";
 import Divider from "../Divider/Divider";
 import Surface from "../../Containers/Surface/Surface";
 import { JustificationValue } from "../../Containers/Flexer/Flexer";
-import { palettes } from "../../../theme";
+import { palettes } from "../../../utils/theming/theme";
 
 interface ListProps {
   children: ReactNode;

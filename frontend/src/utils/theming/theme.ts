@@ -64,21 +64,11 @@ export const palettes = {
   },
 };
 
-export const fontSizes = {
-  h1: "2.25rem",
-  h2: "2rem",
-  h3: "1.75rem",
-  h4: "1.5rem",
-  h5: "1.25rem",
-  h6: "1rem",
-  body1: "1rem",
-  body2: "0.875rem",
-  caption: "0.75rem",
-  one: ".75rem",
-  two: "1rem",
-  three: "1.25rem",
-  four: "1.5rem",
-  five: "1.75rem",
-  six: "2rem",
-  seven: "2.25rem",
+export const breakPoints = {
+  xs: 0,
+  sm: 500,
+  md: 650,
+  lg: 900,
+  xl: 1280,
+  xxl: 1920,
 };

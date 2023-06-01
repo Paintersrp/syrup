@@ -1,12 +1,13 @@
 import React from "react";
-import { Text } from "../../../../../../../../Base";
-import { Container, Flexer } from "../../../../../../../../Containers";
+
 import {
   ApplicationFilter,
   BulkActions,
   MessageFilter,
   SearchBar,
 } from "./components";
+import { Text } from "../../../../../../../../Base";
+import { Container, Flexer } from "../../../../../../../../Containers";
 
 interface ModelTableControlProps {
   modelName: string;

@@ -1,11 +1,12 @@
 import React from "react";
 
-import { Container, Flexer, Item } from "../../../../framework/Containers";
 import {
   SectionHeader,
   SectionHeaderData,
 } from "../../../../framework/Prebuilt";
-import { Process, ProcessData } from "./components";
+import { Process } from "./components";
+import { ProcessData } from "../../Landing";
+import { Container, Flexer, Item } from "../../../../framework/Containers";
 
 interface ProcessesProps {
   headerData: SectionHeaderData | any;

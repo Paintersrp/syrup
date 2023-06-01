@@ -6,13 +6,13 @@ import {
   ColorShade,
   ColorState,
   colorSwitch,
-} from "../../../utils/switches/styleSwitches";
+} from "../../../utils/theming/styleSwitches";
 import MaterialIcon from "../Icon/MaterialIcon";
 import { Flexer } from "../../Containers";
 import Text from "../Text/Text";
 
 type ButtonType = "button" | "submit" | "reset" | undefined;
-type ButtonSize =
+export type ButtonSize =
   | "t"
   | "tiny"
   | "sm"
@@ -151,7 +151,8 @@ const Button: React.FC<ButtonProps> = ({
           <MaterialIcon
             icon={startIcon}
             size={iconSize}
-            mr={6}
+            mr={2}
+            ml={2}
             color="#f5f5f5"
           />
         )}

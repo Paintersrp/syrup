@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import DOMPurify from "dompurify";
 import "./Paragraph.css";
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCoins } from "@fortawesome/free-solid-svg-icons";
-import { palettes } from "../theme";
+import { palettes } from "../utils/theming/theme";
 
 export const TITLE: string = "DEBLUR";
 

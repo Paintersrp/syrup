@@ -1,6 +1,4 @@
 import React from "react";
-import { palettes } from "../../../../../../../../../theme";
-import { CapitalizeFirst } from "../../../../../../../../../utils";
 
 import {
   Checkbox,
@@ -12,13 +10,8 @@ import {
   Tooltip,
 } from "../../../../../../../../Base";
 import { Flexer } from "../../../../../../../../Containers";
-
-// interface Metadata {
-//   [key: string]: {
-//     type: string;
-//     verbose_name: string;
-//   };
-// }
+import { palettes } from "../../../../../../../../../utils/theming/theme";
+import { CapitalizeFirst } from "../../../../../../../../../utils";
 
 interface ModelTableBodyProps {
   keys: string[];
@@ -156,6 +149,9 @@ const ModelTableBody: React.FC<ModelTableBodyProps> = ({
                 }
                 onChange={() => handleSelectItem(item)}
               />
+            </TableCell>
+            <TableCell style={{ width: "3%" }} a="center">
+              {item.id}
             </TableCell>
             {keys.map((key) => {
               return (

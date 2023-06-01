@@ -2,22 +2,18 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Hero.css";
 
-import { palettes } from "../../../../theme";
-import { Flexer } from "../../../../framework/Containers";
-import { Button, FormGenerator, Text } from "../../../../framework/Base";
 import {
   ButtonBar,
   ContactButtons,
   SocialButtons,
 } from "../../../../framework/Prebuilt";
+import { HeroData } from "../../Landing";
+import { palettes } from "../../../../utils/theming/theme";
+import { Flexer } from "../../../../framework/Containers";
+import { Button, FormGenerator, Text } from "../../../../framework/Base";
 
 interface HeroProps {
-  data: {
-    title: string;
-    subtitle: string;
-    description: string;
-    buttonText: string;
-  };
+  data: HeroData;
   contactData: any;
   socialsData: any;
   editMode: boolean;

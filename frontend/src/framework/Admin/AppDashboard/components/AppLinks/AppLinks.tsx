@@ -34,12 +34,7 @@ const AppLinks: React.FC<AppLinksProps> = ({
       pr={2}
       pl={2}
     >
-      <PanelHeader
-        header="Links"
-        appName="Links"
-        open={open}
-        toggleOpen={toggleOpen}
-      />
+      <PanelHeader header="Links" open={open} toggleOpen={toggleOpen} />
       <Collapser isOpen={open}>
         <div>
           <List boxShadow={1} px={0} dividers className="list-border-radius">

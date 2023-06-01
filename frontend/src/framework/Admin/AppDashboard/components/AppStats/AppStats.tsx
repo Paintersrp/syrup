@@ -41,12 +41,7 @@ const AppStats: React.FC<AppStatsProps> = ({
       pr={2}
       pl={2}
     >
-      <PanelHeader
-        header="Statistics"
-        appName="Statistics"
-        open={open}
-        toggleOpen={toggleOpen}
-      />
+      <PanelHeader header="Statistics" open={open} toggleOpen={toggleOpen} />
       <Collapser isOpen={open}>
         <List px={0} className="app-stats-list">
           <ListItem

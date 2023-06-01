@@ -26,6 +26,8 @@ interface ActionButtonProps {
   className?: string;
   style?: CSSProperties;
   iconStyle?: CSSProperties;
+  iconColor?: string;
+  iconHoverColor?: string;
   type?:
     | "menu"
     | "add"
@@ -40,7 +42,7 @@ interface ActionButtonProps {
 
 const ActionButton: FC<ActionButtonProps> = ({
   size = "md",
-  fontSize = "1.15rem",
+  fontSize = "24px",
   color = "primary",
   shade = "main",
   mt,
@@ -51,30 +53,32 @@ const ActionButton: FC<ActionButtonProps> = ({
   className,
   style,
   iconStyle,
+  iconColor = "#fff",
+  iconHoverColor = "#fff",
   type = "menu",
 }) => {
-  const getIconByType = (type: ActionButtonProps["type"]): IconDefinition => {
+  const getIconByType = (type: ActionButtonProps["type"]): string => {
     switch (type) {
       case "menu":
-        return faBars;
+        return "subject";
       case "add":
-        return faPlus;
+        return "add";
       case "open":
-        return faChevronDown;
+        return "expand_more";
       case "close":
-        return faChevronUp;
+        return "expand_less";
       case "filter":
-        return faFilter;
+        return "filter";
       case "cancel":
-        return faTimes;
+        return "cancel";
       case "save":
-        return faSave;
+        return "save";
       case "edit":
-        return faEdit;
+        return "edit";
       case "delete":
-        return faTrashAlt;
+        return "delete";
       default:
-        return faBars;
+        return "subject";
     }
   };
 
@@ -93,8 +97,11 @@ const ActionButton: FC<ActionButtonProps> = ({
       onClick={onClick}
       className={className}
       style={style}
-      icon={icon}
+      // icon={icon}
+      material={icon}
       iconStyle={iconStyle}
+      iconColor={iconColor}
+      iconHoverColor={iconHoverColor}
     />
   );
 };

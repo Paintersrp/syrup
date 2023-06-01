@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { palettes } from "../../../../../../../theme";
 
 import {
   Divider,
@@ -11,6 +10,7 @@ import {
   Text,
 } from "../../../../../../Base";
 import { Surface } from "../../../../../../Containers";
+import { palettes } from "../../../../../../../utils/theming/theme";
 
 interface InfoMenuProps {
   textItem: {
@@ -28,7 +28,7 @@ const InfoMenu: React.FC<InfoMenuProps> = ({ textItem }) => {
           <IconButton
             size="sm"
             material="info"
-            fontSize="24px"
+            fontSize="22px"
             className="info-button"
             iconColor={palettes.info.dark}
           />

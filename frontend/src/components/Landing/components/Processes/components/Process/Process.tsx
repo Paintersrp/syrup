@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./Process.css";
 
 import {
   FormGenerator,
@@ -8,14 +7,8 @@ import {
 } from "../../../../../../framework/Base";
 import { Flexer } from "../../../../../../framework/Containers";
 import { ButtonBar, SlideOnScroll } from "../../../../../../framework/Prebuilt";
-import { palettes } from "../../../../../../theme";
-
-export interface ProcessData {
-  id: string;
-  icon: string;
-  title: string;
-  description: string;
-}
+import { palettes } from "../../../../../../utils/theming/theme";
+import { ProcessData } from "../../../../Landing";
 
 interface ProcessProps {
   data: ProcessData;

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { ApiAxiosInstance } from "../../utils";
 import "./About.css";
 
+import { ApiAxiosInstance } from "../../utils";
 import { Flexer, Page, Surface } from "../../framework/Containers";
 import { ButtonBar } from "../../framework/Prebuilt";
 import {
@@ -17,7 +17,6 @@ interface AboutProps {}
 
 const About: React.FC<AboutProps> = ({}) => {
   const [error, setError] = useState([]);
-  const [tabState, setTabState] = useState(0);
   const editMode = useSelector((state: any) => state.editMode.editMode);
 
   const [data, setData] = useState<any>([]);
@@ -122,7 +121,7 @@ const About: React.FC<AboutProps> = ({}) => {
           adminLink="companyhistory"
         />
         <Values valuesData={valuesData} editMode={editMode} />
-        <AboutFAQ editMode={editMode}/>
+        <AboutFAQ editMode={editMode} />
       </Surface>
     </Page>
   );

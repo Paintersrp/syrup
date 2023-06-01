@@ -11,6 +11,7 @@ interface ImageInputProps {
   newImage: string | null;
   newImageName: string | null;
   type?: string;
+  dense?: boolean;
 }
 
 const ImageInput: React.FC<ImageInputProps> = ({
@@ -18,8 +19,10 @@ const ImageInput: React.FC<ImageInputProps> = ({
   newImage,
   newImageName,
   type = "Image",
+  dense = false,
 }) => {
-  const handleSelectFile = () => {
+  const handleSelectFile = (e) => {
+    e.preventDefault();
     const fileInput = document.getElementById("file-input") as HTMLInputElement;
     fileInput.click();
   };
@@ -27,17 +30,12 @@ const ImageInput: React.FC<ImageInputProps> = ({
   return (
     <Flexer j="c">
       <Button
-        onClick={handleSelectFile}
-        className="input-button"
+        onClick={(e) => handleSelectFile(e)}
+        className={`input-button${dense ? "-dense" : ""}`}
         endIcon="upload"
+        iconSize={dense ? "16px" : "18px"}
       >
-        <Text
-          t="subtitle1"
-          a="c"
-          style={{
-            cursor: "pointer",
-          }}
-        >
+        <Text t="subtitle1" a="c" s={dense ? "0.85rem" : "0.95rem"}>
           {!newImage ? `Select New ${type}` : newImageName}
         </Text>
       </Button>

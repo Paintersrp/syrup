@@ -6,6 +6,21 @@ import { ApiAxiosInstance } from "../../../utils";
 import { Container, Item, Surface } from "../../Containers";
 import { ConfirmCancelBar } from "../../Prebuilt";
 import IconMixin from "./mixins/IconMixin/IconMixin";
+import ImageMixin from "./mixins/ImageMixin/ImageMixin";
+
+type MediaSizes =
+  | "mini"
+  | "card"
+  | "xsmall"
+  | "xs"
+  | "small"
+  | "sm"
+  | "medium"
+  | "md"
+  | "large"
+  | "lg"
+  | "xlarge"
+  | "xl";
 
 interface FormGeneratorProps {
   endpoint: string;
@@ -25,8 +40,6 @@ interface FormGeneratorProps {
   titleBlockMixin?: boolean;
   iconMixin?: boolean;
   imageMixin?: boolean;
-  newImage?: string;
-  newImageName?: string;
   boxShadow?: boolean;
   placement?: "top" | "right" | "bottom" | "left";
   mt?: number;
@@ -34,6 +47,8 @@ interface FormGeneratorProps {
   px?: number;
   py?: number;
   fade?: boolean;
+  soloImageSize?: MediaSizes;
+  dualImageSize?: MediaSizes;
 }
 
 const FormGenerator: React.FC<FormGeneratorProps> = ({
@@ -53,8 +68,8 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
   titleBlockMixin = false,
   iconMixin = false,
   imageMixin = false,
-  newImage = "",
-  newImageName = "",
+  soloImageSize = "card",
+  dualImageSize = "mini",
   boxShadow = false,
   placement = "bottom",
   mt: marginTop = 2,
@@ -64,15 +79,24 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
   fade = false,
 }) => {
   const [state, setState] = useState({ ...data });
+  const [newImage, setNewImage] = useState<any>(null);
+  const [newImageName, setNewImageName] = useState<any>(null);
   const dispatch = useDispatch();
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setState({
-      ...state,
-      [e.target.name]: e.target.value,
-    });
+  const handleChange = (e: any) => {
+    if (e.target.name === "image") {
+      setState({
+        ...state,
+        [e.target.name]: e.target.files[0],
+      });
+      setNewImage(URL.createObjectURL(e.target.files[0]));
+      setNewImageName(e.target.files[0].name);
+    } else {
+      setState({
+        ...state,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
   const handleSwitchChange = (event: any) => {
@@ -111,20 +135,28 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
         </Text>
       ) : null}
       <form onSubmit={handleSubmit}>
-        {/* {imageMixin ? (
-            <ImageEditMixin
-              handleChange={handleChange}
-              formData={formData}
-              newImage={newImage}
-              newImageName={newImageName}
-            />
-          ) : null} */}
+        {imageMixin ? (
+          <ImageMixin
+            handleChange={handleChange}
+            formData={state}
+            newImage={newImage}
+            newImageName={newImageName}
+            soloImageSize={soloImageSize}
+            dualImageSize={dualImageSize}
+          />
+        ) : null}
         <Container>
           {Object.keys(state).map((key) => {
             if (!excludeKeys.includes(key)) {
               return (
-                <Item key={key} xs={12} sm={!smallKeys.includes(key) ? 12 : 6}>
+                <Item
+                  key={key}
+                  xs={12}
+                  sm={!smallKeys.includes(key) ? 12 : 6}
+                  style={{ marginTop: 4 }}
+                >
                   <Input
+                    size="medium"
                     id={key}
                     name={key}
                     value={state[key]}

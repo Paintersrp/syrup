@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { Flexer } from "../../../Containers";
 import { Divider, List, ListHeader, ListItem } from "../../../Base";
 
-import { palettes } from "../../../../theme";
+import { palettes } from "../../../../utils/theming/theme";
 import { ListItemDataType } from "./DrawerContent";
 
 interface DrawerFooterLinksProps {

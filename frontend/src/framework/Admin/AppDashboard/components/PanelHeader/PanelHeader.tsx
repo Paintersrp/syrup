@@ -1,37 +1,41 @@
 import React from "react";
-import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import "./PanelHeader.css";
 
-import { IconButton, Text } from "../../../../Base";
+import { IconButton, MaterialIcon, Text } from "../../../../Base";
 import { Flexer } from "../../../../Containers";
-import { RenderIcon } from "../../../MainDashboard/components/RenderIcon/RenderIcon";
 
 interface PanelHeaderProps {
-  header: string;
-  appName: string;
+  header?: string | null;
+  icon?: string;
   open: boolean;
   toggleOpen: () => void;
+  children?: any;
 }
 
 const PanelHeader: React.FC<PanelHeaderProps> = ({
   header,
-  appName,
+  icon = "web_stories",
   open,
   toggleOpen,
+  children,
 }) => {
   return (
     <div className="panel-header">
       <Flexer a="c" mt={2}>
-        <RenderIcon appName={appName} className="panel-header-icon" />
-        <Text t="h4">{header}</Text>
+        {icon && (
+          <MaterialIcon icon={icon} className="panel-header-icon" size="22px" />
+        )}
+        {header && <Text t="h4">{header}</Text>}
       </Flexer>
-      <Flexer j="fe" a="c" grow>
+      <Flexer j="fe" a="c" grow gap={12} w="auto">
+        {children}
         <IconButton
           size="t"
-          fontSize="0.9rem"
+          fontSize="21px"
           color="secondary"
-          icon={open ? faChevronDown : faChevronUp}
+          material={open ? "expand_more" : "expand_less"}
           onClick={toggleOpen}
+          iconColor="#fff"
         />
       </Flexer>
     </div>

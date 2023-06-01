@@ -1,15 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
-import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
 import { Breadcrumbs, IconButton, Text, Tooltip } from "../../Base";
 import { Container, Content, Flexer, Item, Page } from "../../Containers";
 import { AppDetails, AppLinks, AppStats } from "./components";
 import { ApiAxiosInstance } from "../../../utils";
+import { RecentActions } from "../AdminLog";
 
-interface AppDashboardProps {
-  str?: string;
-}
+interface AppDashboardProps {}
 
 const AppDashboard: React.FC<AppDashboardProps> = ({}) => {
   const [models, setModels] = useState<{}>({});
@@ -102,10 +100,11 @@ const AppDashboard: React.FC<AppDashboardProps> = ({}) => {
                 {collapsed ? "Open All" : "Collapse All"}
               </Text>
               <IconButton
-                fontSize="0.8rem"
+                fontSize="21px"
                 size="t"
-                icon={collapsed ? faChevronDown : faChevronUp}
+                material={collapsed ? "expand_more" : "expand_less"}
                 onClick={collapsed ? handleOpenAll : handleCollapseAll}
+                iconColor="#fff"
               />
             </Flexer>
             <Container>
@@ -134,12 +133,14 @@ const AppDashboard: React.FC<AppDashboardProps> = ({}) => {
                 />
               </Item>
             </Container>
-            {/* <RecentActions
+            <RecentActions
               actionsOpen={actionsOpen}
               setActionsOpen={setActionsOpen}
               recentActions={recentActions}
-              appName={str}
-            /> */}
+              appName={str && str.charAt(0).toUpperCase() + str.slice(1)}
+              px={5.5}
+              py={2}
+            />
           </React.Fragment>
         )}
       </Content>

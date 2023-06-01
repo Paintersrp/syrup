@@ -1,3 +1,3 @@
 export * from "./handlers";
 export * from "./helpers";
-export * from "./switches";
+export * from "./theming";

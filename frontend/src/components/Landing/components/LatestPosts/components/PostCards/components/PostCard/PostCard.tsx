@@ -3,26 +3,17 @@ import { useNavigate } from "react-router-dom";
 import DOMPurify from "dompurify";
 import "./PostCard.css";
 
-import { Post } from "../../PostCards";
-import { palettes } from "../../../../../../../../theme";
-
+import {
+  ButtonBar,
+  SlideOnScroll,
+} from "../../../../../../../../framework/Prebuilt";
 import {
   Flexer,
   Item,
   Surface,
 } from "../../../../../../../../framework/Containers";
-
-import {
-  Divider,
-  Media,
-  Tag,
-  Text,
-} from "../../../../../../../../framework/Base";
-
-import {
-  ButtonBar,
-  SlideOnScroll,
-} from "../../../../../../../../framework/Prebuilt";
+import { Media, Tag, Text } from "../../../../../../../../framework/Base";
+import { PostData } from "../../../../../../Landing";
 
 interface Tag {
   id: number;
@@ -30,7 +21,7 @@ interface Tag {
 }
 
 interface PostCardProps {
-  post: Post;
+  post: PostData;
   handleDelete: (id: string) => void;
   editMode: boolean | undefined;
 }

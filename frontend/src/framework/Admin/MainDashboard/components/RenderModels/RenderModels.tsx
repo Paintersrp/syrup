@@ -5,6 +5,7 @@ import "./RenderModels.css";
 
 import { ActionButton, Icon, ListItem, Tooltip } from "../../../../Base";
 import { Flexer } from "../../../../Containers";
+import { palettes } from "../../../../../utils/theming/theme";
 
 interface Model {
   url: string | null;
@@ -74,6 +75,7 @@ const RenderModels: React.FC<RenderModelsProps> = ({ modelItem, appName }) => {
                             color="secondary"
                             style={{ marginRight: 16 }}
                             className="add-button"
+                            iconColor={palettes.success.main}
                           />
                         </Tooltip>
                       </Flexer>

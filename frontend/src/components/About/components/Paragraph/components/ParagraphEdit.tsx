@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Input } from "../../../../../framework/Base";
-import RichTextInput from "../../../../../framework/Base/RichTextInput/RichTextInput";
+
+import { RichTextInput } from "../../../../../framework/Base";
 import { Flexer } from "../../../../../framework/Containers";
 import { ConfirmCancelBar } from "../../../../../framework/Prebuilt";
-
 import { ApiAxiosInstance } from "../../../../../utils";
 
 const ParagraphEdit = ({ content, onUpdate, type, handleCancel }) => {
@@ -46,11 +45,6 @@ const ParagraphEdit = ({ content, onUpdate, type, handleCancel }) => {
 
   return (
     <Flexer fd="column" j="c" className="fade-in">
-      {/* <Input
-        name="Title"
-        value={title}
-        onChange={(event) => setTitle(event.target.value)}
-      /> */}
       <div style={{ marginTop: 8 }}>
         <RichTextInput value={body} onChange={handleBody} />
       </div>

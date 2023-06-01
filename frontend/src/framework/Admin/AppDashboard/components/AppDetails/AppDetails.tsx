@@ -31,12 +31,7 @@ const AppDetails: React.FC<AppDetailsProps> = ({
       pr={2}
       pl={2}
     >
-      <PanelHeader
-        header="App Models"
-        appName="models"
-        open={open}
-        toggleOpen={toggleOpen}
-      />
+      <PanelHeader header="App Models" open={open} toggleOpen={toggleOpen} />
       <Collapser isOpen={open}>
         <div className="card-content">
           <List boxShadow={1} px={0} dividers className="list-border-radius">

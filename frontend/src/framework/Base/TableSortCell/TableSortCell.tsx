@@ -4,14 +4,14 @@ import "./TableSortCell.css";
 import MaterialIcon from "../Icon/MaterialIcon";
 import Text from "../Text/Text";
 
-interface SortCellHeaderProps {
+interface TableSortCellProps {
   active: boolean;
   direction: "asc" | "desc" | string;
   onClick: () => void;
   label: string;
 }
 
-const TableSortCell: React.FC<SortCellHeaderProps> = ({
+const TableSortCell: React.FC<TableSortCellProps> = ({
   active,
   direction,
   onClick,

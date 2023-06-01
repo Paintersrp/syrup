@@ -32,13 +32,22 @@ export { FAB };
 
 // FormGenerator Components
 import FormGenerator from "./FormGenerator/FormGenerator";
-export { FormGenerator };
+import { IconMixin, ImageMixin } from "./FormGenerator/mixins";
+import { useFormValidation, validateForm } from "./FormGenerator/hooks";
+export {
+  FormGenerator,
+  IconMixin,
+  ImageMixin,
+  useFormValidation,
+  validateForm,
+};
 
 // Icon Components
 import Icon from "./Icon/Icon";
 import MaterialIcon, { ICON_OPTIONS } from "./Icon/MaterialIcon";
 import IconButton from "./IconButton/IconButton";
-export { Icon, MaterialIcon, ICON_OPTIONS, IconButton };
+import IconTextItem from "./IconTextItem/IconTextItem";
+export { Icon, MaterialIcon, ICON_OPTIONS, IconButton, IconTextItem };
 
 // Input Components
 import Input from "./Input/Input";
@@ -56,6 +65,9 @@ export { List, ListItem, ListHeader };
 
 // Media Components
 import Media from "./Media/Media";
+import type { MediaSizes } from "./Media/Media";
+
+export type { MediaSizes };
 export { Media };
 
 // Menu Components

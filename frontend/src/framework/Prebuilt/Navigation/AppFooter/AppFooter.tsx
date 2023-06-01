@@ -16,7 +16,7 @@ import { Flexer } from "../../../Containers";
 
 import { handleDataChange } from "../../../../utils/handlers/dataHandlers";
 import { LOGO, SOCIALS, LINKS, TITLE } from "../../../../config";
-import { palettes } from "../../../../theme";
+import { palettes } from "../../../../utils/theming/theme";
 
 interface Data {
   email: string;

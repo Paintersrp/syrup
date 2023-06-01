@@ -5,14 +5,14 @@ import Option from "../../../Option/Option";
 import Select from "../../../Select/Select";
 import Text from "../../../Text/Text";
 
-interface IconMixin {
+interface IconMixinType {
   fieldName?: string;
   handleChange: any;
   formData: any;
   background?: string;
 }
 
-const IconMixin: React.FC<IconMixin> = ({
+const IconMixin: React.FC<IconMixinType> = ({
   fieldName,
   handleChange,
   formData,

@@ -1,6 +1,6 @@
 import React, { ReactNode, CSSProperties } from "react";
 
-import { shadowSwitch } from "../../../utils/switches/styleSwitches";
+import { shadowSwitch } from "../../../utils/theming/styleSwitches";
 import { justificationSwitch, JustificationValue } from "../Flexer/Flexer";
 
 type SurfaceProps = {

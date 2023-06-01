@@ -1,6 +1,20 @@
 import React from "react";
-import { shadowSwitch } from "../../../utils/switches/styleSwitches";
+import { shadowSwitch } from "../../../utils/theming/styleSwitches";
 import "./Media.css";
+
+export type MediaSizes =
+  | "mini"
+  | "card"
+  | "xsmall"
+  | "xs"
+  | "small"
+  | "sm"
+  | "medium"
+  | "md"
+  | "large"
+  | "lg"
+  | "xlarge"
+  | "xl";
 
 interface MediaProps {
   src: string;
@@ -10,18 +24,7 @@ interface MediaProps {
   mediaClass?: string;
   style?: React.CSSProperties;
   imageStyle?: React.CSSProperties;
-  size?:
-    | "card"
-    | "xsmall"
-    | "xs"
-    | "small"
-    | "sm"
-    | "medium"
-    | "md"
-    | "large"
-    | "lg"
-    | "xlarge"
-    | "xl";
+  size?: MediaSizes;
   manualSize?: boolean;
   boxShadow?: number;
 }
@@ -40,6 +43,8 @@ const Media: React.FC<MediaProps> = ({
 }) => {
   const getSizeClass = (): string => {
     switch (size) {
+      case "mini":
+        return "media-mini";
       case "card":
         return "media-card";
       case "xsmall":

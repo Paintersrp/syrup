@@ -1,7 +1,9 @@
 import React from "react";
+import { CSSProperties } from "react";
 
-import { palettes } from "../../../../../theme";
+import { palettes } from "../../../../../utils/theming/theme";
 import { Button } from "../../../../Base";
+import { ButtonSize } from "../../../../Base/Button/Button";
 import { Flexer } from "../../../../Containers";
 
 interface ContactButtonsProps {
@@ -9,28 +11,44 @@ interface ContactButtonsProps {
     phone?: string;
     email?: string;
   };
+  size?: ButtonSize;
+  mt?: CSSProperties["marginTop"];
+  mb?: CSSProperties["marginBottom"];
+  borderRadius?: CSSProperties["borderRadius"];
 }
 
-const ContactButtons: React.FC<ContactButtonsProps> = ({ contactData }) => {
+const ContactButtons: React.FC<ContactButtonsProps> = ({
+  contactData,
+  size = "md",
+  mt: marginTop = 8,
+  mb: marginBottom = 0,
+  borderRadius,
+}) => {
   return (
-    <Flexer j="c" mt={8}>
+    <Flexer j="c" mt={marginTop} mb={marginBottom}>
       <Button
-        size="md"
+        textSize={size === "md" ? "0.9rem" : "0.8rem"}
+        iconSize={size === "md" ? "18px" : "16px"}
+        size={size}
         startIcon="phone"
         href={`tel:${contactData?.phone || ""}`}
-        w={100}
+        w={size === "md" ? 100 : size === "sm" ? 85 : 100}
         mr={4}
         manualHover={palettes.primary.light}
+        style={{ borderRadius: borderRadius }}
       >
         Call Us
       </Button>
       <Button
-        size="md"
-        startIcon="voicemail"
+        textSize={size === "md" ? "0.9rem" : "0.8rem"}
+        iconSize={size === "md" ? "18px" : "16px"}
+        size={size}
+        startIcon="email"
         href={`mailto:${contactData?.email || ""}`}
-        w={100}
+        w={size === "md" ? 100 : size === "sm" ? 85 : 100}
         ml={4}
         manualHover={palettes.primary.light}
+        style={{ borderRadius: borderRadius }}
       >
         Email Us
       </Button>

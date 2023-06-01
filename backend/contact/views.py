@@ -2,7 +2,7 @@ from .models import *
 from .serializers import *
 from backend.custom_views import *
 
-# from backend.utils import get_serialized_page_data
+from backend.utils import get_serialized_page_data
 from django.shortcuts import get_object_or_404
 
 
@@ -123,32 +123,29 @@ class ContactDetailView(BaseDetailView):
     model_class = Contact
 
 
-# class AppInfoFullView(generics.GenericAPIView):
-#     def get(self, request, *args, **kwargs):
-#         model_dict = {
-#             "ContactInformation": {
-#                 "app_label": "contact",
-#                 "get_first": True,
-#             },
-#             "Socials": {
-#                 "app_label": "contact",
-#                 "get_first": True,
-#             },
-#             "Hours": {
-#                 "app_label": "contact",
-#                 "get_first": True,
-#             },
-#             "TeamMember": {
-#                 "app_label": "contact",
-#             },
-#             "JobPosting": {
-#                 "filter": {"filled": False},
-#                 "app_label": "jobs",
-#             },
-#             "PageObj": {
-#                 "app_label": "pages",
-#             },
-#         }
+class AppInfoFullView(generics.GenericAPIView):
+    def get(self, request, *args, **kwargs):
+        model_dict = {
+            "ContactInformation": {
+                "app_label": "contact",
+                "get_first": True,
+            },
+            "Socials": {
+                "app_label": "contact",
+                "get_first": True,
+            },
+            "Hours": {
+                "app_label": "contact",
+                "get_first": True,
+            },
+            "TeamMember": {
+                "app_label": "contact",
+            },
+            "JobPosting": {
+                "filter": {"filled": False},
+                "app_label": "jobs",
+            },
+        }
 
-#         data = get_serialized_page_data(model_dict, request)
-#         return Response(data)
+        data = get_serialized_page_data(model_dict, request)
+        return Response(data)

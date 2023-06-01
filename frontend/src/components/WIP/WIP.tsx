@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Option,
   Select,
@@ -11,12 +11,12 @@ import {
   Text,
   ToggleButton,
   ToggleButtonGroup,
-  Tooltip,
   TransferList,
   TreeNode,
 } from "../../framework/Base";
 
 import { Page, Flexer, Surface, Carousel } from "../../framework/Containers";
+import { breakPoints, useBreakpoint } from "../../utils";
 
 interface WIPProps {}
 
@@ -57,9 +57,23 @@ const WIP: React.FC<WIPProps> = ({}) => {
   );
 
   const handleValueChange = (value: string | null) => {
-    console.log(value);
     setSelectedValueToggle(value);
   };
+
+  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setInnerWidth(window.innerWidth);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const isSmallScreen = useBreakpoint(breakPoints.sm);
 
   return (
     <Page>
@@ -184,11 +198,12 @@ const WIP: React.FC<WIPProps> = ({}) => {
           onChange={handleValueChange}
         >
           <ToggleButton value="option1">Option 1</ToggleButton>
-
           <ToggleButton value="option2">Option 2</ToggleButton>
           <ToggleButton value="option3">Option 3</ToggleButton>
         </ToggleButtonGroup>
-        <p>Selected Value: {selectedValueToggle}</p>
+        <p className="p-l-60 p-r-60">Selected Value: {selectedValueToggle}</p>
+        <div>{isSmallScreen ? <p>Small Screen</p> : <p>Large Screen</p>}</div>
+        <div>{innerWidth}</div>
       </Flexer>
     </Page>
   );

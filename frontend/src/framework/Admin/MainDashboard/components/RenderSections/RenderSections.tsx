@@ -1,17 +1,12 @@
 import React from "react";
-import {
-  faChevronDown,
-  faChevronUp,
-  faScrewdriverWrench,
-  faUpRightFromSquare,
-} from "@fortawesome/free-solid-svg-icons";
 import "./RenderSections.css";
 
 import { Link } from "react-router-dom";
 import { Collapser, Flexer, Item, Surface } from "../../../../Containers";
 import { IconButton, List, Text, Tooltip } from "../../../../Base";
-import { RenderIcon } from "../../../MainDashboard/components/RenderIcon/RenderIcon";
 import RenderModels from "../RenderModels/RenderModels";
+import { RenderIcon } from "../RenderIcon/RenderIcon";
+import { palettes } from "../../../../../utils/theming/theme";
 
 interface RenderSectionsProps {
   models: Record<string, any>;
@@ -76,10 +71,11 @@ const RenderSections: React.FC<RenderSectionsProps> = ({
             <Flexer j="fe" a="c" grow>
               <IconButton
                 size="t"
-                fontSize="0.9rem"
+                fontSize="21px"
                 color="secondary"
-                icon={isOpen ? faChevronDown : faChevronUp}
+                material={isOpen ? "expand_more" : "expand_less"}
                 onClick={toggleOpen}
+                iconColor="#fff"
               />
             </Flexer>
           </div>
@@ -113,8 +109,10 @@ const RenderSections: React.FC<RenderSectionsProps> = ({
                     >
                       <IconButton
                         className="launch-button"
-                        icon={faScrewdriverWrench}
+                        fontSize="21px"
                         size="t"
+                        material="admin_panel_settings"
+                        iconColor={palettes.info.dark}
                       />
                     </Tooltip>
                   </Link>
@@ -128,8 +126,10 @@ const RenderSections: React.FC<RenderSectionsProps> = ({
                         <Tooltip text="View Site Page" position="bottom">
                           <IconButton
                             className="launch-button"
+                            fontSize="18px"
                             size="t"
-                            icon={faUpRightFromSquare}
+                            material="launch"
+                            iconColor={palettes.info.dark}
                           />
                         </Tooltip>
                       </Link>
@@ -143,7 +143,7 @@ const RenderSections: React.FC<RenderSectionsProps> = ({
     );
   });
 
-  return <>{sections}</>;
+  return <React.Fragment>{sections}</React.Fragment>;
 };
 
 export default RenderSections;

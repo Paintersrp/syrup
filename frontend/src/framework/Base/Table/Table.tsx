@@ -12,6 +12,7 @@ type TableContainerProps = SharedTableProps & {
   mb?: CSSProperties["marginBottom"];
   mt?: CSSProperties["marginTop"];
   minWidth?: CSSProperties["minWidth"];
+  br?: CSSProperties["borderRadius"];
 };
 
 type TableProps = SharedTableProps & {
@@ -30,6 +31,7 @@ const TableContainer: React.FC<TableContainerProps> = ({
   style,
   mb: marginBottom,
   mt: marginTop,
+  br: borderRadius,
   minWidth,
 }) => {
   return (
@@ -40,6 +42,7 @@ const TableContainer: React.FC<TableContainerProps> = ({
         marginBottom: marginBottom,
         marginTop: marginTop,
         minWidth: minWidth,
+        borderRadius: borderRadius,
       }}
     >
       {children}

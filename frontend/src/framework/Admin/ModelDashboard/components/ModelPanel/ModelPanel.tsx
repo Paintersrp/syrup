@@ -10,9 +10,10 @@ import {
   Tooltip,
 } from "../../../../Base";
 import { InfoMenu, ModelTable } from "./components";
-import { palettes } from "../../../../../theme";
+import { palettes } from "../../../../../utils/theming/theme";
 import { Content, Flexer } from "../../../../Containers";
 import { ApiAxiosInstance, CapitalizeFirst } from "../../../../../utils";
+import { RecentActions } from "../../../AdminLog";
 
 interface ModelPanelProps {
   apiData: any;
@@ -297,19 +298,16 @@ const ModelPanel: React.FC<ModelPanelProps> = ({
               handleMultipleDeleteAction={handleMultipleDeleteAction}
               updateMultipleItems={updateMultipleItems}
               type={type}
-              formattedAppName={formattedAppName}
             />
           )}
-
-          <div style={{ width: "100%", margin: "24px 0px 24px 0px" }}>
-            <Divider />
-          </div>
-          {/* <RecentActions
+          <Divider mt={4} mb={24} style={{ paddingLeft: 8, paddingRight: 8 }} />
+          <RecentActions
             actionsOpen={actionsOpen}
             setActionsOpen={setActionsOpen}
             recentActions={recentActions}
             modelName={model.verbose_name}
-          /> */}
+            px={1}
+          />
         </Content>
       ) : null}
     </React.Fragment>

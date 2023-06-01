@@ -1,14 +1,14 @@
 import React, { useEffect, useState, MouseEvent, CSSProperties } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import { colorSwitch } from "../../../utils/switches/styleSwitches";
+import { colorSwitch } from "../../../utils/theming/styleSwitches";
 import clsx from "clsx";
 import "./IconButton.css";
 import MaterialIcon from "../Icon/MaterialIcon";
 
 type Shade = "light" | "dark" | "main";
 
-export type Size =
+export type IconButtonSize =
   | "t"
   | "tiny"
   | "sm"
@@ -19,7 +19,7 @@ export type Size =
   | "large";
 
 interface IconButtonProps {
-  size?: Size;
+  size?: IconButtonSize;
   fontSize?: CSSProperties["fontSize"];
   shade?: Shade;
   color?: CSSProperties["color"];
@@ -41,7 +41,7 @@ interface IconButtonProps {
   disabled?: boolean;
 }
 
-const sizeSwitch = (size: Size): number => {
+const sizeSwitch = (size: IconButtonSize): number => {
   switch (size) {
     case "t":
     case "tiny":

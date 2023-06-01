@@ -1,4 +1,4 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 import "./Divider.css";
 
 interface DividerProps {
@@ -14,6 +14,8 @@ interface DividerProps {
   textColor?: string;
   textSize?: number;
   textAlign?: "left" | "center" | "right";
+  style?: CSSProperties;
+  className?: string;
 }
 
 const Divider: React.FC<DividerProps> = ({
@@ -29,8 +31,10 @@ const Divider: React.FC<DividerProps> = ({
   textColor = "#222",
   textSize = 14,
   textAlign = "center",
+  style,
+  className,
 }) => {
-  const dividerStyle: React.CSSProperties = {
+  const dividerStyle: CSSProperties = {
     marginBottom: `${marginBottom}px`,
     marginTop: `${marginTop}px`,
     marginRight: `${marginRight}px`,
@@ -42,14 +46,17 @@ const Divider: React.FC<DividerProps> = ({
     height: vertical ? "100%" : undefined,
   };
 
-  const textStyle: React.CSSProperties = {
+  const textStyle: CSSProperties = {
     color: textColor,
     fontSize: `${textSize}px`,
     textAlign,
   };
 
   return (
-    <div className={`divider ${vertical ? "vertical" : "horizontal"}`}>
+    <div
+      className={`divider ${vertical ? "vertical" : "horizontal"} ${className}`}
+      style={style}
+    >
       {!text && <hr style={dividerStyle} />}
       {text && (
         <>

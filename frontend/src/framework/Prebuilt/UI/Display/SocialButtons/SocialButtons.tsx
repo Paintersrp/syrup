@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { SOCIALS, SocialType } from "../../../../../config/socials";
-import { palettes } from "../../../../../theme";
+import { palettes } from "../../../../../utils/theming/theme";
 
 import { FormGenerator, IconButton, Text, Tooltip } from "../../../../Base";
+import { IconButtonSize } from "../../../../Base/IconButton/IconButton";
 import { Flexer } from "../../../../Containers";
 import { ButtonBar } from "../../../Control";
 
@@ -13,6 +14,9 @@ interface SocialButtonsProps {
   showTitle?: boolean;
   color?: "light" | "dark";
   editMode: boolean;
+  invertColors?: boolean;
+  buttonClass?: string;
+  buttonSize?: IconButtonSize;
 }
 
 const SocialButtons: React.FC<SocialButtonsProps> = ({
@@ -20,6 +24,9 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
   showTitle,
   color = "light",
   editMode,
+  invertColors = true,
+  buttonClass,
+  buttonSize = "lg",
 }) => {
   const auth = useSelector<any>((state) => state.auth);
 
@@ -46,7 +53,11 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
     <div style={{ marginTop: editing ? 16 : 0 }}>
       {!editing ? (
         <Flexer j="c" mt={8} fd="column" fade>
-          {showTitle && <Text t="h4">Follow Us</Text>}
+          {showTitle && (
+            <Text t="h4" a="c" mb={4}>
+              Follow Us
+            </Text>
+          )}
           <div>
             {SOCIALS.map((platform: SocialType) => {
               if (socials[platform.name]) {
@@ -57,16 +68,17 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
                     key={platform.name}
                   >
                     <IconButton
-                      size="lg"
+                      size={buttonSize}
                       fontSize="1.5rem"
-                      invertColors
+                      invertColors={invertColors}
                       manualHoverColor={palettes.secondary.main}
-                      style={{ color: finalColor }}
+                      style={{ color: finalColor, marginRight: 4 }}
                       aria-label={platform.name}
                       icon={platform.icon}
                       href={`https://www.${platform.name}.com/${
                         socials[platform.name]
                       }`}
+                      className={buttonClass}
                     />
                   </Tooltip>
                 );
