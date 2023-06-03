@@ -6,7 +6,11 @@ import Cookies from "js-cookie";
 import bcrypt from "bcryptjs";
 import "./Register.css";
 
-import { ActionButton, Button, Icon, Input, Text } from "../../Base";
+import {
+  advancedRegisterFields,
+  registerFields,
+  registerInitialData,
+} from "./const";
 import {
   Collapser,
   Container,
@@ -14,17 +18,10 @@ import {
   Item,
   Page,
   Surface,
-} from "../../Containers";
-
-import { handleDataChange } from "../../../utils/handlers/dataHandlers";
-import AxiosInstance from "../../../utils/helpers/ApiAxiosInstance";
-import { setAuth, setUser } from "../../../lib/Actions/auth";
-
-import {
-  advancedRegisterFields,
-  registerFields,
-  registerInitialData,
-} from "./const";
+} from "../../../Containers";
+import { ApiAxiosInstance, handleDataChange } from "../../../../utils";
+import { ActionButton, Button, Icon, Input, Text } from "../../../Base";
+import { setAuth, setUser } from "../../../../lib";
 
 const Register: FC = ({}) => {
   const [formData, setFormData] = useState(registerInitialData);
@@ -53,13 +50,13 @@ const Register: FC = ({}) => {
       password: hashedPassword,
     };
 
-    AxiosInstance.post("/auth/register/", {
+    ApiAxiosInstance.post("/auth/register/", {
       ...formData,
       password: hashedPassword,
       salt: salt,
     })
       .then((res) => {
-        AxiosInstance.post("/auth/login/", loginData).then((response) => {
+        ApiAxiosInstance.post("/auth/login/", loginData).then((response) => {
           dispatch(
             setAuth({
               is_authenticated: response.data.authenticated,

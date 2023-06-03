@@ -5,10 +5,10 @@ import {
   MaterialIcon,
   Text,
 } from "../../../../../../framework/Base";
+import { ProcessData } from "../../../../Landing";
+import { palettes } from "../../../../../../utils";
 import { Flexer } from "../../../../../../framework/Containers";
 import { ButtonBar, SlideOnScroll } from "../../../../../../framework/Prebuilt";
-import { palettes } from "../../../../../../utils/theming/theme";
-import { ProcessData } from "../../../../Landing";
 
 interface ProcessProps {
   data: ProcessData;

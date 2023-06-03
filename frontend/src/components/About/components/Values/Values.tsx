@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Values.css";
 
+import { Value } from "./components";
 import { Text } from "../../../../framework/Base";
 import { Flexer } from "../../../../framework/Containers";
 import { ButtonBar } from "../../../../framework/Prebuilt";
-import { Value } from "./components";
 
 export interface ValueType {
   id: number;

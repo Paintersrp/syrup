@@ -23,22 +23,36 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
+  --color-warning-main: #ffd54f;
+  --color-warning-light: #ffeb3b;
+  --color-warning-dark: #f57f17;
+  --color-warning-hover: #ffeb3b5a;
+
   --color-info-main: #3f51b5;
   --color-info-light: #64b5f6;
   --color-info-dark: #1976d2;
+  --color-info-hover: #3f51b55a;
+
   --color-success-main: #4caf50;
   --color-success-light: #81c784;
   --color-success-dark: #388e3c;
+  --color-success-hover: #4caf505a;
+
   --color-error-main: #f44336;
   --color-error-light: #e57373;
   --color-error-dark: #d32f2f;
+  --color-error-hover: #f443365a;
+
   --color-primary-main: #2e3b55;
   --color-primary-light: #6b7c9b;
   --color-primary-dark: #00152e;
-  --color-primary-hover: #2e3b557a;
+  --color-primary-hover: #6b7c9b5a;
+
   --color-secondary-main: #ff8c00;
   --color-secondary-light: #ffd04d;
   --color-secondary-dark: #c75e00;
+  --color-secondary-hover: #ff8c005a;
+
   --color-text-dark: #222;
   --color-text-light: #fff;
   --color-text-primary: rgba(34, 34, 34, 1);
@@ -46,8 +60,11 @@
   --color-text-disabled: rgba(34, 34, 34, 0.38);
   --color-text-min-visible: rgba(34, 34, 34, 0.1);
   --color-text-dark: rgba(0, 0, 0, 1);
+  --color-text-dark: #2225a;
+
   --color-background-default: #f5f5f5;
   --color-background-light: #f5f5f5;
+
   --shadow-1: 0px 2px 1px -1px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
   --shadow-2: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),

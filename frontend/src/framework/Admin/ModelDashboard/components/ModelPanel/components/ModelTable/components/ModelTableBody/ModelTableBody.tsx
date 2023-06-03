@@ -10,8 +10,7 @@ import {
   Tooltip,
 } from "../../../../../../../../Base";
 import { Flexer } from "../../../../../../../../Containers";
-import { palettes } from "../../../../../../../../../utils/theming/theme";
-import { CapitalizeFirst } from "../../../../../../../../../utils";
+import { CapitalizeFirst, palettes } from "../../../../../../../../../utils";
 
 interface ModelTableBodyProps {
   keys: string[];

@@ -11,19 +11,19 @@ import {
   ALERT_WARNING,
   ALERT_INFO,
   CLOSE_SNACKBAR,
-} from "../Actions/snackbar";
+} from "../actions/snackbar";
 
 export interface SnackbarState {
   open: boolean;
-  message: string;
-  type: string;
+  message: string | undefined;
+  type: string | undefined;
   errorMessage: string;
 }
 
 const initialState: SnackbarState = {
   open: false,
-  message: "",
-  type: "",
+  message: undefined,
+  type: undefined,
   errorMessage: "",
 };
 
@@ -45,35 +45,36 @@ const snackbarReducer = (
         ...state,
         open: true,
         type: "success",
-        message: `${action.payload.data} has been updated.`,
+        message: `${action.data} has been updated.`,
       };
     case ALERT_SUCCESS:
+      console.log(action);
       return {
         ...state,
         open: true,
         type: "success",
-        message: action.payload.message,
+        message: action.message,
       };
     case ALERT_FAIL:
       return {
         ...state,
         open: true,
         type: "error",
-        message: `Error: ${action.payload.message}`,
+        message: `Error: ${action.message}`,
       };
     case ALERT_WARNING:
       return {
         ...state,
         open: true,
         type: "warning",
-        message: `Caution: ${action.payload.message}`,
+        message: `Caution: ${action.message}`,
       };
     case ALERT_INFO:
       return {
         ...state,
         open: true,
         type: "info",
-        message: action.payload.message,
+        message: action.message,
       };
     case CLOSE_SNACKBAR:
       return {

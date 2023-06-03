@@ -1,0 +1,47 @@
+.stagger-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.stagger-wrapper.horizontal {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 8px;
+  justify-content: center;
+}
+
+.stagger-wrapper.right.horizontal {
+  flex-direction: row;
+}
+
+.stagger-item {
+  opacity: 0;
+  animation: staggerAnimation 0.5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.stagger-wrapper.right .stagger-item {
+  animation-name: staggerAnimationRight;
+}
+
+@keyframes staggerAnimation {
+  0% {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes staggerAnimationRight {
+  0% {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}

@@ -3,9 +3,9 @@ import { faCode } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import "./RenderModels.css";
 
-import { ActionButton, Icon, ListItem, Tooltip } from "../../../../Base";
 import { Flexer } from "../../../../Containers";
-import { palettes } from "../../../../../utils/theming/theme";
+import { palettes } from "../../../../../utils";
+import { ActionButton, Icon, ListItem, Tooltip } from "../../../../Base";
 
 interface Model {
   url: string | null;

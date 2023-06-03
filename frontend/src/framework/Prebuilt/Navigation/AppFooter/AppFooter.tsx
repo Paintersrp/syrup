@@ -13,10 +13,8 @@ import {
   Tooltip,
 } from "../../../Base";
 import { Flexer } from "../../../Containers";
-
-import { handleDataChange } from "../../../../utils/handlers/dataHandlers";
-import { LOGO, SOCIALS, LINKS, TITLE } from "../../../../config";
-import { palettes } from "../../../../utils/theming/theme";
+import { handleDataChange, palettes } from "../../../../utils";
+import { LOGO, SOCIALS, TITLE, LINKS } from "../../../../settings";
 
 interface Data {
   email: string;
@@ -93,13 +91,13 @@ const AppFooter: FC = ({}) => {
                 }
                 return (
                   <Tooltip
-                    key={`${link.text}-footer-link`}
-                    text={`View ${link.text} Page`}
+                    key={`${link.key}-footer-link`}
+                    text={`View ${link.key} Page`}
                     position="right"
                   >
-                    <Link key={link.text} to={link.to} className="footer-link">
+                    <Link key={link.key} to={link.to} className="footer-link">
                       <Text t="body1" className="footer-link-text">
-                        {link.text}
+                        {link.key}
                       </Text>
                     </Link>
                   </Tooltip>

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
-import { SocialType } from "../../../../../../config";
 import {
   Button,
   Input,
@@ -11,9 +10,11 @@ import {
   useFormValidation,
   validateForm,
 } from "../../../../../../framework/Base";
+import { SocialType } from "../../../../../../settings";
+import { ApiAxiosInstance } from "../../../../../../utils";
 import { Item, Flexer, Surface } from "../../../../../../framework/Containers";
 import { ButtonBar, SocialButtons } from "../../../../../../framework/Prebuilt";
-import { ApiAxiosInstance } from "../../../../../../utils";
+import ErrorDisplay from "../../../../../../framework/Prebuilt/UI/Errors/ErrorDisplay/ErrorDisplay";
 
 interface ContactFormData {
   name: string;
@@ -79,6 +80,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
   const {
     values,
     errors,
+    setErrors,
     isSubmitting,
     handleChange,
     handleSubmit,
@@ -177,6 +179,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
             Get In Touch
           </Button>
         </Flexer>
+        <ErrorDisplay errors={errors} setErrors={setErrors} mt={8} />
       </Surface>
       <SocialButtons
         invertColors={false}

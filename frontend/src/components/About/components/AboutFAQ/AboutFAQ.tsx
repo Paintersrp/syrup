@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
-import { Accordion, Tab, Tabs, Text } from "../../../../framework/Base";
 import { Flexer } from "../../../../framework/Containers";
 import { ButtonBar } from "../../../../framework/Prebuilt";
+import { Accordion, Tab, Tabs, Text } from "../../../../framework/Base";
 
 interface AboutFAQProps {
   editMode: boolean;

@@ -8,10 +8,10 @@ import {
   Text,
   Tooltip,
 } from "../../../../../../framework/Base";
-import { Flexer, Item, Surface } from "../../../../../../framework/Containers";
-import { ButtonBar } from "../../../../../../framework/Prebuilt";
 import { MemberData } from "../../../../Contact";
-import { SOCIALS } from "../../../../../../config";
+import { SOCIALS } from "../../../../../../settings";
+import { ButtonBar } from "../../../../../../framework/Prebuilt";
+import { Flexer, Item, Surface } from "../../../../../../framework/Containers";
 
 interface MemberProps {
   member: MemberData;
@@ -44,12 +44,13 @@ const Member: React.FC<MemberProps> = ({ member, editMode = false }) => {
           py={2}
         >
           <Flexer j="fs" a="fs">
-            <Media
-              size="mini"
-              src={memberData.image}
-              boxShadow={0}
-              altText="member-image"
-            />
+            <div style={{ width: "60%" }}>
+              <Media
+                src={memberData.image}
+                boxShadow={0}
+                altText="member-image"
+              />
+            </div>
             <Flexer fd="column" w="auto">
               <Text t="h6" fw="bold" s="1.3rem" pl={8}>
                 {memberData.name}
@@ -121,7 +122,6 @@ const Member: React.FC<MemberProps> = ({ member, editMode = false }) => {
           fade
           placement="bottom"
           imageMixin
-          soloImageSize="mini"
         />
       )}
     </Item>

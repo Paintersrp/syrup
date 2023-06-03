@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import {
   Option,
   Select,
@@ -14,13 +15,50 @@ import {
   TransferList,
   TreeNode,
 } from "../../framework/Base";
+import Alert from "../../framework/Base/Alert/Alert";
+import Gallery from "../../framework/Base/Gallery/Gallery";
 
 import { Page, Flexer, Surface, Carousel } from "../../framework/Containers";
+import Stagger from "../../framework/Containers/Stagger/Stagger";
 import { breakPoints, useBreakpoint } from "../../utils";
+import Test from "./test/test";
 
 interface WIPProps {}
 
 const WIP: React.FC<WIPProps> = ({}) => {
+  const stockImages = [
+    {
+      url: "https://source.unsplash.com/1400x900/?landscape",
+      caption: "Mountain Landscape",
+      tags: ["landscape", "mountain"],
+    },
+    {
+      url: "https://source.unsplash.com/1400x900/?sunset",
+      caption: "Colorful Sunset",
+      tags: ["landscape", "sunset"],
+    },
+    {
+      url: "https://source.unsplash.com/1400x900/?flower",
+      caption: "Flower Blossom",
+      tags: ["nature", "flower"],
+    },
+    {
+      url: "https://source.unsplash.com/1400x900/?lake",
+      caption: "Calm Lake",
+      tags: ["landscape", "lake"],
+    },
+    {
+      url: "https://source.unsplash.com/1400x900/?city",
+      caption: "Urban City",
+      tags: ["landscape", "city"],
+    },
+    {
+      url: "https://source.unsplash.com/1400x900/?beach",
+      caption: "Sandy Beach",
+      tags: ["landscape", "beach"],
+    },
+  ];
+
   const leftItems = [
     { id: "1", name: "Item 1" },
     { id: "2", name: "Item 2" },
@@ -75,60 +113,118 @@ const WIP: React.FC<WIPProps> = ({}) => {
 
   const isSmallScreen = useBreakpoint(breakPoints.sm);
 
+  const [alert, setAlert] = useState<any>(null);
+
+  const showAlert = (message: string, type: any) => {
+    setAlert({ message, type });
+  };
+
+  const handleCloseAlert = () => {
+    setAlert(null);
+  };
+
+  const dispatch = useDispatch();
+
   return (
     <Page>
       <Flexer j="c" a="c" fd="column">
-        <Surface
-          j="c"
-          a="c"
-          maxWidth={400}
-          minHeight={100}
-          boxShadow={1}
-          px={1.5}
-          py={1.5}
-          mt={1}
-          mb={2}
+        <Stagger direction="left" orientation="vertical">
+          <Surface
+            boxShadow={1}
+            maxWidth={400}
+            px={1.5}
+            py={1.5}
+            mt={1}
+            mb={2}
+            j="c"
+            a="c"
+          >
+            <Test />
+          </Surface>
+          <Surface
+            j="c"
+            a="c"
+            maxWidth={400}
+            minHeight={100}
+            boxShadow={1}
+            px={1.5}
+            py={1.5}
+            mt={1}
+            mb={2}
+          >
+            <TreeNode label="Parent" startOpen>
+              <Text a="l" t="h6" style={{ fontWeight: 400 }}>
+                Text Node Parent 1-1
+              </Text>
+              <TreeNode label="Child 1">
+                <Text a="l" t="h6" style={{ fontWeight: 400 }}>
+                  Text Node Child 1-1
+                </Text>
+                <TreeNode label="Grandchild 1">
+                  <Text a="l" t="h6" style={{ fontWeight: 400 }}>
+                    Text Node Grandchild 1-1
+                  </Text>
+                  <Text a="l" t="h6" style={{ fontWeight: 400 }}>
+                    Text Node Grandchild 1-2
+                  </Text>
+                </TreeNode>
+                <TreeNode label="Grandchild 2">
+                  <Text a="l" t="h6" style={{ fontWeight: 400 }}>
+                    Text Node Grandchild 2-1
+                  </Text>
+                </TreeNode>
+              </TreeNode>
+              <TreeNode label="Child 2">
+                <Text a="l" t="h6" style={{ fontWeight: 400 }}>
+                  Text Node Child 2-1
+                </Text>
+                <TreeNode label="Grandchild 3">
+                  <Text a="l" t="h6" style={{ fontWeight: 400 }}>
+                    Text Node Grandchild 3-1
+                  </Text>
+                  <Text a="l" t="h6" style={{ fontWeight: 400 }}>
+                    Text Node Grandchild 3-2
+                  </Text>
+                  <Text a="l" t="h6" style={{ fontWeight: 400 }}>
+                    Text Node Grandchild 3-3
+                  </Text>
+                </TreeNode>
+              </TreeNode>
+            </TreeNode>
+          </Surface>
+        </Stagger>
+        <h1>Stock Image Gallery</h1>
+        {/* <Gallery images={stockImages} layout="grid" /> */}
+        <Gallery images={stockImages} layout="masonry" />
+        <Alert alert={alert} onClose={handleCloseAlert} />
+        <button
+          onClick={() =>
+            dispatch({ type: "ALERT_SUCCESS", message: "Data Updated" })
+          }
         >
-          <TreeNode label="Parent" startOpen>
-            <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-              Text Node Parent 1-1
-            </Text>
-            <TreeNode label="Child 1">
-              <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                Text Node Child 1-1
-              </Text>
-              <TreeNode label="Grandchild 1">
-                <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                  Text Node Grandchild 1-1
-                </Text>
-                <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                  Text Node Grandchild 1-2
-                </Text>
-              </TreeNode>
-              <TreeNode label="Grandchild 2">
-                <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                  Text Node Grandchild 2-1
-                </Text>
-              </TreeNode>
-            </TreeNode>
-            <TreeNode label="Child 2">
-              <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                Text Node Child 2-1
-              </Text>
-              <TreeNode label="Grandchild 3">
-                <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                  Text Node Grandchild 3-1
-                </Text>
-                <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                  Text Node Grandchild 3-2
-                </Text>
-                <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                  Text Node Grandchild 3-3
-                </Text>
-              </TreeNode>
-            </TreeNode>
-          </TreeNode>
-        </Surface>
+          Show Success
+        </button>
+        <button
+          onClick={() =>
+            dispatch({ type: "ALERT_FAIL", message: "Error Updated" })
+          }
+        >
+          Show Error
+        </button>
+        <button
+          onClick={() =>
+            dispatch({ type: "ALERT_WARNING", message: "Warning Updated" })
+          }
+        >
+          Show Warning
+        </button>
+        <button
+          onClick={() =>
+            dispatch({ type: "ALERT_INFO", message: "Info Updated" })
+          }
+        >
+          Show Info
+        </button>
         <TransferList leftItems={leftItems} rightItems={rightItems} />
         {/* <MenuExamples /> */}
 
@@ -163,11 +259,6 @@ const WIP: React.FC<WIPProps> = ({}) => {
             alt="Image 4"
           />
         </Carousel>
-
-        {/* Tiers */}
-        {/* <Tiers /> */}
-
-        {/* .. */}
 
         <TableContainer mt={20} mb={40} minWidth={600}>
           <Table>

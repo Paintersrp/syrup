@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { SOCIALS, SocialType } from "../../../../../config/socials";
+import { SOCIALS, SocialType } from "../../../../../settings/settings";
 import { palettes } from "../../../../../utils/theming/theme";
 
 import { FormGenerator, IconButton, Text, Tooltip } from "../../../../Base";
 import { IconButtonSize } from "../../../../Base/IconButton/IconButton";
-import { Flexer } from "../../../../Containers";
+import { Flexer, Stagger } from "../../../../Containers";
 import { ButtonBar } from "../../../Control";
 
 interface SocialButtonsProps {
@@ -58,7 +58,20 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
               Follow Us
             </Text>
           )}
-          <div>
+
+          {!editing && editMode && (
+            <div style={{ width: 300, marginBottom: 4 }}>
+              <ButtonBar
+                editClick={() => setEditing(!editing)}
+                justifyContent="flex-end"
+                tooltipPosition="bottom"
+                adminLink="contactinformation"
+                text="Socials"
+              />
+            </div>
+          )}
+
+          <Stagger direction="right" orientation="horizontal">
             {SOCIALS.map((platform: SocialType) => {
               if (socials[platform.name]) {
                 return (
@@ -86,16 +99,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
                 return null;
               }
             })}
-          </div>
-          {!editing && editMode && (
-            <ButtonBar
-              editClick={() => setEditing(!editing)}
-              justifyContent="center"
-              tooltipPosition="bottom"
-              adminLink="contactinformation"
-              text="Socials"
-            />
-          )}
+          </Stagger>
         </Flexer>
       ) : (
         <FormGenerator
@@ -122,7 +126,6 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
           multilineKeys={[""]}
           px={3}
           py={0}
-          fade
           placement="bottom"
         />
       )}

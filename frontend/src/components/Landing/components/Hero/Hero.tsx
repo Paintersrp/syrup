@@ -8,7 +8,7 @@ import {
   SocialButtons,
 } from "../../../../framework/Prebuilt";
 import { HeroData } from "../../Landing";
-import { palettes } from "../../../../utils/theming/theme";
+import { palettes } from "../../../../utils";
 import { Flexer } from "../../../../framework/Containers";
 import { Button, FormGenerator, Text } from "../../../../framework/Base";
 
@@ -55,17 +55,18 @@ const Hero: React.FC<HeroProps> = ({
                   iconSize="16px"
                   manualHover={palettes.primary.light}
                   w={115}
+                  style={{ borderRadius: 4 }}
                 >
                   {heroData.buttonText}
                 </Button>
               </Link>
             </Flexer>
-            <ContactButtons contactData={contactData} />
+            <ContactButtons contactData={contactData} borderRadius={4} />
             {editMode && (
               <ButtonBar
                 justifyContent="center"
                 editClick={() => setEditing(!editing)}
-                adminLink="heroblock"
+                adminLink="heroheader"
                 text="Hero"
                 tooltipPosition="bottom"
                 mt={8}
@@ -83,8 +84,6 @@ const Hero: React.FC<HeroProps> = ({
             excludeKeys={["name", "id"]}
             multilineKeys={["subtitle", "description"]}
             px={3}
-            py={0}
-            fade
             placement="bottom"
           />
         )}

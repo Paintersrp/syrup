@@ -4,17 +4,12 @@ interface FormValues {
   [key: string]: any;
 }
 
-type ValidationErrors = {
-  [key: string]: string;
-};
-
-type ValidateFunction = (values: FormValues) => ValidationErrors;
-
 type SubmitFunction = (event: FormEvent) => void;
 
 interface FormValidationResult {
   values: FormValues;
-  errors: ValidationErrors;
+  errors: any;
+  setErrors: any;
   isSubmitting: boolean;
   handleChange: any;
   handleSubmit: (event: FormEvent) => void;
@@ -23,11 +18,11 @@ interface FormValidationResult {
 
 const useFormValidation = (
   initialState: FormValues,
-  validate: ValidateFunction,
+  validate: any,
   handleSubmitLogin: SubmitFunction
 ): FormValidationResult => {
   const [values, setValues] = useState<FormValues>(initialState);
-  const [errors, setErrors] = useState<ValidationErrors>({});
+  const [errors, setErrors] = useState<any>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (event: any) => {
@@ -70,6 +65,7 @@ const useFormValidation = (
   return {
     values,
     errors,
+    setErrors,
     isSubmitting,
     handleChange,
     handleSubmit,

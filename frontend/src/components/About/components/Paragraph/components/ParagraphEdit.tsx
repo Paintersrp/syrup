@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
-import { RichTextInput } from "../../../../../framework/Base";
-import { Flexer } from "../../../../../framework/Containers";
-import { ConfirmCancelBar } from "../../../../../framework/Prebuilt";
 import { ApiAxiosInstance } from "../../../../../utils";
+import { Flexer } from "../../../../../framework/Containers";
+import { RichTextInput } from "../../../../../framework/Base";
+import { ConfirmCancelBar } from "../../../../../framework/Prebuilt";
 
 const ParagraphEdit = ({ content, onUpdate, type, handleCancel }) => {
   const [contentType, setContentType] = useState([]);

@@ -7,15 +7,14 @@ import {
   Media,
   Text,
 } from "../../../../../../framework/Base";
+import { palettes } from "../../../../../../utils";
 import { Flexer } from "../../../../../../framework/Containers";
-import { palettes } from "../../../../../../utils/theming/theme";
 
 const Service = ({ service }) => {
   return (
     <div key={service.id} className="service-card">
       <Media
         src={`https://source.unsplash.com/1400x${900 + service.id}/?service`}
-        size="card"
         mediaClass="service-card-media"
         boxShadow={1}
       />

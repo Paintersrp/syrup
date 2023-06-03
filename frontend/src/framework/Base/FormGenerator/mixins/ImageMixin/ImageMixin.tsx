@@ -1,16 +1,14 @@
 import React, { useState } from "react";
+
+import ImageInput from "../../../ImageInput/ImageInput";
 import { ImageHeader } from "../../../../../components";
 import { Container, Item } from "../../../../Containers";
-import ImageInput from "../../../ImageInput/ImageInput";
-import { MediaSizes } from "../../../Media/Media";
 
 interface ImageMixinProps {
   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   formData: { image: string };
   newImage: string | null;
   newImageName: string;
-  soloImageSize?: MediaSizes;
-  dualImageSize?: MediaSizes;
 }
 
 const ImageMixin: React.FC<ImageMixinProps> = ({
@@ -18,8 +16,6 @@ const ImageMixin: React.FC<ImageMixinProps> = ({
   formData,
   newImage,
   newImageName,
-  soloImageSize = "mini",
-  dualImageSize = "mini",
 }) => {
   const [image, setImage] = useState(formData.image);
   return (
@@ -31,7 +27,6 @@ const ImageMixin: React.FC<ImageMixinProps> = ({
             headerType="h4"
             src={image}
             mb={0}
-            imageSize={soloImageSize}
           />
         )}
         {newImage ? (
@@ -41,7 +36,6 @@ const ImageMixin: React.FC<ImageMixinProps> = ({
                 header="Previous Image"
                 headerType="h4"
                 src={image}
-                imageSize={dualImageSize}
                 mb={0}
               />
             </Item>
@@ -50,7 +44,6 @@ const ImageMixin: React.FC<ImageMixinProps> = ({
                 header="New Image"
                 headerType="h4"
                 src={newImage}
-                imageSize={dualImageSize}
                 mb={0}
               />
             </Item>

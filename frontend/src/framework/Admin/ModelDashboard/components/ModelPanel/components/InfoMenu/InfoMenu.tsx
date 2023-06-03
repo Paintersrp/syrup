@@ -9,8 +9,8 @@ import {
   Menu,
   Text,
 } from "../../../../../../Base";
+import { palettes } from "../../../../../../../utils";
 import { Surface } from "../../../../../../Containers";
-import { palettes } from "../../../../../../../utils/theming/theme";
 
 interface InfoMenuProps {
   textItem: {

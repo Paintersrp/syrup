@@ -1,38 +1,25 @@
-import React, { useState, CSSProperties, ChangeEvent, FormEvent } from "react";
+import React, { useState, CSSProperties, FormEvent } from "react";
 import { useDispatch } from "react-redux";
 
-import { Input, Text } from "..";
+import { Input, Text, validateForm } from "..";
 import { ApiAxiosInstance } from "../../../utils";
-import { Container, Item, Surface } from "../../Containers";
 import { ConfirmCancelBar } from "../../Prebuilt";
 import IconMixin from "./mixins/IconMixin/IconMixin";
 import ImageMixin from "./mixins/ImageMixin/ImageMixin";
+import { Container, Item, Surface } from "../../Containers";
+import ErrorDisplay from "../../Prebuilt/UI/Errors/ErrorDisplay/ErrorDisplay";
 
-type MediaSizes =
-  | "mini"
-  | "card"
-  | "xsmall"
-  | "xs"
-  | "small"
-  | "sm"
-  | "medium"
-  | "md"
-  | "large"
-  | "lg"
-  | "xlarge"
-  | "xl";
+type ValidationErrors = {
+  [key: string]: string;
+};
 
 interface FormGeneratorProps {
   endpoint: string;
   data: any;
   onUpdate: any;
   title?: string;
-  // handleSubmit: (event: FormEvent<HTMLFormElement>) => void;
-  // handleChange: any;
   handleCancel: () => void;
   handleManyToManyChange?: () => void;
-  // handleSwitchChange?: (event: any) => void;
-  // formData: any;
   width?: CSSProperties["width"];
   excludeKeys?: string[];
   multilineKeys?: string[];
@@ -47,8 +34,6 @@ interface FormGeneratorProps {
   px?: number;
   py?: number;
   fade?: boolean;
-  soloImageSize?: MediaSizes;
-  dualImageSize?: MediaSizes;
 }
 
 const FormGenerator: React.FC<FormGeneratorProps> = ({
@@ -56,11 +41,8 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
   data,
   onUpdate,
   title,
-  // handleSubmit,
-  // handleChange,
   handleCancel,
   handleManyToManyChange,
-  // handleSwitchChange,
   width = "100%",
   excludeKeys = [],
   multilineKeys = [],
@@ -68,8 +50,6 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
   titleBlockMixin = false,
   iconMixin = false,
   imageMixin = false,
-  soloImageSize = "card",
-  dualImageSize = "mini",
   boxShadow = false,
   placement = "bottom",
   mt: marginTop = 2,
@@ -78,6 +58,7 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
   py: paddingY = 0,
   fade = false,
 }) => {
+  const [errors, setErrors] = useState<any>(null);
   const [state, setState] = useState({ ...data });
   const [newImage, setNewImage] = useState<any>(null);
   const [newImageName, setNewImageName] = useState<any>(null);
@@ -108,6 +89,11 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setErrors(validateForm(state));
+
+    if (errors.length !== 0) {
+      return errors;
+    }
 
     try {
       const res = await ApiAxiosInstance.patch(endpoint, state);
@@ -141,8 +127,6 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
             formData={state}
             newImage={newImage}
             newImageName={newImageName}
-            soloImageSize={soloImageSize}
-            dualImageSize={dualImageSize}
           />
         ) : null}
         <Container>
@@ -203,6 +187,7 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
           mt={8}
         />
       </form>
+      {errors && <ErrorDisplay errors={errors} setErrors={setErrors} />}
     </Surface>
   );
 };

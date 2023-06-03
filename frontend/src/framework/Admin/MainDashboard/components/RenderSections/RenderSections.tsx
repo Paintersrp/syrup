@@ -1,12 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./RenderSections.css";
 
-import { Link } from "react-router-dom";
-import { Collapser, Flexer, Item, Surface } from "../../../../Containers";
-import { IconButton, List, Text, Tooltip } from "../../../../Base";
+import { palettes } from "../../../../../utils";
 import RenderModels from "../RenderModels/RenderModels";
 import { RenderIcon } from "../RenderIcon/RenderIcon";
-import { palettes } from "../../../../../utils/theming/theme";
+import { IconButton, List, Text, Tooltip } from "../../../../Base";
+import { Collapser, Flexer, Item, Surface } from "../../../../Containers";
 
 interface RenderSectionsProps {
   models: Record<string, any>;

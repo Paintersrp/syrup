@@ -9,10 +9,13 @@ import {
   Text,
   Tooltip,
 } from "../../../../Base";
+import {
+  ApiAxiosInstance,
+  CapitalizeFirst,
+  palettes,
+} from "../../../../../utils";
 import { InfoMenu, ModelTable } from "./components";
-import { palettes } from "../../../../../utils/theming/theme";
 import { Content, Flexer } from "../../../../Containers";
-import { ApiAxiosInstance, CapitalizeFirst } from "../../../../../utils";
 import { RecentActions } from "../../../AdminLog";
 
 interface ModelPanelProps {

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { SocialType } from "../../settings";
 import { ApiAxiosInstance } from "../../utils";
-import { Page } from "../../framework/Containers";
 import { Contacts, Members } from "./components";
-import { SocialType } from "../../config";
+import { Error } from "../../framework/Prebuilt";
+import { Page } from "../../framework/Containers";
 
 export interface MemberData {
   id: string;
@@ -44,7 +45,7 @@ const Contact: React.FC = () => {
   const editMode = useSelector((state: any) => state.editMode.editMode);
 
   const [ready, setReady] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState<any>(null);
   const [membersData, setMembersData] = useState<MemberData[] | null>(null);
   const [contactData, setContactData] = useState<any>(null);
   const [socialData, setSocialData] = useState<any>(null);
@@ -65,12 +66,22 @@ const Contact: React.FC = () => {
         setReady(true);
       } catch (err) {
         setError(err.error);
-        console.log(err.error);
         dispatch({ type: "FETCH_DATA_FAILURE" });
       }
     };
     fetchData();
   }, []);
+
+  if (error) {
+    return (
+      <Error
+        message={error.message}
+        description={error.description}
+        instructions={error.instructions}
+        thanks={error.thanks}
+      />
+    );
+  }
 
   if (!ready || !membersData) {
     return null;

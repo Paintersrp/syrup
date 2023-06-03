@@ -1,16 +1,4 @@
 import React, { FC, CSSProperties } from "react";
-import {
-  faBars,
-  faPlus,
-  faChevronDown,
-  faChevronUp,
-  faFilter,
-  faTimes,
-  faSave,
-  faEdit,
-  faTrashAlt,
-} from "@fortawesome/free-solid-svg-icons";
-import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import IconButton from "../IconButton/IconButton";
 
 interface ActionButtonProps {
@@ -97,7 +85,6 @@ const ActionButton: FC<ActionButtonProps> = ({
       onClick={onClick}
       className={className}
       style={style}
-      // icon={icon}
       material={icon}
       iconStyle={iconStyle}
       iconColor={iconColor}

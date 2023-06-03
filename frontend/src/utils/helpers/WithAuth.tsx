@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setAuth, setUser } from "../../lib/Actions/auth";
-import AxiosInstance from "./ApiAxiosInstance";
 import Cookies from "js-cookie";
+
+import { setAuth, setUser } from "../../lib";
+import ApiAxiosInstance from "./ApiAxiosInstance";
 
 const WithAuth = <P extends object>(
   WrappedComponent: React.ComponentType<P>
@@ -12,7 +13,7 @@ const WithAuth = <P extends object>(
 
     useEffect(() => {
       if (Cookies.get("jwt")) {
-        AxiosInstance.get("auth/verify/")
+        ApiAxiosInstance.get("auth/verify/")
           .then((res) => {
             console.log("token check:", res.data);
             dispatch(
@@ -43,7 +44,6 @@ const WithAuth = <P extends object>(
             );
           });
       } else {
-        console.log("no auth");
         dispatch(setAuth({ is_authenticated: false }));
         dispatch(
           setUser({

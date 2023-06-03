@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./IconScroller.css";
 
-import { SOCIALS, SocialType } from "../../../../config";
+import { SOCIALS, SocialType } from "../../../../settings";
 import { Icon } from "../../../../framework/Base";
 
 const IconScroller: React.FC = () => {

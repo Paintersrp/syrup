@@ -2,10 +2,10 @@ import React from "react";
 import DOMPurify from "dompurify";
 import "./Paragraph.css";
 
-import { Flexer } from "../../../../framework/Containers";
 import { Text } from "../../../../framework/Base";
-import { ButtonBar } from "../../../../framework/Prebuilt";
 import ParagraphEdit from "./components/ParagraphEdit";
+import { Flexer } from "../../../../framework/Containers";
+import { ButtonBar } from "../../../../framework/Prebuilt";
 
 interface ParagraphProps {
   data: any;

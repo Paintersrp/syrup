@@ -2,10 +2,17 @@
 import Accordion from "./Accordion/Accordion";
 export { Accordion };
 
+// Alert Components
+import Alert from "./Alert/Alert";
+export { Alert };
+
 // Button Components
 import ActionButton from "./ActionButton/ActionButton";
 import Button from "./Button/Button";
 export { ActionButton, Button };
+
+import type { ButtonSize } from "./Button/Button";
+export { ButtonSize };
 
 // Breadcrumbs Components
 import Breadcrumbs from "./Breadcrumbs/Breadcrumbs";
@@ -23,8 +30,17 @@ export { Divider };
 import Drawer from "./Drawer/Drawer";
 import DrawerHeader from "./Drawer/components/DrawerHeader";
 import DrawerFooter from "./Drawer/components/DrawerFooter";
+import DrawerFooterLinks from "./Drawer/components/DrawerFooterLinks";
 import DrawerContent from "./Drawer/components/DrawerContent";
-export { Drawer, DrawerHeader, DrawerFooter, DrawerContent };
+import { useDrawer } from "./Drawer/hooks/useDrawer";
+export {
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerFooterLinks,
+  DrawerHeader,
+  useDrawer,
+};
 
 // FAB Components
 import FAB from "./FAB/FAB";
@@ -65,9 +81,6 @@ export { List, ListItem, ListHeader };
 
 // Media Components
 import Media from "./Media/Media";
-import type { MediaSizes } from "./Media/Media";
-
-export type { MediaSizes };
 export { Media };
 
 // Menu Components
@@ -82,6 +95,13 @@ export { Modal };
 // Navbar Components
 import Navbar from "./Navbar/Navbar";
 export { Navbar };
+
+// SEO Components
+import SEO from "./SEO/SEO";
+export { SEO };
+
+import type { SEOData } from "./SEO/SEO";
+export type { SEOData };
 
 // SpeedDial Components
 import { SpeedDial, SpeedDialItem } from "./SpeedDial/SpeedDial";
@@ -124,13 +144,20 @@ import HelpText from "./HelpText/HelpText";
 import Text from "./Text/Text";
 export { HelpText, Text };
 
+import type { TextAlign, TextType } from "./Text/Text";
+export type { TextAlign, TextType };
+
 //ToggleButton Components
 import ToggleButton from "./ToggleButton/ToggleButton";
 import ToggleButtonGroup from "./ToggleButtonGroup/ToggleButtonGroup";
 export { ToggleButton, ToggleButtonGroup };
+
 // Tooltip Components
 import Tooltip from "./Tooltip/Tooltip";
 export { Tooltip };
+
+import type { TooltipPosition } from "./Tooltip/Tooltip";
+export type { TooltipPosition };
 
 // TransferList Components
 import TransferList from "./TransferList/TransferList";

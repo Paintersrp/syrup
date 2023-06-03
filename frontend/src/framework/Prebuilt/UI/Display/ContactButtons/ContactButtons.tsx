@@ -2,8 +2,7 @@ import React from "react";
 import { CSSProperties } from "react";
 
 import { palettes } from "../../../../../utils/theming/theme";
-import { Button } from "../../../../Base";
-import { ButtonSize } from "../../../../Base/Button/Button";
+import { Button, ButtonSize } from "../../../../Base";
 import { Flexer } from "../../../../Containers";
 
 interface ContactButtonsProps {

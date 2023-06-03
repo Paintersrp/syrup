@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import "./About.css";
 
-import { ApiAxiosInstance } from "../../utils";
-import { Flexer, Page, Surface } from "../../framework/Containers";
-import { ButtonBar } from "../../framework/Prebuilt";
 import {
   AboutFAQ,
   ImageHeader,
@@ -12,11 +8,14 @@ import {
   Paragraph,
   Values,
 } from "./components";
+import { ApiAxiosInstance } from "../../utils";
+import { ButtonBar, Error } from "../../framework/Prebuilt";
+import { Flexer, Page, Surface } from "../../framework/Containers";
 
 interface AboutProps {}
 
 const About: React.FC<AboutProps> = ({}) => {
-  const [error, setError] = useState([]);
+  const [error, setError] = useState<any>(null);
   const editMode = useSelector((state: any) => state.editMode.editMode);
 
   const [data, setData] = useState<any>([]);
@@ -49,27 +48,40 @@ const About: React.FC<AboutProps> = ({}) => {
           setReady(true);
         })
         .catch((err) => {
+          console.log(err.error);
           setError(err.error);
         });
     };
     fetchData();
   }, []);
 
-  const updateBlock = (updateBlock) => {
+  const updateBlock = (updateBlock: any) => {
     setData(updateBlock);
     setEditTitle(false);
   };
 
-  const updateMission = (updateMission) => {
+  const updateMission = (updateMission: any) => {
     setMissionData(updateMission);
     setMissionBody(updateMission.body.replace(/<br\s*[\/]?>/gi, ""));
     setEditMission(false);
   };
-  const updateHistory = (updateHistory) => {
+
+  const updateHistory = (updateHistory: any) => {
     setHistoryData(updateHistory);
     setHistoryBody(updateHistory.body.replace(/<br\s*[\/]?>/gi, ""));
     setEditHistory(false);
   };
+
+  if (error) {
+    return (
+      <Error
+        message={error.message}
+        description={error.description}
+        instructions={error.instructions}
+        thanks={error.thanks}
+      />
+    );
+  }
 
   if (!ready) {
     return null;
@@ -89,12 +101,7 @@ const About: React.FC<AboutProps> = ({}) => {
           </Flexer>
         )}
         {!editTitle ? (
-          <ImageHeader
-            header={`About ${data.title}`}
-            src={data.image}
-            imageSize="lg"
-            fade
-          />
+          <ImageHeader header={`About ${data.title}`} src={data.image} fade />
         ) : (
           <ImageHeaderEdit
             data={data}

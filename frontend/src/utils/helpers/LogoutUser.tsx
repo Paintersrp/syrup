@@ -1,9 +1,9 @@
 import Cookies from "js-cookie";
-import AxiosInstance from "./ApiAxiosInstance";
+import ApiAxiosInstance from "./ApiAxiosInstance";
 
 const LogoutUser = (): void => {
   if (Cookies.get("jwt")) {
-    AxiosInstance.get("/auth/logout/")
+    ApiAxiosInstance.get("/auth/logout/")
       .then(() => {
         Cookies.remove("jwt");
         window.location.href = "/";

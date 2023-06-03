@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-import { Carousel, Container } from "../../../../../../framework/Containers";
-import { ConfirmationModal } from "../../../../../../framework/Prebuilt";
-import { palettes } from "../../../../../../utils/theming/theme";
 import { PostCard } from "./components";
 import { PostData } from "../../../../Landing";
+import { palettes } from "../../../../../../utils";
+import { ConfirmationModal } from "../../../../../../framework/Prebuilt";
+import { Carousel, Container } from "../../../../../../framework/Containers";
 
 interface PostCardsProps {
   posts: PostData[];

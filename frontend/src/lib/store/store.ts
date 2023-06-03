@@ -1,8 +1,8 @@
 import { createStore, combineReducers, Store, ReducersMapObject } from "redux";
-import authReducer, { AuthState } from "../Reducers/auth";
-import snackbarReducer, { SnackbarState } from "../Reducers/snackbar";
-import pluginsReducer, { PluginState } from "../Reducers/plugins";
-import editmodeReducer, { EditModeState } from "../Reducers/editmode";
+import authReducer, { AuthState } from "../reducers/auth";
+import snackbarReducer, { SnackbarState } from "../reducers/snackbar";
+import pluginsReducer, { PluginState } from "../reducers/plugins";
+import editmodeReducer, { EditModeState } from "../reducers/editmode";
 
 export interface RootState {
   auth: AuthState;

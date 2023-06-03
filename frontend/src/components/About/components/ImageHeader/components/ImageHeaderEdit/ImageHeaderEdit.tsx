@@ -6,10 +6,10 @@ import {
   Flexer,
   Item,
 } from "../../../../../../framework/Containers";
-import { Input, HelpText, ImageInput } from "../../../../../../framework/Base";
-import { ConfirmCancelBar } from "../../../../../../framework/Prebuilt";
-import { ApiAxiosInstance } from "../../../../../../utils";
 import ImageHeader from "../../ImageHeader";
+import { ApiAxiosInstance } from "../../../../../../utils";
+import { ConfirmCancelBar } from "../../../../../../framework/Prebuilt";
+import { Input, HelpText, ImageInput } from "../../../../../../framework/Base";
 
 interface ImageHeaderData {
   title: string;
@@ -84,7 +84,6 @@ const ImageHeaderEdit: React.FC<ImageHeaderEditProps> = ({
                   headerType="h4"
                   src={data.image}
                   mb={0}
-                  imageSize="md"
                 />
               )}
               {newImage ? (
@@ -94,7 +93,6 @@ const ImageHeaderEdit: React.FC<ImageHeaderEditProps> = ({
                       header="Previous Image"
                       headerType="h4"
                       src={data.image}
-                      imageSize="xs"
                       mb={0}
                     />
                   </Item>
@@ -103,7 +101,6 @@ const ImageHeaderEdit: React.FC<ImageHeaderEditProps> = ({
                       header="New Image"
                       headerType="h4"
                       src={newImage}
-                      imageSize="xs"
                       mb={0}
                     />
                   </Item>

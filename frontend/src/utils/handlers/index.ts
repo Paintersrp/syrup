@@ -1,8 +1,18 @@
-export {
+import {
   handleDataChange,
   handleNestedDataChange,
   toggleState,
   toggleSwapStates,
 } from "./dataHandlers";
+import { filterState } from "./filterHandlers";
+import { handleClearErrors, handleClearNestedErrors } from "./errorHandles";
 
-export { filterState } from "./filterHandlers";
+export {
+  handleClearErrors,
+  handleClearNestedErrors,
+  handleDataChange,
+  handleNestedDataChange,
+  filterState,
+  toggleState,
+  toggleSwapStates,
+};

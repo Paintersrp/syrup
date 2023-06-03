@@ -2,9 +2,8 @@ import React, { CSSProperties, ReactElement, ReactEventHandler } from "react";
 import { faCheck, faClose } from "@fortawesome/free-solid-svg-icons";
 import "./ConfirmCancelBar.css";
 
-import { IconButton, Tooltip } from "../../../Base";
+import { IconButton, Tooltip, TooltipPosition } from "../../../Base";
 import { Flexer } from "../../../Containers";
-import { TooltipPosition } from "../../../Base/Tooltip/Tooltip";
 
 interface ConfirmCancelBarProps {
   handleConfirm: ReactEventHandler;

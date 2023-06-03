@@ -1,6 +1,6 @@
 import React, { ReactNode, CSSProperties } from "react";
 
-import { shadowSwitch } from "../../../utils/theming/styleSwitches";
+import { shadowSwitch } from "../../../utils";
 import { justificationSwitch, JustificationValue } from "../Flexer/Flexer";
 
 type SurfaceProps = {
@@ -26,6 +26,7 @@ type SurfaceProps = {
   style?: object;
   className?: string;
   id?: string;
+  onClick?: any;
 };
 
 const Surface: React.FC<SurfaceProps> = ({
@@ -51,6 +52,7 @@ const Surface: React.FC<SurfaceProps> = ({
   style,
   className,
   id,
+  onClick,
 }) => {
   const containerStyle: CSSProperties = {
     width: "100%",
@@ -68,7 +70,6 @@ const Surface: React.FC<SurfaceProps> = ({
     marginBottom: gutter ? 16 : marginBottom,
     background: background,
     borderRadius: borderRadius * 8,
-
     ...style,
   };
 
@@ -85,7 +86,7 @@ const Surface: React.FC<SurfaceProps> = ({
   };
 
   return (
-    <div style={containerStyle} id={id}>
+    <div style={containerStyle} id={id} onClick={onClick}>
       <div style={contentStyle} className={className}>
         {children}
       </div>

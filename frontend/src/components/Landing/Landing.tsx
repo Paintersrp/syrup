@@ -11,8 +11,8 @@ import {
 import { ApiAxiosInstance } from "../../utils";
 import { Page } from "../../framework/Containers";
 import { ContactInformationData } from "../Contact/Contact";
-import { SocialType } from "../../config";
-import { SectionHeaderData } from "../../framework/Prebuilt";
+import { SocialType } from "../../settings";
+import { Error, SectionHeaderData } from "../../framework/Prebuilt";
 
 export interface HeroData {
   title: string;
@@ -49,7 +49,7 @@ const Landing: React.FC<LandingProps> = () => {
   );
 
   const [ready, setReady] = useState(false);
-  const [error, setError] = useState<any>();
+  const [error, setError] = useState<any>(null);
 
   const [serviceData, setServiceData] = useState<any>({});
   const [heroData, setHeroData] = useState<HeroData | any>({});
@@ -89,12 +89,23 @@ const Landing: React.FC<LandingProps> = () => {
         dispatch({ type: "FETCH_DATA_SUCCESS" });
         setReady(true);
       } catch (err) {
-        setError(err);
+        setError(err.error);
         dispatch({ type: "FETCH_DATA_FAILURE" });
       }
     };
     fetchData();
   }, [dispatch]);
+
+  if (error) {
+    return (
+      <Error
+        message={error.message}
+        description={error.description}
+        instructions={error.instructions}
+        thanks={error.thanks}
+      />
+    );
+  }
 
   if (!ready) {
     return null;

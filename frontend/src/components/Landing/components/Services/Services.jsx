@@ -41,7 +41,7 @@ const Services = ({ carousel = false }) => {
       ) : (
         <Container style={{ maxWidth: 1200 }}>
           {services.map((service) => (
-            <Item xs={12} sm={4}>
+            <Item xs={12} sm={12} md={6} lg={4} style={{ padding: 8 }}>
               <Service service={service} />
             </Item>
           ))}

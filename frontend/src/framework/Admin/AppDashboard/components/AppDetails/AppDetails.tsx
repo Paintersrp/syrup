@@ -2,9 +2,9 @@ import React from "react";
 import "./AppDetails.css";
 
 import { List } from "../../../../Base";
-import { Collapser, Surface } from "../../../../Containers";
 import PanelHeader from "../PanelHeader/PanelHeader";
-import RenderModels from "../../../MainDashboard/components/RenderModels/RenderModels";
+import { Collapser, Surface } from "../../../../Containers";
+import { RenderModels } from "../../../MainDashboard/components";
 
 interface AppDetailsProps {
   models: { [key: string]: any };

@@ -12,8 +12,8 @@ import {
   Item,
   Surface,
 } from "../../../../../../../../framework/Containers";
-import { Media, Tag, Text } from "../../../../../../../../framework/Base";
 import { PostData } from "../../../../../../Landing";
+import { Media, Tag, Text } from "../../../../../../../../framework/Base";
 
 interface Tag {
   id: number;
@@ -57,7 +57,6 @@ const PostCard: React.FC<PostCardProps> = ({
         <Media
           altText="Post Image"
           src={post.image}
-          size="card"
           boxShadow={1}
           mediaClass="post-card-media"
         />

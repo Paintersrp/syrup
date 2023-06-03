@@ -4,10 +4,10 @@ import {
   ButtonBar,
   ContactButtons,
 } from "../../../../../../framework/Prebuilt";
-import { FormGenerator, IconTextItem } from "../../../../../../framework/Base";
-import { Flexer, Surface } from "../../../../../../framework/Containers";
+import { palettes } from "../../../../../../utils";
 import { ContactInformationData } from "../../../../Contact";
-import { palettes } from "../../../../../../utils/theming/theme";
+import { Flexer, Surface } from "../../../../../../framework/Containers";
+import { FormGenerator, IconTextItem } from "../../../../../../framework/Base";
 
 interface InformationProps {
   contactData: ContactInformationData;
@@ -31,6 +31,15 @@ const Information: React.FC<InformationProps> = ({ contactData, editMode }) => {
     <Flexer j="c">
       {!editing ? (
         <div className="fade-in">
+          {editMode && (
+            <ButtonBar
+              justifyContent="flex-end"
+              editClick={() => setEditing(!editing)}
+              adminLink="contactinformation"
+              text="Contact Information"
+              tooltipPosition="bottom"
+            />
+          )}
           <Surface
             boxShadow={0}
             a="c"
@@ -38,7 +47,7 @@ const Information: React.FC<InformationProps> = ({ contactData, editMode }) => {
             px={3}
             py={2}
             br={1}
-            mt={2}
+            mt={0}
             mb={0}
             maxWidth={300}
           >
@@ -68,16 +77,6 @@ const Information: React.FC<InformationProps> = ({ contactData, editMode }) => {
               mb={6}
               borderRadius={16}
             />
-            {editMode && (
-              <ButtonBar
-                justifyContent="flex-end"
-                editClick={() => setEditing(!editing)}
-                adminLink="contactinformation"
-                text="Contact Information"
-                tooltipPosition="bottom"
-                mt={8}
-              />
-            )}
           </Surface>
         </div>
       ) : (

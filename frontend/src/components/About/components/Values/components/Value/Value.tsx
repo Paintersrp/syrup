@@ -3,16 +3,16 @@ import axios from "axios";
 import "./Value.css";
 
 import {
-  ButtonBar,
-  ConfirmationModal,
-} from "../../../../../../framework/Prebuilt";
-import {
   FormGenerator,
   MaterialIcon,
   Text,
 } from "../../../../../../framework/Base";
-import { Flexer } from "../../../../../../framework/Containers";
+import {
+  ButtonBar,
+  ConfirmationModal,
+} from "../../../../../../framework/Prebuilt";
 import { ValueType } from "../../Values";
+import { Flexer } from "../../../../../../framework/Containers";
 
 interface ValueProps {
   value: ValueType;

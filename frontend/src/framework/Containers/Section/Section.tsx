@@ -2,13 +2,9 @@ import React, { useState, ReactNode, CSSProperties } from "react";
 import "../Containers.css";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 
-import { JustificationValue } from "../Flexer/Flexer";
-import { TextAlign, TextType } from "../../Base/Text/Text";
-
-import { Divider, IconButton, Text } from "../../Base";
-import { Flexer, Collapser } from "../../Containers";
-
-import { shadowSwitch } from "../../../utils/theming/styleSwitches";
+import { Divider, IconButton, Text, TextAlign, TextType } from "../../Base";
+import { Flexer, Collapser, JustificationValue } from "../../Containers";
+import { shadowSwitch } from "../../../utils";
 
 interface SectionProps {
   header?: string;

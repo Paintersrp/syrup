@@ -49,6 +49,7 @@ interface FlexerProps {
   fd?: CSSProperties["flexDirection"];
   w?: number | string;
   grow?: boolean;
+  wrap?: boolean;
   gap?: CSSProperties["gap"];
   children?: ReactNode;
   style?: CSSProperties;
@@ -67,6 +68,7 @@ const Flexer: React.FC<FlexerProps> = ({
   fd: flexDirection = "row",
   w: width = "100%",
   grow = false,
+  wrap = false,
   gap,
   children,
   style,
@@ -88,6 +90,7 @@ const Flexer: React.FC<FlexerProps> = ({
         justifyContent: justificationSwitch(justifyContent),
         alignItems: justificationSwitch(alignItems),
         flexGrow: grow ? 1 : 0,
+        flexWrap: wrap ? "wrap" : undefined,
         gap: gap,
       }}
     >

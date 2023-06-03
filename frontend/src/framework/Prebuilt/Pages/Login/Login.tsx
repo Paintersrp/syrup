@@ -6,12 +6,10 @@ import Cookies from "js-cookie";
 import bcrypt from "bcryptjs";
 import "./Login.css";
 
-import { Button, Checkbox, Icon, Input, Text } from "../../Base";
-import { Flexer, Page, Surface } from "../../Containers";
-
-import AxiosInstance from "../../../utils/helpers/ApiAxiosInstance";
-import { handleDataChange } from "../../../utils/handlers/dataHandlers";
-import { setAuth, setUser } from "../../../lib/Actions/auth";
+import { ApiAxiosInstance, handleDataChange } from "../../../../utils";
+import { Button, Checkbox, Icon, Input, Text } from "../../../Base";
+import { Flexer, Page, Surface } from "../../../Containers";
+import { setAuth, setUser } from "../../../../lib";
 
 interface FormData {
   username: string;
@@ -34,7 +32,7 @@ const Login: FC = ({}) => {
     let salt: string | number;
     let loginData: { username: string; password: string };
 
-    AxiosInstance.post("/auth/salt/", { username: formData.username })
+    ApiAxiosInstance.post("/auth/salt/", { username: formData.username })
       .then(async (response) => {
         if (response.data.salt) {
           salt = response.data.salt;
@@ -59,7 +57,7 @@ const Login: FC = ({}) => {
         }
       })
       .then(async (response) => {
-        AxiosInstance.post("/auth/login/", loginData)
+        ApiAxiosInstance.post("/auth/login/", loginData)
           .then((response) => {
             dispatch(
               setAuth({

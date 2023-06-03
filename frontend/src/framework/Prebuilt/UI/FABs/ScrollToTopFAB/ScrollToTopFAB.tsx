@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
-import { FAB, Tooltip } from "../../../../Base";
-
 import "./ScrollToTopFAB.css";
+
+import { FAB, Tooltip } from "../../../../Base";
 
 interface ScrollToTopFABProps {}
 

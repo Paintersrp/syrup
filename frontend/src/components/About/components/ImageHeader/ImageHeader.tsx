@@ -1,11 +1,10 @@
 import React, { CSSProperties } from "react";
+import "./ImageHeader.css";
 
-import { TITLE } from "../../../../config";
-import { Media, MediaSizes, Text } from "../../../../framework/Base";
+import { TITLE } from "../../../../settings";
+import { Media, Text } from "../../../../framework/Base";
 import { Flexer } from "../../../../framework/Containers";
 import { TextType } from "../../../../framework/Base/Text/Text";
-
-import "./ImageHeader.css";
 
 interface ImageHeaderProps {
   header?: string;
@@ -14,7 +13,6 @@ interface ImageHeaderProps {
   mb?: CSSProperties["marginBottom"];
   fade?: boolean;
   boxShadow?: boolean;
-  imageSize?: MediaSizes;
 }
 
 const ImageHeader: React.FC<ImageHeaderProps> = ({
@@ -24,7 +22,6 @@ const ImageHeader: React.FC<ImageHeaderProps> = ({
   mb: marginBottom = 32,
   fade = false,
   boxShadow = false,
-  imageSize = "lg",
 }) => {
   return (
     <Flexer
@@ -38,15 +35,16 @@ const ImageHeader: React.FC<ImageHeaderProps> = ({
           {header}
         </Text>
       )}
-      {src && (
-        <Media
-          className="image-header-media"
-          src={src}
-          altText={header}
-          size={imageSize}
-          boxShadow={boxShadow ? 1 : 0}
-        />
-      )}
+      <div style={{ width: "100%" }}>
+        {src && (
+          <Media
+            className="image-header-media"
+            src={src}
+            altText={header}
+            boxShadow={boxShadow ? 1 : 0}
+          />
+        )}
+      </div>
     </Flexer>
   );
 };

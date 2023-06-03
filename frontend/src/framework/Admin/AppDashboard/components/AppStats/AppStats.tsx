@@ -1,11 +1,10 @@
 import React from "react";
 import "./AppStats.css";
 
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { List, ListItem } from "../../../../Base";
-import { Collapser, Surface } from "../../../../Containers";
 import PanelHeader from "../PanelHeader/PanelHeader";
-
+import { Collapser, Surface } from "../../../../Containers";
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 interface Model {
   name: string;
   num_objects: number;

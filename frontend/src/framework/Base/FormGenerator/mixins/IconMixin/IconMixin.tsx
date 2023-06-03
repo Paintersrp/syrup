@@ -1,9 +1,11 @@
 import React from "react";
-import { Flexer } from "../../../../Containers";
-import MaterialIcon, { ICON_OPTIONS } from "../../../Icon/MaterialIcon";
+
+import Text from "../../../Text/Text";
 import Option from "../../../Option/Option";
 import Select from "../../../Select/Select";
-import Text from "../../../Text/Text";
+import { Flexer } from "../../../../Containers";
+import MaterialIcon, { ICON_OPTIONS } from "../../../Icon/MaterialIcon";
+import HelpText from "../../../HelpText/HelpText";
 
 interface IconMixinType {
   fieldName?: string;
@@ -20,6 +22,9 @@ const IconMixin: React.FC<IconMixinType> = ({
 }) => {
   return (
     <React.Fragment>
+      <HelpText mt={4} mb={0}>
+        Select an Icon
+      </HelpText>
       <Select
         value={fieldName ? formData[fieldName] || formData.icon : formData.icon}
         onChange={handleChange}
@@ -31,7 +36,6 @@ const IconMixin: React.FC<IconMixinType> = ({
           borderRadius: 4,
         }}
       >
-        <Option value="Select an icon">Select an icon</Option>
         {ICON_OPTIONS.map((icon) => (
           <Option key={`icon-${icon.id}`} value={icon.name}>
             <Flexer>

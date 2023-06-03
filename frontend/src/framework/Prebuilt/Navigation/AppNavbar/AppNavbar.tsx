@@ -3,19 +3,17 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./AppNavbar.css";
 
-import { ActionButton, Navbar, Text } from "../../../Base";
 import { Flexer } from "../../../Containers";
-
-import LogoutUser from "../../../../utils/helpers/LogoutUser";
-import { LinkType } from "../../../../config/links";
-import { palettes } from "../../../../utils/theming/theme";
+import { LogoutUser, palettes } from "../../../../utils";
+import { SiteLinkType } from "../../../../settings/links";
+import { ActionButton, Navbar, Text } from "../../../Base";
 
 interface AppNavbarProps {
   menuButton?: boolean;
   drawerSize?: number;
   menuOnClick?: () => void;
   menuOpen?: boolean;
-  links: LinkType[];
+  links: SiteLinkType[];
   children?: ReactNode;
 }
 
@@ -56,7 +54,7 @@ const AppNavbar: FC<AppNavbarProps> = ({
             }
             return (
               <Link key={index} to={item.to}>
-                <Text t="h4">{item.text}</Text>
+                <Text t="h4">{item.key}</Text>
               </Link>
             );
           })}

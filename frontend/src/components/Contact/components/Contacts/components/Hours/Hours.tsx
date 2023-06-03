@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
 
 import {
-  Container,
   Flexer,
-  Item,
+  Stagger,
   Surface,
 } from "../../../../../../framework/Containers";
-import { FormGenerator, IconTextItem } from "../../../../../../framework/Base";
-import { ButtonBar } from "../../../../../../framework/Prebuilt";
-import { palettes } from "../../../../../../utils/theming/theme";
 import { HoursData } from "../../../../Contact";
+import { palettes } from "../../../../../../utils";
+import { ButtonBar } from "../../../../../../framework/Prebuilt";
+import { FormGenerator, IconTextItem } from "../../../../../../framework/Base";
 
 const daysOfWeek = [
   "Monday",
@@ -42,57 +41,38 @@ const Hours: React.FC<HoursProps> = ({ hoursData, editMode }) => {
   return (
     <Flexer j="c">
       {!editing ? (
-        <div className="fade-in">
-          <Surface
-            boxShadow={0}
-            a="c"
-            j="c"
-            px={3}
-            py={2}
-            br={1}
-            mt={0}
-            mb={4}
-            style={{ minWidth: 300 }}
-          >
-            <Container justify="center" style={{ maxWidth: 325 }}>
-              {daysOfWeek.map((dayOfWeek, index) => (
-                <Item
-                  xs={6}
-                  style={{
-                    flexDirection: "column",
-                  }}
-                >
-                  <IconTextItem
-                    key={dayOfWeek}
-                    icon="today"
-                    text={dayOfWeek}
-                    subtext={data[dayOfWeek.toLowerCase()]}
-                    iconColor={
-                      data[dayOfWeek.toLowerCase()] === "Closed"
-                        ? palettes.error.main
-                        : ""
-                    }
-                    subtextColor={
-                      data[dayOfWeek.toLowerCase()] === "Closed"
-                        ? palettes.error.main
-                        : ""
-                    }
-                    divider={dayOfWeek !== "Sunday"}
-                  />
-                </Item>
-              ))}
-            </Container>
-            {editMode && (
-              <ButtonBar
-                justifyContent="flex-end"
-                editClick={() => setEditing(!editing)}
-                adminLink="contactinformation"
-                text="Hours"
-                tooltipPosition="bottom"
-                mt={8}
+        <div style={{ width: 300, padding: "16px 24px" }}>
+          {editMode && (
+            <ButtonBar
+              justifyContent="flex-end"
+              editClick={() => setEditing(!editing)}
+              adminLink="contactinformation"
+              text="Hours"
+              tooltipPosition="bottom"
+              mt={8}
+            />
+          )}
+          <Stagger direction="right" orientation="vertical">
+            {daysOfWeek.map((dayOfWeek, index) => (
+              <IconTextItem
+                key={dayOfWeek}
+                icon="today"
+                text={dayOfWeek}
+                subtext={data[dayOfWeek.toLowerCase()]}
+                iconColor={
+                  data[dayOfWeek.toLowerCase()] === "Closed"
+                    ? palettes.error.main
+                    : ""
+                }
+                subtextColor={
+                  data[dayOfWeek.toLowerCase()] === "Closed"
+                    ? palettes.error.main
+                    : ""
+                }
+                divider={dayOfWeek !== "Sunday"}
               />
-            )}
-          </Surface>
+            ))}
+          </Stagger>
         </div>
       ) : (
         <FormGenerator

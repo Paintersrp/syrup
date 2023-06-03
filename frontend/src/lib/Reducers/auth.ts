@@ -3,7 +3,7 @@ import {
   SetUserAction,
   SET_AUTH,
   SET_USER,
-} from "../Actions/auth";
+} from "../actions/auth";
 
 export interface AuthState {
   is_authenticated: any;

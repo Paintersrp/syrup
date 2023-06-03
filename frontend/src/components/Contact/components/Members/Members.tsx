@@ -1,10 +1,10 @@
 import React from "react";
 
-import { Text } from "../../../../framework/Base";
-import { Container, Flexer } from "../../../../framework/Containers";
-import { ButtonBar } from "../../../../framework/Prebuilt";
-import { MemberData } from "../../Contact";
 import { Member } from "./components";
+import { MemberData } from "../../Contact";
+import { Text } from "../../../../framework/Base";
+import { ButtonBar } from "../../../../framework/Prebuilt";
+import { Container, Flexer } from "../../../../framework/Containers";
 
 interface MembersProps {
   membersData: MemberData[];
@@ -24,6 +24,7 @@ const Members: React.FC<MembersProps> = ({ membersData, editMode }) => {
           Company Members
         </Text>
         {editMode && <ButtonBar adminLink="teammember" text="Members" />}
+
         <Container justify="center">
           {membersData.map((member) => (
             <Member member={member} editMode={editMode} key={member.id} />

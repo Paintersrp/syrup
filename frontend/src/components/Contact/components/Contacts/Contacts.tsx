@@ -1,11 +1,10 @@
 import React from "react";
 
-import { SocialType } from "../../../../config";
+import { SocialType } from "../../../../settings";
 import { Text } from "../../../../framework/Base";
-import { Container, Flexer, Item } from "../../../../framework/Containers";
-import { ContactInformationData, HoursData } from "../../Contact";
 import { ContactForm, Hours, Information } from "./components";
-
+import { ContactInformationData, HoursData } from "../../Contact";
+import { Container, Flexer, Item } from "../../../../framework/Containers";
 interface ContactsProps {
   contactData: ContactInformationData;
   hoursData: HoursData;

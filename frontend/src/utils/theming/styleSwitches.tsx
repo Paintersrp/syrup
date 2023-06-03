@@ -47,7 +47,7 @@ export const colorSwitch = (
     const hoverShade =
       shade === "dark" || shade === "light"
         ? palettes[color].main
-        : palettes[color].dark;
+        : palettes[color].light;
     return {
       background: selectedShade,
       hover: hoverShade,

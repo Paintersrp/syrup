@@ -13,17 +13,16 @@ import {
   faEdit,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { Flexer } from "../../../Containers";
 import {
   Drawer,
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
 } from "../../../Base";
-
+import { Flexer } from "../../../Containers";
+import { LogoutUser } from "../../../../utils";
 import { ListItemDataType } from "../../../Base/Drawer/components/DrawerContent";
 import DrawerFooterLinks from "../../../Base/Drawer/components/DrawerFooterLinks";
-import { LogoutUser } from "../../../../utils";
 
 interface AppDrawerProps {
   open?: boolean;
