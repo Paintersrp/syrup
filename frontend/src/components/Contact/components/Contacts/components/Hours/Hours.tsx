@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 
 import {
+  BaseProps,
+  ButtonBar,
   Flexer,
+  FormGenerator,
+  IconTextItem,
   Stagger,
-  Surface,
-} from "../../../../../../framework/Containers";
-import { HoursData } from "../../../../Contact";
+} from "../../../../../../framework";
 import { palettes } from "../../../../../../utils";
-import { ButtonBar } from "../../../../../../framework/Prebuilt";
-import { FormGenerator, IconTextItem } from "../../../../../../framework/Base";
+import { HoursData } from "../../../../Contact";
 
 const daysOfWeek = [
   "Monday",
@@ -20,12 +21,12 @@ const daysOfWeek = [
   "Sunday",
 ];
 
-interface HoursProps {
+interface HoursProps extends BaseProps {
   hoursData: HoursData;
   editMode: boolean;
 }
 
-const Hours: React.FC<HoursProps> = ({ hoursData, editMode }) => {
+const Hours: React.FC<HoursProps> = ({ hoursData, editMode, ...rest }) => {
   const [data, setData] = useState<HoursData>(hoursData);
   const [editing, setEditing] = useState(false);
 
@@ -39,7 +40,7 @@ const Hours: React.FC<HoursProps> = ({ hoursData, editMode }) => {
   };
 
   return (
-    <Flexer j="c">
+    <Flexer j="c" {...rest}>
       {!editing ? (
         <div style={{ width: 300, padding: "16px 24px" }}>
           {editMode && (

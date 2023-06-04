@@ -1,11 +1,6 @@
 import React from "react";
 
-import {
-  Carousel,
-  Container,
-  Flexer,
-  Item,
-} from "../../../../framework/Containers";
+import { Carousel, Container, Flexer, Item } from "../../../../framework";
 import { Service } from "./components";
 
 const services = [
@@ -29,9 +24,9 @@ const services = [
   },
 ];
 
-const Services = ({ carousel = false }) => {
+const Services = ({ carousel = false, ...rest }) => {
   return (
-    <Flexer j="c" mt={64} mb={64}>
+    <Flexer j="c" mt={64} mb={64} {...rest}>
       {carousel ? (
         <Carousel>
           {services.map((service) => (

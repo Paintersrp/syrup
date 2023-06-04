@@ -1,21 +1,23 @@
 import React, { useState } from "react";
 
 import {
+  BaseProps,
+  ButtonBar,
+  Flexer,
   FormGenerator,
   MaterialIcon,
+  SlideOnScroll,
   Text,
-} from "../../../../../../framework/Base";
-import { ProcessData } from "../../../../Landing";
+} from "../../../../../../framework";
 import { palettes } from "../../../../../../utils";
-import { Flexer } from "../../../../../../framework/Containers";
-import { ButtonBar, SlideOnScroll } from "../../../../../../framework/Prebuilt";
+import { ProcessData } from "../../../../Landing";
 
-interface ProcessProps {
+interface ProcessProps extends BaseProps {
   data: ProcessData;
   editMode: boolean;
 }
 
-const Process: React.FC<ProcessProps> = ({ data, editMode }) => {
+const Process: React.FC<ProcessProps> = ({ data, editMode, ...rest }) => {
   const [featureData, setFeatureData] = useState(data);
   const [editing, setEditing] = useState(false);
 
@@ -26,7 +28,7 @@ const Process: React.FC<ProcessProps> = ({ data, editMode }) => {
 
   return (
     <SlideOnScroll from="below">
-      <Flexer fd="column" j="c" mt={12}>
+      <Flexer fd="column" j="c" a="c" mt={12} {...rest}>
         {!editing ? (
           <>
             <MaterialIcon

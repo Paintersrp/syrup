@@ -4,23 +4,24 @@ import DOMPurify from "dompurify";
 import "./PostCard.css";
 
 import {
+  BaseProps,
   ButtonBar,
-  SlideOnScroll,
-} from "../../../../../../../../framework/Prebuilt";
-import {
   Flexer,
   Item,
+  Media,
+  SlideOnScroll,
   Surface,
-} from "../../../../../../../../framework/Containers";
+  Tag,
+  Text,
+} from "../../../../../../../../framework";
 import { PostData } from "../../../../../../Landing";
-import { Media, Tag, Text } from "../../../../../../../../framework/Base";
 
 interface Tag {
   id: number;
   detail: string;
 }
 
-interface PostCardProps {
+interface PostCardProps extends BaseProps {
   post: PostData;
   handleDelete: (id: string) => void;
   editMode: boolean | undefined;
@@ -30,6 +31,7 @@ const PostCard: React.FC<PostCardProps> = ({
   post,
   handleDelete,
   editMode,
+  ...rest
 }) => {
   const navigate = useNavigate();
 
@@ -52,7 +54,7 @@ const PostCard: React.FC<PostCardProps> = ({
   };
 
   return (
-    <Item sm={12} md={12} lg={4}>
+    <Item sm={12} md={12} lg={4} {...rest}>
       <SlideOnScroll>
         <Media
           altText="Post Image"

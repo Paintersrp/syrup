@@ -1,24 +1,31 @@
 import React, { useEffect, useState } from "react";
 
 import {
+  BaseProps,
+  ButtonBar,
   Divider,
+  Flexer,
   FormGenerator,
   IconButton,
+  Item,
   Media,
+  Surface,
   Text,
   Tooltip,
-} from "../../../../../../framework/Base";
-import { MemberData } from "../../../../Contact";
+} from "../../../../../../framework";
 import { SOCIALS } from "../../../../../../settings";
-import { ButtonBar } from "../../../../../../framework/Prebuilt";
-import { Flexer, Item, Surface } from "../../../../../../framework/Containers";
+import { MemberData } from "../../../../Contact";
 
-interface MemberProps {
+interface MemberProps extends BaseProps {
   member: MemberData;
   editMode?: boolean;
 }
 
-const Member: React.FC<MemberProps> = ({ member, editMode = false }) => {
+const Member: React.FC<MemberProps> = ({
+  member,
+  editMode = false,
+  ...rest
+}) => {
   const [editing, setEditing] = useState(false);
   const [memberData, setMemberData] = useState(member);
 
@@ -32,7 +39,7 @@ const Member: React.FC<MemberProps> = ({ member, editMode = false }) => {
   };
 
   return (
-    <Item xs={12} sm={6} key={memberData.name}>
+    <Item xs={12} sm={6} key={memberData.name} {...rest}>
       {!editing ? (
         <Surface
           br={1}

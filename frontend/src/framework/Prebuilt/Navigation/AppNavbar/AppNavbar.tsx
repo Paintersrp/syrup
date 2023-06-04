@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./AppNavbar.css";
 
-import { Flexer } from "../../../Containers";
-import { LogoutUser, palettes } from "../../../../utils";
+import { ActionButton, Navbar, Text } from "../../../Components";
 import { SiteLinkType } from "../../../../settings/links";
-import { ActionButton, Navbar, Text } from "../../../Base";
+import { LogoutUser, palettes } from "../../../../utils";
+import { Flexer } from "../../../Containers";
 
 interface AppNavbarProps {
   menuButton?: boolean;

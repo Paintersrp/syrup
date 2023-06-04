@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "./MainDashboard.css";
 
+import { Container, Flexer, Page, Surface } from "../../Containers";
+import { Breadcrumbs, IconButton, Text } from "../../Components";
 import { ApiAxiosInstance } from "../../../utils";
-import { Breadcrumbs, IconButton, Text } from "../../Base";
-import { Container, Content, Flexer, Page } from "../../Containers";
 import { RenderSections } from "./components";
 import { RecentActions } from "../AdminLog";
 
@@ -70,7 +70,16 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
 
   return (
     <Page>
-      <Content maxWidth={1200} pt={4} pb={4} pad={3} boxShadow={1} br={1}>
+      <Surface
+        maxWidth={1200}
+        pt={32}
+        pb={32}
+        px={3}
+        py={3}
+        boxShadow={1}
+        br={8}
+        j="c"
+      >
         {Object.keys(models).length > 0 && (
           <React.Fragment>
             <Flexer>
@@ -115,7 +124,7 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
             </Flexer>
           </React.Fragment>
         )}
-      </Content>
+      </Surface>
     </Page>
   );
 };

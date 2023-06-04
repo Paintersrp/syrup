@@ -6,7 +6,7 @@ import {
   handleClearNestedErrors,
   palettes,
 } from "../../../../../utils";
-import { ActionButton, Text } from "../../../../Base";
+import { ActionButton, Text } from "../../../../Components";
 import { Flexer } from "../../../../Containers";
 
 interface ErrorDisplayProps {

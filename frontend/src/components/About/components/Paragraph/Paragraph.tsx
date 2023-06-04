@@ -2,12 +2,10 @@ import React from "react";
 import DOMPurify from "dompurify";
 import "./Paragraph.css";
 
-import { Text } from "../../../../framework/Base";
+import { BaseProps, ButtonBar, Flexer, Text } from "../../../../framework";
 import ParagraphEdit from "./components/ParagraphEdit";
-import { Flexer } from "../../../../framework/Containers";
-import { ButtonBar } from "../../../../framework/Prebuilt";
 
-interface ParagraphProps {
+interface ParagraphProps extends BaseProps {
   data: any;
   editMode?: boolean;
   editState?: boolean;
@@ -25,10 +23,10 @@ const Paragraph: React.FC<ParagraphProps> = ({
   adminLink,
   text,
   onUpdate,
+  ...rest
 }) => {
-  console.log("ediitMode", editMode);
   return (
-    <Flexer mt={32} mb={32} fd="column">
+    <Flexer mt={32} mb={32} fd="column" {...rest}>
       {!editState ? (
         <React.Fragment>
           <Flexer j="sb" className="paragraph-section-title fade-in">

@@ -2,19 +2,23 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 
 import {
+  BaseProps,
   Button,
+  ButtonBar,
+  ErrorDisplay,
+  Flexer,
   Input,
+  Item,
   Option,
   Select,
+  SocialButtons,
+  Surface,
   Text,
   useFormValidation,
   validateForm,
-} from "../../../../../../framework/Base";
-import { SocialType } from "../../../../../../settings";
+} from "../../../../../../framework";
 import { ApiAxiosInstance } from "../../../../../../utils";
-import { Item, Flexer, Surface } from "../../../../../../framework/Containers";
-import { ButtonBar, SocialButtons } from "../../../../../../framework/Prebuilt";
-import ErrorDisplay from "../../../../../../framework/Prebuilt/UI/Errors/ErrorDisplay/ErrorDisplay";
+import { SocialType } from "../../../../../../settings";
 
 interface ContactFormData {
   name: string;
@@ -24,7 +28,7 @@ interface ContactFormData {
   subject: string;
 }
 
-interface ContactFormProps {
+interface ContactFormProps extends BaseProps {
   socialData: SocialType;
   editMode: boolean;
   color?: "light" | "dark" | undefined;
@@ -41,6 +45,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
   socialData,
   editMode,
   color = "light",
+  ...rest
 }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState<ContactFormData>({
@@ -88,7 +93,7 @@ const ContactForm: React.FC<ContactFormProps> = ({
   } = useFormValidation(formData, validateForm, submitLogic);
 
   return (
-    <Item xs={6} style={{ flexDirection: "column" }}>
+    <Item xs={6} fd="column" {...rest}>
       <Surface
         boxShadow={1}
         maxWidth={325}

@@ -8,9 +8,9 @@ import {
   TableCell,
   TableRow,
   Tooltip,
-} from "../../../../../../../../Base";
-import { Flexer } from "../../../../../../../../Containers";
+} from "../../../../../../../../Components";
 import { CapitalizeFirst, palettes } from "../../../../../../../../../utils";
+import { Flexer } from "../../../../../../../../Containers";
 
 interface ModelTableBodyProps {
   keys: string[];

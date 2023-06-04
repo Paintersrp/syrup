@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
+import {
+  AppDashboard,
+  Login,
+  MainDashboard,
+  ModelDashboard,
+  NotFound,
+  Register,
+} from "./framework";
 import { About, Contact, Landing, WIP } from "./components";
-import { Login, NotFound, Register } from "./framework/Prebuilt";
-import { AppDashboard, MainDashboard, ModelDashboard } from "./framework/Admin";
 
 function AppRoutes(): JSX.Element {
   const [count, setCount] = useState<any>();

@@ -1,96 +1,69 @@
 import React, { ReactNode, CSSProperties } from "react";
 
-import { shadowSwitch } from "../../../utils";
-import { justificationSwitch, JustificationValue } from "../Flexer/Flexer";
+import { shadowMap } from "../../../utils";
+import Base, { BaseProps } from "../Base/Base";
 
-type SurfaceProps = {
+interface SurfaceProps extends BaseProps {
   children?: ReactNode;
-  maxWidth?: number | string;
-  minHeight?: number;
+  maxWidth?: CSSProperties["maxWidth"];
+  minHeight?: CSSProperties["minHeight"];
   boxShadow?: number;
-  mb?: number;
-  mt?: number;
   px?: number;
   py?: number;
-  pl?: number;
-  pr?: number;
-  pt?: number;
-  pb?: number;
-  br?: number;
-  b?: string;
-  j?: JustificationValue | string;
-  a?: JustificationValue | string;
-  fd?: CSSProperties["flexDirection"];
-  gutter?: boolean;
+  br?: CSSProperties["borderRadius"];
   fillHeight?: boolean;
-  style?: object;
-  className?: string;
-  id?: string;
+  outerStyle?: CSSProperties;
+  innerStyle?: CSSProperties;
+  outerClass?: string;
+  innerClass?: string;
   onClick?: any;
-};
+}
 
 const Surface: React.FC<SurfaceProps> = ({
   children,
   maxWidth,
   minHeight,
   boxShadow = 0,
-  mb: marginBottom = 0,
-  mt: marginTop = 0,
   px: paddingX = 3,
   py: paddingY = 3,
-  pl: paddingLeft = 0,
-  pr: paddingRight = 0,
-  pt: paddingTop = 0,
-  pb: paddingBottom = 0,
-  br: borderRadius = 1,
-  b: background = "#F5F5F5",
-  j: justifyChildren = "flex-start",
-  a: alignChildren = "flex-start",
-  fd: flexDirection = "column",
-  gutter = false,
+  br: borderRadius = 4,
   fillHeight = false,
-  style,
-  className,
-  id,
+  outerStyle,
+  innerStyle,
+  outerClass,
+  innerClass,
   onClick,
+  ...rest
 }) => {
   const containerStyle: CSSProperties = {
     width: "100%",
     minHeight: minHeight,
     display: "flex",
-    justifyContent: justificationSwitch(justifyChildren),
-    alignItems: justificationSwitch(alignChildren),
-    flexDirection: flexDirection,
     flexGrow: fillHeight ? 1 : 0,
-    margin: 0,
-    paddingRight: paddingRight * 8,
-    paddingTop: paddingTop * 8,
-    paddingBottom: paddingBottom * 8,
-    paddingLeft: paddingLeft * 8,
-    marginBottom: gutter ? 16 : marginBottom,
-    background: background,
-    borderRadius: borderRadius * 8,
-    ...style,
+    ...outerStyle,
   };
 
   const contentStyle: CSSProperties = {
     maxWidth: maxWidth,
     minHeight: minHeight,
     padding: `${paddingY * 8}px ${paddingX * 8}px`,
-    boxShadow: shadowSwitch(boxShadow),
-    borderRadius: borderRadius * 8,
-    background: background,
-    marginBottom: marginBottom * 8,
-    marginTop: marginTop * 8,
+    boxShadow: shadowMap[boxShadow],
+    borderRadius: borderRadius,
     width: "100%",
+    ...innerStyle,
   };
 
   return (
-    <div style={containerStyle} id={id} onClick={onClick}>
-      <div style={contentStyle} className={className}>
+    <Base
+      className={outerClass}
+      style={containerStyle}
+      onClick={onClick}
+      {...rest}
+    >
+      <div style={contentStyle} className={innerClass}>
         {children}
       </div>
-    </div>
+    </Base>
   );
 };
 export default Surface;

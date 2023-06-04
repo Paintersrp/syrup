@@ -6,7 +6,7 @@ import {
   TableHead,
   TableRow,
   TableSortCell,
-} from "../../../../../../../../Base";
+} from "../../../../../../../../Components";
 
 interface Metadata {
   [key: string]: {

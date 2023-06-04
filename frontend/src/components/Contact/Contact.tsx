@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { SocialType } from "../../settings";
-import { ApiAxiosInstance } from "../../utils";
 import { Contacts, Members } from "./components";
-import { Error } from "../../framework/Prebuilt";
-import { Page } from "../../framework/Containers";
+import { ApiAxiosInstance } from "../../utils";
+import { Error, Page } from "../../framework";
+import { SocialType } from "../../settings";
 
 export interface MemberData {
   id: string;

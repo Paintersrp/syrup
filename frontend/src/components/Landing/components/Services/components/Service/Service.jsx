@@ -2,17 +2,18 @@ import React from "react";
 import "./Service.css";
 
 import {
+  Base,
   Button,
+  Flexer,
   MaterialIcon,
   Media,
   Text,
-} from "../../../../../../framework/Base";
+} from "../../../../../../framework";
 import { palettes } from "../../../../../../utils";
-import { Flexer } from "../../../../../../framework/Containers";
 
-const Service = ({ service }) => {
+const Service = ({ service, ...rest }) => {
   return (
-    <div key={service.id} className="service-card">
+    <Base key={service.id} className="service-card" {...rest}>
       <Media
         src={`https://source.unsplash.com/1400x${900 + service.id}/?service`}
         mediaClass="service-card-media"
@@ -44,7 +45,7 @@ const Service = ({ service }) => {
           Learn More
         </Button>
       </Flexer>
-    </div>
+    </Base>
   );
 };
 

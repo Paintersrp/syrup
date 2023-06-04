@@ -2,7 +2,7 @@ import React, { CSSProperties, ReactElement, ReactEventHandler } from "react";
 import { faCheck, faClose } from "@fortawesome/free-solid-svg-icons";
 import "./ConfirmCancelBar.css";
 
-import { IconButton, Tooltip, TooltipPosition } from "../../../Base";
+import { IconButton, Tooltip, TooltipPosition } from "../../../Components";
 import { Flexer } from "../../../Containers";
 
 interface ConfirmCancelBarProps {

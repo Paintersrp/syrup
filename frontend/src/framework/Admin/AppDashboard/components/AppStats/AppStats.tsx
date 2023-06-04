@@ -1,10 +1,11 @@
 import React from "react";
 import "./AppStats.css";
 
-import { List, ListItem } from "../../../../Base";
-import PanelHeader from "../PanelHeader/PanelHeader";
-import { Collapser, Surface } from "../../../../Containers";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { Collapser, Surface } from "../../../../Containers";
+import { List, ListItem } from "../../../../Components";
+import PanelHeader from "../PanelHeader/PanelHeader";
+
 interface Model {
   name: string;
   num_objects: number;
@@ -30,7 +31,6 @@ const AppStats: React.FC<AppStatsProps> = ({
     <Surface
       className="app-stats-root"
       j="fs"
-      a="c"
       maxWidth={1200}
       boxShadow={0}
       px={0}

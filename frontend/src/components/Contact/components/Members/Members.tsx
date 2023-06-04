@@ -1,19 +1,27 @@
 import React from "react";
 
-import { Member } from "./components";
+import {
+  BaseProps,
+  ButtonBar,
+  Container,
+  Flexer,
+  Text,
+} from "../../../../framework";
 import { MemberData } from "../../Contact";
-import { Text } from "../../../../framework/Base";
-import { ButtonBar } from "../../../../framework/Prebuilt";
-import { Container, Flexer } from "../../../../framework/Containers";
+import { Member } from "./components";
 
-interface MembersProps {
+interface MembersProps extends BaseProps {
   membersData: MemberData[];
   editMode: boolean;
 }
 
-const Members: React.FC<MembersProps> = ({ membersData, editMode }) => {
+const Members: React.FC<MembersProps> = ({
+  membersData,
+  editMode,
+  ...rest
+}) => {
   return (
-    <Flexer j="c" mt={40}>
+    <Flexer j="c" mt={40} {...rest}>
       <Flexer j="c" a="c" fd="column" mb={24} style={{ maxWidth: 900 }}>
         <Text
           t="h2"

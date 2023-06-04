@@ -4,12 +4,12 @@ import "./NotFound.css";
 
 import { Flexer, Page, Surface } from "../../../Containers";
 import { palettes } from "../../../../utils";
-import { Text } from "../../../Base";
+import { Text } from "../../../Components";
 
 const NotFound: React.FC = () => {
   return (
     <Page>
-      <Surface fillHeight j="c">
+      <Surface fillHeight j="c" a="c">
         <img
           src="/images/not_found.svg"
           alt="Page Not Found Illustration"

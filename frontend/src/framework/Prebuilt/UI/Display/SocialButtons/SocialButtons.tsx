@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { SOCIALS, SocialType } from "../../../../../settings/settings";
-import { palettes } from "../../../../../utils/theming/theme";
-
-import { FormGenerator, IconButton, Text, Tooltip } from "../../../../Base";
-import { IconButtonSize } from "../../../../Base/IconButton/IconButton";
+import {
+  FormGenerator,
+  IconButton,
+  Text,
+  Tooltip,
+  IconButtonSize,
+} from "../../../../Components";
+import { SOCIALS, SocialType } from "../../../../../settings";
+import { palettes } from "../../../../../utils";
 import { Flexer, Stagger } from "../../../../Containers";
 import { ButtonBar } from "../../../Control";
 

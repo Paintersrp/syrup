@@ -1,7 +1,7 @@
 import React from "react";
 
 import { faGhost } from "@fortawesome/free-solid-svg-icons";
-import { Icon } from "../../../../Base";
+import { Icon } from "../../../../Components";
 
 interface RenderIconProps {
   appName: string;

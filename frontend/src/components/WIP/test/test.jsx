@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Button } from "../../../framework/Base";
-import Stagger from "../../../framework/Containers/Stagger/Stagger";
+import { Button } from "../../../framework/Components";
+import Stagger from "../../../framework/Containers/Animation/Stagger/Stagger";
 import "./test.css";
 
 const Test = () => {

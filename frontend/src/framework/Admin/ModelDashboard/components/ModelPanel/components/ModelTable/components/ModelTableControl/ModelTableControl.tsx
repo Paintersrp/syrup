@@ -6,8 +6,8 @@ import {
   MessageFilter,
   SearchBar,
 } from "./components";
-import { Text } from "../../../../../../../../Base";
 import { Container, Flexer } from "../../../../../../../../Containers";
+import { Text } from "../../../../../../../../Components";
 
 interface ModelTableControlProps {
   modelName: string;

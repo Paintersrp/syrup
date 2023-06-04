@@ -2,11 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./AppLinks.css";
 
-import PanelHeader from "../PanelHeader/PanelHeader";
-import { faCode } from "@fortawesome/free-solid-svg-icons";
-import { List, ListItem, Tooltip } from "../../../../Base";
 import { Collapser, Flexer, Surface } from "../../../../Containers";
-
+import { List, ListItem, Tooltip } from "../../../../Components";
+import { faCode } from "@fortawesome/free-solid-svg-icons";
+import PanelHeader from "../PanelHeader/PanelHeader";
 interface AppLinksProps {
   appName: string | undefined;
   links: { [key: string]: string };
@@ -24,7 +23,6 @@ const AppLinks: React.FC<AppLinksProps> = ({
     <Surface
       className="app-stats-root"
       j="fs"
-      a="c"
       maxWidth={1200}
       boxShadow={0}
       px={0}

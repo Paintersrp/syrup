@@ -1,22 +1,26 @@
 import React, { useEffect, useState } from "react";
 import "./Values.css";
 
+import {
+  Base,
+  BaseProps,
+  ButtonBar,
+  Flexer,
+  Text,
+} from "../../../../framework";
 import { Value } from "./components";
-import { Text } from "../../../../framework/Base";
-import { Flexer } from "../../../../framework/Containers";
-import { ButtonBar } from "../../../../framework/Prebuilt";
 
 export interface ValueType {
   id: number;
   title: string;
   icon: string;
 }
-interface ValuesProps {
+interface ValuesProps extends BaseProps {
   valuesData: ValueType[];
   editMode: boolean;
 }
 
-const Values: React.FC<ValuesProps> = ({ valuesData, editMode }) => {
+const Values: React.FC<ValuesProps> = ({ valuesData, editMode, ...rest }) => {
   const [loading, setLoading] = useState(true);
   const [rowOne, setRowOne] = useState<ValueType[] | null>(null);
   const [rowTwo, setRowTwo] = useState<ValueType[] | null>(null);
@@ -44,7 +48,7 @@ const Values: React.FC<ValuesProps> = ({ valuesData, editMode }) => {
   }
 
   return (
-    <div className="values-root">
+    <Base className="values-root" {...rest}>
       <Flexer j="sb" className="values-container">
         <Text t="h3">Core Values</Text>
         {editMode && (
@@ -52,8 +56,8 @@ const Values: React.FC<ValuesProps> = ({ valuesData, editMode }) => {
         )}
       </Flexer>
 
-      <Flexer j="sb" fd="row" className="fade-in">
-        <Flexer fd="column">
+      <Flexer j="sb" fd="row" className="fade-in" mt={0} mb={32}>
+        <Flexer fd="column" j="fs">
           {rowOne &&
             rowOne.map((value, index) => (
               <Value
@@ -65,7 +69,7 @@ const Values: React.FC<ValuesProps> = ({ valuesData, editMode }) => {
               />
             ))}
         </Flexer>
-        <Flexer fd="column" mt={32} mb={32}>
+        <Flexer fd="column" j="fs">
           {rowTwo &&
             rowTwo.map((value, index) => (
               <Value
@@ -78,7 +82,7 @@ const Values: React.FC<ValuesProps> = ({ valuesData, editMode }) => {
             ))}
         </Flexer>
       </Flexer>
-    </div>
+    </Base>
   );
 };
 

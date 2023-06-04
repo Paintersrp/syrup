@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 
-import { Button, Option, Select } from "../../../../../../../../../../Base";
-import { Flexer, Item } from "../../../../../../../../../../Containers";
+import {
+  Button,
+  Option,
+  Select,
+} from "../../../../../../../../../../Components";
 import { ConfirmationModal } from "../../../../../../../../../../Prebuilt";
+import { Flexer, Item } from "../../../../../../../../../../Containers";
 
 interface BulkActionsProps {
   keys: string[];

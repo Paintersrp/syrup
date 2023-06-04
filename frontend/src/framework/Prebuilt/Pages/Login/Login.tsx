@@ -6,8 +6,8 @@ import Cookies from "js-cookie";
 import bcrypt from "bcryptjs";
 import "./Login.css";
 
+import { Button, Checkbox, Icon, Input, Text } from "../../../Components";
 import { ApiAxiosInstance, handleDataChange } from "../../../../utils";
-import { Button, Checkbox, Icon, Input, Text } from "../../../Base";
 import { Flexer, Page, Surface } from "../../../Containers";
 import { setAuth, setUser } from "../../../../lib";
 

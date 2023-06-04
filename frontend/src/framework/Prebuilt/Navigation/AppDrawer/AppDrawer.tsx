@@ -18,11 +18,11 @@ import {
   DrawerContent,
   DrawerFooter,
   DrawerHeader,
-} from "../../../Base";
-import { Flexer } from "../../../Containers";
+  DrawerFooterLinks,
+} from "../../../Components";
+import { ListItemDataType } from "../../../Components/Drawer/components/DrawerContent";
 import { LogoutUser } from "../../../../utils";
-import { ListItemDataType } from "../../../Base/Drawer/components/DrawerContent";
-import DrawerFooterLinks from "../../../Base/Drawer/components/DrawerFooterLinks";
+import { Flexer } from "../../../Containers";
 
 interface AppDrawerProps {
   open?: boolean;

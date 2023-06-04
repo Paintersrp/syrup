@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./SectionHeader.css";
 
-import { FadeOnScroll } from "../../Animations";
-import { Divider, FormGenerator, Text } from "../../../../Base";
+import { Divider, FormGenerator, Text } from "../../../../Components";
 import { Flexer } from "../../../../Containers";
-import { palettes } from "../../../../../utils/theming/theme";
+import { palettes } from "../../../../../utils";
+import { FadeOnScroll } from "../../Animations";
 import { ButtonBar } from "../../../Control";
 
 type AlignmentType = "Left" | "Right" | "Center" | "left" | "right" | "center";
@@ -62,7 +62,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
           <Flexer fd="column">
             {header.subtitle && (
               <FadeOnScroll onScreenPercentage={0.1} animationDuration={0.5}>
-                <Text t="subtitle1" className="section-header-subtitle">
+                <Text t="subtitle1" a="c" className="section-header-subtitle">
                   {header.subtitle}
                 </Text>
               </FadeOnScroll>

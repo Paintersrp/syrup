@@ -5,7 +5,7 @@ import {
   SetJobsAction,
   SetUsersAction,
   SetServicesAction,
-} from "../actions/plugins";
+} from "../Actions/plugins";
 
 export interface PluginState {
   jobsPlugin: boolean;

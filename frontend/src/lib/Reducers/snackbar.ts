@@ -11,7 +11,7 @@ import {
   ALERT_WARNING,
   ALERT_INFO,
   CLOSE_SNACKBAR,
-} from "../actions/snackbar";
+} from "../Actions/snackbar";
 
 export interface SnackbarState {
   open: boolean;

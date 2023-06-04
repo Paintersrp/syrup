@@ -1,7 +1,7 @@
 import React from "react";
 
-import { Button, Input } from "../../../../../../../../../../Base";
 import { Flexer, Item } from "../../../../../../../../../../Containers";
+import { Button, Input } from "../../../../../../../../../../Components";
 
 interface SearchBarProps {
   handleClearSearch: () => void;

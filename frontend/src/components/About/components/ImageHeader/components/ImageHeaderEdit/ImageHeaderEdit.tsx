@@ -1,22 +1,26 @@
 import React, { useState } from "react";
 
 import {
+  BaseProps,
+  ConfirmCancelBar,
   Container,
-  Content,
   Flexer,
+  HelpText,
+  ImageInput,
+  Input,
   Item,
-} from "../../../../../../framework/Containers";
-import ImageHeader from "../../ImageHeader";
+  Surface,
+  Text,
+} from "../../../../../../framework";
 import { ApiAxiosInstance } from "../../../../../../utils";
-import { ConfirmCancelBar } from "../../../../../../framework/Prebuilt";
-import { Input, HelpText, ImageInput } from "../../../../../../framework/Base";
+import ImageHeader from "../../ImageHeader";
 
 interface ImageHeaderData {
   title: string;
   image: string;
 }
 
-interface ImageHeaderEditProps {
+interface ImageHeaderEditProps extends BaseProps {
   data: ImageHeaderData;
   onUpdate: (updatedData: ImageHeaderData) => void;
   handleCancel: () => void;
@@ -26,6 +30,7 @@ const ImageHeaderEdit: React.FC<ImageHeaderEditProps> = ({
   data,
   onUpdate,
   handleCancel,
+  ...rest
 }) => {
   const [title, setTitle] = useState<string>(data.title);
   const [image, setImage] = useState<File | null>(null);
@@ -59,14 +64,18 @@ const ImageHeaderEdit: React.FC<ImageHeaderEditProps> = ({
   };
 
   return (
-    <Content
-      header="About Header Edit"
+    <Surface
       boxShadow={0}
       className="fade-in"
-      pad={3}
-      br={1.5}
+      px={3}
+      py={3}
+      br={12}
       pb={6}
+      {...rest}
     >
+      <Text t="h3" a="c">
+        About Header Edit
+      </Text>
       <Flexer fd="column" a="c" j="c" mt={24} style={{ padding: 8 }}>
         <HelpText>Title</HelpText>
         <Input
@@ -121,7 +130,7 @@ const ImageHeaderEdit: React.FC<ImageHeaderEditProps> = ({
         position="bottom"
         mt={8}
       />
-    </Content>
+    </Surface>
   );
 };
 

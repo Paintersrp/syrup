@@ -2,7 +2,7 @@ import {
   TOGGLE_EDITMODE_ON,
   TOGGLE_EDITMODE_OFF,
   ActionTypes,
-} from "../actions/editmode";
+} from "../Actions/editmode";
 
 export interface EditModeState {
   editMode: boolean;

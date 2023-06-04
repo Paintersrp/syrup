@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from "react";
 
 import {
+  BaseProps,
   ButtonBar,
   ContactButtons,
-} from "../../../../../../framework/Prebuilt";
-import { palettes } from "../../../../../../utils";
+  Flexer,
+  FormGenerator,
+  IconTextItem,
+  Surface,
+} from "../../../../../../framework";
 import { ContactInformationData } from "../../../../Contact";
-import { Flexer, Surface } from "../../../../../../framework/Containers";
-import { FormGenerator, IconTextItem } from "../../../../../../framework/Base";
+import { palettes } from "../../../../../../utils";
 
-interface InformationProps {
+interface InformationProps extends BaseProps {
   contactData: ContactInformationData;
   editMode: boolean;
 }
 
-const Information: React.FC<InformationProps> = ({ contactData, editMode }) => {
+const Information: React.FC<InformationProps> = ({
+  contactData,
+  editMode,
+  ...rest
+}) => {
   const [data, setData] = useState<ContactInformationData>(contactData);
   const [editing, setEditing] = useState(false);
 
@@ -28,7 +35,7 @@ const Information: React.FC<InformationProps> = ({ contactData, editMode }) => {
   };
 
   return (
-    <Flexer j="c">
+    <Flexer j="c" {...rest}>
       {!editing ? (
         <div className="fade-in">
           {editMode && (

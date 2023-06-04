@@ -8,14 +8,14 @@ import {
   IconButton,
   Text,
   Tooltip,
-} from "../../../../Base";
+} from "../../../../Components";
 import {
   ApiAxiosInstance,
   CapitalizeFirst,
   palettes,
 } from "../../../../../utils";
+import { Flexer, Surface } from "../../../../Containers";
 import { InfoMenu, ModelTable } from "./components";
-import { Content, Flexer } from "../../../../Containers";
 import { RecentActions } from "../../../AdminLog";
 
 interface ModelPanelProps {
@@ -234,7 +234,16 @@ const ModelPanel: React.FC<ModelPanelProps> = ({
   return (
     <React.Fragment>
       {ready && model && apiData ? (
-        <Content maxWidth={1200} pt={2} pb={4} pad={3} boxShadow={1} br={1}>
+        <Surface
+          maxWidth={1200}
+          pt={32}
+          pb={32}
+          px={3}
+          py={3}
+          boxShadow={1}
+          br={8}
+          j="c"
+        >
           <Flexer>
             <Text w="auto" t="h3" className="breadcrumb-title">
               {model.verbose_name}
@@ -311,7 +320,7 @@ const ModelPanel: React.FC<ModelPanelProps> = ({
             modelName={model.verbose_name}
             px={1}
           />
-        </Content>
+        </Surface>
       ) : null}
     </React.Fragment>
   );

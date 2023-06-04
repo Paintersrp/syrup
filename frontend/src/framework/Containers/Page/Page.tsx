@@ -1,7 +1,7 @@
 import React, { CSSProperties, ReactNode } from "react";
 import "../Containers.css";
 
-import { SEO, SEOData, Text } from "../../Base";
+import { SEO, SEOData, Text } from "../../Components";
 
 type HeaderType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 type HeaderAlign = "l" | "r" | "c" | "left" | "right" | "center";

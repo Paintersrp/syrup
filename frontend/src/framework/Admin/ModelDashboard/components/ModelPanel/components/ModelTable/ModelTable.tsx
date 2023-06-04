@@ -10,7 +10,7 @@ import {
   Pagination,
   usePagination,
 } from "../../../../../../Prebuilt";
-import { Table, TableContainer } from "../../../../../../Base";
+import { Table, TableContainer } from "../../../../../../Components";
 import { Surface } from "../../../../../../Containers";
 
 interface ModelTableProps {

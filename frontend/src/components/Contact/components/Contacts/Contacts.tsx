@@ -1,11 +1,17 @@
 import React from "react";
 
-import { SocialType } from "../../../../settings";
-import { Text } from "../../../../framework/Base";
-import { ContactForm, Hours, Information } from "./components";
+import {
+  BaseProps,
+  Container,
+  Flexer,
+  Item,
+  Text,
+} from "../../../../framework";
 import { ContactInformationData, HoursData } from "../../Contact";
-import { Container, Flexer, Item } from "../../../../framework/Containers";
-interface ContactsProps {
+import { ContactForm, Hours, Information } from "./components";
+import { SocialType } from "../../../../settings";
+
+interface ContactsProps extends BaseProps {
   contactData: ContactInformationData;
   hoursData: HoursData;
   socialData: SocialType;
@@ -19,9 +25,10 @@ export default function Contacts({
   socialData,
   editMode,
   color = "light",
+  ...rest
 }: ContactsProps) {
   return (
-    <Flexer j="c" a="c" mb={60} mt={20}>
+    <Flexer j="c" a="c" mb={60} mt={20} {...rest}>
       <div style={{ width: 900, borderRadius: 12 }}>
         <Text
           t="h2"

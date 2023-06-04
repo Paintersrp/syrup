@@ -1,8 +1,8 @@
 import React from "react";
 import "./ConfirmationModal.css";
 
-import { Modal, Text } from "../../../Base";
 import ConfirmCancelBar from "../ConfirmCancelBar/ConfirmCancelBar";
+import { Modal, Text } from "../../../Components";
 
 interface ConfirmationModalProps {
   open: boolean;

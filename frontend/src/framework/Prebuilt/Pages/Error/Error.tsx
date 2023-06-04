@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Error.css";
 
 import { palettes } from "../../../../utils";
-import { Button, Text } from "../../../Base";
+import { Button, Text } from "../../../Components";
 import { Flexer, Page, Surface } from "../../../Containers";
 
 const Error = ({ message, description, instructions, thanks }) => {
@@ -16,7 +16,7 @@ const Error = ({ message, description, instructions, thanks }) => {
 
   return (
     <Page>
-      <Surface fillHeight j="c">
+      <Surface fillHeight j="c" a="c">
         <Flexer j="c" fd="column" a="c">
           <div className="error-icon">!</div>
           <Text t="h4" fw="700" c={palettes.error.main} a="c">

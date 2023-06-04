@@ -1,10 +1,10 @@
 import React from "react";
 import "./AppDetails.css";
 
-import { List } from "../../../../Base";
-import PanelHeader from "../PanelHeader/PanelHeader";
-import { Collapser, Surface } from "../../../../Containers";
 import { RenderModels } from "../../../MainDashboard/components";
+import { Collapser, Surface } from "../../../../Containers";
+import PanelHeader from "../PanelHeader/PanelHeader";
+import { List } from "../../../../Components";
 
 interface AppDetailsProps {
   models: { [key: string]: any };
@@ -21,7 +21,6 @@ const AppDetails: React.FC<AppDetailsProps> = ({
     <Surface
       className="app-stats-root"
       j="fs"
-      a="c"
       maxWidth={1200}
       boxShadow={0}
       px={0}

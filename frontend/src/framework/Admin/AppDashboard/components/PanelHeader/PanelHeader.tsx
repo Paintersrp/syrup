@@ -1,7 +1,7 @@
 import React from "react";
 import "./PanelHeader.css";
 
-import { IconButton, MaterialIcon, Text } from "../../../../Base";
+import { IconButton, MaterialIcon, Text } from "../../../../Components";
 import { Flexer } from "../../../../Containers";
 
 interface PanelHeaderProps {

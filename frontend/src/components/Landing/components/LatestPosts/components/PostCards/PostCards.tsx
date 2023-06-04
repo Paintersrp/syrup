@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-import { PostCard } from "./components";
-import { PostData } from "../../../../Landing";
+import {
+  BaseProps,
+  Carousel,
+  ConfirmationModal,
+  Container,
+} from "../../../../../../framework";
 import { palettes } from "../../../../../../utils";
-import { ConfirmationModal } from "../../../../../../framework/Prebuilt";
-import { Carousel, Container } from "../../../../../../framework/Containers";
+import { PostData } from "../../../../Landing";
+import { PostCard } from "./components";
 
-interface PostCardsProps {
+interface PostCardsProps extends BaseProps {
   posts: PostData[];
   carousel?: boolean;
   editMode?: boolean;
@@ -17,6 +21,7 @@ const PostCards: React.FC<PostCardsProps> = ({
   posts,
   carousel = false,
   editMode,
+  ...rest
 }) => {
   const [selectedId, setSelectedId] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
@@ -45,12 +50,13 @@ const PostCards: React.FC<PostCardsProps> = ({
 
   return (
     <React.Fragment>
-      <Container style={{ marginTop: 32, marginBottom: 32 }}>
+      <Container style={{ marginTop: 32, marginBottom: 32 }} {...rest}>
         {carousel ? (
           <Carousel
             autoplay={false}
             iconColor={palettes.secondary.main}
-            style={{ width: 345, height: 335 }}
+            w={345}
+            h={335}
           >
             {posts.map((post) => (
               <PostCard

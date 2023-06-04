@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import "./ButtonBar.css";
 
-import { IconButton, Tooltip } from "../../../Base";
+import { IconButton, Tooltip } from "../../../Components";
 import { Flexer } from "../../../Containers";
 
 type ButtonBarProps = {

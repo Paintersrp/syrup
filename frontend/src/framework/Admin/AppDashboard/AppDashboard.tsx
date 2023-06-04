@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import { Breadcrumbs, IconButton, Text, Tooltip } from "../../Base";
-import { Container, Content, Flexer, Item, Page } from "../../Containers";
+import { Breadcrumbs, IconButton, Text, Tooltip } from "../../Components";
+import { Container, Flexer, Item, Page, Surface } from "../../Containers";
 import { AppDetails, AppLinks, AppStats } from "./components";
 import { ApiAxiosInstance } from "../../../utils";
 import { RecentActions } from "../AdminLog";
@@ -72,7 +72,16 @@ const AppDashboard: React.FC<AppDashboardProps> = ({}) => {
 
   return (
     <Page>
-      <Content maxWidth={1200} pt={4} pb={4} pad={3} boxShadow={1} br={1}>
+      <Surface
+        maxWidth={1200}
+        pt={32}
+        pb={32}
+        px={3}
+        py={3}
+        boxShadow={1}
+        br={8}
+        j="c"
+      >
         {Object.keys(models).length > 0 && (
           <React.Fragment>
             <Flexer>
@@ -143,7 +152,7 @@ const AppDashboard: React.FC<AppDashboardProps> = ({}) => {
             />
           </React.Fragment>
         )}
-      </Content>
+      </Surface>
     </Page>
   );
 };

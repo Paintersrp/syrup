@@ -1,18 +1,24 @@
 import React, { useState } from "react";
 
-import { Flexer } from "../../../../framework/Containers";
-import { ButtonBar } from "../../../../framework/Prebuilt";
-import { Accordion, Tab, Tabs, Text } from "../../../../framework/Base";
+import {
+  Accordion,
+  BaseProps,
+  ButtonBar,
+  Flexer,
+  Tab,
+  Tabs,
+  Text,
+} from "../../../../framework";
 
-interface AboutFAQProps {
+interface AboutFAQProps extends BaseProps {
   editMode: boolean;
 }
 
-const AboutFAQ: React.FC<AboutFAQProps> = ({ editMode }) => {
+const AboutFAQ: React.FC<AboutFAQProps> = ({ editMode, ...rest }) => {
   const [tabState, setTabState] = useState(0);
 
   return (
-    <Flexer j="fs" a="fs" fd="column" mt={64} mb={64}>
+    <Flexer j="fs" a="fs" fd="column" mt={64} mb={64} {...rest}>
       <Flexer j="sb" className="values-container">
         <Text t="h3">Frequently Asked Questions</Text>
         {editMode && (

@@ -19,8 +19,8 @@ import {
   Page,
   Surface,
 } from "../../../Containers";
+import { ActionButton, Button, Icon, Input, Text } from "../../../Components";
 import { ApiAxiosInstance, handleDataChange } from "../../../../utils";
-import { ActionButton, Button, Icon, Input, Text } from "../../../Base";
 import { setAuth, setUser } from "../../../../lib";
 
 const Register: FC = ({}) => {

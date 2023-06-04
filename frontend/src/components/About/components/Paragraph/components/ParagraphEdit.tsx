@@ -1,25 +1,47 @@
 import React, { useEffect, useState } from "react";
 
+import {
+  BaseProps,
+  ConfirmCancelBar,
+  Flexer,
+  RichTextInput,
+} from "../../../../../framework";
 import { ApiAxiosInstance } from "../../../../../utils";
-import { Flexer } from "../../../../../framework/Containers";
-import { RichTextInput } from "../../../../../framework/Base";
-import { ConfirmCancelBar } from "../../../../../framework/Prebuilt";
 
-const ParagraphEdit = ({ content, onUpdate, type, handleCancel }) => {
-  const [contentType, setContentType] = useState([]);
-  const [data, setData] = useState(content);
-  const [title, setTitle] = useState(content.title);
-  const [body, setBody] = useState(content.body);
+interface Content {
+  id: number;
+  title: string;
+  body: string;
+}
+
+interface ParagraphEditProps extends BaseProps {
+  content: Content;
+  onUpdate: any;
+  type: string | undefined;
+  handleCancel: any;
+}
+
+const ParagraphEdit: React.FC<ParagraphEditProps> = ({
+  content,
+  onUpdate,
+  type,
+  handleCancel,
+  ...rest
+}) => {
+  const [contentType, setContentType] = useState<string | undefined>("");
+  const [data, setData] = useState<Content>(content);
+  const [title, setTitle] = useState<string>(content.title);
+  const [body, setBody] = useState<string>(content.body);
 
   useEffect(() => {
     setContentType(type);
   }, []);
 
-  const handleBody = (value) => {
+  const handleBody = (value: string) => {
     setBody(value);
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     let formData = new FormData();
     formData.append("title", title);
@@ -31,20 +53,20 @@ const ParagraphEdit = ({ content, onUpdate, type, handleCancel }) => {
     }
 
     try {
-      await ApiAxiosInstance.patch(
+      const response = await ApiAxiosInstance.patch(
         `http://localhost:8000/api/${contentType}/${content.id}/`,
         formData
-      ).then((res) => {
-        setData(res.data);
-        onUpdate(res.data);
-      });
+      );
+      const updatedData: Content = response.data;
+      setData(updatedData);
+      onUpdate(updatedData);
     } catch (error) {
       console.log(error);
     }
   };
 
   return (
-    <Flexer fd="column" j="c" className="fade-in">
+    <Flexer fd="column" j="c" className="fade-in" {...rest}>
       <div style={{ marginTop: 8 }}>
         <RichTextInput value={body} onChange={handleBody} />
       </div>

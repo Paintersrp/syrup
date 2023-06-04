@@ -8,9 +8,8 @@ import {
   Paragraph,
   Values,
 } from "./components";
+import { ButtonBar, Error, Flexer, Page, Surface } from "../../framework";
 import { ApiAxiosInstance } from "../../utils";
-import { ButtonBar, Error } from "../../framework/Prebuilt";
-import { Flexer, Page, Surface } from "../../framework/Containers";
 
 interface AboutProps {}
 
@@ -89,7 +88,7 @@ const About: React.FC<AboutProps> = ({}) => {
 
   return (
     <Page>
-      <Surface id="test" maxWidth={900} j="c" a="c">
+      <Surface maxWidth={900} j="c" a="c">
         {!editTitle && editMode && (
           <Flexer j="fe">
             <ButtonBar

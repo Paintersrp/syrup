@@ -3,14 +3,14 @@ import { Link } from "react-router-dom";
 import "./IconScroller.css";
 
 import { SOCIALS, SocialType } from "../../../../settings";
-import { Icon } from "../../../../framework/Base";
+import { Base, BaseProps, Icon } from "../../../../framework";
 
-const IconScroller: React.FC = () => {
+const IconScroller: React.FC<BaseProps> = ({ ...rest }) => {
   const duplicatedPartners: SocialType[] = [...SOCIALS, ...SOCIALS, ...SOCIALS];
   const [isScrolling, setIsScrolling] = useState<boolean>(true);
 
   return (
-    <div className="icon-scroller-root">
+    <Base className="icon-scroller-root" {...rest}>
       <div
         className="icon-scroller-container"
         onMouseEnter={() => setIsScrolling(false)}
@@ -29,7 +29,7 @@ const IconScroller: React.FC = () => {
           ))}
         </div>
       </div>
-    </div>
+    </Base>
   );
 };
 

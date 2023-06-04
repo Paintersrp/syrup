@@ -1,19 +1,19 @@
 // Auth
-import authReducer from "./reducers/auth";
-import { SET_AUTH, SET_USER, setAuth, setUser } from "./actions/auth";
+import authReducer from "./Reducers/auth";
+import { SET_AUTH, SET_USER, setAuth, setUser } from "./Actions/auth";
 export { authReducer, SET_AUTH, SET_USER, setAuth, setUser };
 
-import type { AuthState } from "./reducers/auth";
+import type { AuthState } from "./Reducers/auth";
 export type { AuthState };
 
 // Edit Mode
-import editmodeReducer from "./reducers/editmode";
+import editmodeReducer from "./Reducers/editmode";
 import {
   TOGGLE_EDITMODE_OFF,
   TOGGLE_EDITMODE_ON,
   toggleEditModeOff,
   toggleEditModeOn,
-} from "./actions/editmode";
+} from "./Actions/editmode";
 
 export {
   editmodeReducer,
@@ -23,11 +23,11 @@ export {
   toggleEditModeOn,
 };
 
-import type { EditModeState } from "./reducers/editmode";
+import type { EditModeState } from "./Reducers/editmode";
 export type { EditModeState };
 
 // Plugins
-import pluginReducer from "./reducers/plugins";
+import pluginReducer from "./Reducers/plugins";
 import {
   SET_JOBS,
   SET_SERVICES,
@@ -35,7 +35,7 @@ import {
   setJobs,
   setUsers,
   setServices,
-} from "./actions/plugins";
+} from "./Actions/plugins";
 
 export {
   pluginReducer,
@@ -47,11 +47,11 @@ export {
   setServices,
 };
 
-import type { PluginState } from "./reducers/plugins";
+import type { PluginState } from "./Reducers/plugins";
 export type { PluginState };
 
 // Snackbar
-import snackbarReducer from "./reducers/snackbar";
+import snackbarReducer from "./Reducers/snackbar";
 import {
   ALERT_FAIL,
   ALERT_SUCCESS,
@@ -65,7 +65,7 @@ import {
   alertWarning,
   closeSnackbar,
   dataUpdated,
-} from "./actions/snackbar";
+} from "./Actions/snackbar";
 
 export {
   ALERT_FAIL,
@@ -83,9 +83,9 @@ export {
   snackbarReducer,
 };
 
-import type { SnackbarState } from "./reducers/snackbar";
+import type { SnackbarState } from "./Reducers/snackbar";
 export type { SnackbarState };
 
 // Store
-import store from "./store/store";
+import store from "./Store/store";
 export { store };

@@ -3,16 +3,19 @@ import { Link } from "react-router-dom";
 import "./Hero.css";
 
 import {
+  BaseProps,
+  Button,
   ButtonBar,
   ContactButtons,
+  Flexer,
+  FormGenerator,
   SocialButtons,
-} from "../../../../framework/Prebuilt";
+  Text,
+} from "../../../../framework";
 import { HeroData } from "../../Landing";
 import { palettes } from "../../../../utils";
-import { Flexer } from "../../../../framework/Containers";
-import { Button, FormGenerator, Text } from "../../../../framework/Base";
 
-interface HeroProps {
+interface HeroProps extends BaseProps {
   data: HeroData;
   contactData: any;
   socialsData: any;
@@ -24,6 +27,7 @@ const Hero: React.FC<HeroProps> = ({
   contactData,
   socialsData,
   editMode,
+  ...rest
 }) => {
   const [heroData, setHeroData] = useState(data);
   const [editing, setEditing] = useState(false);
@@ -34,10 +38,10 @@ const Hero: React.FC<HeroProps> = ({
   };
 
   return (
-    <Flexer j="c" a="fs" className="hero-container">
+    <Flexer j="c" a="fs" className="hero-container" {...rest}>
       <Flexer fd="column" className="hero-overlay">
         {!editing ? (
-          <Flexer fd="column" className="hero-header-root fade-in">
+          <Flexer fd="column" a="c" className="hero-header-root fade-in">
             <Text t="h1" a="c" className="hero-header-title">
               {heroData.title}
             </Text>

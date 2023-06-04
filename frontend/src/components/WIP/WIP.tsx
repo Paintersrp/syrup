@@ -14,12 +14,12 @@ import {
   ToggleButtonGroup,
   TransferList,
   TreeNode,
-} from "../../framework/Base";
-import Alert from "../../framework/Base/Alert/Alert";
-import Gallery from "../../framework/Base/Gallery/Gallery";
+} from "../../framework/Components";
+import Alert from "../../framework/Components/Alert/Alert";
+import Gallery from "../../framework/Components/Gallery/Gallery";
 
 import { Page, Flexer, Surface, Carousel } from "../../framework/Containers";
-import Stagger from "../../framework/Containers/Stagger/Stagger";
+import Stagger from "../../framework/Containers/Animation/Stagger/Stagger";
 import { breakPoints, useBreakpoint } from "../../utils";
 import Test from "./test/test";
 
@@ -127,8 +127,8 @@ const WIP: React.FC<WIPProps> = ({}) => {
 
   return (
     <Page>
-      <Flexer j="c" a="c" fd="column">
-        <Stagger direction="left" orientation="vertical">
+      <Flexer j="c" a="c" fd="column" mt={40}>
+        <Stagger direction="left" orientation="vertical" mt={90}>
           <Surface
             boxShadow={1}
             maxWidth={400}

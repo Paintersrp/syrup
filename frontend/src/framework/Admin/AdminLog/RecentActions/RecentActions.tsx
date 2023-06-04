@@ -11,9 +11,9 @@ import {
   TableRow,
   Text,
   Tooltip,
-} from "../../../Base";
-import { Collapser, Surface } from "../../../Containers";
+} from "../../../Components";
 import { PanelHeader } from "../../AppDashboard/components";
+import { Collapser, Surface } from "../../../Containers";
 
 interface Action {
   user: string;

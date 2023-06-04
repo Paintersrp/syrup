@@ -1,12 +1,16 @@
 import React, { CSSProperties } from "react";
 import "./ImageHeader.css";
 
+import {
+  BaseProps,
+  Flexer,
+  Media,
+  Text,
+  TextType,
+} from "../../../../framework";
 import { TITLE } from "../../../../settings";
-import { Media, Text } from "../../../../framework/Base";
-import { Flexer } from "../../../../framework/Containers";
-import { TextType } from "../../../../framework/Base/Text/Text";
 
-interface ImageHeaderProps {
+interface ImageHeaderProps extends BaseProps {
   header?: string;
   headerType?: TextType;
   src?: string;
@@ -22,6 +26,7 @@ const ImageHeader: React.FC<ImageHeaderProps> = ({
   mb: marginBottom = 32,
   fade = false,
   boxShadow = false,
+  ...rest
 }) => {
   return (
     <Flexer
@@ -29,6 +34,7 @@ const ImageHeader: React.FC<ImageHeaderProps> = ({
       fd="column"
       className={`${fade ? "fade-in" : ""}`}
       mb={marginBottom}
+      {...rest}
     >
       {header && (
         <Text t={headerType} a="c" className="image-header-title">

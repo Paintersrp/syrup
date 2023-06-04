@@ -1,4 +1,5 @@
 import React from "react";
+import Base from "../Base/Base";
 import "./Item.css";
 
 interface Props {
@@ -23,8 +24,9 @@ const Item: React.FC<Props> = ({
   justify = "center",
   align = "center",
   children,
-  style = {},
+  style,
   className,
+  ...rest
 }) => {
   const getBasis = (
     breakpointValue: number | undefined,
@@ -52,9 +54,9 @@ const Item: React.FC<Props> = ({
   };
 
   return (
-    <div className={`item ${className}`} style={itemStyle}>
+    <Base className={`item ${className}`} style={itemStyle} {...rest}>
       {children}
-    </div>
+    </Base>
   );
 };
 

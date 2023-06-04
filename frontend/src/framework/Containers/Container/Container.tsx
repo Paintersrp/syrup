@@ -1,6 +1,7 @@
 import React, { ReactNode, CSSProperties } from "react";
+import Base, { BaseProps } from "../Base/Base";
 
-interface ContainerProps {
+interface ContainerProps extends BaseProps {
   children: ReactNode;
   align?: CSSProperties["alignContent"];
   justify?: CSSProperties["justifyContent"];
@@ -25,6 +26,7 @@ const Container: React.FC<ContainerProps> = ({
   style,
   spacing = 0,
   className,
+  ...rest
 }) => {
   const childrenWithSpacing = React.Children.map(children, (child) => {
     if (React.isValidElement(child)) {
@@ -44,7 +46,7 @@ const Container: React.FC<ContainerProps> = ({
   });
 
   return (
-    <div
+    <Base
       className={className}
       style={{
         width: "100%",
@@ -56,9 +58,10 @@ const Container: React.FC<ContainerProps> = ({
         textAlign,
         ...style,
       }}
+      {...rest}
     >
       {childrenWithSpacing}
-    </div>
+    </Base>
   );
 };
 

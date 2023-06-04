@@ -4,16 +4,16 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./App.css";
 
 import {
+  Alert,
   AppDrawer,
   AppFooter,
   AppNavbar,
   ScrollToTopFAB,
-} from "./framework/Prebuilt";
-
+  useDrawer,
+} from "./framework";
 import { closeSnackbar } from "./lib";
 import { ScrollToTop, WithAuth } from "./utils";
 import { LINKS, LOGO, TITLE } from "./settings";
-import { Alert, useDrawer } from "./framework/Base";
 import AppRoutes from "./AppRoutes";
 
 function App(): JSX.Element {
@@ -42,9 +42,10 @@ function App(): JSX.Element {
         companyTitle={TITLE}
       />
       <AppRoutes />
-      <AppFooter />
+
       <ScrollToTop />
       <ScrollToTopFAB />
+      <AppFooter />
     </Router>
   );
 }

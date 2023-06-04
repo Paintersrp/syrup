@@ -11,10 +11,10 @@ import {
   Input,
   Text,
   Tooltip,
-} from "../../../Base";
-import { Flexer } from "../../../Containers";
-import { handleDataChange, palettes } from "../../../../utils";
+} from "../../../Components";
 import { LOGO, SOCIALS, TITLE, LINKS } from "../../../../settings";
+import { handleDataChange, palettes } from "../../../../utils";
+import { Flexer } from "../../../Containers";
 
 interface Data {
   email: string;

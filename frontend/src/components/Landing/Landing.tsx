@@ -8,11 +8,10 @@ import {
   Processes,
   Services,
 } from "./components";
-import { ApiAxiosInstance } from "../../utils";
-import { Page } from "../../framework/Containers";
+import { Error, Page, SectionHeaderData } from "../../framework";
 import { ContactInformationData } from "../Contact/Contact";
+import { ApiAxiosInstance } from "../../utils";
 import { SocialType } from "../../settings";
-import { Error, SectionHeaderData } from "../../framework/Prebuilt";
 
 export interface HeroData {
   title: string;

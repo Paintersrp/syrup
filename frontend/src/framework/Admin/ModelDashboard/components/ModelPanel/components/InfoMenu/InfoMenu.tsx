@@ -8,9 +8,9 @@ import {
   ListItem,
   Menu,
   Text,
-} from "../../../../../../Base";
-import { palettes } from "../../../../../../../utils";
+} from "../../../../../../Components";
 import { Surface } from "../../../../../../Containers";
+import { palettes } from "../../../../../../../utils";
 
 interface InfoMenuProps {
   textItem: {

@@ -3,25 +3,30 @@ import axios from "axios";
 import "./Value.css";
 
 import {
+  BaseProps,
+  ButtonBar,
+  ConfirmationModal,
+  Flexer,
   FormGenerator,
   MaterialIcon,
   Text,
-} from "../../../../../../framework/Base";
-import {
-  ButtonBar,
-  ConfirmationModal,
-} from "../../../../../../framework/Prebuilt";
+} from "../../../../../../framework";
 import { ValueType } from "../../Values";
-import { Flexer } from "../../../../../../framework/Containers";
 
-interface ValueProps {
+interface ValueProps extends BaseProps {
   value: ValueType;
   index: number;
   start: number;
   editMode: boolean;
 }
 
-const Value: React.FC<ValueProps> = ({ value, index, start, editMode }) => {
+const Value: React.FC<ValueProps> = ({
+  value,
+  index,
+  start,
+  editMode,
+  ...rest
+}) => {
   const [valueData, setValueData] = useState<ValueType>(value);
   const [editing, setEditing] = useState(false);
   const [open, setOpen] = useState(false);
@@ -61,11 +66,11 @@ const Value: React.FC<ValueProps> = ({ value, index, start, editMode }) => {
   };
 
   return (
-    <Flexer key={index}>
+    <Flexer j="c" a="c" key={index} {...rest}>
       {!editing ? (
         <div className="value-container fade-in">
           <MaterialIcon
-            size="2rem"
+            size="28px"
             icon={valueData.icon}
             className={index % 2 === start ? "value-icon" : "value-icon-alt"}
           />
