@@ -74,12 +74,9 @@ class JobPostingDetailView(BaseDetailView):
     # look to pricing for create function if necessary
 
     def update(self, request, *args, **kwargs):
-        print(request.data)
         instance = self.get_object()
         old_instance = JobPosting.objects.get(pk=instance.pk)
         formatted_data = self.serializer_class().format_data(request.data)
-        print(formatted_data)
-
         requirements_list = formatted_data.get("requirements", [])
         responsibilities_list = formatted_data.get("responsibilities", [])
 

@@ -32,22 +32,12 @@ const Tooltip: FC<TooltipProps> = ({
   const [isTooltipVisible, setIsTooltipVisible] = useState(false);
 
   const handleMouseEnter = () => {
-    if (!disabled) {
-      setIsTooltipVisible(true);
-    }
+    setIsTooltipVisible(true);
   };
 
   const handleMouseLeave = () => {
-    if (!disabled && isTooltipVisible) {
-      setIsTooltipVisible(false);
-    }
+    setIsTooltipVisible(false);
   };
-
-  useEffect(() => {
-    if (disabled && isTooltipVisible) {
-      setIsTooltipVisible(false);
-    }
-  }, [disabled]);
 
   const tooltipPositionClass = `tooltip-content tooltip-content--${position} ${
     arrow ? `arrow arrow--${position}` : ""

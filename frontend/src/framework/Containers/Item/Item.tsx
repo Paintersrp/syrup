@@ -1,8 +1,8 @@
 import React from "react";
-import Base from "../Base/Base";
+import Base, { BaseProps } from "../Base/Base";
 import "./Item.css";
 
-interface Props {
+interface ItemProps extends BaseProps {
   xs?: number;
   sm?: number;
   md?: number;
@@ -15,7 +15,7 @@ interface Props {
   className?: string;
 }
 
-const Item: React.FC<Props> = ({
+const Item: React.FC<ItemProps> = ({
   xs = 12,
   sm,
   md,
@@ -26,6 +26,7 @@ const Item: React.FC<Props> = ({
   children,
   style,
   className,
+
   ...rest
 }) => {
   const getBasis = (
@@ -49,7 +50,7 @@ const Item: React.FC<Props> = ({
     ...itemBasis,
     display: justify ? "flex" : "",
     justifyContent: justify ? justify : "",
-    alignContent: align ? align : "",
+    alignItems: align ? align : "",
     ...style,
   };
 

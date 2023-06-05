@@ -28,6 +28,7 @@ interface ListProps {
   fillHeight?: boolean;
   className?: string;
   style?: CSSProperties;
+  innerStyle?: CSSProperties;
 }
 
 const List: React.FC<ListProps> = ({
@@ -52,6 +53,7 @@ const List: React.FC<ListProps> = ({
   fillHeight = false,
   className,
   style,
+  innerStyle,
   ...rest
 }) => {
   const childCount = React.Children.count(children);
@@ -101,8 +103,9 @@ const List: React.FC<ListProps> = ({
       a={alignChildren}
       fd={flexDirection}
       fillHeight={fillHeight}
-      className={className}
-      style={style}
+      innerClass={className}
+      outerStyle={style}
+      innerStyle={innerStyle}
       {...rest}
     >
       {spacedChildren}

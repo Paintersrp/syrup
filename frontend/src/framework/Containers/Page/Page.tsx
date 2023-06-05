@@ -2,6 +2,7 @@ import React, { CSSProperties, ReactNode } from "react";
 import "../Containers.css";
 
 import { SEO, SEOData, Text } from "../../Components";
+import { seoData as data } from "../../../settings";
 
 type HeaderType = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 type HeaderAlign = "l" | "r" | "c" | "left" | "right" | "center";
@@ -25,12 +26,11 @@ const Page: React.FC<PageProps> = ({
   backgroundColor = "#F5F5F5",
   className,
   style,
-  seoData,
+  seoData = data.default,
 }) => {
   return (
     <React.Fragment>
-      {/* Add Default SEO */}
-      {seoData && <SEO data={seoData} />}
+      <SEO data={seoData} />
       <div className="page-root" style={{ backgroundColor }}>
         {header ? (
           <Text t={headerType} a={headerAlign}>

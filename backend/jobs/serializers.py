@@ -62,7 +62,6 @@ class JobPostingSerializer(serializers.ModelSerializer):
         instance = super().update(instance, validated_data)
 
         for requirement_data in requirements_data:
-
             requirement, created = Requirement.objects.get_or_create(**requirement_data)
             instance.requirements.add(requirement)
 
@@ -78,23 +77,37 @@ class JobPostingSerializer(serializers.ModelSerializer):
         formatted_data = {"requirements": [], "responsibilities": []}
 
         for key, value in data.items():
-            parts = re.findall(r"\[(.*?)\]", key)
-            name = key.split("[")[0]
-
-            if name == "requirements":
-                if len(parts) == 2 and parts[0].isdigit() and parts[1] == "detail":
-                    feature_detail = value
-                    formatted_data[name].append(feature_detail)
-
-            elif name == "responsibilities":
-                if len(parts) == 2 and parts[0].isdigit() and parts[1] == "detail":
-                    supported_site_detail = value
-                    formatted_data[name].append(supported_site_detail)
-
+            if key == "requirements" or key == "responsibilities":
+                for item in value:
+                    formatted_data[key].append(item["detail"])
             else:
-                formatted_data[name] = value
+                formatted_data[key] = value
 
         return formatted_data
+
+    # def format_data(self, data):
+    #     formatted_data = {"requirements": [], "responsibilities": []}
+
+    #     for key, value in data.items():
+    #         print(key)
+    #         parts = re.findall(r"\[(.*?)\]", key)
+    #         name = key.split("[")[0]
+    #         # print(value)
+
+    #         if name == "requirements":
+    #             if len(parts) == 2 and parts[0].isdigit() and parts[1] == "detail":
+    #                 feature_detail = value
+    #                 formatted_data[name].append(feature_detail)
+
+    #         elif name == "responsibilities":
+    #             if len(parts) == 2 and parts[0].isdigit() and parts[1] == "detail":
+    #                 supported_site_detail = value
+    #                 formatted_data[name].append(supported_site_detail)
+
+    #         else:
+    #             formatted_data[name] = value
+
+    #     return formatted_data
 
 
 class ApplicationSerializer(serializers.ModelSerializer):

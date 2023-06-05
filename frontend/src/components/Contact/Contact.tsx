@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Contacts, Members } from "./components";
+import { seoData, SocialType } from "../../settings";
+import {
+  ContactForm,
+  Contacts,
+  Hours,
+  Information,
+  Members,
+} from "./components";
+import { JobData, JobListings } from "../Jobs";
 import { ApiAxiosInstance } from "../../utils";
-import { Error, Page } from "../../framework";
-import { SocialType } from "../../settings";
+import { Error, Item, Page } from "../../framework";
 
 export interface MemberData {
   id: string;
@@ -36,7 +43,7 @@ interface ContactData {
   ContactInformation: ContactInformationData;
   Socials: SocialType;
   Hours: HoursData;
-  JobPosting: any;
+  JobPosting: JobData;
 }
 
 const Contact: React.FC = () => {
@@ -87,16 +94,23 @@ const Contact: React.FC = () => {
   }
 
   return (
-    <Page>
+    <Page seoData={seoData.contact}>
       <Members membersData={membersData} editMode={editMode} />
-      {/* <JobListing jobsData={jobsData} editMode={editmode.editMode} /> */}
+
       <Contacts
         color="dark"
         contactData={contactData}
         hoursData={hoursData}
         socialData={socialData}
         editMode={editMode}
-      />
+      >
+        <Item xs={6} style={{ flexDirection: "column" }}>
+          <Information editMode={editMode} contactData={contactData} />
+          <Hours hoursData={hoursData} editMode={editMode} />
+        </Item>
+        <ContactForm socialData={socialData} editMode={editMode} color="dark" />
+      </Contacts>
+      <JobListings jobsData={jobsData} editMode={editMode} />
     </Page>
   );
 };

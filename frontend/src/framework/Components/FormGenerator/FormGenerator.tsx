@@ -126,7 +126,7 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
             if (!excludeKeys.includes(key)) {
               return (
                 <Item
-                  key={key}
+                  key={`form-${key}`}
                   xs={12}
                   sm={!smallKeys.includes(key) ? 12 : 6}
                   style={{ marginTop: 4 }}

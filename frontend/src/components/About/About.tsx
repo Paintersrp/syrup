@@ -10,6 +10,7 @@ import {
 } from "./components";
 import { ButtonBar, Error, Flexer, Page, Surface } from "../../framework";
 import { ApiAxiosInstance } from "../../utils";
+import { seoData } from "../../settings";
 
 interface AboutProps {}
 
@@ -87,7 +88,7 @@ const About: React.FC<AboutProps> = ({}) => {
   }
 
   return (
-    <Page>
+    <Page seoData={seoData.about}>
       <Surface maxWidth={900} j="c" a="c">
         {!editTitle && editMode && (
           <Flexer j="fe">

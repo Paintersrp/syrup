@@ -1,4 +1,4 @@
 import Contact from "./Contact";
 
-export * from "./components/Contacts/components";
+export * from "./components";
 export { Contact };

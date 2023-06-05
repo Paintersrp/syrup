@@ -76,13 +76,13 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
           )}
 
           <Stagger direction="right" orientation="horizontal">
-            {SOCIALS.map((platform: SocialType) => {
+            {SOCIALS.map((platform: SocialType, index: number) => {
               if (socials[platform.name]) {
                 return (
                   <Tooltip
                     text={`@${socials[platform.name]}`}
                     position="bottom"
-                    key={platform.name}
+                    key={`${platform.name}-${index}`}
                   >
                     <IconButton
                       size={buttonSize}

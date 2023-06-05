@@ -28,7 +28,7 @@ interface WIPProps {}
 const WIP: React.FC<WIPProps> = ({}) => {
   const stockImages = [
     {
-      url: "https://source.unsplash.com/1400x900/?landscape",
+      url: "images/seo/about.jpeg",
       caption: "Mountain Landscape",
       tags: ["landscape", "mountain"],
     },

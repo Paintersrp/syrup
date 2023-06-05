@@ -1,4 +1,5 @@
 import React, { CSSProperties, ReactNode } from "react";
+import { shadowMap } from "../../../utils";
 
 export const justifyContentMap: {
   [key: string]: CSSProperties["justifyContent"];
@@ -110,7 +111,7 @@ export interface BaseProps {
   gap?: CSSProperties["gap"];
   z?: CSSProperties["zIndex"];
   o?: CSSProperties["opacity"];
-  bs?: CSSProperties["boxShadow"];
+  bs?: number | undefined;
   style?: CSSProperties;
   className?: string;
   ref?: any;
@@ -196,7 +197,7 @@ const Base: React.FC<BaseProps> = ({
     gap: gap,
     zIndex: zIndex,
     opacity: opacity,
-    boxShadow: boxShadow,
+    boxShadow: boxShadow && shadowMap[boxShadow],
     ...style,
   };
 

@@ -16,9 +16,9 @@ import {
   Text,
   useFormValidation,
   validateForm,
-} from "../../../../../../framework";
-import { ApiAxiosInstance } from "../../../../../../utils";
-import { SocialType } from "../../../../../../settings";
+} from "../../../../framework";
+import { ApiAxiosInstance } from "../../../../utils";
+import { SocialType } from "../../../../settings";
 
 interface ContactFormData {
   name: string;
@@ -41,6 +41,14 @@ const options = [
   { label: "Other", value: "Other" },
 ];
 
+const initialContactData: ContactFormData = {
+  name: "",
+  email: "",
+  phone: "",
+  message: "",
+  subject: "None",
+};
+
 const ContactForm: React.FC<ContactFormProps> = ({
   socialData,
   editMode,
@@ -48,26 +56,14 @@ const ContactForm: React.FC<ContactFormProps> = ({
   ...rest
 }) => {
   const dispatch = useDispatch();
-  const [formData, setFormData] = useState<ContactFormData>({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-    subject: "None",
-  });
+  const [formData, setFormData] = useState<ContactFormData>(initialContactData);
 
   const submitLogic = (event: React.FormEvent) => {
     event.preventDefault();
 
     ApiAxiosInstance.post("/messages/", values)
       .then(() => {
-        resetForm({
-          name: "",
-          email: "",
-          phone: "",
-          message: "",
-          subject: "None",
-        });
+        resetForm(initialContactData);
         dispatch({ type: "ALERT_SUCCESS", message: "Message Sent" });
       })
       .then(() => {

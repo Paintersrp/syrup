@@ -1,6 +1,7 @@
 import { LINKS } from "./links";
+import { seoData } from "./seo";
 import { LOGO, SOCIALS, TITLE } from "./settings";
-export { LOGO, LINKS, SOCIALS, TITLE };
+export { LOGO, LINKS, seoData, SOCIALS, TITLE };
 
 import type { SiteLinkType } from "./links";
 import type { SocialType } from "./settings";

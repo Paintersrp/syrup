@@ -1,14 +1,7 @@
 import React from "react";
 
-import {
-  BaseProps,
-  Container,
-  Flexer,
-  Item,
-  Text,
-} from "../../../../framework";
+import { BaseProps, Container, Flexer, Text } from "../../../../framework";
 import { ContactInformationData, HoursData } from "../../Contact";
-import { ContactForm, Hours, Information } from "./components";
 import { SocialType } from "../../../../settings";
 
 interface ContactsProps extends BaseProps {
@@ -17,18 +10,20 @@ interface ContactsProps extends BaseProps {
   socialData: SocialType;
   editMode: boolean;
   color?: "light" | "dark" | undefined;
+  children: React.ReactNode;
 }
 
-export default function Contacts({
+const Contacts: React.FC<ContactsProps> = ({
   contactData,
   hoursData,
   socialData,
   editMode,
   color = "light",
+  children,
   ...rest
-}: ContactsProps) {
+}) => {
   return (
-    <Flexer j="c" a="c" mb={60} mt={20} {...rest}>
+    <Flexer j="c" a="c" mb={20} mt={20} {...rest}>
       <div style={{ width: 900, borderRadius: 12 }}>
         <Text
           t="h2"
@@ -38,18 +33,10 @@ export default function Contacts({
         >
           Contact Information
         </Text>
-        <Container>
-          <Item xs={6} style={{ flexDirection: "column" }}>
-            <Information editMode={editMode} contactData={contactData} />
-            <Hours hoursData={hoursData} editMode={editMode} />
-          </Item>
-          <ContactForm
-            socialData={socialData}
-            editMode={editMode}
-            color={color}
-          />
-        </Container>
+        <Container>{children}</Container>
       </div>
     </Flexer>
   );
-}
+};
+
+export default Contacts;

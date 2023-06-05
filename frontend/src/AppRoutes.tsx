@@ -10,6 +10,7 @@ import {
   Register,
 } from "./framework";
 import { About, Contact, Landing, WIP } from "./components";
+import Jobs from "./components/Jobs/Jobs";
 
 function AppRoutes(): JSX.Element {
   const [count, setCount] = useState<any>();
@@ -31,6 +32,7 @@ function AppRoutes(): JSX.Element {
       />
 
       {/* Tertiary Links */}
+      <Route path="/jobposting/:id" element={<Jobs />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="*" element={<NotFound />} />

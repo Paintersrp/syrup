@@ -1,6 +1,42 @@
 const validateForm = (values: any): string[] => {
   const errors: string[] = [];
 
+  if ("position" in values) {
+    if (!values.position) {
+      errors.push("Position is required");
+    }
+  }
+
+  if ("location" in values) {
+    if (!values.location) {
+      errors.push("Location is required");
+    }
+  }
+
+  if ("type" in values) {
+    if (!values.type) {
+      errors.push("Type is required");
+    }
+  }
+
+  if ("who_we_are" in values) {
+    if (!values.who_we_are) {
+      errors.push("Who We Are is required");
+    }
+  }
+
+  if ("looking_for" in values) {
+    if (!values.looking_for) {
+      errors.push("Looking For is required");
+    }
+  }
+
+  if ("why_apply" in values) {
+    if (!values.why_apply) {
+      errors.push("Why Apply is required");
+    }
+  }
+
   if ("title" in values) {
     if (!values.title) {
       errors.push("Title is required");

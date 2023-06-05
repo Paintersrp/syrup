@@ -58,19 +58,19 @@
 
 .options::-webkit-scrollbar-thumb {
   background: #ccc;
-  border-radius: 4px; /* replace 'theme.spacing(0.5)' with the actual value */
+  border-radius: 4px;
 }
 
 .options::-moz-scrollbar {
   width: 10px;
   height: 10px;
   background: #ccc;
-  border-radius: 4px; /* replace 'theme.spacing(0.5)' with the actual value */
+  border-radius: 4px;
 }
 
 .options::-moz-scrollbar-thumb {
   background: #ccc;
-  border-radius: 4px; /* replace 'theme.spacing(0.5)' with the actual value */
+  border-radius: 4px;
 }
 
 .visible {

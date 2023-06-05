@@ -1,18 +1,21 @@
-import React from "react";
+import React, { CSSProperties } from "react";
 
 import { BaseProps, Flexer } from "../../Containers";
 import MaterialIcon from "../Icon/MaterialIcon";
 import { palettes } from "../../../utils";
 import Divider from "../Divider/Divider";
-import Text from "../Text/Text";
+import Text, { TextAlign } from "../Text/Text";
 
 interface IconTextItemProps extends BaseProps {
-  icon: string;
+  icon?: string;
   text?: string;
   subtext?: string;
   iconColor?: string;
   subtextColor?: string;
   divider?: boolean;
+  textAlign?: TextAlign;
+  iconSize?: CSSProperties["fontSize"];
+  onClick?: any;
 }
 
 const IconTextItem: React.FC<IconTextItemProps> = ({
@@ -20,25 +23,30 @@ const IconTextItem: React.FC<IconTextItemProps> = ({
   text,
   subtext,
   iconColor,
+  iconSize = "20px",
   subtextColor = palettes.text.secondary,
   divider,
+  textAlign,
+  onClick,
   ...rest
 }) => {
   return (
-    <React.Fragment>
-      <Flexer w="auto" {...rest}>
-        {icon && <MaterialIcon icon={icon} mr={6} color={iconColor} />}
-        <Flexer fd="column" style={{ marginRight: 30 }}>
-          {text && <Text a="c">{text}</Text>}
+    <div onClick={onClick && onClick}>
+      <Flexer w="auto" {...rest} j="c" a="c">
+        {icon && (
+          <MaterialIcon icon={icon} mr={6} color={iconColor} size={iconSize} />
+        )}
+        <Flexer fd="column" a="c" j="c" style={{ marginRight: 30 }}>
+          {text && <Text a={textAlign}>{text}</Text>}
           {subtext && (
-            <Text a="c" c={subtextColor}>
+            <Text a={textAlign} c={subtextColor}>
               {subtext}
             </Text>
           )}
         </Flexer>
       </Flexer>
       {divider && <Divider mt={6} mb={6} />}
-    </React.Fragment>
+    </div>
   );
 };
 

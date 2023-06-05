@@ -7,9 +7,9 @@ import {
   FormGenerator,
   IconTextItem,
   Stagger,
-} from "../../../../../../framework";
-import { palettes } from "../../../../../../utils";
-import { HoursData } from "../../../../Contact";
+} from "../../../../framework";
+import { palettes } from "../../../../utils";
+import { HoursData } from "../../Contact";
 
 const daysOfWeek = [
   "Monday",
@@ -56,6 +56,7 @@ const Hours: React.FC<HoursProps> = ({ hoursData, editMode, ...rest }) => {
           <Stagger direction="right" orientation="vertical">
             {daysOfWeek.map((dayOfWeek, index) => (
               <IconTextItem
+                textAlign="center"
                 key={dayOfWeek}
                 icon="today"
                 text={dayOfWeek}

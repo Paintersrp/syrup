@@ -8,9 +8,9 @@ import {
   FormGenerator,
   IconTextItem,
   Surface,
-} from "../../../../../../framework";
-import { ContactInformationData } from "../../../../Contact";
-import { palettes } from "../../../../../../utils";
+} from "../../../../framework";
+import { ContactInformationData } from "../../Contact";
+import { palettes } from "../../../../utils";
 
 interface InformationProps extends BaseProps {
   contactData: ContactInformationData;
@@ -59,12 +59,14 @@ const Information: React.FC<InformationProps> = ({
             maxWidth={300}
           >
             <IconTextItem
+              textAlign="center"
               icon="email"
               text={data.email}
               subtext="Email"
               divider
             />
             <IconTextItem
+              textAlign="center"
               icon="phone"
               text={data.phone}
               subtext="Phone"
@@ -72,6 +74,7 @@ const Information: React.FC<InformationProps> = ({
               divider
             />
             <IconTextItem
+              textAlign="center"
               icon="location_on"
               text={data.address}
               subtext="Address"

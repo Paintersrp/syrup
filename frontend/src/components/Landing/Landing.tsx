@@ -11,7 +11,7 @@ import {
 import { Error, Page, SectionHeaderData } from "../../framework";
 import { ContactInformationData } from "../Contact/Contact";
 import { ApiAxiosInstance } from "../../utils";
-import { SocialType } from "../../settings";
+import { seoData, SocialType } from "../../settings";
 
 export interface HeroData {
   title: string;
@@ -111,7 +111,7 @@ const Landing: React.FC<LandingProps> = () => {
   }
 
   return (
-    <Page>
+    <Page seoData={seoData.landing}>
       <Hero
         data={heroData}
         editMode={editMode}
