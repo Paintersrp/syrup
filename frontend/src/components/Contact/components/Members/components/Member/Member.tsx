@@ -19,11 +19,13 @@ import { MemberData } from "../../../../Contact";
 interface MemberProps extends BaseProps {
   member: MemberData;
   editMode?: boolean;
+  newImage?: any;
 }
 
 const Member: React.FC<MemberProps> = ({
   member,
   editMode = false,
+  newImage,
   ...rest
 }) => {
   const [editing, setEditing] = useState(false);
@@ -53,7 +55,7 @@ const Member: React.FC<MemberProps> = ({
           <Flexer j="fs" a="fs">
             <div style={{ width: "60%" }}>
               <Media
-                src={memberData.image}
+                src={newImage ? newImage : memberData.image}
                 boxShadow={0}
                 altText="member-image"
               />

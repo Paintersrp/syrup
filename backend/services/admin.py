@@ -15,30 +15,9 @@ class ProcessImageItemAdmin(admin.ModelAdmin):
     list_display = ["id", "image"]
 
 
-class CustomServiceTierAdmin(admin.ModelAdmin):
-    list_display = ("service_title", "price", "image")
-
-    fieldsets = (
-        (
-            None,
-            {
-                "fields": (
-                    "service_title",
-                    "price",
-                    "image",
-                    "features",
-                    "bestFor",
-                    "guarantee",
-                    "supported_sites",
-                )
-            },
-        ),
-    )
-
-
 admin.site.register(ProcessTextItem, ProcessTextItemAdmin)
 admin.site.register(ProcessImageItem, ProcessImageItemAdmin)
 admin.site.register(Benefits)
-admin.site.register(ServiceTier, CustomServiceTierAdmin)
+admin.site.register(ServiceTier)
 admin.site.register(Feature)
 admin.site.register(SupportedSites)

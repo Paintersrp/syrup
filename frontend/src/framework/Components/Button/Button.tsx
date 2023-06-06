@@ -41,6 +41,8 @@ interface ButtonProps {
   disabled?: boolean;
   startIcon?: string;
   endIcon?: string;
+  iconColor?: string;
+  iconHoverColor?: string;
   href?: string | undefined;
   ariaLabel?: string;
   ariaDescribedBy?: string;
@@ -90,6 +92,8 @@ const Button: React.FC<ButtonProps> = ({
   disabled = false,
   startIcon,
   endIcon,
+  iconColor = "#f5f5f5",
+  iconHoverColor = "#f5f5f5",
   href,
   ariaLabel,
   ariaDescribedBy,
@@ -153,14 +157,19 @@ const Button: React.FC<ButtonProps> = ({
             size={iconSize}
             mr={2}
             ml={2}
-            color="#f5f5f5"
+            color={hover ? iconHoverColor : iconColor}
           />
         )}
         <Text a="c" t="button" fw="600" s={textSize}>
           {children}
         </Text>
         {endIcon && (
-          <MaterialIcon icon={endIcon} size={iconSize} ml={6} color="#f5f5f5" />
+          <MaterialIcon
+            icon={endIcon}
+            size={iconSize}
+            ml={2}
+            color={hover ? iconHoverColor : iconColor}
+          />
         )}
       </Flexer>
     </button>

@@ -1,6 +1,6 @@
 from backend.utils import *
 
-ABOUT_BLOCK_METADATA = {
+ABOUT_HEADER_METADATA = {
     "autoform_label": "About Header",
     "long_description": "This model represents the header block of the About page.",
     "short_description": "Header block for the About page.",

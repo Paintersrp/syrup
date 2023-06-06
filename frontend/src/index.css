@@ -257,6 +257,28 @@ h6 {
   background-color: var(--color-secondary-main) !important;
 }
 
+.breadcrumb-title {
+  text-align: center;
+  color: black;
+  border-right: 1px solid #666666;
+  margin-right: 16px !important;
+  padding-right: 16px;
+  font-weight: 600;
+  font-family: Roboto;
+}
+
+.file-downloadable {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: var(--color-primary-main);
+  text-decoration: none;
+}
+
+.file-downloadable:hover {
+  text-decoration: underline;
+}
+
 p {
   font-family: Roboto;
 }

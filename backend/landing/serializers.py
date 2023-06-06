@@ -7,7 +7,7 @@ class HeroHeaderSerializer(serializers.ModelSerializer):
     FIELD_KEYS = [
         "name",
         "title",
-        "heading",
+        "subtitle",
     ]
 
     class Meta:

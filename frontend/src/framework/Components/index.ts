@@ -110,6 +110,10 @@ export type { SEOData };
 import { SpeedDial, SpeedDialItem } from "./SpeedDial/SpeedDial";
 export { SpeedDial, SpeedDialItem };
 
+// Switch Components
+import Switch from "./Switch/Switch";
+export { Switch };
+
 // Table Components
 import TableSortCell from "./TableSortCell/TableSortCell";
 import {
@@ -162,9 +166,9 @@ export { Tooltip };
 import type { TooltipPosition } from "./Tooltip/Tooltip";
 export type { TooltipPosition };
 
-// TransferList Components
-import TransferList from "./TransferList/TransferList";
-export { TransferList };
+// // TransferList Components
+// import TransferList from "./TransferList/TransferList";
+// export { TransferList };
 
 // Tree Components
 // import Tree from "./Tree/Tree";

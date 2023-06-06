@@ -4,7 +4,7 @@ from contact.models import *
 from contact.serializers import *
 
 
-class AboutBlockSerializer(serializers.ModelSerializer):
+class AboutHeaderSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False, allow_null=True)
     FIELD_KEYS = [
         "name",
@@ -59,7 +59,7 @@ class ValueSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-AboutHeader.serializer_class = AboutBlockSerializer
+AboutHeader.serializer_class = AboutHeaderSerializer
 CompanyHistory.serializer_class = CompanyHistorySerializer
 MissionStatement.serializer_class = MissionStatementSerializer
 TeamMember.serializer_class = TeamMemberSerializer

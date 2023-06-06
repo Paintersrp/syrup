@@ -32,7 +32,7 @@ const ImageInput: React.FC<ImageInputProps> = ({
       <Button
         onClick={(e) => handleSelectFile(e)}
         className={`input-button${dense ? "-dense" : ""}`}
-        endIcon="upload"
+        startIcon="upload"
         iconSize={dense ? "16px" : "18px"}
       >
         <Text t="subtitle1" a="c" s={dense ? "0.85rem" : "0.95rem"}>

@@ -1,0 +1,102 @@
+.switch-container {
+  display: flex;
+  align-items: center;
+}
+
+.switch-container.small {
+  font-size: 12px;
+}
+
+.switch-container.medium {
+  font-size: 14px;
+}
+
+.switch-container.large {
+  font-size: 16px;
+}
+
+.switch.small {
+  width: 40px;
+  height: 20px;
+}
+
+.switch.medium {
+  width: 50px;
+  height: 25px;
+}
+
+.switch.large {
+  width: 60px;
+  height: 30px;
+}
+
+.switch.small .slider {
+  width: 16px;
+  height: 16px;
+}
+
+.switch.medium .slider {
+  width: 21px;
+  height: 21px;
+}
+
+.switch.large .slider {
+  width: 26px;
+  height: 26px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  border-radius: 17px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  background-color: #ccc;
+}
+
+.switch .slider {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  border-radius: 50%;
+  background-color: #fff;
+  transition: transform 0.3s;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.switch.on {
+  background-color: #63bd62;
+}
+
+.switch.on.small .slider {
+  transform: translateX(20px);
+}
+
+.switch.on.medium .slider {
+  transform: translateX(25px);
+}
+
+.switch.on.large .slider {
+  transform: translateX(30px);
+}
+
+.switch.off {
+  background-color: #ccc;
+}
+
+.switch.off.small .slider {
+  transform: translateX(0px);
+}
+
+.switch.off.medium .slider {
+  transform: translateX(0px);
+}
+
+.switch.off.large .slider {
+  transform: translateX(0px);
+}
+
+.switch-input {
+  display: none;
+}

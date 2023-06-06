@@ -11,8 +11,10 @@ import {
 } from "../../../../Components";
 import {
   ApiAxiosInstance,
+  breakPoints,
   CapitalizeFirst,
   palettes,
+  useBreakpoint,
 } from "../../../../../utils";
 import { Flexer, Surface } from "../../../../Containers";
 import { InfoMenu, ModelTable } from "./components";
@@ -34,6 +36,7 @@ const ModelPanel: React.FC<ModelPanelProps> = ({
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
+  const isSmallScreen = useBreakpoint(breakPoints.sm);
 
   const [data, setData] = useState<any[]>([]);
   const [selected, setSelected] = useState<any[]>([]);
@@ -245,9 +248,11 @@ const ModelPanel: React.FC<ModelPanelProps> = ({
           j="c"
         >
           <Flexer>
-            <Text w="auto" t="h3" className="breadcrumb-title">
-              {model.verbose_name}
-            </Text>
+            {!isSmallScreen && (
+              <Text w="auto" t="h3" className="breadcrumb-title">
+                {model.verbose_name}
+              </Text>
+            )}
             <Breadcrumbs aria-label="breadcrumb">
               <Tooltip text="Back to Dashboard" position="bottom">
                 <Link to="/admin">

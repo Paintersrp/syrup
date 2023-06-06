@@ -7,7 +7,6 @@ interface Props {
   data?: any;
   fieldName: string;
   handleComponentsChange: (fieldName: string, fieldValue: any) => void;
-  modelMetadata?: any;
 }
 
 const ManyToManyField: React.FC<Props> = ({

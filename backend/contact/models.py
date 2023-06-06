@@ -44,15 +44,15 @@ class ContactInformation(models.Model):
 class Hours(models.Model):
     set_name = CustomCharField(
         max_length=100,
-        md_column_count=6,
         verbose_name="Hours Set Name",
         help_text="Hours Set Name",
         unique=True,
     )
+
     monday = CustomCharField(
         max_length=40,
         null=True,
-        md_column_count=3,
+        md_column_count=4,
         verbose_name="Monday",
         help_text="Monday",
     )
@@ -60,7 +60,7 @@ class Hours(models.Model):
     tuesday = CustomCharField(
         max_length=40,
         null=True,
-        md_column_count=3,
+        md_column_count=4,
         verbose_name="Tuesday",
         help_text="Tuesday",
     )
@@ -68,7 +68,7 @@ class Hours(models.Model):
     wednesday = CustomCharField(
         max_length=40,
         null=True,
-        md_column_count=3,
+        md_column_count=4,
         verbose_name="Wednesday",
         help_text="Wednesday",
     )
@@ -76,7 +76,7 @@ class Hours(models.Model):
     thursday = CustomCharField(
         max_length=40,
         null=True,
-        md_column_count=3,
+        md_column_count=4,
         verbose_name="Thursday",
         help_text="Thursday",
     )

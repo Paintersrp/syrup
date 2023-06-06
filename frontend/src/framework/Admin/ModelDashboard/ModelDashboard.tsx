@@ -9,7 +9,7 @@ interface ModelDashboardProps {
   setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function ModelDashboard({ setCount }: ModelDashboardProps): JSX.Element | null {
+const ModelDashboard: React.FC<ModelDashboardProps> = ({ setCount }) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
   const [data, setData] = useState<any>({});
@@ -58,6 +58,6 @@ function ModelDashboard({ setCount }: ModelDashboardProps): JSX.Element | null {
       />
     </Page>
   );
-}
+};
 
 export default ModelDashboard;

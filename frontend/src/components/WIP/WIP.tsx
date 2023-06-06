@@ -12,11 +12,11 @@ import {
   Text,
   ToggleButton,
   ToggleButtonGroup,
-  TransferList,
   TreeNode,
 } from "../../framework/Components";
 import Alert from "../../framework/Components/Alert/Alert";
 import Gallery from "../../framework/Components/Gallery/Gallery";
+import Switch from "../../framework/Components/Switch/Switch";
 
 import { Page, Flexer, Surface, Carousel } from "../../framework/Containers";
 import Stagger from "../../framework/Containers/Animation/Stagger/Stagger";
@@ -125,9 +125,48 @@ const WIP: React.FC<WIPProps> = ({}) => {
 
   const dispatch = useDispatch();
 
+  const [switches, setSwitches] = useState({
+    field1: false,
+    field2: false,
+  });
+
+  const handleToggle = (name: string, value: boolean) => {
+    setSwitches((prevSwitches) => ({
+      ...prevSwitches,
+      [name]: value,
+    }));
+  };
+
   return (
     <Page>
       <Flexer j="c" a="c" fd="column" mt={40}>
+        <div>
+          <Switch
+            name="field1"
+            label="Toggle Field 1"
+            value={switches.field1}
+            onChange={handleToggle}
+          />
+          <Switch
+            name="field2"
+            label="Toggle Field 2"
+            value={switches.field2}
+            onChange={handleToggle}
+          />
+          <form>
+            <input
+              type="text"
+              disabled={!switches.field1}
+              placeholder="Field 1"
+            />
+            <input
+              type="text"
+              disabled={!switches.field2}
+              placeholder="Field 2"
+            />
+            {/* Additional form fields */}
+          </form>
+        </div>
         <Stagger direction="left" orientation="vertical" mt={90}>
           <Surface
             boxShadow={1}
@@ -225,7 +264,7 @@ const WIP: React.FC<WIPProps> = ({}) => {
         >
           Show Info
         </button>
-        <TransferList leftItems={leftItems} rightItems={rightItems} />
+        {/* <TransferList leftItems={leftItems} rightItems={rightItems} /> */}
         {/* <MenuExamples /> */}
 
         <div style={{ marginBottom: 96 }}>

@@ -376,6 +376,10 @@ class RecentAdminActionsView(APIView):
                     content_type = ContentType.objects.get(
                         model=model_query.lower(), app_label="faqs"
                     )
+                elif model_query == "servicetier":
+                    content_type = ContentType.objects.get(
+                        model=model_query.lower(), app_label="services"
+                    )
 
                 else:
                     content_type = ContentType.objects.get(model=model_query.lower())

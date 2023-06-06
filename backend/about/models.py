@@ -3,7 +3,7 @@ from .metadata import *
 from backend.customs import *
 
 
-@metadata(**ABOUT_BLOCK_METADATA)
+@metadata(**ABOUT_HEADER_METADATA)
 class AboutHeader(models.Model):
     name = CustomCharField(
         max_length=100,

@@ -18,19 +18,19 @@ urlpatterns = [
         name="value-bulk-detail",
     ),
     path(
-        "aboutblock/",
-        AboutBlockAPIView.as_view(),
-        name="aboutblock-list",
+        "aboutheader/",
+        AboutHeaderAPIView.as_view(),
+        name="aboutheader-list",
     ),
     path(
-        "aboutblock/<int:pk>/",
-        AboutBlockDetailAPIView.as_view(),
-        name="aboutblock-detail",
+        "aboutheader/<int:pk>/",
+        AboutHeaderDetailAPIView.as_view(),
+        name="aboutheader-detail",
     ),
     path(
-        "aboutblock/bulk/",
-        AboutBlockBulkAPIView.as_view(),
-        name="aboutblock-bulk-detail",
+        "aboutheader/bulk/",
+        AboutHeaderBulkAPIView.as_view(),
+        name="aboutheader-bulk-detail",
     ),
     path(
         "missionstatement/",

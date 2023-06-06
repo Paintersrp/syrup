@@ -32,21 +32,21 @@ class AboutFullView(generics.GenericAPIView):
         return Response(data)
 
 
-class AboutBlockAPIView(BaseListView):
+class AboutHeaderAPIView(BaseListView):
     queryset = AboutHeader.objects.all()
-    serializer_class = AboutBlockSerializer
+    serializer_class = AboutHeaderSerializer
     model_class = AboutHeader
 
 
-class AboutBlockDetailAPIView(BaseDetailView):
+class AboutHeaderDetailAPIView(BaseDetailView):
     queryset = AboutHeader.objects.all()
-    serializer_class = AboutBlockSerializer
+    serializer_class = AboutHeaderSerializer
     model_class = AboutHeader
 
 
-class AboutBlockBulkAPIView(BaseBulkView):
+class AboutHeaderBulkAPIView(BaseBulkView):
     queryset = AboutHeader.objects.all()
-    serializer_class = AboutBlockSerializer
+    serializer_class = AboutHeaderSerializer
     model_class = AboutHeader
 
 

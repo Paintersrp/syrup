@@ -45,6 +45,7 @@ class ServiceTier(models.Model):
         verbose_name="Image",
         help_text="Image",
     )
+
     service_title = CustomCharField(
         max_length=100,
         md_column_count=6,
@@ -66,6 +67,7 @@ class ServiceTier(models.Model):
         verbose_name="Features",
         md_column_count=6,
         help_text="Service Tier Features",
+        blank=True,
     )
 
     supported_sites = CustomManyToManyField(
@@ -74,7 +76,9 @@ class ServiceTier(models.Model):
         verbose_name="Supported Sites",
         md_column_count=6,
         help_text="Service Tier Supported Sites",
+        blank=True,
     )
+
     paragraph_one = CustomTextField(
         max_length=500,
         md_column_count=12,
@@ -102,10 +106,10 @@ class ServiceTier(models.Model):
         self.supported_sites.all().delete()
         super().delete(*args, **kwargs)
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.features.xs_column_count = 12
-        self.features.md_column_count = 8
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     self.features.xs_column_count = 12
+    #     self.features.md_column_count = 8
 
     class Meta:
         ordering = ["price"]

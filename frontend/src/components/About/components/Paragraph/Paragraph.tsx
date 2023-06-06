@@ -9,7 +9,7 @@ interface ParagraphProps extends BaseProps {
   data: any;
   editMode?: boolean;
   editState?: boolean;
-  setEdit: (editState: boolean) => void;
+  setEdit?: (editState: boolean) => void;
   adminLink?: string;
   text?: string;
   onUpdate?: (update: any) => void;
