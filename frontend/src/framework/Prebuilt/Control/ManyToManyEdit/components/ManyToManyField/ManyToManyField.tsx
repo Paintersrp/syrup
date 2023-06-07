@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-import { ApiAxiosInstance, choiceSource } from "../../../../../../utils";
+import { ApiAxiosInstance } from "../../../../../../lib";
+import { choiceSource } from "../../../../../../utils";
 import TransferList from "../TransferList/TransferList";
 
 interface Props {

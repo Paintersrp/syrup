@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 
-import {
-  ApiAxiosInstance,
-  breakPoints,
-  CapitalizeFirst,
-  useBreakpoint,
-} from "../../../utils";
-import { Breadcrumbs, Text, Tooltip } from "../../Components";
+import { breakPoints, CapitalizeFirst, useBreakpoint } from "../../../utils";
+import { Breadcrumbs, Text, Tooltip, useLoading } from "../../Components";
 import { Flexer, Page, Surface } from "../../Containers";
+import { ApiAxiosInstance } from "../../../lib";
 import { ObjectAutoForm } from "./components";
 
 interface ModelData {
@@ -18,7 +14,11 @@ interface ModelData {
 const ObjectDashboard: React.FC = () => {
   const { str, pk } = useParams();
   const location = useLocation();
+  const { loading, startLoad, endLoad } = useLoading();
   const isSmallScreen = useBreakpoint(breakPoints.sm);
+
+  const [ready, setReady] = useState(false);
+  const [error, setError] = useState<any>(null);
 
   const [model, setModel] = useState<ModelData | null>(null);
   const [appName, setAppName] = useState<string | null>(null);
@@ -28,7 +28,7 @@ const ObjectDashboard: React.FC = () => {
   const [metadata, setMetadata] = useState<any | null>(null);
   const [id, setId] = useState<any | null>(null);
   const [data, setData] = useState<any | null>(null);
-  const [ready, setReady] = useState(false);
+
   const [create, setCreate] = useState(false);
   const [refresh, setRefresh] = useState(false);
 
@@ -45,7 +45,7 @@ const ObjectDashboard: React.FC = () => {
   };
 
   useEffect(() => {
-    setReady(false);
+    startLoad();
     if (!location.state && !pk) {
       ApiAxiosInstance.get(`/get_models/${str}/`)
         .then((response) => {
@@ -54,11 +54,17 @@ const ObjectDashboard: React.FC = () => {
           setKeys(response.data.keys);
           setMetadata(response.data.metadata);
           setModel(response.data);
+          setFormattedAppName(CapitalizeFirst(response.data.app_name));
+
+          endLoad();
           setReady(true);
           setCreate(true);
-          setFormattedAppName(CapitalizeFirst(response.data.app_name));
         })
-        .catch((error) => console.log(error));
+        .catch((err) => {
+          setError(err.error);
+          setReady(true);
+          endLoad();
+        });
     } else if (!location.state && pk) {
       ApiAxiosInstance.get(`/get_models/${str}/`)
         .then((response) => {
@@ -67,17 +73,25 @@ const ObjectDashboard: React.FC = () => {
           setKeys(response.data.keys);
           setMetadata(response.data.metadata);
           setModel(response.data);
-          setCreate(false);
           setFormattedAppName(CapitalizeFirst(response.data.app_name));
         })
-        .catch((error) => console.log(error));
+        .catch((err) => {
+          setError(err.error);
+          setReady(true);
+          endLoad();
+        });
       ApiAxiosInstance.get(`/${str}/${pk}/`)
         .then((response) => {
           setData(response.data);
           setCreate(false);
           setReady(true);
+          endLoad();
         })
-        .catch((error) => console.log(error));
+        .catch((err) => {
+          setError(err.error);
+          setReady(true);
+          endLoad();
+        });
     } else {
       setUrl(location.state.url);
       setAppName(location.state.appName);
@@ -86,8 +100,10 @@ const ObjectDashboard: React.FC = () => {
       setModel(location.state.model);
       setId(location.state.id);
       setData(location.state.data);
-      setReady(true);
       setFormattedAppName(CapitalizeFirst(location.state.appName));
+
+      setReady(true);
+      endLoad();
     }
   }, []);
 
@@ -114,7 +130,7 @@ const ObjectDashboard: React.FC = () => {
   }
 
   return (
-    <Page>
+    <Page error={error}>
       {metadata && (
         <Surface
           maxWidth={1200}
@@ -133,7 +149,7 @@ const ObjectDashboard: React.FC = () => {
               </Text>
             )}
             <Breadcrumbs aria-label="breadcrumb">
-              <Tooltip text={`Dashboard`} position="bottom">
+              <Tooltip text="View Dashboard" position="bottom">
                 <Link className="link-text" to="/admin">
                   Home
                 </Link>
@@ -143,7 +159,10 @@ const ObjectDashboard: React.FC = () => {
                   {formattedAppName}
                 </Link>
               </Tooltip>
-              <Tooltip text={`${model?.verbose_name} Model`} position="bottom">
+              <Tooltip
+                text={`View ${model?.verbose_name} Model`}
+                position="bottom"
+              >
                 <Link
                   to={`/admin${url}`}
                   state={{

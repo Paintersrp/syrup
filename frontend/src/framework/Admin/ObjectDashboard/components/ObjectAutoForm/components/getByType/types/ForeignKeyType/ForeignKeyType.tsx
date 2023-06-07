@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { ApiAxiosInstance } from "../../../../../../../../../utils";
+import { ApiAxiosInstance } from "../../../../../../../../../lib";
 import { Flexer, Item } from "../../../../../../../../Containers";
 import { HelpText } from "../../../../../../../../Components";
 import { ForeignKeySelect } from "./components";

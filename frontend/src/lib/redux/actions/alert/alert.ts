@@ -2,7 +2,7 @@ export const ALERT_FAIL = "ALERT_FAIL";
 export const ALERT_SUCCESS = "ALERT_SUCCESS";
 export const ALERT_INFO = "ALERT_INFO";
 export const ALERT_WARNING = "ALERT_WARNING";
-export const CLOSE_SNACKBAR = "CLOSE_SNACKBAR";
+export const CLOSE_ALERT = "CLOSE_ALERT";
 export const DATA_UPDATED = "DATA_UPDATED";
 
 export interface AlertSuccessAction {
@@ -25,8 +25,8 @@ export interface AlertInfoAction {
   message: string;
 }
 
-export interface CloseSnackbarAction {
-  type: typeof CLOSE_SNACKBAR;
+export interface CloseAlertAction {
+  type: typeof CLOSE_ALERT;
 }
 
 export interface DataUpdatedAction {
@@ -54,8 +54,8 @@ export const alertWarning = (message: string): AlertWarningAction => ({
   message: message,
 });
 
-export const closeSnackbar = (): CloseSnackbarAction => ({
-  type: CLOSE_SNACKBAR,
+export const closeAlert = (): CloseAlertAction => ({
+  type: CLOSE_ALERT,
 });
 
 export const dataUpdated = (data: any): DataUpdatedAction => ({

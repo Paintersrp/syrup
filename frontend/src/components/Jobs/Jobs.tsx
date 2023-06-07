@@ -9,8 +9,9 @@ import {
   JobListings,
   JobQualifications,
 } from "./components";
-import { ApiAxiosInstance } from "../../utils";
-import { Page } from "../../framework";
+import { Page, useLoading } from "../../framework";
+import { ApiAxiosInstance } from "../../lib";
+import { seoData } from "../../settings";
 
 export interface JobData {
   id: number;
@@ -29,14 +30,15 @@ export interface JobData {
 
 const Jobs: React.FC = () => {
   const { id } = useParams<{ id: any }>();
+  const { loading, startLoad, endLoad } = useLoading();
   const editMode: boolean = useSelector(
     (state: any) => state.editMode.editMode
   );
 
   const [ready, setReady] = useState(false);
+  const [error, setError] = useState<any>(null);
   const [job, setJob] = useState<JobData | null>(null);
   const [jobs, setJobs] = useState<JobData[] | null>(null);
-  const [editing, setEditing] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
 
   const handleApplyNowClick = () => {
@@ -47,6 +49,7 @@ const Jobs: React.FC = () => {
   };
 
   useEffect(() => {
+    startLoad();
     ApiAxiosInstance.get("/jobposting/")
       .then((response) => {
         setJobs(response.data);
@@ -54,9 +57,14 @@ const Jobs: React.FC = () => {
           response.data.find((jobData: JobData) => jobData.id === parseInt(id))
         );
       })
-      .then(() => setReady(true))
+      .then(() => {
+        setReady(true);
+        endLoad();
+      })
       .catch((err) => {
-        console.log(err);
+        endLoad();
+        setReady(true);
+        setError(err.error);
       });
   }, [id]);
 
@@ -65,7 +73,7 @@ const Jobs: React.FC = () => {
   }
 
   return (
-    <Page>
+    <Page error={error}>
       {job && jobs && (
         <Job editMode={editMode}>
           <JobDetails

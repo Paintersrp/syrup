@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import ApiAxiosInstance from "./ApiAxiosInstance";
+import { ApiAxiosInstance } from "../../../lib";
 
 const LogoutUser = (): void => {
   if (Cookies.get("jwt")) {

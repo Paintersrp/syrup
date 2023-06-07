@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./MainDashboard.css";
 
+import { Breadcrumbs, IconButton, Text, useLoading } from "../../Components";
 import { Container, Flexer, Page, Surface } from "../../Containers";
-import { Breadcrumbs, IconButton, Text } from "../../Components";
-import { ApiAxiosInstance } from "../../../utils";
+import { ApiAxiosInstance } from "../../../lib";
 import { RenderSections } from "./components";
 import { RecentActions } from "../AdminLog";
 
 interface MainDashboardProps {}
 
 const MainDashboard: React.FC<MainDashboardProps> = () => {
+  const { loading, startLoad, endLoad } = useLoading();
+
+  const [ready, setReady] = useState(false);
+  const [error, setError] = useState<any>(null);
+
   const [models, setModels] = useState({});
   const [collapsed, setCollapsed] = useState(false);
   const [configs, setConfigs] = useState({});
@@ -42,11 +47,11 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
   };
 
   useEffect(() => {
+    startLoad();
     ApiAxiosInstance.get("/get_models/")
       .then((response) => {
         setModels(response.data.models);
         setConfigs(response.data.configs);
-        console.log("Models: ", response.data.models);
 
         const initialOpenAppSections = {};
         Object.keys(response.data.models).forEach((app) => {
@@ -56,20 +61,33 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
           setOpenAppSections(initialOpenAppSections);
           setActionsOpen(true);
           // setStatsOpen(true);
-        }, 100);
+        }, 0);
       })
-      .catch((error) => console.log(error));
+      .catch((err) => {
+        setError(err.error);
+        setReady(true);
+        endLoad();
+      });
 
     ApiAxiosInstance.get("/recent_admin_actions/")
       .then((response) => {
         setRecentActions(response.data);
-        console.log("recent actions: ", response.data);
+        setReady(true);
+        endLoad();
       })
-      .catch((error) => console.log(error));
+      .catch((err) => {
+        setError(err.error);
+        setReady(true);
+        endLoad();
+      });
   }, []);
 
+  if (!ready) {
+    return null;
+  }
+
   return (
-    <Page>
+    <Page error={error}>
       <Surface
         maxWidth={1200}
         pt={32}
@@ -104,7 +122,7 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
                   iconColor="#fff"
                 />
               </Flexer>
-              <Container spacing={0} className="dash-inner-container">
+              <Container j="fs" a="fs" className="dash-inner-container">
                 <RenderSections
                   models={models}
                   configs={configs}

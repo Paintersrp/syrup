@@ -5,30 +5,30 @@ import {
   SetJobsAction,
   SetUsersAction,
   SetServicesAction,
-} from "../Actions/plugins";
+} from "../../actions/plugins/plugins";
 
-export interface PluginState {
+export interface PluginsState {
   jobsPlugin: boolean;
   usersPlugin: boolean;
   servicesPlugin: boolean;
 }
 
-const initialState: PluginState = {
+const initialState: PluginsState = {
   jobsPlugin: false,
   usersPlugin: false,
   servicesPlugin: false,
 };
 
-type PluginActionTypes =
+type PluginsActionTypes =
   | SetJobsAction
   | SetUsersAction
   | SetServicesAction
   | any;
 
-const pluginReducer = (
-  state: PluginState = initialState,
-  action: PluginActionTypes
-): PluginState => {
+const pluginsReducer = (
+  state: PluginsState = initialState,
+  action: PluginsActionTypes
+): PluginsState => {
   switch (action.type) {
     case SET_JOBS:
       return {
@@ -50,4 +50,4 @@ const pluginReducer = (
   }
 };
 
-export default pluginReducer;
+export default pluginsReducer;

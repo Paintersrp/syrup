@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 
 import { BaseProps, Container, Item, Surface } from "../../Containers";
 import { ConfirmCancelBar, ErrorDisplay } from "../../Prebuilt";
-import { ApiAxiosInstance } from "../../../utils";
 import { IconMixin, ImageMixin } from "./mixins";
+import { ApiAxiosInstance } from "../../../lib";
 import { validateForm } from "./hooks";
 import Input from "../Input/Input";
 import Text from "../Text/Text";

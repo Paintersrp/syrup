@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { seoData, SocialType } from "../../settings";
 import {
   ContactForm,
   Contacts,
@@ -9,9 +8,10 @@ import {
   Information,
   Members,
 } from "./components";
+import { Error, Item, Page, useLoading } from "../../framework";
+import { seoData, SocialType } from "../../settings";
 import { JobData, JobListings } from "../Jobs";
-import { ApiAxiosInstance } from "../../utils";
-import { Error, Item, Page } from "../../framework";
+import { ApiAxiosInstance } from "../../lib";
 
 export interface MemberData {
   id: string;
@@ -48,6 +48,7 @@ interface ContactData {
 
 const Contact: React.FC = () => {
   const dispatch = useDispatch();
+  const { loading, startLoad, endLoad } = useLoading();
   const editMode = useSelector((state: any) => state.editMode.editMode);
 
   const [ready, setReady] = useState(false);
@@ -59,7 +60,7 @@ const Contact: React.FC = () => {
   const [jobsData, setJobsData] = useState<any>(null);
 
   useEffect(() => {
-    dispatch({ type: "FETCH_DATA_REQUEST" });
+    startLoad();
     const fetchData = async () => {
       try {
         const response = await ApiAxiosInstance.get<ContactData>("/appinfo/");
@@ -68,33 +69,23 @@ const Contact: React.FC = () => {
         setSocialData(response.data.Socials);
         setHoursData(response.data.Hours);
         setJobsData(response.data.JobPosting);
-        dispatch({ type: "FETCH_DATA_SUCCESS" });
+        endLoad();
         setReady(true);
       } catch (err) {
+        endLoad();
+        setReady(true);
         setError(err.error);
-        dispatch({ type: "FETCH_DATA_FAILURE" });
       }
     };
     fetchData();
   }, []);
-
-  if (error) {
-    return (
-      <Error
-        message={error.message}
-        description={error.description}
-        instructions={error.instructions}
-        thanks={error.thanks}
-      />
-    );
-  }
 
   if (!ready || !membersData) {
     return null;
   }
 
   return (
-    <Page seoData={seoData.contact}>
+    <Page seoData={seoData.contact} error={error}>
       <Members membersData={membersData} editMode={editMode} />
 
       <Contacts

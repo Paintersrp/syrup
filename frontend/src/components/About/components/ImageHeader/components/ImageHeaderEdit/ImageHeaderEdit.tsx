@@ -12,7 +12,7 @@ import {
   Surface,
   Text,
 } from "../../../../../../framework";
-import { ApiAxiosInstance } from "../../../../../../utils";
+import { ApiAxiosInstance } from "../../../../../../lib";
 import ImageHeader from "../../ImageHeader";
 
 interface ImageHeaderData {

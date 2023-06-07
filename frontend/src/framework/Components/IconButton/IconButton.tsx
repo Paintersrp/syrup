@@ -1,7 +1,7 @@
 import React, { useEffect, useState, MouseEvent, CSSProperties } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
-import { colorSwitch } from "../../../utils/Theming/styleSwitches";
+import { colorSwitch } from "../../../utils/theming/styleSwitches";
 import clsx from "clsx";
 import "./IconButton.css";
 import MaterialIcon from "../Icon/MaterialIcon";

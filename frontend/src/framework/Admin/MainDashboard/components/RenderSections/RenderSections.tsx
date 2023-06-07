@@ -44,7 +44,7 @@ const RenderSections: React.FC<RenderSectionsProps> = ({
         style={{ justifyContent: "center" }}
       >
         <Surface
-          maxWidth={1200}
+          maxWidth={325}
           boxShadow={0}
           px={0}
           py={0}
@@ -52,6 +52,7 @@ const RenderSections: React.FC<RenderSectionsProps> = ({
           mb={8}
           pr={2}
           pl={2}
+          j="c"
         >
           <div className={`card-header ${!isOpen ? "closed" : ""}`}>
             <Link

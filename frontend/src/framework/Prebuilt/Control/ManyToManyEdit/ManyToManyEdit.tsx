@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 
 import ConfirmCancelBar from "../ConfirmCancelBar/ConfirmCancelBar";
 import { BaseProps, Surface } from "../../../Containers";
-import { ApiAxiosInstance } from "../../../../utils";
+import { ApiAxiosInstance } from "../../../../lib";
 import { ManyToManyField } from "./components";
 import { Text } from "../../../Components";
 

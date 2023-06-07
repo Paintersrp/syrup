@@ -8,10 +8,10 @@ import {
   Processes,
   Services,
 } from "./components";
-import { Error, Page, SectionHeaderData } from "../../framework";
+import { Error, Page, SectionHeaderData, useLoading } from "../../framework";
 import { ContactInformationData } from "../Contact/Contact";
-import { ApiAxiosInstance } from "../../utils";
 import { seoData, SocialType } from "../../settings";
+import { ApiAxiosInstance } from "../../lib";
 
 export interface HeroData {
   title: string;
@@ -39,10 +39,27 @@ export interface ProcessData {
   description: string;
 }
 
+const useDataFetching = async (url, dataMappings) => {
+  const { loading, startLoad, endLoad } = useLoading();
+  startLoad();
+  try {
+    const response = await ApiAxiosInstance.get(url);
+    dataMappings.forEach(({ state, name }) => {
+      state(response.data[name]);
+    });
+    endLoad();
+    return response;
+  } catch (err) {
+    endLoad();
+    throw err;
+  }
+};
+
 interface LandingProps {}
 
 const Landing: React.FC<LandingProps> = () => {
   const dispatch: any = useDispatch();
+  const { loading, startLoad, endLoad } = useLoading();
   const editMode: boolean = useSelector(
     (state: any) => state.editMode.editMode
   );
@@ -64,7 +81,7 @@ const Landing: React.FC<LandingProps> = () => {
   const [postsHeader, setPostsHeader] = useState<SectionHeaderData | any>([]);
 
   useEffect(() => {
-    dispatch({ type: "FETCH_DATA_REQUEST" });
+    startLoad();
     const fetchData = async () => {
       try {
         const response = await ApiAxiosInstance.get("/landing/");
@@ -84,34 +101,23 @@ const Landing: React.FC<LandingProps> = () => {
         setPostsHeader(
           response.data.SectionHeader.find((tb: any) => tb.name === "news")
         );
-
-        dispatch({ type: "FETCH_DATA_SUCCESS" });
         setReady(true);
+        endLoad();
       } catch (err) {
         setError(err.error);
-        dispatch({ type: "FETCH_DATA_FAILURE" });
+        setReady(true);
+        endLoad(0);
       }
     };
     fetchData();
   }, [dispatch]);
-
-  if (error) {
-    return (
-      <Error
-        message={error.message}
-        description={error.description}
-        instructions={error.instructions}
-        thanks={error.thanks}
-      />
-    );
-  }
 
   if (!ready) {
     return null;
   }
 
   return (
-    <Page seoData={seoData.landing}>
+    <Page seoData={seoData.landing} error={error}>
       <Hero
         data={heroData}
         editMode={editMode}

@@ -6,7 +6,7 @@ import {
   Flexer,
   RichTextInput,
 } from "../../../../../framework";
-import { ApiAxiosInstance } from "../../../../../utils";
+import { ApiAxiosInstance } from "../../../../../lib";
 
 interface Content {
   id: number;

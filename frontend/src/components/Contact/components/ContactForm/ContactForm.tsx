@@ -17,7 +17,7 @@ import {
   useFormValidation,
   validateForm,
 } from "../../../../framework";
-import { ApiAxiosInstance } from "../../../../utils";
+import { ApiAxiosInstance } from "../../../../lib";
 import { SocialType } from "../../../../settings";
 
 interface ContactFormData {

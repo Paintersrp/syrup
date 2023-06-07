@@ -5,13 +5,13 @@ import {
   AppDashboard,
   Login,
   MainDashboard,
+  MessageView,
   ModelDashboard,
   NotFound,
   ObjectDashboard,
   Register,
 } from "./framework";
-import { About, Contact, Landing, WIP } from "./components";
-import Jobs from "./components/Jobs/Jobs";
+import { About, Contact, Jobs, Landing, WIP } from "./components";
 
 function AppRoutes(): JSX.Element {
   const [count, setCount] = useState<any>();
@@ -19,7 +19,7 @@ function AppRoutes(): JSX.Element {
   return (
     <Routes>
       {/* Page Links */}
-      <Route path="/" element={<Landing />} />
+      <Route path="" element={<Landing />} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/WIP" element={<WIP />} />
@@ -33,6 +33,14 @@ function AppRoutes(): JSX.Element {
       />
       <Route path="/admin/:str/control" element={<ObjectDashboard />} />
       <Route path="/admin/:str/control/:pk" element={<ObjectDashboard />} />
+      <Route
+        path="/admin/messages/read"
+        element={<MessageView setCount={setCount} />}
+      />
+      <Route
+        path="/admin/messages/read/:pk"
+        element={<MessageView setCount={setCount} />}
+      />
 
       {/* Tertiary Links */}
       <Route path="/jobposting/:id" element={<Jobs />} />

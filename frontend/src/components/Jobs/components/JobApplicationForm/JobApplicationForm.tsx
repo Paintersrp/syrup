@@ -15,7 +15,9 @@ import {
   useFormValidation,
   validateForm,
 } from "../../../../framework";
-import { ApiAxiosInstance, palettes } from "../../../../utils";
+import { palettes } from "../../../../utils";
+import { ApiAxiosInstance } from "../../../../lib";
+
 import { JobData } from "../../Jobs";
 
 interface JobApplicationFormProps extends BaseProps {

@@ -2,16 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import {
-  ApiAxiosInstance,
-  breakPoints,
-  palettes,
-  useBreakpoint,
-} from "../../../../../utils";
+import { breakPoints, palettes, useBreakpoint } from "../../../../../utils";
 import { Container, Flexer, Item, Surface } from "../../../../Containers";
 import { Button, Divider, Text, Tooltip } from "../../../../Components";
 import { InfoMenu } from "../../../ModelDashboard/components";
 import { getByType, ObjectPreview } from "./components";
+import { ApiAxiosInstance } from "../../../../../lib";
 
 interface ObjectAutoFormProps {
   endpointUrl: string | null;

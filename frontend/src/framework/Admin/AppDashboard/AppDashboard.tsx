@@ -1,15 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import { Breadcrumbs, IconButton, Text, Tooltip } from "../../Components";
+import {
+  Breadcrumbs,
+  IconButton,
+  Text,
+  Tooltip,
+  useLoading,
+} from "../../Components";
 import { Container, Flexer, Item, Page, Surface } from "../../Containers";
 import { AppDetails, AppLinks, AppStats } from "./components";
-import { ApiAxiosInstance } from "../../../utils";
+import { ApiAxiosInstance } from "../../../lib";
 import { RecentActions } from "../AdminLog";
 
 interface AppDashboardProps {}
 
 const AppDashboard: React.FC<AppDashboardProps> = ({}) => {
+  const { loading, startLoad, endLoad } = useLoading();
+
+  const [ready, setReady] = useState(false);
+  const [error, setError] = useState<any>(null);
+
   const [models, setModels] = useState<{}>({});
   const [config, setConfig] = useState<any>({});
   const [linksOpen, setLinksOpen] = useState<boolean>(false);
@@ -50,28 +61,44 @@ const AppDashboard: React.FC<AppDashboardProps> = ({}) => {
   };
 
   useEffect(() => {
+    startLoad();
     ApiAxiosInstance.get(`/get_app/${str}/`)
       .then((response) => {
         setModels(response.data.models);
         setConfig(response.data.config);
+
         setTimeout(() => {
           setAppOpen(true);
           setAppStatsOpen(true);
           setActionsOpen(true);
           setLinksOpen(true);
-        }, 100);
+        }, 0);
       })
-      .catch((error) => console.log(error));
+      .catch((err) => {
+        setError(err.error);
+        setReady(true);
+        endLoad();
+      });
 
     ApiAxiosInstance.get(`/recent_admin_actions/?app=${str}`)
       .then((response) => {
         setRecentActions(response.data);
+        setReady(true);
+        endLoad();
       })
-      .catch((error) => console.log(error));
+      .catch((err) => {
+        setError(err.error);
+        setReady(true);
+        endLoad();
+      });
   }, []);
 
+  if (!ready) {
+    return null;
+  }
+
   return (
-    <Page>
+    <Page error={error}>
       <Surface
         maxWidth={1200}
         pt={32}
@@ -116,8 +143,15 @@ const AppDashboard: React.FC<AppDashboardProps> = ({}) => {
                 iconColor="#fff"
               />
             </Flexer>
-            <Container>
-              <Item xs={12} sm={12} md={6} lg={4}>
+            <Container a="fs">
+              <Item
+                xs={12}
+                sm={12}
+                md={6}
+                lg={4}
+                align="flex-start"
+                justify="flex-start"
+              >
                 <AppStats
                   numModels={config.app_info.num_models}
                   numObjects={config.app_info.num_objects}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+
 import {
   Option,
   Select,
@@ -21,7 +22,6 @@ import Switch from "../../framework/Components/Switch/Switch";
 import { Page, Flexer, Surface, Carousel } from "../../framework/Containers";
 import Stagger from "../../framework/Containers/Animation/Stagger/Stagger";
 import { breakPoints, useBreakpoint } from "../../utils";
-import Test from "./test/test";
 
 interface WIPProps {}
 
@@ -167,19 +167,8 @@ const WIP: React.FC<WIPProps> = ({}) => {
             {/* Additional form fields */}
           </form>
         </div>
+
         <Stagger direction="left" orientation="vertical" mt={90}>
-          <Surface
-            boxShadow={1}
-            maxWidth={400}
-            px={1.5}
-            py={1.5}
-            mt={1}
-            mb={2}
-            j="c"
-            a="c"
-          >
-            <Test />
-          </Surface>
           <Surface
             j="c"
             a="c"
@@ -231,10 +220,12 @@ const WIP: React.FC<WIPProps> = ({}) => {
               </TreeNode>
             </TreeNode>
           </Surface>
+          <h1>Stock Image Gallery</h1>
+          <Gallery images={stockImages} layout="masonry" />
         </Stagger>
-        <h1>Stock Image Gallery</h1>
+
         {/* <Gallery images={stockImages} layout="grid" /> */}
-        <Gallery images={stockImages} layout="masonry" />
+
         <Alert alert={alert} onClose={handleCloseAlert} />
         <button
           onClick={() =>

@@ -3,20 +3,20 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import {
+  breakPoints,
+  CapitalizeFirst,
+  palettes,
+  useBreakpoint,
+} from "../../../../../utils";
+import {
   Breadcrumbs,
   Divider,
   IconButton,
   Text,
   Tooltip,
 } from "../../../../Components";
-import {
-  ApiAxiosInstance,
-  breakPoints,
-  CapitalizeFirst,
-  palettes,
-  useBreakpoint,
-} from "../../../../../utils";
 import { Flexer, Surface } from "../../../../Containers";
+import { ApiAxiosInstance } from "../../../../../lib";
 import { InfoMenu, ModelTable } from "./components";
 import { RecentActions } from "../../../AdminLog";
 

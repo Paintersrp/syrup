@@ -4,41 +4,41 @@ import {
   AlertFailAction,
   AlertWarningAction,
   AlertInfoAction,
-  CloseSnackbarAction,
+  CloseAlertAction,
   DATA_UPDATED,
   ALERT_SUCCESS,
   ALERT_FAIL,
   ALERT_WARNING,
   ALERT_INFO,
-  CLOSE_SNACKBAR,
-} from "../Actions/snackbar";
+  CLOSE_ALERT,
+} from "../../actions/alert/alert";
 
-export interface SnackbarState {
+export interface AlertState {
   open: boolean;
   message: string | undefined;
   type: string | undefined;
   errorMessage: string;
 }
 
-const initialState: SnackbarState = {
+const initialState: AlertState = {
   open: false,
   message: undefined,
   type: undefined,
   errorMessage: "",
 };
 
-type SnackbarActionTypes =
+type AlertActionTypes =
   | DataUpdatedAction
   | AlertSuccessAction
   | AlertFailAction
   | AlertWarningAction
   | AlertInfoAction
-  | CloseSnackbarAction;
+  | CloseAlertAction;
 
-const snackbarReducer = (
-  state: SnackbarState = initialState,
-  action: SnackbarActionTypes
-): SnackbarState => {
+const alertReducer = (
+  state: AlertState = initialState,
+  action: AlertActionTypes
+): AlertState => {
   switch (action.type) {
     case DATA_UPDATED:
       return {
@@ -76,7 +76,7 @@ const snackbarReducer = (
         type: "info",
         message: action.message,
       };
-    case CLOSE_SNACKBAR:
+    case CLOSE_ALERT:
       return {
         ...state,
         open: false,
@@ -88,4 +88,4 @@ const snackbarReducer = (
   }
 };
 
-export default snackbarReducer;
+export default alertReducer;

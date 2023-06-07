@@ -1,7 +1,7 @@
 import React, { FC, useEffect, useState, CSSProperties } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import { colorSwitch } from "../../../utils/Theming/styleSwitches";
+import { colorSwitch } from "../../../utils/theming/styleSwitches";
 
 interface Icon2Props {
   size?: string;

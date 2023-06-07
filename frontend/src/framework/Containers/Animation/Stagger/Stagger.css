@@ -6,7 +6,6 @@
 .stagger-wrapper.horizontal {
   flex-direction: row;
   align-items: flex-start;
-  gap: 8px;
   justify-content: center;
 }
 

@@ -3,7 +3,7 @@ import React, { FC } from "react";
 import { BaseProps, Flexer } from "../../../Containers";
 import { Divider, List, ListItem } from "../../../Components";
 
-import { palettes } from "../../../../utils/Theming/theme";
+import { palettes } from "../../../../utils/theming/theme";
 
 interface DrawerContentProps {
   handleClose?: () => void;

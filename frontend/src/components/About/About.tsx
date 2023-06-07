@@ -8,14 +8,22 @@ import {
   Paragraph,
   Values,
 } from "./components";
-import { ButtonBar, Error, Flexer, Page, Surface } from "../../framework";
-import { ApiAxiosInstance } from "../../utils";
+import {
+  ButtonBar,
+  Error,
+  Flexer,
+  Page,
+  Surface,
+  useLoading,
+} from "../../framework";
+import { ApiAxiosInstance } from "../../lib";
 import { seoData } from "../../settings";
 
 interface AboutProps {}
 
 const About: React.FC<AboutProps> = ({}) => {
   const [error, setError] = useState<any>(null);
+  const { loading, startLoad, endLoad } = useLoading();
   const editMode = useSelector((state: any) => state.editMode.editMode);
 
   const [data, setData] = useState<any>([]);
@@ -30,6 +38,7 @@ const About: React.FC<AboutProps> = ({}) => {
   const [historyBody, setHistoryBody] = useState(false);
 
   useEffect(() => {
+    startLoad();
     const fetchData = async () => {
       ApiAxiosInstance.get("/about/")
         .then((response) => {
@@ -46,9 +55,11 @@ const About: React.FC<AboutProps> = ({}) => {
         })
         .then(() => {
           setReady(true);
+          endLoad(0);
         })
         .catch((err) => {
-          console.log(err.error);
+          setReady(true);
+          endLoad(0);
           setError(err.error);
         });
     };
@@ -72,23 +83,12 @@ const About: React.FC<AboutProps> = ({}) => {
     setEditHistory(false);
   };
 
-  if (error) {
-    return (
-      <Error
-        message={error.message}
-        description={error.description}
-        instructions={error.instructions}
-        thanks={error.thanks}
-      />
-    );
-  }
-
   if (!ready) {
     return null;
   }
 
   return (
-    <Page seoData={seoData.about}>
+    <Page seoData={seoData.about} error={error}>
       <Surface maxWidth={900} j="c" a="c">
         {!editTitle && editMode && (
           <Flexer j="fe">

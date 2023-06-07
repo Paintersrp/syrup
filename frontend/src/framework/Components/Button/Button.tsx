@@ -6,7 +6,7 @@ import {
   ColorShade,
   ColorState,
   colorSwitch,
-} from "../../../utils/Theming/styleSwitches";
+} from "../../../utils/theming/styleSwitches";
 import MaterialIcon from "../Icon/MaterialIcon";
 import { Flexer } from "../../Containers";
 import Text from "../../Components/Text/Text";

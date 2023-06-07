@@ -7,9 +7,9 @@ import bcrypt from "bcryptjs";
 import "./Login.css";
 
 import { Button, Checkbox, Icon, Input, Text } from "../../../Components";
-import { ApiAxiosInstance, handleDataChange } from "../../../../utils";
 import { Flexer, Page, Surface } from "../../../Containers";
-import { setAuth, setUser } from "../../../../lib";
+import { handleDataChange } from "../../../../utils";
+import { ApiAxiosInstance, handleAuth } from "../../../../lib";
 
 interface FormData {
   username: string;
@@ -59,17 +59,7 @@ const Login: FC = ({}) => {
       .then(async (response) => {
         ApiAxiosInstance.post("/auth/login/", loginData)
           .then((response) => {
-            dispatch(
-              setAuth({
-                is_authenticated: response.data.authenticated,
-              })
-            );
-            dispatch(
-              setUser({
-                is_superuser: response.data.is_superuser,
-                username: response.data.username,
-              })
-            );
+            handleAuth(response, dispatch);
 
             if (formData.remember) {
               const expires = new Date(Date.parse(response.data.exp));

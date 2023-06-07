@@ -8,17 +8,19 @@ import {
   AppDrawer,
   AppFooter,
   AppNavbar,
+  Loading,
   ScrollToTopFAB,
   useDrawer,
 } from "./framework";
-import { closeSnackbar } from "./lib";
+import { closeAlert } from "./lib/redux";
 import { ScrollToTop, WithAuth } from "./utils";
 import { LINKS, LOGO, TITLE } from "./settings";
 import AppRoutes from "./AppRoutes";
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
-  const alert = useSelector((state: any) => state.snackbar);
+  const alert = useSelector((state: any) => state.alert);
+  const loading = useSelector((state: any) => state.loading.loading);
   const { isDrawerOpen, handleDrawer } = useDrawer();
 
   return (
@@ -26,9 +28,10 @@ function App(): JSX.Element {
       {alert.open && (
         <Alert
           alert={{ message: alert.message, type: alert.type }}
-          onClose={() => dispatch(closeSnackbar())}
+          onClose={() => dispatch(closeAlert())}
         />
       )}
+      <Loading load={loading} />
       <AppNavbar
         menuButton
         menuOpen={isDrawerOpen}
@@ -41,6 +44,7 @@ function App(): JSX.Element {
         companyIcon={LOGO}
         companyTitle={TITLE}
       />
+
       <AppRoutes />
 
       <ScrollToTop />

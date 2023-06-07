@@ -20,8 +20,10 @@ import {
   Surface,
 } from "../../../Containers";
 import { ActionButton, Button, Icon, Input, Text } from "../../../Components";
-import { ApiAxiosInstance, handleDataChange } from "../../../../utils";
-import { setAuth, setUser } from "../../../../lib";
+import { ApiAxiosInstance, handleAuth } from "../../../../lib";
+import { handleDataChange } from "../../../../utils";
+
+// import { setAuth, setUser } from "../../../../lib/redux";
 
 const Register: FC = ({}) => {
   const [formData, setFormData] = useState(registerInitialData);
@@ -57,17 +59,8 @@ const Register: FC = ({}) => {
     })
       .then((res) => {
         ApiAxiosInstance.post("/auth/login/", loginData).then((response) => {
-          dispatch(
-            setAuth({
-              is_authenticated: response.data.authenticated,
-            })
-          );
-          dispatch(
-            setUser({
-              is_superuser: response.data.is_superuser,
-              username: response.data.username,
-            })
-          );
+          handleAuth(response, dispatch);
+
           const expires = new Date(Date.parse(response.data.exp));
           Cookies.set("jwt", response.data.jwt, { expires });
           Cookies.set("username", formData.username, { expires: 90 });

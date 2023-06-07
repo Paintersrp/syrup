@@ -3,14 +3,14 @@ import Base, { BaseProps } from "../../Base/Base";
 import "./Stagger.css";
 
 interface StaggerProps extends BaseProps {
-  direction: "left" | "right";
-  orientation: "vertical" | "horizontal";
+  direction?: "left" | "right";
+  orientation?: "vertical" | "horizontal";
   children: ReactNode[];
 }
 
 const Stagger: React.FC<StaggerProps> = ({
-  direction,
-  orientation,
+  direction = "left",
+  orientation = "horizontal",
   children,
   ...rest
 }) => {

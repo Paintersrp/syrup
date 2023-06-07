@@ -6,7 +6,7 @@ import HelpText from "../HelpText/HelpText";
 
 interface SwitchProps extends BaseProps {
   name: string;
-  label: string;
+  label?: string;
   value: boolean;
   onChange: any;
   size?: "small" | "medium" | "large";
@@ -22,24 +22,27 @@ const Switch: React.FC<SwitchProps> = ({
 }) => {
   const [isChecked, setIsChecked] = useState(value);
 
-  const handleToggle = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleToggle = (e: any) => {
     const newValue = !isChecked;
     setIsChecked(newValue);
-    onChange(e);
+    onChange({
+      target: {
+        name,
+        checked: newValue,
+      },
+    });
   };
 
   const switchSizeClass = `switch ${isChecked ? "on" : "off"} ${size}`;
 
   return (
-    <Base
-      className={`switch-container ${size}`}
-      onClick={handleToggle}
-      {...rest}
-    >
-      <HelpText w="auto" mr={8} mt={0} mb={0}>
-        {label}
-      </HelpText>
-      <div className={switchSizeClass}>
+    <Base className={`switch-container ${size}`} {...rest}>
+      {label && (
+        <HelpText w="auto" mt={0} mb={0}>
+          {label}
+        </HelpText>
+      )}
+      <div className={switchSizeClass} onClick={handleToggle}>
         <input
           type="checkbox"
           name={name}
