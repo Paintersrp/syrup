@@ -4,5 +4,5 @@ import ModelDashboard from "./ModelDashboard/ModelDashboard";
 import ObjectDashboard from "./ObjectDashboard/ObjectDashboard";
 export { AppDashboard, MainDashboard, ModelDashboard, ObjectDashboard };
 
-import { MessageView } from "./Views";
-export { MessageView };
+import { ApplicationView, MessageView } from "./Views";
+export { ApplicationView, MessageView };

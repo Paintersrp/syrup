@@ -25,6 +25,12 @@ export const LINKS: SiteLinkType[] = [
     navbar: true,
   },
   {
+    to: "/posts",
+    key: "Posts",
+    footer: true,
+    navbar: true,
+  },
+  {
     to: "/WIP",
     key: "WIP",
     footer: true,

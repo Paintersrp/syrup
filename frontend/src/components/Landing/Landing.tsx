@@ -12,6 +12,7 @@ import { Error, Page, SectionHeaderData, useLoading } from "../../framework";
 import { ContactInformationData } from "../Contact/Contact";
 import { seoData, SocialType } from "../../settings";
 import { ApiAxiosInstance } from "../../lib";
+import { PostType } from "../Posts";
 
 export interface HeroData {
   title: string;
@@ -19,41 +20,12 @@ export interface HeroData {
   description: string;
   buttonText: string;
 }
-
-export interface PostData {
-  id: string;
-  content: string;
-  image: string;
-  title: string;
-  author_details: {
-    first_name: string;
-    last_name: string;
-  };
-  tags: any;
-}
-
 export interface ProcessData {
   id: string;
   icon: string;
   title: string;
   description: string;
 }
-
-const useDataFetching = async (url, dataMappings) => {
-  const { loading, startLoad, endLoad } = useLoading();
-  startLoad();
-  try {
-    const response = await ApiAxiosInstance.get(url);
-    dataMappings.forEach(({ state, name }) => {
-      state(response.data[name]);
-    });
-    endLoad();
-    return response;
-  } catch (err) {
-    endLoad();
-    throw err;
-  }
-};
 
 interface LandingProps {}
 
@@ -77,7 +49,7 @@ const Landing: React.FC<LandingProps> = () => {
   const [processHeader, setProcessHeader] = useState<SectionHeaderData | any>(
     []
   );
-  const [postsData, setPostsData] = useState<PostData | any>({});
+  const [postsData, setPostsData] = useState<PostType | any>({});
   const [postsHeader, setPostsHeader] = useState<SectionHeaderData | any>([]);
 
   useEffect(() => {

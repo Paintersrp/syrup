@@ -1,0 +1,32 @@
+.post-list-root {
+  flex-grow: 1;
+  padding: 16px;
+  max-width: 700px;
+  border-right: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+@media (max-width: 900px) {
+  .post-list-root {
+    order: 2;
+  }
+}
+
+.post-list-thumbnail {
+  min-width: 200px;
+  max-width: 300px;
+  margin-left: 16px;
+}
+
+@media (max-width: 650px) {
+  .post-list-thumbnail {
+    max-width: 175px;
+    min-width: 175px;
+  }
+}
+
+@media (max-width: 500px) {
+  .post-list-thumbnail {
+    max-width: 125px;
+    min-width: 125px;
+  }
+}

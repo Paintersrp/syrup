@@ -279,6 +279,15 @@ h6 {
   text-decoration: underline;
 }
 
+.avatar-p-s {
+  width: 32px;
+  height: 32px;
+  background: var(--color-primary-main);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+}
+
 p {
   font-family: Roboto;
 }

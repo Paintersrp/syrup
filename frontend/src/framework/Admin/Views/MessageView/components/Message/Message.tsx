@@ -2,20 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { ApiAxiosInstance } from "../../../../../../lib";
-import { Container, Flexer, Item, Surface } from "../../../../../Containers";
 import {
   Button,
   ConfirmationModal,
   Divider,
   IconButton,
-  Option,
-  Select,
   Switch,
   Text,
   Tooltip,
 } from "../../../../..";
 import { breakPoints, palettes, useBreakpoint } from "../../../../../../utils";
+import { Container, Flexer, Item, Surface } from "../../../../../Containers";
+import { ApiAxiosInstance } from "../../../../../../lib";
 
 interface MessageProps {
   message: {
@@ -33,18 +31,10 @@ interface MessageProps {
       verbose_name: string;
     };
   };
-  goBack?: boolean;
   deleteBtn?: boolean;
-  save?: boolean;
 }
 
-const Message: React.FC<MessageProps> = ({
-  message,
-  metadata,
-  goBack = true,
-  deleteBtn = true,
-  save = true,
-}) => {
+const Message: React.FC<MessageProps> = ({ message, metadata }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isSmallScreen = useBreakpoint(breakPoints.sm);
@@ -59,6 +49,7 @@ const Message: React.FC<MessageProps> = ({
     setFormData(message);
   }, [message]);
 
+  //encapsulate
   const handleBackButtonClick = () => {
     navigate(-1);
     setTimeout(() => {
@@ -127,11 +118,6 @@ const Message: React.FC<MessageProps> = ({
     }
   };
 
-  const optionsYesNo = [
-    { value: true, display: "Yes" },
-    { value: false, display: "No" },
-  ];
-
   return (
     <React.Fragment>
       <Surface
@@ -146,23 +132,22 @@ const Message: React.FC<MessageProps> = ({
         className="fade-in"
         innerStyle={{ minWidth: isSmallScreen ? 370 : 800 }}
       >
-        {goBack && (
-          <Flexer a="c" j="sb">
-            <Tooltip text="Go Back" position="bottom">
-              <IconButton
-                fontSize="24px"
-                material="arrow_back"
-                size="t"
-                onClick={handleBackButtonClick}
-                className="secondary-button"
-                iconColor={palettes.secondary.main}
-              />
-            </Tooltip>
-            <Text w="auto" t="body1" fw="500" c="#718096">
-              #{formData.id}
-            </Text>
-          </Flexer>
-        )}
+        <Flexer a="c" j="sb">
+          <Tooltip text="Go Back" position="bottom">
+            <IconButton
+              fontSize="24px"
+              material="arrow_back"
+              size="t"
+              onClick={handleBackButtonClick}
+              className="secondary-button"
+              iconColor={palettes.secondary.main}
+            />
+          </Tooltip>
+          <Text w="auto" t="body1" fw="500" c="#718096">
+            #{formData.id}
+          </Text>
+        </Flexer>
+
         <Divider mb={18} mt={18} />
         <Flexer fd="column">
           <Text t="h4" fw="600" c="#2D3748" mb={8}>
@@ -223,7 +208,6 @@ const Message: React.FC<MessageProps> = ({
                         (key === "is_archived" &&
                           formData[key] !== originalArchived)) && (
                         <Button
-                          size="small"
                           ml={8}
                           onClick={handleSubmit}
                           className="success-button"
@@ -241,23 +225,21 @@ const Message: React.FC<MessageProps> = ({
           )}
         </Container>
 
-        {deleteBtn && (
-          <Flexer j="fe">
-            <Tooltip
-              text={`Delete Message Object: ${formData.id}`}
-              position="top"
-            >
-              <IconButton
-                fontSize="21px"
-                material="delete"
-                size="t"
-                onClick={() => handleDelete(message)}
-                iconColor={palettes.error.main}
-                className="error-button"
-              />
-            </Tooltip>
-          </Flexer>
-        )}
+        <Flexer j="fe">
+          <Tooltip
+            text={`Delete Message Object: ${formData.id}`}
+            position="top"
+          >
+            <IconButton
+              fontSize="21px"
+              material="delete"
+              size="t"
+              onClick={() => handleDelete(message)}
+              iconColor={palettes.error.main}
+              className="error-button"
+            />
+          </Tooltip>
+        </Flexer>
       </Surface>
       <ConfirmationModal
         open={open}

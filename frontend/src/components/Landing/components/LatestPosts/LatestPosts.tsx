@@ -6,11 +6,11 @@ import {
   SectionHeader,
   SectionHeaderData,
 } from "../../../../framework";
-import { PostData } from "../../Landing";
+import { PostType } from "../../../Posts";
 import { PostCards } from "./components";
 
 interface LatestPostsProps extends BaseProps {
-  postsData: PostData[];
+  postsData: PostType[];
   headerData: SectionHeaderData | any;
   editMode: boolean;
 }

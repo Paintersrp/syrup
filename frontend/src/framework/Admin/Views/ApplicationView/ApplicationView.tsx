@@ -1,30 +1,41 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 
-import { Breadcrumbs, Text, Tooltip, useLoading } from "../../../Components";
-import { breakPoints, useBreakpoint } from "../../../../utils";
-import { Flexer, Page, Surface } from "../../../Containers";
-import { ApiAxiosInstance } from "../../../../lib";
-import { Message } from "./components";
+import {
+  Breadcrumbs,
+  Flexer,
+  Page,
+  Surface,
+  Text,
+  Tooltip,
+  useLoading,
+} from "../../..";
+import {
+  ApiAxiosInstance,
+  breakPoints,
+  useBreakpoint,
+} from "../../../../utils";
+import { Application } from "./components";
 
-const MessageView: React.FC<{
-  setCount: React.Dispatch<React.SetStateAction<number>>;
-}> = ({ setCount }) => {
+interface ApplicationViewPageProps {}
+
+const ApplicationView: React.FC<ApplicationViewPageProps> = ({}) => {
   const { pk } = useParams<{ pk: string }>();
   const location = useLocation();
   const isSmallScreen = useBreakpoint(breakPoints.sm);
   const { loading, startLoad, endLoad } = useLoading();
 
-  const [ready, setReady] = useState(false);
-  const [error, setError] = useState<any>(null);
+  const [ready, setReady] = useState<boolean>(false);
+  const [error, setError] = useState<null | string>(null);
 
   const [model, setModel] = useState<any>(null);
   const [appName, setAppName] = useState<string | null>(null);
-  const [keys, setKeys] = useState<any[] | null>(null);
+  const [keys, setKeys] = useState<any>(null);
   const [url, setUrl] = useState<string | null>(null);
   const [metadata, setMetadata] = useState<any>(null);
   const [id, setId] = useState<string | null>(null);
   const [data, setData] = useState<any>(null);
+  const [job, setJob] = useState<any>(null);
 
   useEffect(() => {
     startLoad();
@@ -40,8 +51,8 @@ const MessageView: React.FC<{
 
       ApiAxiosInstance.get(`${location.state.url}${location.state.id}/`)
         .then((response) => {
-          setData(response.data.messages);
-          setCount(response.data.count);
+          setData(response.data.application);
+          setJob(response.data.job);
           setReady(true);
           endLoad();
         })
@@ -51,7 +62,7 @@ const MessageView: React.FC<{
           endLoad();
         });
     } else if (pk) {
-      ApiAxiosInstance.get(`/get_models/messages/`)
+      ApiAxiosInstance.get(`/get_models/application/`)
         .then((response) => {
           setUrl(response.data.url);
           setAppName(response.data.app_name);
@@ -64,10 +75,10 @@ const MessageView: React.FC<{
           setReady(true);
           endLoad();
         });
-      ApiAxiosInstance.get(`messages/${pk}/`)
+      ApiAxiosInstance.get(`application/${pk}/`)
         .then((response) => {
-          setData(response.data.messages);
-          setCount(response.data.count);
+          setData(response.data.application);
+          setJob(response.data.job);
           setReady(true);
           endLoad();
         })
@@ -77,7 +88,7 @@ const MessageView: React.FC<{
           endLoad();
         });
     }
-  }, [location.state, pk, setCount]);
+  }, [location.state, pk]);
 
   if (!ready) {
     return null;
@@ -85,7 +96,7 @@ const MessageView: React.FC<{
 
   return (
     <Page error={error}>
-      {metadata && data && (
+      {metadata && data && job && (
         <Surface
           maxWidth={1200}
           pt={32}
@@ -131,11 +142,11 @@ const MessageView: React.FC<{
               <Text s={isSmallScreen ? "0.8rem" : "0.95rem"}>Read</Text>
             </Breadcrumbs>
           </Flexer>
-          <Message message={data} metadata={metadata} />
+          <Application application={data} job={job} metadata={metadata} />
         </Surface>
       )}
     </Page>
   );
 };
 
-export default MessageView;
+export default ApplicationView;

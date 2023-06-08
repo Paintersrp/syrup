@@ -1,2 +1,3 @@
+import ApplicationView from "./ApplicationView/ApplicationView";
 import MessageView from "./MessageView/MessageView";
-export { MessageView };
+export { ApplicationView, MessageView };

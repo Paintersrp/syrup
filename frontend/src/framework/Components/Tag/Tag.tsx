@@ -8,6 +8,7 @@ import Text from "../Text/Text";
 interface TagProps extends BaseProps {
   label: string;
   onDelete?: () => void;
+  onClick?: () => void;
   className?: string;
   style?: CSSProperties;
 }
@@ -15,6 +16,7 @@ interface TagProps extends BaseProps {
 const Tag: React.FC<TagProps> = ({
   label,
   onDelete,
+  onClick,
   className,
   style,
   ...rest
@@ -33,6 +35,9 @@ const Tag: React.FC<TagProps> = ({
     if (onDelete) {
       onDelete();
     }
+    if (onClick) {
+      onClick();
+    }
   };
 
   return (
@@ -44,7 +49,7 @@ const Tag: React.FC<TagProps> = ({
       style={style}
       {...rest}
     >
-      <Text t="subtitle2" s="0.85rem" className="tag-label">
+      <Text t="subtitle2" s="0.85rem" a="c" className="tag-label">
         {label}
       </Text>
       {onDelete && (
