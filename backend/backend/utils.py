@@ -110,9 +110,12 @@ def create_log_entry(action, username, instance, changes):
 
 def get_serialized_page_data(model_dict, request):
     data = {}
-    for model_name, model_options in model_dict.items():
+    for dto_name, model_options in model_dict.items():
         many = True
+
         app_label = model_options.get("app_label", {})
+        model_name = model_options.get("model_name", dto_name)
+        print(app_label, model_name)
         model = apps.get_model(app_label=app_label, model_name=model_name)
 
         if model_options.get("filter", False):
@@ -129,6 +132,6 @@ def get_serialized_page_data(model_dict, request):
             instance=queryset, many=many, context={"request": request}
         )
 
-        data[model_name] = serializer.data
+        data[dto_name] = serializer.data
 
     return data

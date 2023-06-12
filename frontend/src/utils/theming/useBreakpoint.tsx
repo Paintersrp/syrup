@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 const useBreakpoint = (breakpoint: number): boolean => {
   const [isAtBreakpoint, setIsAtBreakpoint] = useState(false);
@@ -10,10 +10,10 @@ const useBreakpoint = (breakpoint: number): boolean => {
 
     handleResize();
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return (): void => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, [breakpoint]);
 

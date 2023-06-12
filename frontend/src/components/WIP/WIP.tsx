@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import {
-  Option,
-  Select,
   Table,
   TableBody,
   TableCell,
@@ -11,75 +9,75 @@ import {
   TableHead,
   TableRow,
   Text,
-  ToggleButton,
-  ToggleButtonGroup,
   TreeNode,
-} from "../../framework/Components";
-import Alert from "../../framework/Components/Alert/Alert";
-import Gallery from "../../framework/Components/Gallery/Gallery";
-import Switch from "../../framework/Components/Switch/Switch";
-
-import { Page, Flexer, Surface, Carousel } from "../../framework/Containers";
-import Stagger from "../../framework/Containers/Animation/Stagger/Stagger";
-import { breakPoints, useBreakpoint } from "../../utils";
+} from '../Elements';
+import { ToggleButton, ToggleButtonGroup } from '../Buttons';
+import { breakPoints, useBreakpoint } from '../../utils';
+import { Carousel, Stagger } from '../Animation';
+import { Flexer, Surface } from '../Containers';
+import Gallery from '../Media/Gallery';
+import Alert from '../Elements/Alert/Alert';
+import Switch from '../Form/Switch/Switch';
+import { Option, Select } from '../Form';
+import { Page } from '../Layout';
 
 interface WIPProps {}
 
 const WIP: React.FC<WIPProps> = ({}) => {
   const stockImages = [
     {
-      url: "images/seo/about.jpeg",
-      caption: "Mountain Landscape",
-      tags: ["landscape", "mountain"],
+      url: 'images/seo/about.jpeg',
+      caption: 'Mountain Landscape',
+      tags: ['landscape', 'mountain'],
     },
     {
-      url: "https://source.unsplash.com/1400x900/?sunset",
-      caption: "Colorful Sunset",
-      tags: ["landscape", "sunset"],
+      url: 'https://source.unsplash.com/1400x900/?sunset',
+      caption: 'Colorful Sunset',
+      tags: ['landscape', 'sunset'],
     },
     {
-      url: "https://source.unsplash.com/1400x900/?flower",
-      caption: "Flower Blossom",
-      tags: ["nature", "flower"],
+      url: 'https://source.unsplash.com/1400x900/?flower',
+      caption: 'Flower Blossom',
+      tags: ['nature', 'flower'],
     },
     {
-      url: "https://source.unsplash.com/1400x900/?lake",
-      caption: "Calm Lake",
-      tags: ["landscape", "lake"],
+      url: 'https://source.unsplash.com/1400x900/?lake',
+      caption: 'Calm Lake',
+      tags: ['landscape', 'lake'],
     },
     {
-      url: "https://source.unsplash.com/1400x900/?city",
-      caption: "Urban City",
-      tags: ["landscape", "city"],
+      url: 'https://source.unsplash.com/1400x900/?city',
+      caption: 'Urban City',
+      tags: ['landscape', 'city'],
     },
     {
-      url: "https://source.unsplash.com/1400x900/?beach",
-      caption: "Sandy Beach",
-      tags: ["landscape", "beach"],
+      url: 'https://source.unsplash.com/1400x900/?beach',
+      caption: 'Sandy Beach',
+      tags: ['landscape', 'beach'],
     },
   ];
 
   const leftItems = [
-    { id: "1", name: "Item 1" },
-    { id: "2", name: "Item 2" },
-    { id: "3", name: "Item 3" },
-    { id: "4", name: "Item 4" },
+    { id: '1', name: 'Item 1' },
+    { id: '2', name: 'Item 2' },
+    { id: '3', name: 'Item 3' },
+    { id: '4', name: 'Item 4' },
   ];
 
   const rightItems = [
-    { id: "5", name: "Item 5" },
-    { id: "6", name: "Item 6" },
-    { id: "7", name: "Item 7" },
+    { id: '5', name: 'Item 5' },
+    { id: '6', name: 'Item 6' },
+    { id: '7', name: 'Item 7' },
   ];
 
-  const columns = ["Name", "Age", "Country"];
+  const columns = ['Name', 'Age', 'Country'];
   const data = [
-    { Name: "John Doe", Age: 25, Country: "USA" },
-    { Name: "Jane Smith", Age: 30, Country: "Canada" },
-    { Name: "Bob Johnson", Age: 35, Country: "UK" },
+    { Name: 'John Doe', Age: 25, Country: 'USA' },
+    { Name: 'Jane Smith', Age: 30, Country: 'Canada' },
+    { Name: 'Bob Johnson', Age: 35, Country: 'UK' },
   ];
 
-  const [selectedValue, setSelectedValue] = useState("");
+  const [selectedValue, setSelectedValue] = useState('');
   const [formData, setFormData] = useState([]);
 
   const handleChange = (event: any) => {
@@ -90,9 +88,7 @@ const WIP: React.FC<WIPProps> = ({}) => {
     console.log(`Clicked on "${label}"`);
   };
 
-  const [selectedValueToggle, setSelectedValueToggle] = useState<string | null>(
-    null
-  );
+  const [selectedValueToggle, setSelectedValueToggle] = useState<string | null>(null);
 
   const handleValueChange = (value: string | null) => {
     setSelectedValueToggle(value);
@@ -104,10 +100,10 @@ const WIP: React.FC<WIPProps> = ({}) => {
     const handleResize = () => {
       setInnerWidth(window.innerWidth);
     };
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -154,16 +150,8 @@ const WIP: React.FC<WIPProps> = ({}) => {
             onChange={handleToggle}
           />
           <form>
-            <input
-              type="text"
-              disabled={!switches.field1}
-              placeholder="Field 1"
-            />
-            <input
-              type="text"
-              disabled={!switches.field2}
-              placeholder="Field 2"
-            />
+            <input type="text" disabled={!switches.field1} placeholder="Field 1" />
+            <input type="text" disabled={!switches.field2} placeholder="Field 2" />
             {/* Additional form fields */}
           </form>
         </div>
@@ -227,32 +215,16 @@ const WIP: React.FC<WIPProps> = ({}) => {
         {/* <Gallery images={stockImages} layout="grid" /> */}
 
         <Alert alert={alert} onClose={handleCloseAlert} />
-        <button
-          onClick={() =>
-            dispatch({ type: "ALERT_SUCCESS", message: "Data Updated" })
-          }
-        >
+        <button onClick={() => dispatch({ type: 'ALERT_SUCCESS', message: 'Data Updated' })}>
           Show Success
         </button>
-        <button
-          onClick={() =>
-            dispatch({ type: "ALERT_FAIL", message: "Error Updated" })
-          }
-        >
+        <button onClick={() => dispatch({ type: 'ALERT_FAIL', message: 'Error Updated' })}>
           Show Error
         </button>
-        <button
-          onClick={() =>
-            dispatch({ type: "ALERT_WARNING", message: "Warning Updated" })
-          }
-        >
+        <button onClick={() => dispatch({ type: 'ALERT_WARNING', message: 'Warning Updated' })}>
           Show Warning
         </button>
-        <button
-          onClick={() =>
-            dispatch({ type: "ALERT_INFO", message: "Info Updated" })
-          }
-        >
+        <button onClick={() => dispatch({ type: 'ALERT_INFO', message: 'Info Updated' })}>
           Show Info
         </button>
         {/* <TransferList leftItems={leftItems} rightItems={rightItems} /> */}
@@ -272,22 +244,10 @@ const WIP: React.FC<WIPProps> = ({}) => {
 
         {/* Carousel */}
         <Carousel autoplay style={{ marginBottom: 96 }}>
-          <img
-            src="https://source.unsplash.com/1400x901/?service"
-            alt="Image 1"
-          />
-          <img
-            src="https://source.unsplash.com/1400x902/?service"
-            alt="Image 2"
-          />
-          <img
-            src="https://source.unsplash.com/1400x903/?service"
-            alt="Image 3"
-          />
-          <img
-            src="https://source.unsplash.com/1400x900/?service"
-            alt="Image 4"
-          />
+          <img src="https://source.unsplash.com/1400x901/?service" alt="Image 1" />
+          <img src="https://source.unsplash.com/1400x902/?service" alt="Image 2" />
+          <img src="https://source.unsplash.com/1400x903/?service" alt="Image 3" />
+          <img src="https://source.unsplash.com/1400x900/?service" alt="Image 4" />
         </Carousel>
 
         <TableContainer mt={20} mb={40} minWidth={600}>
@@ -302,7 +262,7 @@ const WIP: React.FC<WIPProps> = ({}) => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {data.map((row, index) => (
+              {data.map((row: any, index) => (
                 <TableRow key={index}>
                   {columns.map((column, index) => (
                     <TableCell s="0.95rem" key={index}>
@@ -314,10 +274,7 @@ const WIP: React.FC<WIPProps> = ({}) => {
             </TableBody>
           </Table>
         </TableContainer>
-        <ToggleButtonGroup
-          value={selectedValueToggle}
-          onChange={handleValueChange}
-        >
+        <ToggleButtonGroup value={selectedValueToggle} onChange={handleValueChange}>
           <ToggleButton value="option1">Option 1</ToggleButton>
           <ToggleButton value="option2">Option 2</ToggleButton>
           <ToggleButton value="option3">Option 3</ToggleButton>

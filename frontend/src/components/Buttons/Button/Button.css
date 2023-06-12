@@ -1,0 +1,32 @@
+.button-base {
+  border: none;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  font-family: 'Roboto', 'Poppins', sans-serif;
+}
+
+.button-base.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: not-allowed !important;
+}
+
+.button-icon {
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+  color: '#f5f5f5' !important;
+}
+
+.start-icon {
+  margin-right: 0.25rem;
+  margin-left: 0;
+}
+
+.end-icon {
+  margin-right: 0;
+  margin-left: 0.25rem;
+}

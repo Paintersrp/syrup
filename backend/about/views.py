@@ -10,20 +10,24 @@ from backend.custom_views import *
 class AboutFullView(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         model_dict = {
-            "AboutHeader": {
+            "header": {
                 "app_label": "about",
+                "model_name": "AboutHeader",
                 "get_first": True,
             },
-            "MissionStatement": {
+            "missionStatement": {
                 "app_label": "about",
+                "model_name": "MissionStatement",
                 "get_first": True,
             },
-            "CompanyHistory": {
+            "companyHistory": {
                 "app_label": "about",
+                "model_name": "CompanyHistory",
                 "get_first": True,
             },
-            "Value": {
+            "values": {
                 "app_label": "about",
+                "model_name": "Value",
             },
         }
 

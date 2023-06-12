@@ -1,10 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./NotFound.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './NotFound.css';
 
-import { Flexer, Page, Surface } from "../../../Containers";
-import { palettes } from "../../../../utils";
-import { Text } from "../../../Components";
+import { palettes } from '@/utils';
+import { Page } from '@/components/Layout';
+import { Flexer, Surface } from '@/components/Containers';
+import { Text } from '@/components/Elements';
 
 const NotFound: React.FC = () => {
   return (

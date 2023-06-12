@@ -1,21 +1,14 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
-import "./App.css";
+import { useDispatch, useSelector } from 'react-redux';
+import './App.css';
 
-import {
-  Alert,
-  AppDrawer,
-  AppFooter,
-  AppNavbar,
-  Loading,
-  ScrollToTopFAB,
-  useDrawer,
-} from "./framework";
-import { closeAlert } from "./lib/redux";
-import { ScrollToTop, WithAuth } from "./utils";
-import { LINKS, LOGO, TITLE } from "./settings";
-import AppRoutes from "./AppRoutes";
+import { closeAlert } from './lib/redux';
+import { ScrollToTop, WithAuth } from './utils';
+import { LINKS, LOGO, TITLE } from './settings';
+import { AppProvider } from './providers/app';
+import { AppRoutes } from './routes/app';
+import { Alert, useDrawer } from './components/Elements';
+import { ScrollToTopFAB } from './components/Built';
+import { AppDrawer, AppFooter, AppNavbar } from './components/Layout';
 
 function App(): JSX.Element {
   const dispatch = useDispatch();
@@ -24,20 +17,15 @@ function App(): JSX.Element {
   const { isDrawerOpen, handleDrawer } = useDrawer();
 
   return (
-    <Router>
+    <AppProvider>
       {alert.open && (
         <Alert
           alert={{ message: alert.message, type: alert.type }}
           onClose={() => dispatch(closeAlert())}
         />
       )}
-      <Loading load={loading} />
-      <AppNavbar
-        menuButton
-        menuOpen={isDrawerOpen}
-        menuOnClick={handleDrawer}
-        links={LINKS}
-      />
+      {/* <Loading load={loading} /> */}
+      <AppNavbar menuButton menuOpen={isDrawerOpen} menuOnClick={handleDrawer} links={LINKS} />
       <AppDrawer
         open={isDrawerOpen}
         handleClose={handleDrawer}
@@ -50,7 +38,7 @@ function App(): JSX.Element {
       <ScrollToTop />
       <ScrollToTopFAB />
       <AppFooter />
-    </Router>
+    </AppProvider>
   );
 }
 

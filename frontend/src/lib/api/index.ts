@@ -1,4 +1,4 @@
-export * from "./handlers";
+export * from './handlers';
 
-import ApiAxiosInstance from "./ApiAxiosInstance";
-export { ApiAxiosInstance };
+import { axios } from './axios';
+export { axios };

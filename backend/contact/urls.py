@@ -78,8 +78,8 @@ urlpatterns = [
         name="teammember-bulk-detail",
     ),
     path(
-        "appinfo/",
-        AppInfoFullView.as_view(),
-        name="app-full",
+        "contacts/",
+        ContactFullView.as_view(),
+        name="contact-full",
     ),
 ]

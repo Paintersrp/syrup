@@ -6,6 +6,39 @@ from backend.utils import get_serialized_page_data
 from django.shortcuts import get_object_or_404
 
 
+class ContactFullView(generics.GenericAPIView):
+    def get(self, request, *args, **kwargs):
+        model_dict = {
+            "contactInfo": {
+                "app_label": "contact",
+                "model_name": "ContactInformation",
+                "get_first": True,
+            },
+            "socials": {
+                "app_label": "contact",
+                "model_name": "Socials",
+                "get_first": True,
+            },
+            "hours": {
+                "app_label": "contact",
+                "model_name": "Hours",
+                "get_first": True,
+            },
+            "members": {
+                "app_label": "contact",
+                "model_name": "TeamMember",
+            },
+            "jobs": {
+                "app_label": "jobs",
+                "model_name": "JobPosting",
+                "filter": {"filled": False},
+            },
+        }
+
+        data = get_serialized_page_data(model_dict, request)
+        return Response(data)
+
+
 class ContactInformationAPIView(BaseListView):
     queryset = ContactInformation.objects.all()
     serializer_class = ContactInformationSerializer
@@ -121,31 +154,3 @@ class ContactDetailView(BaseDetailView):
     queryset = Contact.objects.all()
     serializer_class = ContactSerializer
     model_class = Contact
-
-
-class AppInfoFullView(generics.GenericAPIView):
-    def get(self, request, *args, **kwargs):
-        model_dict = {
-            "ContactInformation": {
-                "app_label": "contact",
-                "get_first": True,
-            },
-            "Socials": {
-                "app_label": "contact",
-                "get_first": True,
-            },
-            "Hours": {
-                "app_label": "contact",
-                "get_first": True,
-            },
-            "TeamMember": {
-                "app_label": "contact",
-            },
-            "JobPosting": {
-                "filter": {"filled": False},
-                "app_label": "jobs",
-            },
-        }
-
-        data = get_serialized_page_data(model_dict, request)
-        return Response(data)

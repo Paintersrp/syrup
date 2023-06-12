@@ -1,0 +1,67 @@
+{
+  "version": "2.0.0",
+  "presentation": {
+    "echo": false,
+    "reveal": "always",
+    "focus": false,
+    "panel": "dedicated",
+    "showReuseMessage": true
+  },
+  "tasks": [
+    {
+      "label": "Create terminals",
+      "dependsOn": ["Django", "React", "Frontend", "Root"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "runOptions": {
+        "runOn": "folderOpen"
+      }
+    },
+    {
+      "label": "Django",
+      "type": "shell",
+      "command": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "args": ["-i", "-c", "cd backend && python manage.py runserver"],
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "group": "my-group"
+      }
+    },
+    {
+      "label": "React",
+      "type": "shell",
+      "command": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "args": ["-i", "-c", "cd frontend && npm run dev"],
+      "isBackground": true,
+      "problemMatcher": [],
+      "presentation": {
+        "group": "my-group"
+      }
+    },
+    {
+      "label": "Frontend",
+      "type": "shell",
+      "command": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "args": ["-i", "-c", "cd frontend; exec bash"],
+      "isBackground": true,
+      "presentation": {
+        "group": "my-group2"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Root",
+      "type": "shell",
+      "command": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "args": ["-i", "-c", "exec bash"],
+      "isBackground": true,
+      "presentation": {
+        "group": "my-group2"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

@@ -1,18 +1,19 @@
-import Cookies from "js-cookie";
-import { ApiAxiosInstance } from "../../../lib";
+import { axios } from '@/lib';
+import Cookies from 'js-cookie';
 
 const LogoutUser = (): void => {
-  if (Cookies.get("jwt")) {
-    ApiAxiosInstance.get("/auth/logout/")
+  if (Cookies.get('jwt')) {
+    axios
+      .get('/auth/logout/')
       .then(() => {
-        Cookies.remove("jwt");
-        window.location.href = "/";
+        Cookies.remove('jwt');
+        window.location.href = '/';
       })
       .catch((err) => {
         console.log(err);
       });
   } else {
-    window.location.href = "/";
+    window.location.href = '/';
   }
 };
 

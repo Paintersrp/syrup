@@ -1,9 +1,6 @@
-import React from "react";
+import React from 'react';
 
-const toggleState = (
-  setState: React.Dispatch<React.SetStateAction<any>>,
-  state: boolean
-) => {
+const toggleState = (setState: React.Dispatch<React.SetStateAction<any>>, state: boolean) => {
   setState(!state);
 };
 
@@ -24,12 +21,10 @@ const handleDataChange = (
   setData: React.Dispatch<React.SetStateAction<any>>,
   data: any
 ) => {
-  console.log(data);
-  console.log(event.target.name);
   setData({
     ...data,
     [event.target.name]:
-      event.target.type === "checkbox"
+      event.target.type === 'checkbox'
         ? (event.target as HTMLInputElement).checked
         : event.target.value,
   });
@@ -47,16 +42,9 @@ const handleNestedDataChange = (
     [nestedName]: {
       ...data[nestedName],
       [event.target.name]:
-        event.target.type === "checkbox"
-          ? event.target.checked
-          : event.target.value,
+        event.target.type === 'checkbox' ? event.target.checked : event.target.value,
     },
   });
 };
 
-export {
-  toggleState,
-  toggleSwapStates,
-  handleDataChange,
-  handleNestedDataChange,
-};
+export { toggleState, toggleSwapStates, handleDataChange, handleNestedDataChange };
