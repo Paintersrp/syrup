@@ -49,7 +49,7 @@ const Checkbox: React.FC<CheckboxProps> = ({
         {checked && <FontAwesomeIcon icon={faCheck} />}
       </span>
       {label && (
-        <HelpText a={invert ? 'r' : 'l'} mt={0} mb={0} style={{ order: invert ? 1 : 2 }}>
+        <HelpText w="auto" a={invert ? 'r' : 'l'} mt={0} mb={0} style={{ order: invert ? 1 : 2 }}>
           {label}
         </HelpText>
       )}

@@ -1,32 +1,33 @@
-import React from 'react';
+import { FC, Fragment } from 'react';
 import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom';
 import './css/PostsList.css';
 
-import { breakPoints, useBreakpoint } from '../../../utils';
-import { Container, Flexer, Item } from '../../../components/Containers';
-import { Divider, Text } from '../../../components/Elements';
-import { Media } from '../../../components/Media';
-import { PostType } from '../routes/Posts';
-import PostInfoBar from './PostInfoBar';
+import { breakPoints, useBreakpoint } from '@/utils';
+import { Container, Flexer, Item } from '@/components/Containers';
+import { Divider, Text } from '@/components/Elements';
+import { Media } from '@/components/Media';
+
+import { PostInfoBar } from './PostInfoBar';
+import { PostContent } from '../types';
 
 interface PostsListProps {
-  posts: PostType[];
+  posts: PostContent[];
   title?: string;
 }
 
-const PostsList: React.FC<PostsListProps> = ({ posts, title = 'Latest News' }) => {
+export const PostsList: FC<PostsListProps> = ({ posts, title = 'Latest News' }) => {
   const isSmallScreen = useBreakpoint(breakPoints.sm);
 
   return (
     <div className="post-list-root">
       {title && (
-        <React.Fragment>
+        <Fragment>
           <Text t="h2" fw="bold">
             {title}
           </Text>
           <Divider mt={24} mb={24} />
-        </React.Fragment>
+        </Fragment>
       )}
       <Container>
         {posts.map((post) => {
@@ -44,7 +45,7 @@ const PostsList: React.FC<PostsListProps> = ({ posts, title = 'Latest News' }) =
           const truncatedText = text?.substr(0, 250) + '...';
 
           return (
-            <React.Fragment key={post.id}>
+            <Fragment key={post.id}>
               <Item xs={12}>
                 <Flexer mb={16}>
                   <Flexer grow fd="column" j="sb">
@@ -75,12 +76,10 @@ const PostsList: React.FC<PostsListProps> = ({ posts, title = 'Latest News' }) =
                 </Flexer>
               </Item>
               <Divider mt={24} mb={24} />
-            </React.Fragment>
+            </Fragment>
           );
         })}
       </Container>
     </div>
   );
 };
-
-export default PostsList;

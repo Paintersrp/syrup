@@ -1,27 +1,37 @@
 import { axios } from '@/lib';
-import { ErrorResponse } from '@/types';
+import { SetErrorFn } from '@/types';
 
-import { JobType } from '../types';
+import { JobContent, JobResponse } from '../types';
 
-export type SetJobDataFn = (data: any) => void;
-export type SetErrorFn = (error: ErrorResponse | unknown) => void;
+export type SetJobsDataFn = (data: JobContent[]) => void;
+export type SetJobDataFn = (data: JobContent | null) => void;
 
-export const getJobs = (): Promise<any> => {
-  return axios.get<any>(`/jobposting/`);
+export const getJobs = (): Promise<JobResponse> => {
+  return axios.get<JobContent[]>(`/jobposting/`);
 };
 
-export const setJobs = (
-  data: any,
-  setData: SetJobDataFn,
+type SetJobsFn = (
+  data: JobContent[],
+  setData: SetJobsDataFn,
   setCurrent: SetJobDataFn,
   id: number
-): void => {
+) => void;
+
+export const setJobs: SetJobsFn = (data, setData, setCurrent, id) => {
   setData(data);
-  setCurrent(data.find((jobData: JobType) => jobData.id === id));
+  const currentJob = data.find((jobData: JobContent) => jobData.id === id);
+
+  if (currentJob) {
+    setCurrent(currentJob);
+  } else if (data.length > 0) {
+    setCurrent(data[0]);
+  } else {
+    setCurrent(null);
+  }
 };
 
 export const useJobs = async (
-  setData: SetJobDataFn,
+  setData: SetJobsDataFn,
   setCurrent: SetJobDataFn,
   setError: SetErrorFn,
   id: number

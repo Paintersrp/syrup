@@ -47,6 +47,8 @@ const Page: React.FC<PageProps> = ({
     );
   }
 
+  console.log(ready);
+
   if (!ready) {
     return <Loading load={true} />;
   }

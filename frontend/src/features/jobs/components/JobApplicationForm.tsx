@@ -13,10 +13,10 @@ import {
   initialApplicationData,
   useApplicationForm,
 } from '../api/useApplicationForm';
-import { JobType } from '../types';
+import { JobContent } from '../types';
 
 interface JobApplicationFormProps extends BaseProps {
-  job: JobType;
+  job: JobContent;
   formRef: RefObject<any>;
   editMode: boolean;
 }

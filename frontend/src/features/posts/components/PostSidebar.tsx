@@ -2,15 +2,17 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './css/PostSidebar.css';
 
-import { Divider, Tag, Text, Tooltip } from '../../../components/Elements';
-import { IconButton } from '../../../components/Buttons';
-import { palettes } from '../../../utils';
-import { PostType } from '../routes/Posts';
-import { Flexer } from '../../../components/Containers';
-import { Media } from '../../../components/Media';
+import { IconButton } from '@/components/Buttons';
+import { Flexer } from '@/components/Containers';
+import { Divider, Tag, Text, Tooltip } from '@/components/Elements';
+import { Media } from '@/components/Media';
+import { palettes } from '@/utils';
+
+import { PostContent } from '../types';
+import { getReadTime } from '@/lib';
 
 interface PostSidebarProps {
-  post: PostType;
+  post: PostContent;
   tags: { id: number; detail: string }[];
   author_details: {
     first_name: string;
@@ -24,15 +26,14 @@ interface PostSidebarProps {
   };
 }
 
-const PostSidebar: React.FC<PostSidebarProps> = ({
+export const PostSidebar: React.FC<PostSidebarProps> = ({
   post,
   tags,
   author_details,
   handleCreate,
   auth,
 }) => {
-  const wordCount = post.content ? post.content.split(' ').length : 0;
-  const readTime = Math.ceil(wordCount / 200);
+  const { wordCount, readTime } = getReadTime(post.content);
 
   return (
     <div className="post-sidebar-container post-sidebar-container-chip">
@@ -124,5 +125,3 @@ const PostSidebar: React.FC<PostSidebarProps> = ({
     </div>
   );
 };
-
-export default PostSidebar;

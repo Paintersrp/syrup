@@ -7,10 +7,10 @@ import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { BaseProps, Divider, Text, Tooltip } from '@/components/Elements';
 import { breakPoints, palettes, useBreakpoint } from '@/utils';
 
-import { JobType } from '../types';
+import { JobContent } from '../types';
 
 interface JobListingsProps extends BaseProps {
-  jobsData: JobType[];
+  jobsData: JobContent[];
   header?: string;
   subheader?: string;
   currentId?: number | null;

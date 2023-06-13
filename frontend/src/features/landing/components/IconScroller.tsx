@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './css/IconScroller.css';
 
-import { SOCIALS, SocialType } from '@/settings';
 import { Base, BaseProps } from '@/components/Elements';
 import { Icon } from '@/components/Media';
+import { SOCIALS, SocialType } from '@/settings';
 
-const IconScroller: React.FC<BaseProps> = ({ ...rest }) => {
+export const IconScroller: React.FC<BaseProps> = ({ ...rest }) => {
   const duplicatedPartners: SocialType[] = [...SOCIALS, ...SOCIALS, ...SOCIALS];
   const [isScrolling, setIsScrolling] = useState<boolean>(true);
 
@@ -33,5 +33,3 @@ const IconScroller: React.FC<BaseProps> = ({ ...rest }) => {
     </Base>
   );
 };
-
-export default IconScroller;

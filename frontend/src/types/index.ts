@@ -7,7 +7,9 @@ export type ErrorResponse = {
   thanks: string;
 };
 
-export interface SocialType {
+export type SetErrorFn = (error: ErrorResponse | unknown) => void;
+
+export interface SocialContent {
   name: string;
   icon: IconDefinition;
   handle: string;

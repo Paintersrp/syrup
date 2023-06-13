@@ -2,23 +2,29 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './css/Hero.css';
 
-import { palettes } from '@/utils';
-import { BaseProps, Text } from '@/components/Elements';
-import { Flexer } from '@/components/Containers';
-import { Button } from '@/components/Buttons';
-
-import { FormGenerator } from '@/components/Form';
-import { HeroData } from '../routes/Landing';
 import { ButtonBar, ContactButtons, SocialButtons } from '@/components/Built';
+import { Button } from '@/components/Buttons';
+import { Flexer } from '@/components/Containers';
+import { FormGenerator } from '@/components/Form';
+import { BaseProps, Text } from '@/components/Elements';
+import { palettes } from '@/utils';
+
+import { HeroContent } from '../types';
 
 interface HeroProps extends BaseProps {
-  data: HeroData;
+  data: HeroContent;
   contactData: any;
   socialsData: any;
   editMode: boolean;
 }
 
-const Hero: React.FC<HeroProps> = ({ data, contactData, socialsData, editMode, ...rest }) => {
+export const Hero: React.FC<HeroProps> = ({
+  data,
+  contactData,
+  socialsData,
+  editMode,
+  ...rest
+}) => {
   const [heroData, setHeroData] = useState(data);
   const [editing, setEditing] = useState(false);
 
@@ -88,5 +94,3 @@ const Hero: React.FC<HeroProps> = ({ data, contactData, socialsData, editMode, .
     </Flexer>
   );
 };
-
-export default Hero;

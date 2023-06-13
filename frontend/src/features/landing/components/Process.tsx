@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 
-
+import { SlideOnScroll } from '@/components/Animation';
+import { ButtonBar } from '@/components/Built';
+import { Flexer } from '@/components/Containers';
 import { BaseProps, Text } from '@/components/Elements';
 import { FormGenerator } from '@/components/Form';
 import { MaterialIcon } from '@/components/Media';
 import { palettes } from '@/utils';
-import { ProcessData } from '@/features/landing/routes/Landing';
-import { Flexer } from '@/components/Containers';
-import { ButtonBar } from '@/components/Built';
-import { SlideOnScroll } from '@/components/Animation';
+
+import { ProcessContent } from '../types';
 
 interface ProcessProps extends BaseProps {
-  data: ProcessData;
+  data: ProcessContent;
   editMode: boolean;
 }
 
-const Process: React.FC<ProcessProps> = ({ data, editMode, ...rest }) => {
+export const Process: React.FC<ProcessProps> = ({ data, editMode, ...rest }) => {
   const [featureData, setFeatureData] = useState(data);
   const [editing, setEditing] = useState(false);
 
@@ -69,5 +69,3 @@ const Process: React.FC<ProcessProps> = ({ data, editMode, ...rest }) => {
     </SlideOnScroll>
   );
 };
-
-export default Process;

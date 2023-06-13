@@ -7,10 +7,10 @@ import { BaseProps, Text } from '@/components/Elements';
 import { FormGenerator } from '@/components/Form';
 import { breakPoints, palettes, useBreakpoint } from '@/utils';
 
-import { JobType } from '../types';
+import { JobContent } from '../types';
 
 interface JobDetailsProps extends BaseProps {
-  job: JobType;
+  job: JobContent;
   handleApplyNowClick: () => void;
   editMode: boolean;
 }

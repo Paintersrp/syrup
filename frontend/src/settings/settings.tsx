@@ -11,9 +11,9 @@ import {
   faGithub,
 } from '@fortawesome/free-brands-svg-icons';
 import { palettes } from '../utils';
-import { SocialType } from '@/types';
+import { SocialContent } from '@/types';
 
-export const SOCIALS: SocialType[] = [
+export const SOCIALS: SocialContent[] = [
   { name: 'facebook', icon: faFacebookSquare, handle: 'Test' },
   { name: 'twitter', icon: faTwitter, handle: 'Test' },
   { name: 'instagram', icon: faInstagram, handle: 'Test' },

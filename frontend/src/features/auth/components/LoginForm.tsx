@@ -2,23 +2,20 @@ import { useState, FC, FormEvent, Fragment } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { faCoins } from '@fortawesome/free-solid-svg-icons';
-import Cookies from 'js-cookie';
-import bcrypt from 'bcryptjs';
 import './css/LoginForm.css';
 
-import { handleDataChange } from '@/utils';
-import { axios, handleAuth } from '@/lib';
+import { Button } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
-import { Icon } from '@/components/Media';
 import { Text } from '@/components/Elements';
 import { Checkbox, Input } from '@/components/Form';
-import { Button } from '@/components/Buttons';
+import { Icon } from '@/components/Media';
+import { ErrorResponse } from '@/types';
+import { handleDataChange } from '@/utils';
 
-interface LoginFormDTO {
-  username: string;
-  password: string;
-  remember: boolean;
-}
+import { useLogin, useSalt } from '../api/useLogin';
+import { LoginFormDTO } from '../types';
+
+// Form Validation
 
 const LoginForm: FC = ({}) => {
   const [formData, setFormData] = useState<LoginFormDTO>({
@@ -26,60 +23,17 @@ const LoginForm: FC = ({}) => {
     password: '',
     remember: false,
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState<ErrorResponse | unknown>();
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    let salt: string | number;
-    let loginData: { username: string; password: string };
+    const loginData = await useSalt(setError, formData);
 
-    axios
-      .post('/auth/salt/', { username: formData.username })
-      .then(async (response) => {
-        if (response.data.salt) {
-          salt = response.data.salt;
-          const hashedPassword = await new Promise<string>((resolve, reject) => {
-            bcrypt.hash(formData.password, salt, (err, hash) => {
-              if (err) reject(err);
-              resolve(hash);
-            });
-          });
-
-          loginData = {
-            username: formData.username,
-            password: hashedPassword,
-          };
-        } else {
-          loginData = {
-            username: formData.username,
-            password: formData.password,
-          };
-        }
-      })
-      .then(async (response) => {
-        axios
-          .post('/auth/login/', loginData)
-          .then((response) => {
-            handleAuth(response, dispatch);
-
-            if (formData.remember) {
-              const expires = new Date(Date.parse(response.data.exp));
-              Cookies.set('jwt', response.data.jwt, { expires });
-              Cookies.set('username', formData.username, { expires: 90 });
-            }
-          })
-          .then(() => {
-            setTimeout(() => {
-              navigate('/');
-            }, 250);
-          })
-          .catch((err) => {
-            console.log(err);
-            setError('Invalid username or password.');
-          });
-      });
+    if (loginData) {
+      useLogin(formData, loginData, dispatch, navigate, setError);
+    }
   };
 
   return (

@@ -1,13 +1,13 @@
-import { JobType } from '@/features/jobs/routes/Jobs';
-import { SocialType } from '@/types';
+import { JobContent } from '@/features/jobs';
+import { SocialContent } from '@/types';
 
-export interface ContactInformationType {
+export interface ContactInformationContent {
   email: string;
   phone: string;
   address: string;
 }
 
-export type HoursType = {
+export type HoursContent = {
   monday: string;
   tuesday: string;
   wednesday: string;
@@ -17,7 +17,7 @@ export type HoursType = {
   sunday: string;
 };
 
-export interface MemberType {
+export interface MemberContent {
   id: string;
   name: string;
   role: string;
@@ -26,10 +26,14 @@ export interface MemberType {
   [key: string]: string;
 }
 
-export type ContactData = {
-  contactInfo: ContactInformationType;
-  hours: HoursType;
-  jobs: JobType[];
-  members: MemberType[];
-  socials: SocialType[];
+export type ContactContent = {
+  contactInfo: ContactInformationContent;
+  hours: HoursContent;
+  jobs: JobContent[];
+  members: MemberContent[];
+  socials: SocialContent[];
+};
+
+export type ContactResponse = {
+  data: ContactContent;
 };

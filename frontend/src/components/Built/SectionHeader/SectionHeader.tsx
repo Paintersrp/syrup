@@ -11,7 +11,7 @@ import ButtonBar from '../ButtonBar/ButtonBar';
 
 type AlignmentType = 'Left' | 'Right' | 'Center' | 'left' | 'right' | 'center';
 
-export interface SectionHeaderData {
+export interface SectionHeaderContent {
   subtitle?: string;
   title?: string;
   description?: string;
@@ -22,7 +22,7 @@ export interface SectionHeaderData {
 }
 
 interface SectionHeaderProps {
-  headerData: SectionHeaderData;
+  headerData: SectionHeaderContent;
   editMode: boolean;
   formTitle: string;
 }
@@ -44,11 +44,12 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, editMode, for
     }
   };
 
+  console.log(headerData.alignment);
   const [editing, setEditing] = useState(false);
-  const [header, setHeader] = useState<SectionHeaderData>(headerData);
+  const [header, setHeader] = useState<SectionHeaderContent>(headerData);
   const alignClass = getAlignClass(headerData.alignment);
 
-  const updateSectionHeader = (updatedHeader: SectionHeaderData) => {
+  const updateSectionHeader = (updatedHeader: SectionHeaderContent) => {
     setHeader(updatedHeader);
     setEditing(false);
   };

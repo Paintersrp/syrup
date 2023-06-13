@@ -1,101 +1,50 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC, useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
-import { ContactInformationData } from '../../contact/routes/Contact';
-import { seoData, SocialType } from '@/settings';
-
-import { axios } from '@/lib';
-
-import Hero from '../components/Hero';
-import Services from '../components/Services';
-import Processes from '../components/Processes';
-import LatestPosts from '../components/LatestPosts';
-import IconScroller from '../components/IconScroller';
+import { Loading } from '@/components/Elements';
 import { Page } from '@/components/Layout';
+import { usePageSetup } from '@/hooks';
+import { seoData } from '@/settings';
 
-import { useLoading } from '@/components/Elements';
-import { PostType } from '@/features/posts/routes/Posts';
-import { SectionHeaderData } from '@/components/Built';
+import { useLanding } from '../api/useLanding';
+import { Hero } from '../components/Hero';
+import { IconScroller } from '../components/IconScroller';
+import { Processes } from '../components/Processes';
+import { Services } from '../components/Services';
+import { PostCards } from '@/features/posts';
 
-export interface HeroData {
-  title: string;
-  subtitle: string;
-  description: string;
-  buttonText: string;
-}
-export interface ProcessData {
-  id: string;
-  icon: string;
-  title: string;
-  description: string;
-}
-
-interface LandingProps {}
-
-const Landing: React.FC<LandingProps> = () => {
-  const dispatch: any = useDispatch();
-  const { loading, startLoad, endLoad } = useLoading();
+export const Landing: FC = () => {
   const editMode: boolean = useSelector((state: any) => state.editMode.editMode);
+  const { error, setError, ready, setReady } = usePageSetup();
 
-  const [ready, setReady] = useState(false);
-  const [error, setError] = useState<any>(null);
-
-  const [serviceData, setServiceData] = useState<any>({});
-  const [heroData, setHeroData] = useState<HeroData | any>({});
-  const [socialsData, setSocialsData] = useState<SocialType | any>({});
-  const [contactData, setContactData] = useState<ContactInformationData | any>({});
-  const [processData, setProcessData] = useState<ProcessData | any>({});
-  const [processHeader, setProcessHeader] = useState<SectionHeaderData | any>([]);
-  const [postsData, setPostsData] = useState<PostType | any>({});
-  const [postsHeader, setPostsHeader] = useState<SectionHeaderData | any>([]);
+  const [data, setData] = useState<any | null>();
 
   useEffect(() => {
-    startLoad();
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('/landing/');
-        setHeroData(response.data.HeroHeader);
+    useLanding(setData, setError);
+    setTimeout(() => setReady(true), 250);
+  }, []);
 
-        setContactData(response.data.ContactInformation);
-        setSocialsData(response.data.Socials);
-
-        setServiceData(response.data.ServiceTier);
-
-        setProcessData(response.data.Process);
-        setProcessHeader(response.data.SectionHeader.find((tb: any) => tb.name === 'process'));
-
-        setPostsData(response.data.Post);
-        setPostsHeader(response.data.SectionHeader.find((tb: any) => tb.name === 'news'));
-        setReady(true);
-        endLoad();
-      } catch (err: any) {
-        setError(err.error);
-        setReady(true);
-        endLoad(0);
-      }
-    };
-    fetchData();
-  }, [dispatch]);
-
-  if (!ready) {
-    return null;
+  if (!ready || !data) {
+    return <Loading load={true} />;
   }
 
   return (
     <Page seoData={seoData.landing} error={error}>
       <Hero
-        data={heroData}
+        data={data.hero}
         editMode={editMode}
-        contactData={contactData}
-        socialsData={socialsData}
+        contactData={data.contactInfo}
+        socialsData={data.socials}
       />
-      {/* <Services serviceData={serviceData} />  */}
+      {/* <Services serviceData={data.services} />  */}
       <Services />
-      <Processes processData={processData} headerData={processHeader} editMode={editMode} />
-      <LatestPosts postsData={postsData} headerData={postsHeader} editMode={editMode} />
+      <Processes
+        processData={data.processes}
+        headerData={data.processHeader[0]}
+        editMode={editMode}
+      />
+      <PostCards posts={data.posts} header={data.postsHeader[0]} editMode={editMode} />
       <IconScroller />
     </Page>
   );
 };
-
-export default Landing;

@@ -15,39 +15,48 @@ class ServiceFullTestView(generics.GenericAPIView):
         model_dict = {
             "ProcessTextItem": {
                 "app_label": "services",
+                "model_name": "ProcessTextItem",
             },
             "ProcessImageItem": {
                 "app_label": "services",
+                "model_name": "ProcessImageItem",
             },
             "ContactInformation": {
                 "app_label": "contact",
+                "model_name": "ContactInformation",
                 "get_first": True,
             },
             "Socials": {
                 "app_label": "contact",
+                "model_name": "Socials",
                 "get_first": True,
             },
-            "ServiceTier": {
-                "app_label": "landing",
+            "services": {
+                "app_label": "services",
+                "model_name": "ServiceTier",
             },
-            "ServiceTable": {
-                "app_label": "tables",
-                "filter": {"name__in": ["Tiers", "Competitors"]},
-            },
-            "TitleBlock": {
+            # "servicesTable": {
+            #     "app_label": "tables",
+            #     "model_name": "ServiceTable",
+            #     "filter": {"name__in": ["Tiers"]},
+            # },
+            # "competitorsTable": {
+            #     "app_label": "tables",
+            #     "model_name": "ServiceTable",
+            #     "filter": {"name__in": ["Competitors"]},
+            # },
+            "benefitsHeader": {
                 "app_label": "landing",
+                "model_name": "SectionHeader",
                 "filter": {"name": "benefits"},
             },
-            "Benefits": {
+            "benefits": {
                 "app_label": "services",
+                "model_name": "Benefits",
             },
-            "ContentTextBlock": {
-                "app_label": "general",
-                "filter": {"slug": "service-individual"},
-            },
-            "Questionnaire": {
+            "quizData": {
                 "app_label": "quizes",
-                "filter": {"pk": 2},
+                "model_name": "Questionnaire",
             },
         }
 

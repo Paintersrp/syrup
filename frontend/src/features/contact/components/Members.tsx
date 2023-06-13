@@ -5,10 +5,10 @@ import { Container, Flexer } from '@/components/Containers';
 import { BaseProps, Text } from '@/components/Elements';
 
 import { Member } from './Member';
-import { MemberType } from '../types';
+import { MemberContent } from '../types';
 
 interface MembersProps extends BaseProps {
-  membersData: MemberType[];
+  membersData: MemberContent[];
   editMode: boolean;
 }
 

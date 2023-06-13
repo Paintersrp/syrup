@@ -6,13 +6,14 @@ import { BaseProps, List, Text } from '@/components/Elements';
 import { IconTextItem } from '@/components/Media';
 import { palettes } from '@/utils';
 
-import { JobType } from '../types';
+import { JobContent } from '../types';
+import { SetJobsDataFn } from '../api/useJobs';
 
 interface JobQualificationProps {
   title: string;
   data: any;
   editMode: boolean;
-  updateData: (updatedData: any) => void;
+  updateData: SetJobsDataFn;
   fieldName: 'requirements' | 'responsibilities';
   id: number;
 }
@@ -68,7 +69,7 @@ export const JobQualification: FC<JobQualificationProps> = ({
 };
 
 interface JobQualificationsProps extends BaseProps {
-  job: JobType;
+  job: JobContent;
   editMode: boolean;
 }
 

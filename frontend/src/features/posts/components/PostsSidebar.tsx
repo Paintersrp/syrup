@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './css/Sidebar.css';
+import './css/PostsSidebar.css';
 
-import { Divider, Tag, Text, Tooltip } from '../../../components/Elements';
-import { IconButton } from '../../../components/Buttons';
-import { palettes } from '../../../utils';
-import { Flexer } from '../../../components/Containers';
+import { IconButton } from '@/components/Buttons';
+import { Flexer } from '@/components/Containers';
+import { Divider, Tag, Text, Tooltip } from '@/components/Elements';
+import { palettes } from '@/utils';
 
 interface SidebarProps {
   tags: any;
@@ -13,17 +13,17 @@ interface SidebarProps {
   selectedTags: string[];
   handleCreate: () => void;
   auth: { is_superuser: boolean };
-  handleDateFilterClick: any;
+  handleDateClick: any;
   selectedDateFilter: number | null;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({
+export const PostsSidebar: React.FC<SidebarProps> = ({
   tags,
   handleTagClick,
   selectedTags,
   handleCreate,
   auth,
-  handleDateFilterClick,
+  handleDateClick,
   selectedDateFilter,
 }) => {
   const dateFilters = [
@@ -61,7 +61,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           <Tag
             key={filter.value}
             label={filter.label}
-            onClick={() => handleDateFilterClick(filter.value)}
+            onClick={() => handleDateClick(filter.value)}
             mr={8}
             mb={8}
             minw={50}
@@ -101,5 +101,3 @@ const Sidebar: React.FC<SidebarProps> = ({
     </div>
   );
 };
-
-export default Sidebar;

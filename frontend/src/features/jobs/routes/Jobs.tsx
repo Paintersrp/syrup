@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -12,19 +12,19 @@ import { JobListings } from '../components/JobListings';
 import { JobQualifications } from '../components/JobQualifications';
 import { Page } from '../../../components/Layout';
 
-import { JobType } from '../types';
+import { JobContent } from '../types';
 
-export const Jobs: React.FC = () => {
+export const Jobs: FC = () => {
   const { id } = useParams<{ id: any }>();
   const editMode: boolean = useSelector((state: any) => state.editMode.editMode);
   const { error, setError, ready, setReady } = usePageSetup();
 
-  const [job, setJob] = useState<JobType | null>(null);
-  const [jobs, setJobs] = useState<JobType[] | null>(null);
+  const [job, setJob] = useState<JobContent | null>(null);
+  const [jobs, setJobs] = useState<JobContent[] | null>(null);
   const formRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    useJobs(setJobs, setJob, setError, id | 1);
+    useJobs(setJobs, setJob, setError, parseInt(id ? id : 1));
     setReady(true);
   }, [id]);
 

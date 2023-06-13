@@ -3,14 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import './css/PostCard.css';
 
-import { BaseProps, Tag, Text } from '@/components/Elements';
-import { Flexer, Item, Surface } from '@/components/Containers';
-
-import { Media } from '@/components/Media';
-import { PostType } from '@/features/posts/routes/Posts';
 import { SlideOnScroll } from '@/components/Animation';
 import { ButtonBar } from '@/components/Built';
-
+import { Flexer, Item, Surface } from '@/components/Containers';
+import { BaseProps, Tag, Text } from '@/components/Elements';
+import { Media } from '@/components/Media';
+import { PostContent } from '@/features/posts/types';
 
 interface Tag {
   id: number;
@@ -18,12 +16,12 @@ interface Tag {
 }
 
 interface PostCardProps extends BaseProps {
-  post: PostType;
+  post: PostContent;
   handleDelete: (id: number) => void;
   editMode: boolean | undefined;
 }
 
-const PostCard: React.FC<PostCardProps> = ({ post, handleDelete, editMode, ...rest }) => {
+export const PostCard: React.FC<PostCardProps> = ({ post, handleDelete, editMode, ...rest }) => {
   const navigate = useNavigate();
 
   const renderPostContent = () => {
@@ -68,8 +66,6 @@ const PostCard: React.FC<PostCardProps> = ({ post, handleDelete, editMode, ...re
               </Flexer>
             )}
           </Flexer>
-          {/* <Divider mt={6} color={palettes.text.min} /> */}
-
           <Text t="body1" s="0.9rem" mb={5} mt={6} style={{ color: '#333' }}>
             {renderPostContent()}
           </Text>
@@ -90,5 +86,3 @@ const PostCard: React.FC<PostCardProps> = ({ post, handleDelete, editMode, ...re
     </Item>
   );
 };
-
-export default PostCard;

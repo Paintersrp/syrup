@@ -1,14 +1,15 @@
 import { axios } from '@/lib';
-import { ErrorResponse } from '@/types';
+import { SetErrorFn } from '@/types';
 
-export type SetContactDataFn = (data: any) => void;
-export type SetErrorFn = (error: ErrorResponse | unknown) => void;
+import { ContactContent, ContactResponse } from '../types';
 
-export const getContacts = (): Promise<any> => {
-  return axios.get<any>(`/contacts/`);
+export type SetContactDataFn = (data: ContactContent) => void;
+
+export const getContacts = (): Promise<ContactResponse> => {
+  return axios.get<ContactContent>(`/contacts/`);
 };
 
-export const setContacts = (data: any, setData: SetContactDataFn): void => {
+export const setContacts = (data: ContactContent, setData: SetContactDataFn): void => {
   setData({
     members: data.members,
     contactInfo: data.contactInfo,

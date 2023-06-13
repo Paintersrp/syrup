@@ -1,72 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, FC, Fragment } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import DOMPurify from 'dompurify';
 import './Post.css';
 
-import { Base, Text, useLoading } from '../../../components/Elements';
-import { Flexer, Surface } from '../../../components/Containers';
-import { axios } from '../../../lib';
-
-import { scrollToTop } from '../../../utils';
-
-import { PostType } from './Posts';
-import { Page } from '../../../components/Layout';
-import PostsList from '../components/PostsList';
-import PostSidebar from '../components/PostSidebar';
 import { ButtonBar } from '@/components/Built';
+import { Flexer, Surface } from '@/components/Containers';
+import { Base, Loading, Text } from '@/components/Elements';
+import { Page } from '@/components/Layout';
+import { usePageSetup } from '@/hooks';
+import { scrollToTop } from '@/utils';
 
-const Post: React.FC = () => {
-  const { id } = useParams();
-  const { loading, startLoad, endLoad } = useLoading();
+import { handleCreatePost } from '../api/handlePosts';
+import { usePost } from '../api/usePost';
+import { PostsList } from '../components/PostsList';
+import { PostSidebar } from '../components/PostSidebar';
+import { PostContent } from '../types';
+
+export const Post: FC = () => {
+  const { id } = useParams<{ id: any }>();
   const navigate = useNavigate();
   const auth = useSelector((state: any) => state.auth);
   const editMode = useSelector((state: any) => state.editMode.editMode);
+  const { error, setError, ready, setReady } = usePageSetup();
 
-  const [ready, setReady] = useState(false);
-  const [error, setError] = useState<any>();
   const [editing, setEditing] = useState(false);
-  const [editingSeo, setEditingSeo] = useState(false);
-
-  const [post, setPost] = useState<PostType>();
+  const [post, setPost] = useState<PostContent>();
 
   useEffect(() => {
-    startLoad();
-    axios
-      .get(`/post/${id}/`)
-      .then((response) => {
-        setPost(response.data);
-        setReady(true);
-        endLoad();
-      })
-      .catch((err) => {
-        setError(err);
-        setReady(true);
-        endLoad();
-      });
+    usePost(setPost, setError, id);
+    setReady(true);
   }, [id]);
 
-  useEffect(() => {
-    setReady(false);
-  }, [id]);
-
-  const handleCreate = () => {
-    navigate(`/articles/create`);
-  };
-
-  const updatePost = (updatePost: any) => {
+  const updatePost = (updatePost: PostContent) => {
     setPost(updatePost);
     setEditing(false);
-    setTimeout(scrollToTop, 0);
+    scrollToTop();
   };
 
   const handleCancel = () => {
     setEditing(!editing);
-    setTimeout(scrollToTop, 0);
+    scrollToTop();
   };
 
   if (!ready) {
-    return null;
+    return <Loading load={true} />;
   }
 
   return (
@@ -98,7 +76,7 @@ const Post: React.FC = () => {
               )}
               {
                 !editing ? (
-                  <React.Fragment>
+                  <Fragment>
                     {post.content && (
                       <Text
                         t="body1"
@@ -109,7 +87,7 @@ const Post: React.FC = () => {
                         }}
                       />
                     )}
-                  </React.Fragment>
+                  </Fragment>
                 ) : null
                 // <div>
                 //         <UpdateArticleView
@@ -126,7 +104,7 @@ const Post: React.FC = () => {
                 post={post}
                 tags={post.tags}
                 author_details={post.author_details}
-                handleCreate={handleCreate}
+                handleCreate={() => handleCreatePost(navigate)}
                 auth={auth}
               />
             </div>
@@ -136,5 +114,3 @@ const Post: React.FC = () => {
     </Page>
   );
 };
-
-export default Post;

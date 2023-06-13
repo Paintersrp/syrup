@@ -78,6 +78,10 @@ urlpatterns = (
         ),
         path(
             "api/",
+            include("quizes.urls"),
+        ),
+        path(
+            "api/",
             include("posts.urls"),
         ),
         path(

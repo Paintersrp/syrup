@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "jobs",
     "landing",
     "posts",
+    "quizes",
     "services",
     "support",
     "tables",

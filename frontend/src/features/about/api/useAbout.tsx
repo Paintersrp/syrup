@@ -1,9 +1,8 @@
 import { axios } from '@/lib';
-import { ErrorResponse } from '@/types';
+import { SetErrorFn } from '@/types';
 import { AboutContent, AboutResponse } from '../types';
 
 export type SetAboutDataFn = (data: AboutContent) => void;
-export type SetErrorFn = (error: ErrorResponse | unknown) => void;
 
 export const getAbout = (): Promise<AboutResponse> => {
   return axios.get<AboutContent>(`/about/`);

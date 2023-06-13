@@ -7,22 +7,22 @@ import { FormGenerator } from '@/components/Form';
 import { IconTextItem } from '@/components/Media';
 import { palettes } from '@/utils';
 
-import { ContactInformationType } from '../types';
+import { ContactInformationContent } from '../types';
 
 interface InformationProps extends BaseProps {
-  contactData: ContactInformationType;
+  contactData: ContactInformationContent;
   editMode: boolean;
 }
 
 export const Information: React.FC<InformationProps> = ({ contactData, editMode, ...rest }) => {
-  const [data, setData] = useState<ContactInformationType>(contactData);
+  const [data, setData] = useState<ContactInformationContent>(contactData);
   const [editing, setEditing] = useState(false);
 
   useEffect(() => {
     setData(contactData);
   }, [contactData]);
 
-  const updateContactData = (updateContactData: ContactInformationType) => {
+  const updateContactData = (updateContactData: ContactInformationContent) => {
     setData(updateContactData);
     setEditing(false);
   };

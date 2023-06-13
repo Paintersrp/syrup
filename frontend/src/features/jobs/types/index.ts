@@ -1,4 +1,4 @@
-export interface JobType {
+export type JobContent = {
   id: number;
   position: string;
   location: string;
@@ -11,4 +11,8 @@ export interface JobType {
   requirements: string;
   responsibilities: string;
   filled: boolean;
-}
+};
+
+export type JobResponse = {
+  data: JobContent[];
+};

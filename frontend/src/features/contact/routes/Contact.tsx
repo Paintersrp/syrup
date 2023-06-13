@@ -14,12 +14,12 @@ import { Hours } from '../components/Hours';
 import { Information } from '../components/Information';
 import { Members } from '../components/Members';
 
-import { ContactData } from '../types';
+import { ContactContent } from '../types';
 
 export const Contact: React.FC = () => {
   const editMode = useSelector((state: any) => state.editMode.editMode);
   const { error, setError, ready, setReady } = usePageSetup();
-  const [data, setData] = useState<ContactData | null>();
+  const [data, setData] = useState<ContactContent | null>();
 
   useEffect(() => {
     useContacts(setData, setError);

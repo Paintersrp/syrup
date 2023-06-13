@@ -4,16 +4,14 @@ import { useRoutes } from 'react-router-dom';
 import { adminRoutes } from './admin';
 import { protectedRoutes } from './protected';
 import { publicRoutes } from './public';
-import { jobRoutes } from '@/features/jobs/routes';
+import { jobRoutes } from '@/features/jobs';
+import { postRoutes } from '@/features/posts';
 
-import { About } from '@/features/about/routes';
-import { Contact } from '@/features/contact/routes';
-
+import { About } from '@/features/about';
+import { Contact } from '@/features/contact';
+import { Landing } from '@/features/landing';
+import { Services } from '@/features/services/routes';
 import { WIP } from '@/components/WIP';
-
-import Landing from '@/features/landing/routes/Landing';
-import Posts from '@/features/posts/routes/Posts';
-import Post from '@/features/posts/routes/Post';
 
 export const AppRoutes = () => {
   const auth: any = useSelector<any>((state) => state.auth);
@@ -22,9 +20,8 @@ export const AppRoutes = () => {
     { path: '/', element: <Landing /> },
     { path: '/about', element: <About /> },
     { path: '/contact', element: <Contact /> },
+    { path: '/services', element: <Services /> },
     { path: '/WIP', element: <WIP /> },
-    { path: 'posts', element: <Posts /> },
-    { path: 'posts/:id', element: <Post /> },
   ];
 
   const routes = auth.is_superuser
@@ -33,7 +30,7 @@ export const AppRoutes = () => {
     ? protectedRoutes
     : publicRoutes;
 
-  const element = useRoutes([...routes, ...commonRoutes, ...jobRoutes]);
+  const element = useRoutes([...routes, ...commonRoutes, ...jobRoutes, ...postRoutes]);
 
   return <>{element}</>;
 };

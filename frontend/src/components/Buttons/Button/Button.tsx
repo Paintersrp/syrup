@@ -139,8 +139,8 @@ const Button: React.FC<ButtonProps> = ({
           <MaterialIcon
             icon={startIcon}
             size={iconSize}
-            mr={2}
-            ml={2}
+            mr={0}
+            ml={0}
             color={hover ? iconHoverColor : iconColor}
           />
         )}
@@ -151,7 +151,7 @@ const Button: React.FC<ButtonProps> = ({
           <MaterialIcon
             icon={endIcon}
             size={iconSize}
-            ml={2}
+            ml={0}
             color={hover ? iconHoverColor : iconColor}
           />
         )}

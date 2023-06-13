@@ -8,10 +8,10 @@ import { FormGenerator } from '@/components/Form';
 import { Media } from '@/components/Media';
 import { SOCIALS } from '@/settings';
 
-import { MemberType } from '../types';
+import { MemberContent } from '../types';
 
 interface MemberProps extends BaseProps {
-  member: MemberType;
+  member: MemberContent;
   editMode?: boolean;
   newImage?: any;
 }

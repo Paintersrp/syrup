@@ -1,22 +1,18 @@
-import React from 'react';
+import { FC } from 'react';
 
-import { Text, Tooltip } from '../../../components/Elements';
-import { IconButton } from '../../../components/Buttons';
-import { palettes } from '../../../utils';
-import { Flexer } from '../../../components/Containers';
-import { PostType } from '../routes/Posts';
+import { IconButton } from '@/components/Buttons';
+import { Flexer } from '@/components/Containers';
+import { Text, Tooltip } from '@/components/Elements';
+import { formatDate, getReadTime } from '@/lib';
+import { palettes } from '@/utils';
 
-const PostInfoBar = ({ post }: { post: PostType }) => {
+import { PostContent } from '../types';
+
+export const PostInfoBar: FC<{ post: PostContent }> = ({ post }) => {
   const { author, author_details, created_at, content, id } = post;
 
-  const wordsPerMinute = 200;
-  const wordCount = content.split(/\s+/g).length;
-  const readTimeMinutes = Math.ceil(wordCount / wordsPerMinute);
-  const formattedDate = new Date(created_at).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-  });
+  const { wordCount, readTime } = getReadTime(content);
+  const formattedDate = formatDate(created_at);
 
   return (
     <Flexer a="c" j="sb">
@@ -33,7 +29,7 @@ const PostInfoBar = ({ post }: { post: PostType }) => {
         {author_details.first_name || author_details.username} {author_details.last_name}
       </Text>
       <Text t={'body1'} s={'0.8rem'} a="r" mr={6}>
-        {formattedDate} • {readTimeMinutes} min read
+        {formattedDate} • {readTime} min read
       </Text>
       <Tooltip text="Bookmark Post">
         <IconButton
@@ -47,5 +43,3 @@ const PostInfoBar = ({ post }: { post: PostType }) => {
     </Flexer>
   );
 };
-
-export default PostInfoBar;

@@ -1,7 +1,9 @@
-import { Container, Flexer, Item } from '@/components/Containers';
-import { Carousel } from '@/components/Animation';
-import Service from './Service';
 import React from 'react';
+
+import { Carousel } from '@/components/Animation';
+import { Container, Flexer, Item } from '@/components/Containers';
+
+import { Service } from './Service';
 
 const services = [
   {
@@ -28,7 +30,7 @@ interface ServicesProps {
   carousel?: boolean;
 }
 
-const Services: React.FC<ServicesProps> = ({ carousel = false, ...rest }) => {
+export const Services: React.FC<ServicesProps> = ({ carousel = false, ...rest }) => {
   return (
     <Flexer j="c" mt={64} mb={64} {...rest}>
       {carousel ? (
@@ -49,5 +51,3 @@ const Services: React.FC<ServicesProps> = ({ carousel = false, ...rest }) => {
     </Flexer>
   );
 };
-
-export default Services;

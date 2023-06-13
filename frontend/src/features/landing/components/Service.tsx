@@ -1,17 +1,17 @@
+import React from 'react';
 import './css/Service.css';
 
-import { MaterialIcon, Media } from '@/components/Media';
-import { Base, Text } from '@/components/Elements';
-import { Flexer } from '@/components/Containers';
-import { palettes } from '@/utils';
 import { Button } from '@/components/Buttons';
-import React from 'react';
+import { Flexer } from '@/components/Containers';
+import { Base, Text } from '@/components/Elements';
+import { MaterialIcon, Media } from '@/components/Media';
+import { palettes } from '@/utils';
 
 interface ServiceProps {
   service: any;
 }
 
-const Service: React.FC<ServiceProps> = ({ service, ...rest }) => {
+export const Service: React.FC<ServiceProps> = ({ service, ...rest }) => {
   return (
     <Base key={service.id} className="service-card" {...rest}>
       <Media
@@ -49,5 +49,3 @@ const Service: React.FC<ServiceProps> = ({ service, ...rest }) => {
     </Base>
   );
 };
-
-export default Service;

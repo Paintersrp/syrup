@@ -9,30 +9,42 @@ from backend.custom_views import *
 class LandingFullTestView(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         model_dict = {
-            "HeroHeader": {
+            "hero": {
                 "app_label": "landing",
+                "model_name": "HeroHeader",
                 "get_first": True,
             },
-            "SectionHeader": {
+            "processHeader": {
                 "app_label": "landing",
-                "filter": {"name__in": ["process", "news"]},
+                "model_name": "SectionHeader",
+                "filter": {"name__in": ["process"]},
             },
-            "ServiceTier": {
+            "postsHeader": {
+                "app_label": "landing",
+                "model_name": "SectionHeader",
+                "filter": {"name__in": ["news"]},
+            },
+            "services": {
                 "app_label": "services",
+                "model_name": "ServiceTier",
             },
-            "Process": {
+            "processes": {
                 "app_label": "landing",
+                "model_name": "Process",
             },
-            "ContactInformation": {
+            "contactInfo": {
                 "app_label": "contact",
+                "model_name": "ContactInformation",
                 "get_first": True,
             },
-            "Socials": {
+            "socials": {
                 "app_label": "contact",
+                "model_name": "Socials",
                 "get_first": True,
             },
-            "Post": {
+            "posts": {
                 "app_label": "posts",
+                "model_name": "Post",
                 "filter": {"is_highlighted": True},
             },
         }

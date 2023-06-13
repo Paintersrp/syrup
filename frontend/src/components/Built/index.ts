@@ -32,5 +32,5 @@ export {
   usePagination,
 };
 
-import type { SectionHeaderData } from './SectionHeader/SectionHeader';
-export type { SectionHeaderData };
+import type { SectionHeaderContent } from './SectionHeader/SectionHeader';
+export type { SectionHeaderContent };

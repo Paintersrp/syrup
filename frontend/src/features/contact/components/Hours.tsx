@@ -8,12 +8,12 @@ import { FormGenerator } from '@/components/Form';
 import { IconTextItem } from '@/components/Media';
 import { palettes } from '@/utils';
 
-import { HoursType } from '../types';
+import { HoursContent } from '../types';
 
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 interface HoursProps extends BaseProps {
-  hoursData: HoursType;
+  hoursData: HoursContent;
   editMode: boolean;
 }
 
@@ -25,7 +25,7 @@ export const Hours: React.FC<HoursProps> = ({ hoursData, editMode, ...rest }) =>
     setData(hoursData);
   }, [hoursData]);
 
-  const updateContactData = (updatedData: HoursType) => {
+  const updateContactData = (updatedData: HoursContent) => {
     setData(updatedData);
     setEditing(false);
   };

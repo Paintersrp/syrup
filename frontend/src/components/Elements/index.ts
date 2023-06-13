@@ -16,6 +16,7 @@ import Menu from './Menu/Menu';
 import MenuItem from './Menu/MenuItem';
 import Modal from './Modal/Modal';
 import Navbar from './Navbar/Navbar';
+import Stepper from './Stepper/Stepper';
 import TableSortCell from './Table/TableSortCell';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from './Table/Table';
 import Tag from './Tag/Tag';
@@ -44,6 +45,7 @@ export {
   MenuItem,
   Modal,
   Navbar,
+  Stepper,
   Table,
   TableBody,
   TableCell,
@@ -73,8 +75,9 @@ export type {
 
 import { useDrawer } from '../../components/Elements/Drawer/hooks/useDrawer';
 import { useLoading } from '../../components/Elements/Loading/hooks/useLoading';
+import { useStepper } from './Stepper/useStepper';
 
-export { useDrawer, useLoading };
+export { useDrawer, useLoading, useStepper };
 
 // Prop Maps
 import { alignItemsMap, justifyContentMap } from './Base/Base';
