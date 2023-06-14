@@ -10,8 +10,8 @@ import { postRoutes } from '@/features/posts';
 import { About } from '@/features/about';
 import { Contact } from '@/features/contact';
 import { Landing } from '@/features/landing';
-import { Services } from '@/features/services/routes';
 import { WIP } from '@/components/WIP';
+import { servicesRoutes } from '@/features/services';
 
 export const AppRoutes = () => {
   const auth: any = useSelector<any>((state) => state.auth);
@@ -20,7 +20,6 @@ export const AppRoutes = () => {
     { path: '/', element: <Landing /> },
     { path: '/about', element: <About /> },
     { path: '/contact', element: <Contact /> },
-    { path: '/services', element: <Services /> },
     { path: '/WIP', element: <WIP /> },
   ];
 
@@ -30,7 +29,13 @@ export const AppRoutes = () => {
     ? protectedRoutes
     : publicRoutes;
 
-  const element = useRoutes([...routes, ...commonRoutes, ...jobRoutes, ...postRoutes]);
+  const element = useRoutes([
+    ...routes,
+    ...commonRoutes,
+    ...servicesRoutes,
+    ...jobRoutes,
+    ...postRoutes,
+  ]);
 
   return <>{element}</>;
 };

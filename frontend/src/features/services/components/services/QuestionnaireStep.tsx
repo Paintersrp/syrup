@@ -1,15 +1,17 @@
 import { FC } from 'react';
 
-import { breakPoints, useBreakpoint } from '@/utils';
-import { Checkbox, Radio, RadioGroup } from '@/components/Form';
 import { Flexer, Surface } from '@/components/Containers';
 import { Divider, Text } from '@/components/Elements';
+import { Checkbox, Radio, RadioGroup } from '@/components/Form';
+import { breakPoints, useBreakpoint } from '@/utils';
+
+import { Question } from '../../types';
 
 type QuestionnaireStepProps = {
-  questions: any;
-  activeStep: any;
-  selectedValues: any;
-  handleValueChange: any;
+  questions: Question[];
+  activeStep: number;
+  selectedValues: { [key: string]: string };
+  handleValueChange: (value: string, slug: string) => void;
 };
 
 export const QuestionnaireStep: FC<QuestionnaireStepProps> = ({
@@ -23,13 +25,13 @@ export const QuestionnaireStep: FC<QuestionnaireStepProps> = ({
   return (
     <Flexer fd="column" mt={8}>
       <Surface minHeight={300} maxWidth={isSmallScreen ? 500 : 800} py={0}>
-        <Text t="h3" fw="bold" a="c">
+        <Text t="h3" fw="bold" a="c" mt={8}>
           {questions.map((set: any, index: number) => activeStep === index && set.text)}
         </Text>
-        <Divider />
+        <Divider mt={4} mb={8} />
         {!questions[activeStep].slug.includes('features') ? (
           <RadioGroup
-            aria-label={questions[activeStep].name}
+            aria-label={questions[activeStep].text}
             value={selectedValues[questions[activeStep].slug]}
             onChange={(value: string) => handleValueChange(value, questions[activeStep].slug)}
             mb={16}

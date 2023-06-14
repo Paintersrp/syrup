@@ -215,3 +215,35 @@ class ProcessTextItem(models.Model):
         ordering = ["title"]
         verbose_name = "Process Text Item"
         verbose_name_plural = "Process Text Items"
+
+
+@metadata(**CONTENT_TEXT_BLOCK_METADATA)
+class ContentTextBlock(models.Model):
+    slug = CustomCharField(
+        unique=True,
+        max_length=20,
+        md_column_count=6,
+        verbose_name="Slug",
+        help_text="Identifier",
+        db_index=True,
+    )
+    title = CustomCharField(
+        max_length=200,
+        md_column_count=6,
+        verbose_name="Title",
+        help_text="Header",
+    )
+    description = CustomTextField(
+        max_length=300,
+        md_column_count=12,
+        verbose_name="Description",
+        help_text="Description",
+        min_rows=3,
+    )
+
+    def __str__(self):
+        return self.slug
+
+    class Meta:
+        verbose_name = "Content Text Blocks"
+        verbose_name_plural = "Content Text Blocks"

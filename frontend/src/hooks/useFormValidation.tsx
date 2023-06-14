@@ -12,10 +12,10 @@ interface FormValidationResult {
   resetForm: (reset: any) => void;
 }
 
-const useFormValidation = (
+export const useFormValidation = (
   initialState: any,
   validate: any,
-  handleSubmitLogin: SubmitFunction
+  handleSubmitLogin: SubmitFunction | any
 ): FormValidationResult => {
   const [values, setValues] = useState<any>(initialState);
   const [errors, setErrors] = useState<any>({});
@@ -68,5 +68,3 @@ const useFormValidation = (
     resetForm,
   };
 };
-
-export default useFormValidation;

@@ -99,9 +99,27 @@ class ProcessImageItemSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class ContentTextBlockSerializer(serializers.ModelSerializer):
+    FIELD_KEYS = [
+        "slug",
+        "title",
+        "description",
+    ]
+
+    class Meta:
+        model = ContentTextBlock
+        fields = [
+            "id",
+            "slug",
+            "title",
+            "description",
+        ]
+
+
 Feature.serializer_class = FeatureSerializer
 SupportedSites.serializer_class = SupportedSitesSerializer
 ServiceTier.serializer_class = ServiceTierSerializer
 ProcessImageItem.serializer_class = ProcessImageItemSerializer
 ProcessTextItem.serializer_class = ProcessTextItemSerializer
 Benefits.serializer_class = BenefitsSerializer
+ContentTextBlock.serializer_class = ContentTextBlockSerializer

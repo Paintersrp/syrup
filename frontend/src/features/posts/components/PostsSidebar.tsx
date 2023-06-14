@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import './css/PostsSidebar.css';
 
@@ -17,7 +17,7 @@ interface SidebarProps {
   selectedDateFilter: number | null;
 }
 
-export const PostsSidebar: React.FC<SidebarProps> = ({
+export const PostsSidebar: FC<SidebarProps> = ({
   tags,
   handleTagClick,
   selectedTags,

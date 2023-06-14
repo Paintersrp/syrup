@@ -62,22 +62,22 @@ export {
 import type { AlignItemValue, BaseProps, JustifyContentValue } from './Base/Base';
 import type { TextAlign, TextProps, TextType } from './Text/Text';
 import type { TooltipPosition } from './Tooltip/Tooltip';
+import type { TableSizes } from './Table/Table';
 
 export type {
   AlignItemValue,
   BaseProps,
   JustifyContentValue,
+  TableSizes,
   TextAlign,
   TextProps,
   TextType,
   TooltipPosition,
 };
 
-import { useDrawer } from '../../components/Elements/Drawer/hooks/useDrawer';
-import { useLoading } from '../../components/Elements/Loading/hooks/useLoading';
-import { useStepper } from './Stepper/useStepper';
+import { useLoading } from '../../hooks/useLoading';
 
-export { useDrawer, useLoading, useStepper };
+export {  useLoading };
 
 // Prop Maps
 import { alignItemsMap, justifyContentMap } from './Base/Base';

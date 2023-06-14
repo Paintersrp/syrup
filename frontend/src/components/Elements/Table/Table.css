@@ -1,7 +1,6 @@
 .table-container {
   border-radius: 6px;
   overflow: hidden;
-  box-shadow: var(--shadow-1);
 }
 
 .table-root-small {
@@ -19,6 +18,13 @@
 }
 
 .table-root-large {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+.table-root-xlarge {
   width: 100%;
   border-collapse: collapse;
   font-family: Arial, sans-serif;

@@ -2,13 +2,13 @@ import ButtonBar from './ButtonBar/ButtonBar';
 import ConfirmationModal from './ConfirmationModal/ConfirmationModal';
 import ConfirmCancelBar from './ConfirmCancelBar/ConfirmCancelBar';
 import ContactButtons from './ContactButtons/ContactButtons';
+import { DisplayTable } from './DisplayTable/DisplayTable';
 import ErrorDisplay from './ErrorDisplay/ErrorDisplay';
 import { ImageHeader } from './ImageHeader/ImageHeader';
 import { ImageHeaderEdit } from './ImageHeader/ImageHeaderEdit';
 import ManyToManyEdit from './ManyToManyEdit/ManyToManyEdit';
 import ManyToManyField from './ManyToManyEdit/ManyToManyField';
 import { Pagination } from './Pagination/Pagination';
-import usePagination from './Pagination/usePagination';
 import { ScrollToTopFAB } from './ScrollToTopFAB/ScrollToTopFAB';
 import SectionHeader from './SectionHeader/SectionHeader';
 import SocialButtons from './SocialButtons/SocialButtons';
@@ -19,6 +19,7 @@ export {
   ConfirmationModal,
   ConfirmCancelBar,
   ContactButtons,
+  DisplayTable,
   ErrorDisplay,
   ImageHeader,
   ImageHeaderEdit,
@@ -29,7 +30,6 @@ export {
   SectionHeader,
   SocialButtons,
   TransferList,
-  usePagination,
 };
 
 import type { SectionHeaderContent } from './SectionHeader/SectionHeader';

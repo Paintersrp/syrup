@@ -13,20 +13,20 @@ from backend.custom_views import *
 class ServiceFullTestView(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         model_dict = {
-            "ProcessTextItem": {
+            "processText": {
                 "app_label": "services",
                 "model_name": "ProcessTextItem",
             },
-            "ProcessImageItem": {
+            "processImage": {
                 "app_label": "services",
                 "model_name": "ProcessImageItem",
             },
-            "ContactInformation": {
+            "contactInfo": {
                 "app_label": "contact",
                 "model_name": "ContactInformation",
                 "get_first": True,
             },
-            "Socials": {
+            "socials": {
                 "app_label": "contact",
                 "model_name": "Socials",
                 "get_first": True,
@@ -35,11 +35,11 @@ class ServiceFullTestView(generics.GenericAPIView):
                 "app_label": "services",
                 "model_name": "ServiceTier",
             },
-            # "servicesTable": {
-            #     "app_label": "tables",
-            #     "model_name": "ServiceTable",
-            #     "filter": {"name__in": ["Tiers"]},
-            # },
+            "servicesTable": {
+                "app_label": "tables",
+                "model_name": "table",
+                "filter": {"name__in": ["Service Comparison Table"]},
+            },
             # "competitorsTable": {
             #     "app_label": "tables",
             #     "model_name": "ServiceTable",
@@ -57,6 +57,11 @@ class ServiceFullTestView(generics.GenericAPIView):
             "quizData": {
                 "app_label": "quizes",
                 "model_name": "Questionnaire",
+            },
+            "contentText": {
+                "app_label": "services",
+                "model_name": "ContentTextBlock",
+                "filter": {"slug": "service-individual"},
             },
         }
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import './css/PostSidebar.css';
 
@@ -26,7 +26,7 @@ interface PostSidebarProps {
   };
 }
 
-export const PostSidebar: React.FC<PostSidebarProps> = ({
+export const PostSidebar: FC<PostSidebarProps> = ({
   post,
   tags,
   author_details,

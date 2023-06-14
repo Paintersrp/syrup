@@ -16,6 +16,7 @@ type ButtonBarProps = {
   obj?: string | number | null;
   iconColor?: string;
   mt?: CSSProperties['marginTop'];
+  mb?: CSSProperties['marginBottom'];
   dense?: boolean;
 };
 
@@ -29,10 +30,11 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
   obj = null,
   iconColor = 'secondary',
   mt: marginTop,
+  mb: marginBottom,
   dense = 'false',
 }) => {
   return (
-    <Flexer j={justifyContent} mt={marginTop}>
+    <Flexer j={justifyContent} mt={marginTop} mb={marginBottom}>
       {editClick && (
         <Tooltip
           text={obj ? `Edit ${text} Object: ${obj}` : `Edit ${text}`}

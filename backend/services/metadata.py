@@ -248,3 +248,39 @@ QUIZ_METADATA = {
     "filter_options": ["name"],
     "allowed": False,
 }
+
+CONTENT_TEXT_BLOCK_METADATA = {
+    "autoform_label": "Content Text Block",
+    "long_description": "This model represents a content text block used to display a header or a description in the hero section of various pages.",
+    "short_description": "Content Text Block",
+    "pages_associated": {
+        "Landing": "/",
+        "About": "/about",
+        "Services": "/services",
+        "Contact": "/contact",
+        "News": "/news",
+    },
+    "include_preview": True,
+    "icon": "TitleIcon",
+    "icon_class": None,
+    "slug": "content-text-block",
+    "tags": ["About", "Header", "Company"],
+    "related_components": ["ServiceProcess"],
+    "visibility": True,
+    "access_level": "All",
+    "info_dump": {
+        "purpose": "This model represents a content text block used to display a header or a description in the hero section of various pages.",
+        "fields": {
+            "Slug (Identifier)": "The slug field is used to identify the content text block.",
+            "Header": "The title field is used to display the top header of the hero section.",
+            "Description": "The description field is used to display the description of the hero section.",
+        },
+        "model_links": {
+            "Django documentation": "https://docs.djangoproject.com/en/3.2/topics/db/models/",
+            "ContentTextBlock model reference": "/docs/model/contenttextblock/",
+            "General app documentation": "/docs/app/general/",
+        },
+    },
+    "filter_options": ["slug"],
+    "allowed": True,
+}

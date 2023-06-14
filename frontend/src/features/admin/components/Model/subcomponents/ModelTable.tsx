@@ -1,6 +1,7 @@
-import { ConfirmationModal, Pagination, usePagination } from '@/components/Built';
+import { ConfirmationModal, Pagination } from '@/components/Built';
 import { Surface } from '@/components/Containers';
 import { Table, TableContainer } from '@/components/Elements';
+import { usePagination } from '@/hooks';
 
 import React, { useEffect, useState } from 'react';
 import ModelTableBody from './ModelTableBody';

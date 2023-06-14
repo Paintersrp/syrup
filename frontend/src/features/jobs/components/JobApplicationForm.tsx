@@ -5,7 +5,9 @@ import { ButtonBar, ErrorDisplay } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { BaseProps, Text } from '@/components/Elements';
-import { Input, useFormValidation, validateForm } from '@/components/Form';
+import { Input } from '@/components/Form';
+import { useFormValidation } from '@/hooks';
+import { validateForm } from '@/lib';
 import { palettes } from '@/utils';
 
 import {

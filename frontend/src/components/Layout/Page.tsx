@@ -55,11 +55,6 @@ const Page: React.FC<PageProps> = ({
 
   return (
     <Base a="c" fd="column" mt={30} w="100%" minh="80vh" bg={backgroundColor}>
-      {header ? (
-        <Text t={headerType} a={headerAlign}>
-          {header}
-        </Text>
-      ) : null}
       <main
         className={className}
         style={{
@@ -72,6 +67,11 @@ const Page: React.FC<PageProps> = ({
         }}
       >
         <Suspense fallback={<Loading load={true} />}>
+          {header ? (
+            <Text t={headerType} a={headerAlign} mt={56}>
+              {header}
+            </Text>
+          ) : null}
           <SEO data={seoData} />
           {children}
         </Suspense>

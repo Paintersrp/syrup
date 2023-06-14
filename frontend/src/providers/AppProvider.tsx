@@ -1,9 +1,8 @@
-import { Button } from '@/components/Buttons';
-import { Loading, Text } from '@/components/Elements';
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { HelmetProvider } from 'react-helmet-async';
-import { BrowserRouter as Router } from 'react-router-dom';
+
+import { Button } from '@/components/Buttons';
+import { Loading, Text } from '@/components/Elements';
 
 const ErrorFallback = () => {
   return (
@@ -23,16 +22,10 @@ type AppProviderProps = {
   children: React.ReactNode;
 };
 
-export const AppProvider = ({ children }: AppProviderProps) => {
+export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   return (
     <React.Suspense fallback={<Loading load={true} />}>
-      <ErrorBoundary FallbackComponent={ErrorFallback}>
-        <HelmetProvider>
-          {/* <AuthProvider> */}
-          <Router>{children}</Router>
-          {/* </AuthProvider> */}
-        </HelmetProvider>
-      </ErrorBoundary>
+      <ErrorBoundary FallbackComponent={ErrorFallback}>{children}</ErrorBoundary>
     </React.Suspense>
   );
 };

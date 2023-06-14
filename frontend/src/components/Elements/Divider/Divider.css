@@ -1,8 +1,8 @@
-.divider {
+.divider-element {
   width: 100%;
 }
 
-.divider hr {
+.divider-element hr {
   flex-grow: 1;
   border: none;
   margin: 0;

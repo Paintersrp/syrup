@@ -13,6 +13,7 @@ interface IconTextItemProps extends BaseProps {
   subtextColor?: string;
   divider?: boolean;
   textAlign?: TextAlign;
+  fontSize?: CSSProperties['fontSize'];
   iconSize?: CSSProperties['fontSize'];
   onClick?: any;
 }
@@ -26,17 +27,23 @@ const IconTextItem: React.FC<IconTextItemProps> = ({
   subtextColor = palettes.text.secondary,
   divider,
   textAlign,
+  fontSize,
   onClick,
+  fw,
   ...rest
 }) => {
   return (
     <div onClick={onClick && onClick}>
       <Flexer w="auto" {...rest} j="c" a="c">
         {icon && <MaterialIcon icon={icon} mr={6} color={iconColor} size={iconSize} />}
-        <Flexer fd="column" a="c" j="c" style={{ marginRight: 30 }}>
-          {text && <Text a={textAlign}>{text}</Text>}
+        <Flexer fd="column" a="c" j="c" mr={30}>
+          {text && (
+            <Text a={textAlign} s={fontSize} fw={fw}>
+              {text}
+            </Text>
+          )}
           {subtext && (
-            <Text a={textAlign} c={subtextColor}>
+            <Text a={textAlign} c={subtextColor} s={fontSize} fw={fw}>
               {subtext}
             </Text>
           )}

@@ -1,5 +1,5 @@
-import { Dispatch } from "redux";
-import { setAuth, setUser } from "../../../redux";
+import { Dispatch } from 'redux';
+import { setAuth, setUser } from '../../redux';
 
 export interface AuthResponseData {
   data: {
@@ -9,10 +9,7 @@ export interface AuthResponseData {
   };
 }
 
-export default function handleAuth(
-  res: AuthResponseData,
-  dispatch: Dispatch
-): void {
+export default function handleAuth(res: AuthResponseData, dispatch: Dispatch): void {
   dispatch(
     setAuth({
       is_authenticated: res.data.authenticated,

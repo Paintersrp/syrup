@@ -1,16 +1,21 @@
-import { FC } from 'react';
+import { FC, ChangeEvent, Dispatch, SetStateAction } from 'react';
 
-import { breakPoints, useBreakpoint } from '@/utils';
-import { Input } from '@/components/Form';
-import { Container, Flexer, Item, Surface } from '@/components/Containers';
-import { Divider, Text } from '@/components/Elements';
 import { ErrorDisplay } from '@/components/Built';
+import { Container, Flexer, Item, Surface } from '@/components/Containers';
+import { Input } from '@/components/Form';
+import { Divider, Text } from '@/components/Elements';
+import { breakPoints, useBreakpoint } from '@/utils';
 
 type QuestionnaireFormProps = {
-  values: any;
-  handleChange: any;
-  errors: any;
-  setErrors: any;
+  values: {
+    name: string;
+    email: string;
+    phone: string;
+    state: string;
+  };
+  handleChange: (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  errors: string[];
+  setErrors: Dispatch<SetStateAction<string[]>>;
 };
 
 export const QuestionnaireForm: FC<QuestionnaireFormProps> = ({

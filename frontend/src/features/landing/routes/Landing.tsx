@@ -10,8 +10,9 @@ import { useLanding } from '../api/useLanding';
 import { Hero } from '../components/Hero';
 import { IconScroller } from '../components/IconScroller';
 import { Processes } from '../components/Processes';
-import { Services } from '../components/Services';
+
 import { PostCards } from '@/features/posts';
+import { ServiceCards } from '@/features/services';
 
 export const Landing: FC = () => {
   const editMode: boolean = useSelector((state: any) => state.editMode.editMode);
@@ -37,7 +38,7 @@ export const Landing: FC = () => {
         socialsData={data.socials}
       />
       {/* <Services serviceData={data.services} />  */}
-      <Services />
+      <ServiceCards />
       <Processes
         processData={data.processes}
         headerData={data.processHeader[0]}

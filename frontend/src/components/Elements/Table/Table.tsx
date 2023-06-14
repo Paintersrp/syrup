@@ -2,6 +2,7 @@ import React, { ReactNode, CSSProperties } from 'react';
 import './Table.css';
 
 import Text from '../Text/Text';
+import Base, { BaseProps } from '../Base/Base';
 
 type SharedTableProps = {
   children: ReactNode;
@@ -9,15 +10,12 @@ type SharedTableProps = {
   style?: CSSProperties;
 };
 
-type TableContainerProps = SharedTableProps & {
-  mb?: CSSProperties['marginBottom'];
-  mt?: CSSProperties['marginTop'];
-  minWidth?: CSSProperties['minWidth'];
-  br?: CSSProperties['borderRadius'];
-};
+type TableContainerProps = SharedTableProps & BaseProps;
+
+export type TableSizes = 'small' | 'medium' | 'large' | 'xlarge';
 
 type TableProps = SharedTableProps & {
-  size?: 'small' | 'medium' | 'large' | 'xlarge';
+  size?: TableSizes;
 };
 
 type TableCellProps = SharedTableProps & {
@@ -26,28 +24,11 @@ type TableCellProps = SharedTableProps & {
   s?: CSSProperties['fontSize'];
 };
 
-const TableContainer: React.FC<TableContainerProps> = ({
-  children,
-  className,
-  style,
-  mb: marginBottom,
-  mt: marginTop,
-  br: borderRadius,
-  minWidth,
-}) => {
+const TableContainer: React.FC<TableContainerProps> = ({ children, className, style, ...rest }) => {
   return (
-    <div
-      className={`table-container ${className}`}
-      style={{
-        ...style,
-        marginBottom: marginBottom,
-        marginTop: marginTop,
-        minWidth: minWidth,
-        borderRadius: borderRadius,
-      }}
-    >
+    <Base className={`table-container ${className}`} style={style} {...rest}>
       {children}
-    </div>
+    </Base>
   );
 };
 const Table: React.FC<TableProps> = ({ children, className, style, size = 'medium' }) => {

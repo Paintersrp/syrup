@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SectionHeader, SectionHeaderType } from '@/components/Built';
+import { SectionHeader, SectionHeaderContent } from '@/components/Built';
 import { Container, Flexer, Item } from '@/components/Containers';
 import { BaseProps } from '@/components/Elements';
 
@@ -8,7 +8,7 @@ import { Process } from './Process';
 import { ProcessContent } from '../types';
 
 interface ProcessesProps extends BaseProps {
-  headerData: SectionHeaderType | any;
+  headerData: SectionHeaderContent | any;
   processData: ProcessContent[];
   editMode: boolean;
 }

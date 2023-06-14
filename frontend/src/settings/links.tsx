@@ -7,32 +7,39 @@ export interface SiteLinkType {
 
 export const LINKS: SiteLinkType[] = [
   {
-    to: "/",
-    key: "Home",
+    to: '/',
+    key: 'Home',
+    footer: false,
+    navbar: true,
+  },
+  {
+    to: '/about',
+    key: 'About',
     footer: true,
     navbar: true,
   },
   {
-    to: "/about",
-    key: "About",
+    to: '/contact',
+    key: 'Contact',
     footer: true,
     navbar: true,
   },
   {
-    to: "/contact",
-    key: "Contact",
+    to: '/services',
+    key: 'Services',
     footer: true,
     navbar: true,
   },
   {
-    to: "/posts",
-    key: "Posts",
+    to: '/posts',
+    key: 'Posts',
     footer: true,
     navbar: true,
   },
+
   {
-    to: "/WIP",
-    key: "WIP",
+    to: '/WIP',
+    key: 'WIP',
     footer: true,
     navbar: true,
   },

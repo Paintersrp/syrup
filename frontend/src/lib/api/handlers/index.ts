@@ -1,8 +1,8 @@
-import handleApiError from "./handleApiError/handleApiError";
+import handleApiError from './handleApiError';
 export { handleApiError };
 
-import handleAuth from "./handleAuth/handleAuth";
+import handleAuth from './handleAuth';
 export { handleAuth };
 
-import handleClearAuth from "./handleClearAuth/handleClearAuth";
+import handleClearAuth from './handleClearAuth';
 export { handleClearAuth };

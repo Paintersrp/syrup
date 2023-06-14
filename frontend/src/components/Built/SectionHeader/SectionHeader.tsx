@@ -44,7 +44,6 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, editMode, for
     }
   };
 
-  console.log(headerData.alignment);
   const [editing, setEditing] = useState(false);
   const [header, setHeader] = useState<SectionHeaderContent>(headerData);
   const alignClass = getAlignClass(headerData.alignment);
@@ -77,9 +76,9 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, editMode, for
           </Flexer>
 
           {header.description && (
-            <Flexer fd="column">
+            <Flexer fd="column" a="c">
               <FadeOnScroll onScreenPercentage={0.1} animationDuration={2.5}>
-                <Text t="h5" a={alignClass} className="section-header-description">
+                <Text t="h5" a={alignClass} className="section-header-description" w={500}>
                   {header.description}
                 </Text>
               </FadeOnScroll>
@@ -92,26 +91,29 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, editMode, for
           )}
         </>
       ) : (
-        <FadeOnScroll onScreenPercentage={0.1} animationDuration={0.5}>
-          <FormGenerator
-            title={formTitle}
-            endpoint={`sectionheader/${header.name}/`}
-            data={header}
-            onUpdate={updateSectionHeader}
-            handleCancel={() => setEditing(!editing)}
-            width={325}
-            excludeKeys={
-              header.description
-                ? ['name', 'id', 'alignment', 'show_divider']
-                : ['name', 'id', 'alignment', 'show_divider', 'description']
-            }
-            multilineKeys={header.description ? ['description'] : ['']}
-            px={3}
-            py={3}
-            placement="bottom"
-            boxShadow
-          />
-        </FadeOnScroll>
+        <Flexer j="c">
+          <FadeOnScroll onScreenPercentage={0.1} animationDuration={0.5}>
+            <FormGenerator
+              title={formTitle}
+              endpoint={`sectionheader/${header.name}/`}
+              data={header}
+              onUpdate={updateSectionHeader}
+              handleCancel={() => setEditing(!editing)}
+              width={325}
+              excludeKeys={
+                header.description
+                  ? ['name', 'id', 'alignment', 'show_divider']
+                  : ['name', 'id', 'alignment', 'show_divider', 'description']
+              }
+              multilineKeys={header.description ? ['description'] : ['']}
+              px={3}
+              py={3}
+              placement="bottom"
+              boxShadow
+              br={8}
+            />
+          </FadeOnScroll>
+        </Flexer>
       )}
       {editMode && !editing && (
         <ButtonBar

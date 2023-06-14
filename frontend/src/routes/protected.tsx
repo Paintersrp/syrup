@@ -3,7 +3,7 @@ import { Navigate, Outlet } from 'react-router-dom';
 
 import { Loading } from '@/components/Elements';
 
-const App = () => {
+const ProtectedOutlet = () => {
   return (
     <Suspense fallback={<Loading load={true} />}>
       <Outlet />
@@ -14,7 +14,7 @@ const App = () => {
 export const protectedRoutes = [
   {
     path: '/app',
-    element: <App />,
+    element: <ProtectedOutlet />,
     children: [{ path: '*', element: <Navigate to="." /> }],
   },
 ];

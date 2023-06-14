@@ -38,6 +38,22 @@ class Column(models.Model):
         related_name="columns",
         verbose_name="Table",
     )
+    icon = CustomCharField(
+        max_length=40,
+        xs_column_count=12,
+        md_column_count=12,
+        verbose_name="Icon",
+        help_text="Select Icon",
+        blank=True,
+    )
+    link = CustomCharField(
+        max_length=100,
+        xs_column_count=12,
+        md_column_count=12,
+        verbose_name="Link",
+        help_text="Link Path",
+        blank=True,
+    )
 
     def __str__(self):
         return self.name

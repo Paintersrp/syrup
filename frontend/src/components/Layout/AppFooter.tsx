@@ -70,7 +70,7 @@ const AppFooter: FC = ({}) => {
             </Flexer>
           </Flexer>
           <Flexer className="footer-item" key="footer-links">
-            <Flexer fd="column">
+            <Flexer fd="column" j="c" a="c">
               {LINKS.map((link) => {
                 if (!link.footer) {
                   return null;

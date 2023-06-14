@@ -4,8 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Container, Item, Surface } from '@/components/Containers';
 import { IconMixin, ImageMixin } from './mixins';
 import { BaseProps, Text } from '@/components/Elements';
-import { axios } from '@/lib';
-import { validateForm } from './hooks';
+import { axios, validateForm } from '@/lib';
 import Input from '../Input/Input';
 import { ConfirmCancelBar, ErrorDisplay } from '@/components/Built';
 
@@ -51,7 +50,7 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
   fade = false,
   ...rest
 }) => {
-  const [errors, setErrors] = useState<any>(null);
+  const [errors, setErrors] = useState<any>([]);
   const [state, setState] = useState({ ...data });
   const [newImage, setNewImage] = useState<any>(null);
   const [newImageName, setNewImageName] = useState<any>(null);
@@ -81,6 +80,7 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
   };
 
   const handleSubmit = async (e: FormEvent) => {
+    console.log('yup');
     e.preventDefault();
     setErrors(validateForm(state));
 

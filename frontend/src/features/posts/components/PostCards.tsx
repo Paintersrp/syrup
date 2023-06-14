@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import { FC, Fragment } from 'react';
 
 import { Carousel } from '@/components/Animation';
 import { ConfirmationModal, SectionHeader, SectionHeaderContent } from '@/components/Built';
@@ -10,6 +9,7 @@ import { palettes } from '@/utils';
 
 import { PostCard } from './PostCard';
 import { PostContent } from '@/features/posts/types';
+import { useConfirm } from '@/hooks/useConfirm';
 interface PostCardsProps extends BaseProps {
   posts: PostContent[];
   header: SectionHeaderContent | any;
@@ -17,39 +17,14 @@ interface PostCardsProps extends BaseProps {
   editMode: boolean;
 }
 
-export const PostCards: React.FC<PostCardsProps> = ({
+export const PostCards: FC<PostCardsProps> = ({
   posts,
   header,
   carousel = false,
   editMode,
   ...rest
 }) => {
-  const [selectedId, setSelectedId] = useState<number>();
-  const [open, setOpen] = useState<boolean>(false);
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleConfirmDelete = () => {
-    if (selectedId) {
-      confirmedDelete(selectedId);
-      handleClose();
-    }
-  };
-
-  const handleDelete = (id: number) => {
-    handleOpen();
-    setSelectedId(id);
-  };
-
-  const confirmedDelete = async (id: number) => {
-    await axios.delete(`http://localhost:8000/api/post/${id}/`);
-  };
+  const { open, handleClose, handleConfirm, handleDelete } = useConfirm('post');
 
   return (
     <Flexer j="c">
@@ -72,7 +47,7 @@ export const PostCards: React.FC<PostCardsProps> = ({
               ))}
             </Carousel>
           ) : (
-            <React.Fragment>
+            <Fragment>
               {posts.map((post) => (
                 <PostCard
                   key={post.id}
@@ -81,13 +56,13 @@ export const PostCards: React.FC<PostCardsProps> = ({
                   editMode={editMode}
                 />
               ))}
-            </React.Fragment>
+            </Fragment>
           )}
         </Container>
         <ConfirmationModal
           open={open}
           handleClose={handleClose}
-          handleConfirm={handleConfirmDelete}
+          handleConfirm={handleConfirm}
           message="Are you sure you want to delete this Post?"
         />
       </Flexer>

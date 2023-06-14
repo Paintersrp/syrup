@@ -5,7 +5,9 @@ import { ButtonBar, ErrorDisplay, SocialButtons } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Flexer, Item, Surface } from '@/components/Containers';
 import { BaseProps, Text } from '@/components/Elements';
-import { Input, Option, Select, useFormValidation, validateForm } from '@/components/Form';
+import { Input, Option, Select } from '@/components/Form';
+import { useFormValidation } from '@/hooks';
+import { validateForm } from '@/lib';
 import { SocialType } from '@/settings';
 
 import {

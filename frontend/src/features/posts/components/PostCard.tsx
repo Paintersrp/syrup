@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import './css/PostCard.css';
@@ -21,7 +21,7 @@ interface PostCardProps extends BaseProps {
   editMode: boolean | undefined;
 }
 
-export const PostCard: React.FC<PostCardProps> = ({ post, handleDelete, editMode, ...rest }) => {
+export const PostCard: FC<PostCardProps> = ({ post, handleDelete, editMode, ...rest }) => {
   const navigate = useNavigate();
 
   const renderPostContent = () => {
