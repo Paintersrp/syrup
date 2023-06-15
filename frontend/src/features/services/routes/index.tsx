@@ -1,26 +1,14 @@
-import { Suspense } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { Loading } from '@/components/Elements';
 import { Services } from './Services';
 import { Service } from './Service';
 
-const ServicesOutlet = () => {
+export const ServicesRoutes = () => {
   return (
-    <Suspense fallback={<Loading load={true} />}>
-      <Outlet />
-    </Suspense>
+    <Routes>
+      <Route path="" element={<Services />} />
+      <Route path=":id" element={<Service />} />
+      <Route path="*" element={<Navigate to="." />} />
+    </Routes>
   );
 };
-
-export const servicesRoutes = [
-  {
-    path: '/services',
-    element: <ServicesOutlet />,
-    children: [
-      { path: '', element: <Services /> },
-      { path: ':id', element: <Service /> },
-      { path: '*', element: <Navigate to="." /> },
-    ],
-  },
-];

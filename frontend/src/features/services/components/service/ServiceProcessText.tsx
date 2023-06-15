@@ -1,7 +1,8 @@
+import { FC, useEffect, useState } from 'react';
+
 import { ButtonBar } from '@/components/Built';
 import { Base } from '@/components/Elements';
 import { IconTextItem } from '@/components/Media';
-import { FC, useEffect, useState } from 'react';
 
 type ServiceProcessTextProps = {
   textItem: any;

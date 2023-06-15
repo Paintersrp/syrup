@@ -1,30 +1,23 @@
-import { axios } from '@/lib';
-import { SetErrorFn } from '@/types';
+import { useQuery } from 'react-query';
 
-import { PostContent, PostsContent, PostsResponse } from '../types';
+import { axios } from '@/lib/api';
+
+import { PostContent, PostsContent } from '../types';
 
 export type SetPostsDataFn = (data: PostsContent) => void;
 
-export const getPosts = (): Promise<PostsResponse> => {
-  return axios.get<PostContent[]>(`/post/`);
+export const getPosts = async () => {
+  const response = await axios.get<PostContent[]>(`/post/`);
+  return response.data;
 };
 
-export const setPosts = (data: PostsContent, setData: SetPostsDataFn): void => {
-  setData({
-    posts: data.posts,
-    tags: data.tags,
-  });
-};
+export const usePosts = () => {
+  const { data, error, isLoading } = useQuery<PostContent[], Error>('posts', getPosts);
 
-export const usePosts = async (setData: SetPostsDataFn, setError: SetErrorFn) => {
-  try {
-    const response = await getPosts();
-    const postsContent: PostsContent = {
-      posts: response.data,
-      tags: response.data[0].tags_options,
-    };
-    setPosts(postsContent, setData);
-  } catch (error) {
-    setError(error);
-  }
+  return {
+    data: data ?? [],
+    tags: data ? data[0]?.tags_options ?? [] : [],
+    isLoading,
+    error,
+  };
 };

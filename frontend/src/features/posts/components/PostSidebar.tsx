@@ -9,7 +9,7 @@ import { Media } from '@/components/Media';
 import { palettes } from '@/utils';
 
 import { PostContent } from '../types';
-import { getReadTime } from '@/lib';
+import { getReadTime } from '@/lib/api';
 
 interface PostSidebarProps {
   post: PostContent;

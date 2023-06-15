@@ -1,6 +1,6 @@
 import { Flexer, Item } from '@/components/Containers';
 import { HelpText } from '@/components/Elements';
-import { axios } from '@/lib';
+import { axios } from '@/lib/api';
 import React, { useEffect, useState } from 'react';
 import ForeignKeySelect from './ForeignKeySelect';
 

@@ -1,4 +1,4 @@
-import { axios } from '@/lib';
+import { axios } from '@/lib/api';
 import { SetErrorFn } from '@/types';
 
 import { ServiceContent, ServiceResponse, ServiceType } from '../types';
@@ -25,6 +25,7 @@ export const setServices = (data: ServiceContent, setData: SetServicesDataFn): v
     benefitsHeader: data.benefitsHeader,
   });
 };
+
 export const setService = (
   data: ServiceContent,
   setData: SetServiceDataFn,
@@ -56,5 +57,6 @@ export const useServices = async (
     }
   } catch (error) {
     setError(error);
+    console.log('error', error);
   }
 };

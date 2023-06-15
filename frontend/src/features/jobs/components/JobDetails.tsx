@@ -5,6 +5,7 @@ import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item } from '@/components/Containers';
 import { BaseProps, Text } from '@/components/Elements';
 import { FormGenerator } from '@/components/Form';
+import { useApp } from '@/hooks';
 import { breakPoints, palettes, useBreakpoint } from '@/utils';
 
 import { JobContent } from '../types';
@@ -12,15 +13,10 @@ import { JobContent } from '../types';
 interface JobDetailsProps extends BaseProps {
   job: JobContent;
   handleApplyNowClick: () => void;
-  editMode: boolean;
 }
 
-export const JobDetails: FC<JobDetailsProps> = ({
-  job,
-  handleApplyNowClick,
-  editMode,
-  ...rest
-}) => {
+export const JobDetails: FC<JobDetailsProps> = ({ job, handleApplyNowClick, ...rest }) => {
+  const { editMode }: any = useApp();
   const isSmallScreen = useBreakpoint(breakPoints.xs);
   const [jobData, setJobData] = useState(job);
   const [editing, setEditing] = useState(false);

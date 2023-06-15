@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React, { ReactNode, CSSProperties } from 'react';
 import { Base, BaseProps } from '../Elements';
 
@@ -6,7 +7,7 @@ interface FlexerProps extends BaseProps {
   grow?: boolean;
   wrap?: boolean;
   gap?: CSSProperties['gap'];
-  children?: ReactNode;
+  children?: any;
   style?: CSSProperties;
   className?: string;
   noSpacing?: boolean;
@@ -27,7 +28,8 @@ const Flexer: React.FC<FlexerProps> = ({
   return (
     <Base
       {...rest}
-      className={`${className} ${fade ? 'fade-in' : ''}`}
+      // className={`${className} ${fade ? 'fade-in' : ''}`}
+      className={clsx(className, fade ? 'fade-in' : '')}
       style={{
         ...style,
         width: width,

@@ -2,8 +2,9 @@ import bcrypt from 'bcryptjs';
 import Cookies from 'js-cookie';
 import { Dispatch } from 'redux';
 
-import { axios, setAuth, setUser } from '@/lib';
+import { axios } from '@/lib/api';
 import { SetErrorFn } from '@/types';
+
 import { dispatchAuth, getUser, hashPassword } from './useLogin';
 
 const createSalt = async (rounds: number = 12): Promise<string> => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import { ButtonBar } from '@/components/Built';
 import { Container, Flexer } from '@/components/Containers';
@@ -6,13 +6,15 @@ import { BaseProps, Text } from '@/components/Elements';
 
 import { Member } from './Member';
 import { MemberContent } from '../types';
+import { useApp } from '@/hooks';
 
 interface MembersProps extends BaseProps {
   membersData: MemberContent[];
-  editMode: boolean;
 }
 
-export const Members: React.FC<MembersProps> = ({ membersData, editMode, ...rest }) => {
+export const Members: FC<MembersProps> = ({ membersData, ...rest }) => {
+  const { editMode } = useApp();
+  
   return (
     <Flexer j="c" mt={40} {...rest}>
       <Flexer j="c" a="c" fd="column" mb={24} style={{ maxWidth: 900 }}>

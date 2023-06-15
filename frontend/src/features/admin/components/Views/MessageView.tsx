@@ -4,7 +4,7 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 import { Page } from '@/components/Layout';
 import { Flexer, Surface } from '@/components/Containers';
 import { Breadcrumbs, Text, Tooltip, useLoading } from '@/components/Elements';
-import { axios } from '@/lib';
+import { axios } from '@/lib/api';
 import { breakPoints, useBreakpoint } from '@/utils';
 import Message from './Message';
 

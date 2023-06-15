@@ -25,12 +25,10 @@ const ContactButtons: React.FC<ContactButtonsProps> = ({
   return (
     <Flexer j="c" mt={marginTop} mb={marginBottom}>
       <Button
-        textSize={size === 'md' ? '0.9rem' : '0.8rem'}
-        iconSize={size === 'md' ? '18px' : '16px'}
         size={size}
         startIcon="phone"
         href={`tel:${contactData?.phone || ''}`}
-        w={size === 'md' ? 100 : size === 'sm' ? 85 : 100}
+        w={size === 'md' ? 105 : size === 'sm' ? 85 : size === 'tiny' ? 75 : 110}
         mr={4}
         manualHover={palettes.primary.light}
         style={{ borderRadius: borderRadius }}
@@ -38,12 +36,10 @@ const ContactButtons: React.FC<ContactButtonsProps> = ({
         Call Us
       </Button>
       <Button
-        textSize={size === 'md' ? '0.9rem' : '0.8rem'}
-        iconSize={size === 'md' ? '18px' : '16px'}
         size={size}
         startIcon="email"
         href={`mailto:${contactData?.email || ''}`}
-        w={size === 'md' ? 100 : size === 'sm' ? 85 : 100}
+        w={size === 'md' ? 105 : size === 'sm' ? 85 : size === 'tiny' ? 75 : 110}
         ml={4}
         manualHover={palettes.primary.light}
         style={{ borderRadius: borderRadius }}

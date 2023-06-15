@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { ButtonBar } from '@/components/Built';
 import { IconButton } from '@/components/Buttons';
@@ -12,11 +12,11 @@ import { MemberContent } from '../types';
 
 interface MemberProps extends BaseProps {
   member: MemberContent;
-  editMode?: boolean;
+  editMode?: any;
   newImage?: any;
 }
 
-export const Member: React.FC<MemberProps> = ({ member, editMode = false, newImage, ...rest }) => {
+export const Member: FC<MemberProps> = ({ member, editMode = false, newImage, ...rest }) => {
   const [editing, setEditing] = useState(false);
   const [memberData, setMemberData] = useState(member);
 

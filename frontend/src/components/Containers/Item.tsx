@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import './css/Item.css';
 
 import { Base, BaseProps } from '../Elements';
@@ -52,7 +53,7 @@ const Item: React.FC<ItemProps> = ({
   };
 
   return (
-    <Base className={`item ${className}`} style={itemStyle} {...rest}>
+    <Base className={clsx('item', className)} style={itemStyle} {...rest}>
       {children}
     </Base>
   );

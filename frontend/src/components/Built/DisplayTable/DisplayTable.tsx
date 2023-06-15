@@ -122,7 +122,7 @@ export const DisplayTable: FC<DisplayTableProps> = ({
                     ) : (
                       <Link to={column.link}>
                         <Tooltip key={column.id} text="Enterprise Tier Page" position="bottom">
-                          <Button startIcon="link" w={110}>
+                          <Button size="sm" startIcon="link" w={100}>
                             Learn More
                           </Button>
                         </Tooltip>

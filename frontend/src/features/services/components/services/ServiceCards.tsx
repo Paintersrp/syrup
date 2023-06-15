@@ -47,7 +47,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service, ...rest }) =>
       </Flexer>
       <Flexer j="c" mt={10} mb={20}>
         <Link to={`/services/${service.id}`}>
-          <Button startIcon="link" w={110} color="secondary">
+          <Button size="sm" startIcon="link" w={110} color="secondary">
             Learn More
           </Button>
         </Link>

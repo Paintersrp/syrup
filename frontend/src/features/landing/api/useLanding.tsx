@@ -1,32 +1,28 @@
-import { axios } from '@/lib';
-import { SetErrorFn } from '@/types';
+import { useQuery } from 'react-query';
 
-import { LandingContent, LandingResponse } from '../types';
+import { axios, ExtractFnReturnType, QueryConfig } from '@/lib/api';
+
+import { LandingContent } from '../types';
 
 export type SetLandingDataFn = (data: LandingContent) => void;
 
-export const getLanding = (): Promise<LandingResponse> => {
-  return axios.get<LandingContent>(`/landing/`);
+export const getLanding = async (): Promise<LandingContent> => {
+  const response = await axios.get<LandingContent>(`/landing/`);
+  return response.data;
 };
 
-export const setLanding = (data: LandingContent, setData: SetLandingDataFn): void => {
-  setData({
-    hero: data.hero,
-    socials: data.socials,
-    contactInfo: data.contactInfo,
-    processes: data.processes,
-    processHeader: data.processHeader,
-    posts: data.posts,
-    postsHeader: data.postsHeader,
-    services: data.services,
+type QueryFnType = typeof getLanding;
+
+type UseLandingOptions = {
+  config?: QueryConfig<QueryFnType>;
+};
+
+export const useLanding = ({ config }: UseLandingOptions = {}) => {
+  const landingQuery = useQuery<ExtractFnReturnType<QueryFnType>>({
+    ...config,
+    queryKey: ['landing'],
+    queryFn: () => getLanding(),
   });
-};
 
-export const useLanding = async (setData: SetLandingDataFn, setError: SetErrorFn) => {
-  try {
-    const response = await getLanding();
-    setLanding(response.data, setData);
-  } catch (error) {
-    setError(error);
-  }
+  return landingQuery;
 };

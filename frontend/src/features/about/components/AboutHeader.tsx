@@ -1,28 +1,27 @@
-import { useState, FC } from 'react';
+import { useState, FC, useEffect } from 'react';
 
 import { ButtonBar, ImageHeader, ImageHeaderEdit } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
 import { Base, BaseProps } from '@/components/Elements';
+import { useApp } from '@/hooks';
+
 import { ImageHeaderType } from '../types';
 
 interface ParagraphProps extends BaseProps {
   data: ImageHeaderType;
-  editMode?: boolean;
-  onUpdate: (update: any) => void;
-  setError: any;
 }
 
-export const AboutHeader: FC<ParagraphProps> = ({
-  data,
-  editMode,
-  onUpdate,
-  setError,
-  ...rest
-}) => {
+export const AboutHeader: FC<ParagraphProps> = ({ data, ...rest }) => {
+  const { editMode } = useApp();
+  const [headerData, setHeaderData] = useState<ImageHeaderType>(data);
   const [edit, setEdit] = useState(false);
 
+  useEffect(() => {
+    setHeaderData(data);
+  }, [data]);
+
   const handleUpdate = (updateData: any) => {
-    onUpdate(updateData);
+    setHeaderData(updateData);
     setEdit(false);
   };
 
@@ -34,13 +33,12 @@ export const AboutHeader: FC<ParagraphProps> = ({
         </Flexer>
       )}
       {!edit ? (
-        <ImageHeader header={`About ${data.title}`} src={data.image} fade />
+        <ImageHeader header={`About ${headerData.title}`} src={headerData.image} fade />
       ) : (
         <ImageHeaderEdit
-          data={data}
+          data={headerData}
           onUpdate={handleUpdate}
           handleCancel={() => setEdit(!edit)}
-          setError={setError}
         />
       )}
     </Base>

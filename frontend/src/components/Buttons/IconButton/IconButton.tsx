@@ -11,7 +11,7 @@ type Shade = 'light' | 'dark' | 'main';
 
 export type IconButtonSize = 't' | 'tiny' | 'sm' | 'small' | 'md' | 'medium' | 'lg' | 'large';
 
-interface IconButtonProps {
+export interface IconButtonProps {
   size?: IconButtonSize;
   fontSize?: CSSProperties['fontSize'];
   shade?: Shade;

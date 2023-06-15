@@ -3,7 +3,7 @@ import { FC } from 'react';
 import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Text, Tooltip } from '@/components/Elements';
-import { formatDate, getReadTime } from '@/lib';
+import { formatDate, getReadTime } from '@/lib/api';
 import { palettes } from '@/utils';
 
 import { PostContent } from '../types';

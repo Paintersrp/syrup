@@ -27,7 +27,3 @@ export type PostsContent = {
   posts: PostContent[];
   tags: PostTag[];
 };
-
-export type PostsResponse = {
-  data: PostContent[];
-};

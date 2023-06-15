@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './MainDashboard.css';
 
 import { Breadcrumbs, Text, useLoading } from '@/components/Elements';
-import { axios } from '@/lib';
+import { axios } from '@/lib/api';
 import { Page } from '@/components/Layout';
 import { Container, Flexer, Surface } from '@/components/Containers';
 import { IconButton } from '@/components/Buttons';

@@ -19,7 +19,7 @@ const AppFooter: FC = ({}) => {
   const [data, setData] = useState<Data>({ email: '' });
 
   return (
-    <div className="footer-root">
+    <footer className="footer-root">
       <div className="footer-container">
         <Flexer mb={0} j="c">
           <Tooltip text="View Home Page" position="right">
@@ -95,7 +95,7 @@ const AppFooter: FC = ({}) => {
             <Text t="h5" a="c" style={{ marginBottom: 2 }}>
               Connect with Us
             </Text>
-            <Flexer j="c" a="c">
+            <Flexer j="c" a="c" wrap>
               {SOCIALS.map((platform) => {
                 if (platform.handle) {
                   return (
@@ -123,7 +123,7 @@ const AppFooter: FC = ({}) => {
           © 2023 {TITLE}. All rights reserved.
         </Text>
       </div>
-    </div>
+    </footer>
   );
 };
 

@@ -5,16 +5,17 @@ import { Container, Flexer, Item } from '@/components/Containers';
 import { Base, Divider, Text } from '@/components/Elements';
 import { FormGenerator } from '@/components/Form';
 import { Media } from '@/components/Media';
+import { useApp } from '@/hooks';
 import { palettes } from '@/utils';
 
 import { ServiceType } from '../../types';
 
 type ServiceAboutProps = {
   data: ServiceType;
-  editMode: boolean;
 };
 
-export const ServiceAbout: FC<ServiceAboutProps> = ({ data, editMode }) => {
+export const ServiceAbout: FC<ServiceAboutProps> = ({ data }) => {
+  const { editMode }: any = useApp();
   const [aboutData, setAboutData] = useState(data);
   const [editing, setEditing] = useState(false);
 
@@ -28,7 +29,7 @@ export const ServiceAbout: FC<ServiceAboutProps> = ({ data, editMode }) => {
   };
 
   return (
-    <Base>
+    <Base mb={64}>
       {!editing && editMode && (
         <ButtonBar
           justifyContent="flex-end"
@@ -41,25 +42,27 @@ export const ServiceAbout: FC<ServiceAboutProps> = ({ data, editMode }) => {
       )}
       {!editing ? (
         <Container j="fs" a="fs" mb={24}>
-          <Item xs={12} sm={12} md={12} lg={6} fd="column">
-            <Text t="h5" a="c" c={palettes.primary.main}>
-              About Our {aboutData.service_title} Service
-            </Text>
-            <Divider mt={8} mb={8} />
-            <Text t="body1" mb={8}>
-              {aboutData.paragraph_one}
-            </Text>
-            <Text t="body1" mb={8}>
-              {aboutData.paragraph_two}
-            </Text>
-            <Text t="body1" mb={16}>
-              {aboutData.paragraph_three}
-            </Text>
+          <Item xs={12} sm={12} md={12} lg={6}>
+            <Flexer fd="column" w="85%">
+              <Text t="h5" a="c" c={palettes.primary.main}>
+                About Our {aboutData.service_title} Service
+              </Text>
+              <Divider mt={8} mb={8} />
+              <Text t="body1" mb={8}>
+                {aboutData.paragraph_one}
+              </Text>
+              <Text t="body1" mb={8}>
+                {aboutData.paragraph_two}
+              </Text>
+              <Text t="body1" mb={16}>
+                {aboutData.paragraph_three}
+              </Text>
+            </Flexer>
           </Item>
-          <Item xs={12} sm={12} md={12} lg={6} align="flex-start" pl={12}>
-            <div style={{ minWidth: '100%', maxHeight: 300 }}>
+          <Item xs={12} sm={12} md={12} lg={6} align="flex-start">
+            <Base minw="85%" bs={1} br={8}>
               <Media src={aboutData.image} altText={aboutData.service_title} />
-            </div>
+            </Base>
           </Item>
         </Container>
       ) : (

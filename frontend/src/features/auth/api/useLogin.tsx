@@ -2,7 +2,8 @@ import bcrypt from 'bcryptjs';
 import Cookies from 'js-cookie';
 import { Dispatch } from 'redux';
 
-import { axios, setAuth, setUser } from '@/lib';
+import { axios } from '@/lib/api';
+import { setAuth, setUser } from '@/lib/redux';
 import { SetErrorFn } from '@/types';
 
 import { AuthContent, AuthResponse, LoginFormDTO } from '../types';

@@ -2,9 +2,11 @@
   background-color: var(--color-primary-main);
   color: #fff;
   padding: 16px 0px 6px 0px;
+  width: 100vw;
 }
 
 .footer-container {
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
   text-align: center;

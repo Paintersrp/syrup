@@ -12,7 +12,3 @@ export type JobContent = {
   responsibilities: string;
   filled: boolean;
 };
-
-export type JobResponse = {
-  data: JobContent[];
-};

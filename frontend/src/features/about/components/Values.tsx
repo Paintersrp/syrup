@@ -2,18 +2,19 @@ import React, { useEffect, useState } from 'react';
 
 import { ButtonBar } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
-import { Base, BaseProps, Text } from '@/components/Elements';
+import { Base, BaseProps, Loading, Text } from '@/components/Elements';
 
 import { ValueType } from '../types';
 import { Value } from './Value';
 import './css/Values.css';
+import { useApp } from '@/hooks';
 
 interface ValuesProps extends BaseProps {
   valuesData: ValueType[];
-  editMode: boolean;
 }
 
-export const Values: React.FC<ValuesProps> = ({ valuesData, editMode, ...rest }) => {
+export const Values: React.FC<ValuesProps> = ({ valuesData, ...rest }) => {
+  const { editMode } = useApp();
   const [loading, setLoading] = useState(true);
   const [rowOne, setRowOne] = useState<ValueType[] | null>(null);
   const [rowTwo, setRowTwo] = useState<ValueType[] | null>(null);
@@ -37,7 +38,7 @@ export const Values: React.FC<ValuesProps> = ({ valuesData, editMode, ...rest })
   }, [valuesData]);
 
   if (loading) {
-    return null;
+    return <Loading load={true} />;
   }
 
   return (
@@ -51,13 +52,13 @@ export const Values: React.FC<ValuesProps> = ({ valuesData, editMode, ...rest })
         <Flexer fd="column" j="fs">
           {rowOne &&
             rowOne.map((value, index) => (
-              <Value key={value.id} value={value} index={index} start={0} editMode={editMode} />
+              <Value key={value.id} value={value} index={index} start={0} />
             ))}
         </Flexer>
         <Flexer fd="column" j="fs">
           {rowTwo &&
             rowTwo.map((value, index) => (
-              <Value key={value.id} value={value} index={index} start={1} editMode={editMode} />
+              <Value key={value.id} value={value} index={index} start={1} />
             ))}
         </Flexer>
       </Flexer>

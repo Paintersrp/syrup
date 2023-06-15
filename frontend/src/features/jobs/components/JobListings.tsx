@@ -5,6 +5,7 @@ import { ButtonBar } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { BaseProps, Divider, Text, Tooltip } from '@/components/Elements';
+import { useApp } from '@/hooks';
 import { breakPoints, palettes, useBreakpoint } from '@/utils';
 
 import { JobContent } from '../types';
@@ -14,7 +15,6 @@ interface JobListingsProps extends BaseProps {
   header?: string;
   subheader?: string;
   currentId?: number | null;
-  editMode?: boolean;
 }
 
 export const JobListings: FC<JobListingsProps> = ({
@@ -22,9 +22,9 @@ export const JobListings: FC<JobListingsProps> = ({
   header = 'Jobs',
   subheader = 'Interested in joining our team? See our open positions below.',
   currentId = null,
-  editMode,
   ...rest
 }) => {
+  const { editMode }: any = useApp();
   const isSmallScreen = useBreakpoint(breakPoints.sm);
 
   return (
@@ -73,10 +73,10 @@ export const JobListings: FC<JobListingsProps> = ({
                   </Text>
                   {currentId !== jobPosting.id ? (
                     <Tooltip text={`Apply Now - ${jobPosting.position}`} position="bottom">
-                      <Link to={`/jobposting/${jobPosting.id}`}>
+                      <Link to={`/jobs/${jobPosting.id}`}>
                         <Button
                           color={index % 2 === 0 ? palettes.secondary.dark : palettes.primary.main}
-                          size="medium"
+                          size="md"
                         >
                           Apply
                         </Button>
@@ -84,7 +84,7 @@ export const JobListings: FC<JobListingsProps> = ({
                     </Tooltip>
                   ) : (
                     <Button
-                      size="medium"
+                      size="md"
                       disabled
                       color={index % 2 === 0 ? palettes.secondary.dark : palettes.primary.main}
                     >

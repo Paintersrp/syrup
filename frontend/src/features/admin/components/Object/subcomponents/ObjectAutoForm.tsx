@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { breakPoints, palettes, useBreakpoint } from '@/utils';
-import { axios } from '@/lib';
+import { axios } from '@/lib/api';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { Divider, Text, Tooltip } from '@/components/Elements';
 import { Button } from '@/components/Buttons';

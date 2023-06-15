@@ -1,38 +1,39 @@
-import React, { CSSProperties, ReactNode } from "react";
+import React, { CSSProperties, ReactNode } from 'react';
 
 export type TextType =
-  | "h1"
-  | "h2"
-  | "h3"
-  | "h4"
-  | "h5"
-  | "h6"
-  | "subtitle1"
-  | "subtitle2"
-  | "body1"
-  | "body2"
-  | "button";
+  | 'h1'
+  | 'h2'
+  | 'h3'
+  | 'h4'
+  | 'h5'
+  | 'h6'
+  | 'subtitle1'
+  | 'subtitle2'
+  | 'body1'
+  | 'body2'
+  | 'button';
 
-export type AlignmentValue = "l" | "left" | "r" | "right" | "c" | "center";
-export type TextAlign = "left" | "right" | "center";
+export type AlignmentValue = 'l' | 'left' | 'r' | 'right' | 'c' | 'center';
+export type TextAlign = 'left' | 'right' | 'center';
 
 export interface TextProps {
   t?: TextType;
-  mt?: CSSProperties["marginTop"];
-  mb?: CSSProperties["marginBottom"];
-  mr?: CSSProperties["marginRight"];
-  ml?: CSSProperties["marginLeft"];
-  pt?: CSSProperties["paddingTop"];
-  pl?: CSSProperties["paddingLeft"];
-  s?: CSSProperties["fontSize"];
-  fw?: CSSProperties["fontWeight"];
+  mt?: CSSProperties['marginTop'];
+  mb?: CSSProperties['marginBottom'];
+  mr?: CSSProperties['marginRight'];
+  ml?: CSSProperties['marginLeft'];
+  pt?: CSSProperties['paddingTop'];
+  pl?: CSSProperties['paddingLeft'];
+  s?: CSSProperties['fontSize'];
+  fw?: CSSProperties['fontWeight'];
   a?: AlignmentValue;
-  w?: CSSProperties["width"];
+  w?: CSSProperties['width'];
   u?: boolean;
+  uo?: CSSProperties['textUnderlineOffset'];
   children?: ReactNode;
   className?: string;
   style?: CSSProperties;
-  c?: string;
+  c?: CSSProperties['color'] | string;
   dangerouslySetInnerHTML?: {
     __html: string;
   };
@@ -40,12 +41,12 @@ export interface TextProps {
 
 const alignSwitch = (value: AlignmentValue): TextAlign | undefined => {
   const alignmentMap: Record<AlignmentValue, TextAlign> = {
-    l: "left",
-    left: "left",
-    r: "right",
-    right: "right",
-    c: "center",
-    center: "center",
+    l: 'left',
+    left: 'left',
+    r: 'right',
+    right: 'right',
+    c: 'center',
+    center: 'center',
   };
 
   return alignmentMap[value] || undefined;
@@ -53,31 +54,31 @@ const alignSwitch = (value: AlignmentValue): TextAlign | undefined => {
 
 const typeSwitch = (type: TextType): keyof JSX.IntrinsicElements => {
   switch (type) {
-    case "h1":
-      return "h1";
-    case "h2":
-      return "h2";
-    case "h3":
-      return "h3";
-    case "h4":
-      return "h4";
-    case "h5":
-      return "h5";
-    case "h6":
-      return "h6";
-    case "subtitle1":
-    case "subtitle2":
-    case "body1":
-    case "body2":
-    case "button":
-      return "p";
+    case 'h1':
+      return 'h1';
+    case 'h2':
+      return 'h2';
+    case 'h3':
+      return 'h3';
+    case 'h4':
+      return 'h4';
+    case 'h5':
+      return 'h5';
+    case 'h6':
+      return 'h6';
+    case 'subtitle1':
+    case 'subtitle2':
+    case 'body1':
+    case 'body2':
+    case 'button':
+      return 'p';
     default:
-      return "p";
+      return 'p';
   }
 };
 
 const Text: React.FC<TextProps> = ({
-  t: type = "body1",
+  t: type = 'body1',
   mt: marginTop,
   mb: marginBottom,
   mr: marginRight,
@@ -86,9 +87,10 @@ const Text: React.FC<TextProps> = ({
   pl: paddingLeft,
   s: fontSize,
   fw: fontWeight,
-  a: align = "left",
-  w: width = "100%",
+  a: align = 'left',
+  w: width = '100%',
   u: underline = false,
+  uo: textUnderlineOffset = 4,
   children,
   className,
   style,
@@ -100,7 +102,7 @@ const Text: React.FC<TextProps> = ({
   return (
     <Component
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
-      className={`${type} ${className || ""}`}
+      className={`${type} ${className || ''}`}
       style={{
         marginBottom: marginBottom && marginBottom,
         marginTop: marginTop && marginTop,
@@ -113,8 +115,8 @@ const Text: React.FC<TextProps> = ({
         textAlign: alignSwitch(align),
         width: width,
         color: color && color,
-        textDecoration: underline ? "underline" : "",
-        textUnderlineOffset: 4,
+        textDecoration: underline ? 'underline' : '',
+        textUnderlineOffset: textUnderlineOffset,
         ...style,
       }}
     >

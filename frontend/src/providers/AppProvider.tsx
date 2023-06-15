@@ -1,20 +1,21 @@
 import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
+import { HelmetProvider } from 'react-helmet-async';
 
 import { Button } from '@/components/Buttons';
 import { Loading, Text } from '@/components/Elements';
+import { QueryClientProvider } from 'react-query';
+import { queryClient } from '@/lib/api';
+import Error from '@/components/Layout/Error';
 
-const ErrorFallback = () => {
+const ErrorFallback = ({ error }: { error: any | null }) => {
   return (
-    <div
-      className="text-red-500 w-screen h-screen flex flex-col justify-center items-center"
-      role="alert"
-    >
-      <Text t="h2" fw="500">
-        Ooops, something went wrong :(
-      </Text>
-      <Button onClick={() => window.location.assign(window.location.origin)}>Refresh</Button>
-    </div>
+    <Error
+      message={error.error.message}
+      description={error.error.description}
+      instructions={error.error.instructions}
+      thanks={error.error.thanks}
+    />
   );
 };
 
@@ -25,7 +26,13 @@ type AppProviderProps = {
 export const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
   return (
     <React.Suspense fallback={<Loading load={true} />}>
-      <ErrorBoundary FallbackComponent={ErrorFallback}>{children}</ErrorBoundary>
+      <HelmetProvider>
+        <ErrorBoundary
+          fallbackRender={({ error }: any | undefined) => <ErrorFallback error={error} />}
+        >
+          <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+        </ErrorBoundary>
+      </HelmetProvider>
     </React.Suspense>
   );
 };

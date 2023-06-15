@@ -1,5 +1,6 @@
 import { Dispatch } from 'redux';
-import { setAuth, setUser } from '../../redux';
+
+import { setAuth, setUser } from '@/lib/redux';
 
 export interface AuthResponseData {
   data: {

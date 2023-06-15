@@ -21,7 +21,3 @@ export interface AboutContent {
   companyHistory: ParagraphType;
   values: ValueType[];
 }
-
-export type AboutResponse = {
-  data: AboutContent;
-};

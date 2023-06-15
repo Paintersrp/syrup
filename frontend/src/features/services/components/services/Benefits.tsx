@@ -99,11 +99,7 @@ type BenefitsProps = {
 export const Benefits: FC<BenefitsProps> = ({ benefits, headerData, editMode }) => {
   return (
     <Base pt={64} pb={64} w="100%">
-      <SectionHeader
-        headerData={headerData[0]}
-        editMode={editMode}
-        formTitle="Edit Processes Header"
-      />
+      <SectionHeader headerData={headerData[0]} formTitle="Edit Processes Header" />
       <Container mt={12} j="c">
         {benefits.map((benefit, index) => {
           return (

@@ -5,13 +5,14 @@ import { Button } from '@/components/Buttons';
 import { Flexer, Surface } from '@/components/Containers';
 import { Text, Stepper } from '@/components/Elements';
 import { useFormValidation, useStepper } from '@/hooks';
-import { validateForm } from '@/lib';
+import { validateForm } from '@/lib/api';
 import { breakPoints, useBreakpoint } from '@/utils';
 
 import { handleAnswerChange, handleSkipQuiz, handleSubmitQuiz } from '../../api/useQuestionnaire';
 import { QuestionnaireForm } from './QuestionnaireForm';
 import { QuestionnaireStep } from './QuestionnaireStep';
 import { QuizType, ServiceType } from '../../types';
+
 
 type QuestionnaireProps = {
   services: ServiceType[];

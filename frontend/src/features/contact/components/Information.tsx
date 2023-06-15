@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { ButtonBar, ContactButtons } from '@/components/Built';
 import { Flexer, Surface } from '@/components/Containers';
@@ -8,13 +8,14 @@ import { IconTextItem } from '@/components/Media';
 import { palettes } from '@/utils';
 
 import { ContactInformationContent } from '../types';
+import { useApp } from '@/hooks';
 
 interface InformationProps extends BaseProps {
   contactData: ContactInformationContent;
-  editMode: boolean;
 }
 
-export const Information: React.FC<InformationProps> = ({ contactData, editMode, ...rest }) => {
+export const Information: FC<InformationProps> = ({ contactData, ...rest }) => {
+  const { editMode }: any = useApp();
   const [data, setData] = useState<ContactInformationContent>(contactData);
   const [editing, setEditing] = useState(false);
 

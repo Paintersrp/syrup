@@ -1,4 +1,11 @@
-import React, { useEffect, useState, CSSProperties, ReactNode } from 'react';
+import React, {
+  useEffect,
+  useState,
+  CSSProperties,
+  ReactNode,
+  ButtonHTMLAttributes,
+  forwardRef,
+} from 'react';
 import clsx from 'clsx';
 import './Button.css';
 
@@ -6,12 +13,23 @@ import { ColorShade, ColorState, colorSwitch } from '../../../utils/theming/styl
 import { MaterialIcon } from '../../Media';
 import { Flexer } from '../../Containers';
 import { Text } from '../../Elements';
+import { palettes } from '@/utils';
 
 type ButtonType = 'button' | 'submit' | 'reset' | undefined;
-export type ButtonSize = 't' | 'tiny' | 'sm' | 'small' | 'md' | 'medium' | 'lg' | 'large';
+export type ButtonSize = 'tiny' | 'sm' | 'md' | 'lg';
 
-interface ButtonProps {
-  ref?: React.LegacyRef<HTMLButtonElement> | null;
+const sizes = {
+  tiny: { py: 2, px: 2, fs: '0.8rem', is: '14px' },
+  sm: { py: 4, px: 4, fs: '0.81rem', is: '16px' },
+  md: { py: 4, px: 6, fs: '0.95rem', is: '17px' },
+  lg: { py: 8, px: 8, fs: '1rem', is: '20px' },
+};
+
+const variant = {
+  primary: { className: 'primary-button', hoverColor: palettes.primary.main },
+};
+
+export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: ButtonSize;
   w?: CSSProperties['width'];
   ml?: CSSProperties['marginLeft'];
@@ -32,66 +50,32 @@ interface ButtonProps {
   iconColor?: string;
   iconHoverColor?: string;
   href?: string | undefined;
-  ariaLabel?: string;
-  ariaDescribedBy?: string;
-  ariaExpanded?: boolean;
-  ariaHasPopup?: 'menu' | 'listbox' | 'tree' | 'grid' | 'dialog' | undefined;
-  ariaControls?: string;
-  ariaPressed?: boolean | 'mixed';
-  iconSize?: CSSProperties['fontSize'];
-  textSize?: CSSProperties['fontSize'];
-}
-
-const sizeSwitch = (size: ButtonSize): string => {
-  switch (size) {
-    case 't':
-    case 'tiny':
-      return '0.2rem';
-    case 'sm':
-    case 'small':
-      return '0.35rem';
-    case 'md':
-    case 'medium':
-      return '0.5rem';
-    case 'lg':
-    case 'large':
-      return '0.75rem';
-    default:
-      return '0.35rem';
-  }
 };
 
-const Button: React.FC<ButtonProps> = ({
-  ref,
-  size = 'sm',
-  w: width = 'auto',
-  ml: marginLeft,
-  mr: marginRight,
-  mt: marginTop,
-  mb: marginBottom,
-  color = 'primary',
-  shade = 'main',
-  manualHover,
-  type = undefined,
-  children,
-  onClick,
-  className = undefined,
-  style,
-  disabled = false,
-  startIcon,
-  endIcon,
-  iconColor = '#f5f5f5',
-  iconHoverColor = '#f5f5f5',
-  href,
-  ariaLabel,
-  ariaDescribedBy,
-  ariaExpanded,
-  ariaHasPopup,
-  ariaControls,
-  ariaPressed,
-  iconSize = '18px',
-  textSize = '0.85rem',
-}) => {
+const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+  const {
+    size = 'sm',
+    w: width = 'auto',
+    ml: marginLeft,
+    mr: marginRight,
+    mt: marginTop,
+    mb: marginBottom,
+    color = 'primary',
+    shade = 'main',
+    manualHover,
+    type = 'button',
+    children,
+    onClick,
+    className = undefined,
+    style,
+    disabled = false,
+    startIcon,
+    endIcon,
+    iconColor = '#f5f5f5',
+    iconHoverColor = '#f5f5f5',
+    href,
+  } = props;
+
   const [colors, setColors] = useState<ColorState>(colorSwitch(color, shade));
   const [hover, setHover] = useState<boolean>(false);
 
@@ -121,36 +105,31 @@ const Button: React.FC<ButtonProps> = ({
         marginRight: marginRight,
         marginTop: marginTop,
         marginBottom: marginBottom,
+        padding: `${sizes[size]?.py}px ${sizes[size]?.px}px`,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: sizeSwitch(size),
+        // padding: sizeSwitch(size),
         backgroundColor: hover ? (manualHover ? manualHover : colors.hover) : colors.background,
       }}
-      aria-label={ariaLabel}
-      aria-describedby={ariaDescribedBy}
-      aria-expanded={ariaExpanded}
-      aria-haspopup={ariaHasPopup}
-      aria-controls={ariaControls}
-      aria-pressed={ariaPressed}
     >
       <Flexer a="c" j="c">
         {startIcon && (
           <MaterialIcon
             icon={startIcon}
-            size={iconSize}
+            size={sizes[size]?.is}
             mr={0}
             ml={0}
             color={hover ? iconHoverColor : iconColor}
           />
         )}
-        <Text a="c" t="button" fw="600" s={textSize}>
+        <Text a="c" t="button" fw="600" s={sizes[size]?.fs}>
           {children}
         </Text>
         {endIcon && (
           <MaterialIcon
             icon={endIcon}
-            size={iconSize}
+            size={sizes[size].is}
             ml={0}
             color={hover ? iconHoverColor : iconColor}
           />
@@ -158,6 +137,6 @@ const Button: React.FC<ButtonProps> = ({
       </Flexer>
     </button>
   );
-};
+});
 
 export default Button;

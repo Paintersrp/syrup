@@ -4,6 +4,7 @@ import { ButtonBar } from '@/components/Built';
 import { Container, Flexer, Item } from '@/components/Containers';
 import { Divider, Text } from '@/components/Elements';
 import { IconTextItem } from '@/components/Media';
+import { useApp } from '@/hooks';
 import { palettes } from '@/utils';
 
 type ServiceFeatureProps = {
@@ -30,7 +31,7 @@ const ServiceFeature: FC<ServiceFeatureProps> = ({ data, editMode, title, fieldN
     <Item xs={12} sm={12} md={12} lg={6} style={{ display: 'flex', flexDirection: 'column' }}>
       {
         !editing ? (
-          <>
+          <Flexer fd="column" w="85%">
             {!editing && editMode && (
               <ButtonBar
                 editClick={() => setEditing(!editing)}
@@ -56,7 +57,7 @@ const ServiceFeature: FC<ServiceFeatureProps> = ({ data, editMode, title, fieldN
                 />
               ))}
             </Flexer>
-          </>
+          </Flexer>
         ) : null
         //   <ManyToManyEdit
         //     data={featureData}
@@ -74,10 +75,10 @@ const ServiceFeature: FC<ServiceFeatureProps> = ({ data, editMode, title, fieldN
 
 type ServiceFeaturesProps = {
   data: any;
-  editMode: boolean;
 };
 
-export const ServiceFeatures: FC<ServiceFeaturesProps> = ({ data, editMode }) => {
+export const ServiceFeatures: FC<ServiceFeaturesProps> = ({ data }) => {
+  const { editMode }: any = useApp();
   const [featureData, setFeatureData] = useState(data);
 
   useEffect(() => {
@@ -85,7 +86,7 @@ export const ServiceFeatures: FC<ServiceFeaturesProps> = ({ data, editMode }) =>
   }, [data]);
 
   return (
-    <Container direction="row" j="fs" a="fs" mt={24} mb={24}>
+    <Container direction="row" j="fs" a="fs" mt={24} mb={64}>
       <ServiceFeature
         data={featureData}
         editMode={editMode}

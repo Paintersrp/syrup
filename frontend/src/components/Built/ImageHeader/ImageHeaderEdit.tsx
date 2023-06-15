@@ -3,26 +3,26 @@ import React, { useState } from 'react';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { BaseProps, HelpText, Text } from '@/components/Elements';
 
-import { axios } from '@/lib';
+import { axios } from '@/lib/api';
 import { Input, ImageInput } from '@/components/Form';
 import { ImageHeader } from './ImageHeader';
 import { ConfirmCancelBar } from '@/components/Built';
 import { ImageHeaderType } from '../../../features/about/types';
+import { ErrorResponse } from '@/types';
 
 interface ImageHeaderEditProps extends BaseProps {
   data: ImageHeaderType;
   onUpdate: (updatedData: ImageHeaderType) => void;
   handleCancel: () => void;
-  setError: any;
 }
 
 export const ImageHeaderEdit: React.FC<ImageHeaderEditProps> = ({
   data,
   onUpdate,
   handleCancel,
-  setError,
   ...rest
 }) => {
+  const [error, setError] = useState<ErrorResponse>();
   const [title, setTitle] = useState<string>(data.title);
   const [image, setImage] = useState<File | null>(null);
   const [newImage, setNewImage] = useState<string | null>(null);
@@ -49,7 +49,7 @@ export const ImageHeaderEdit: React.FC<ImageHeaderEditProps> = ({
     try {
       const res = await axios.patch(`/aboutheader/1/`, formData);
       onUpdate(res.data);
-    } catch (error) {
+    } catch (error: any) {
       setError(error);
     }
   };

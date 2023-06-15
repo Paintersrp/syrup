@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 import { Breadcrumbs, Text, Tooltip, useLoading } from '@/components/Elements';
-import { axios } from '@/lib';
+import { axios } from '@/lib/api';
 import { Page } from '@/components/Layout';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { IconButton } from '@/components/Buttons';

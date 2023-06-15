@@ -3,12 +3,12 @@ import {
   handleNestedDataChange,
   toggleState,
   toggleSwapStates,
-} from "./dataHandlers/dataHandlers";
-import { filterState } from "./filterHandlers/filterHandlers";
+} from "./dataHandlers";
+import { filterState } from "./filterHandlers";
 import {
   handleClearErrors,
   handleClearNestedErrors,
-} from "./errorHandlers/errorHandles";
+} from "./errorHandles";
 
 export {
   handleClearErrors,

@@ -21,13 +21,9 @@ export type LandingContent = {
   contactInfo: ContactInformationContent;
   hero: HeroContent;
   posts: PostContent[];
-  postsHeader: SectionHeaderContent;
+  postsHeader: [SectionHeaderContent];
   processes: ProcessContent[];
-  processHeader: SectionHeaderContent;
+  processHeader: [SectionHeaderContent];
   socials: SocialContent[];
   services: any;
-};
-
-export type LandingResponse = {
-  data: LandingContent;
 };

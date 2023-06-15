@@ -2,7 +2,7 @@ import { useEffect, createContext, ReactNode, useContext, FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
 
-import { axios, handleAuth, handleClearAuth } from '@/lib';
+import { axios, handleAuth, handleClearAuth } from '@/lib/api';
 
 export const AuthContext = createContext<any>({
   is_authenticated: false,

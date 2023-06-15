@@ -5,15 +5,10 @@ type NestedErrorsType = {
   [key: string]: ErrorsType;
 };
 
-type SetErrorsType = React.Dispatch<
-  React.SetStateAction<ErrorsType | NestedErrorsType>
->;
+type SetErrorsType = React.Dispatch<React.SetStateAction<ErrorsType>>;
+type SetNestedErrorsType = React.Dispatch<React.SetStateAction<NestedErrorsType>>;
 
-const handleClearErrors = (
-  index: number,
-  errors: ErrorsType,
-  setErrors: SetErrorsType
-): void => {
+const handleClearErrors = (index: number, errors: ErrorsType, setErrors: SetErrorsType): void => {
   const updatedErrors: ErrorsType = [...errors];
   updatedErrors.splice(index, 1);
   setErrors(updatedErrors);
@@ -21,10 +16,10 @@ const handleClearErrors = (
 
 const handleClearNestedErrors = (
   index: number,
-  setErrors: SetErrorsType,
+  setErrors: SetNestedErrorsType,
   nestedName: string
 ): void => {
-  setErrors((prevErrors: ErrorsType | NestedErrorsType) => {
+  setErrors((prevErrors: NestedErrorsType) => {
     const updatedErrors: any = { ...prevErrors };
     const sectionErrors: ErrorsType = [...prevErrors[nestedName]];
     sectionErrors.splice(index, 1);

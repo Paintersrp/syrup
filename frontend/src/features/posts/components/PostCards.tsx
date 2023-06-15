@@ -10,30 +10,21 @@ import { palettes } from '@/utils';
 import { PostCard } from './PostCard';
 import { PostContent } from '@/features/posts/types';
 import { useConfirm } from '@/hooks/useConfirm';
+import { useApp } from '@/hooks';
 interface PostCardsProps extends BaseProps {
   posts: PostContent[];
   header: SectionHeaderContent | any;
   carousel?: boolean;
-  editMode: boolean;
 }
 
-export const PostCards: FC<PostCardsProps> = ({
-  posts,
-  header,
-  carousel = false,
-  editMode,
-  ...rest
-}) => {
+export const PostCards: FC<PostCardsProps> = ({ posts, header, carousel = false, ...rest }) => {
+  const { editMode }: any = useApp();
   const { open, handleClose, handleConfirm, handleDelete } = useConfirm('post');
 
   return (
     <Flexer j="c">
       <Flexer fd="column" style={{ maxWidth: 1200, padding: 20 }}>
-        <SectionHeader
-          headerData={header}
-          editMode={editMode}
-          formTitle="Edit Latest Posts Header"
-        />
+        <SectionHeader headerData={header} formTitle="Edit Latest Posts Header" />
         <Container style={{ marginTop: 32, marginBottom: 32 }} {...rest}>
           {carousel ? (
             <Carousel autoplay={false} iconColor={palettes.secondary.main} w={345} h={335}>

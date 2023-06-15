@@ -9,15 +9,16 @@ import { MaterialIcon } from '@/components/Media';
 
 import { ValueType } from '../types';
 import './css/Value.css';
+import { useApp } from '@/hooks';
 
 interface ValueProps extends BaseProps {
   value: ValueType;
   index: number;
   start: number;
-  editMode: boolean;
 }
 
-export const Value: React.FC<ValueProps> = ({ value, index, start, editMode, ...rest }) => {
+export const Value: React.FC<ValueProps> = ({ value, index, start, ...rest }) => {
+  const { editMode } = useApp();
   const [valueData, setValueData] = useState<ValueType>(value);
   const [editing, setEditing] = useState(false);
   const [open, setOpen] = useState(false);

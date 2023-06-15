@@ -1,29 +1,28 @@
-import { axios } from '@/lib';
-import { SetErrorFn } from '@/types';
+import { useQuery } from 'react-query';
 
-import { ContactContent, ContactResponse } from '../types';
+import { axios, ExtractFnReturnType, QueryConfig } from '@/lib/api';
+
+import { ContactContent } from '../types';
 
 export type SetContactDataFn = (data: ContactContent) => void;
 
-export const getContacts = (): Promise<ContactResponse> => {
-  return axios.get<ContactContent>(`/contacts/`);
+export const getContacts = async (): Promise<ContactContent> => {
+  const response = await axios.get<ContactContent>(`/contacts/`);
+  return response.data;
 };
 
-export const setContacts = (data: ContactContent, setData: SetContactDataFn): void => {
-  setData({
-    members: data.members,
-    contactInfo: data.contactInfo,
-    socials: data.socials,
-    hours: data.hours,
-    jobs: data.jobs,
+type QueryFnType = typeof getContacts;
+
+type UseContactsOptions = {
+  config?: QueryConfig<QueryFnType>;
+};
+
+export const useContacts = ({ config }: UseContactsOptions = {}) => {
+  const contactsQuery = useQuery<ExtractFnReturnType<QueryFnType>>({
+    ...config,
+    queryKey: ['contacts'],
+    queryFn: () => getContacts(),
   });
-};
 
-export const useContacts = async (setData: SetContactDataFn, setError: SetErrorFn) => {
-  try {
-    const response = await getContacts();
-    setContacts(response.data, setData);
-  } catch (error) {
-    setError(error);
-  }
+  return contactsQuery;
 };

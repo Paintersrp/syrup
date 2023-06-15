@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { axios } from '@/lib';
+import { axios } from '@/lib/api';
 import { choiceSource } from '@/utils';
 import TransferList from './TransferList';
 

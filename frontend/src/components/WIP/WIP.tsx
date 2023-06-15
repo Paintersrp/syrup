@@ -20,6 +20,7 @@ import Alert from '../Elements/Alert/Alert';
 import Switch from '../Form/Switch/Switch';
 import { Option, Select } from '../Form';
 import { Page } from '../Layout';
+import BButton from '../Buttons/Button/BButton';
 
 interface WIPProps {}
 
@@ -136,6 +137,9 @@ const WIP: React.FC<WIPProps> = ({}) => {
   return (
     <Page>
       <Flexer j="c" a="c" fd="column" mt={40}>
+        <BButton size="tiny" palette="error" variant="standard">
+          Test
+        </BButton>
         <div>
           <Switch
             name="field1"
@@ -212,35 +216,8 @@ const WIP: React.FC<WIPProps> = ({}) => {
           <Gallery images={stockImages} layout="masonry" />
         </Stagger>
 
-        {/* <Gallery images={stockImages} layout="grid" /> */}
-
-        <Alert alert={alert} onClose={handleCloseAlert} />
-        <button onClick={() => dispatch({ type: 'ALERT_SUCCESS', message: 'Data Updated' })}>
-          Show Success
-        </button>
-        <button onClick={() => dispatch({ type: 'ALERT_FAIL', message: 'Error Updated' })}>
-          Show Error
-        </button>
-        <button onClick={() => dispatch({ type: 'ALERT_WARNING', message: 'Warning Updated' })}>
-          Show Warning
-        </button>
-        <button onClick={() => dispatch({ type: 'ALERT_INFO', message: 'Info Updated' })}>
-          Show Info
-        </button>
         {/* <TransferList leftItems={leftItems} rightItems={rightItems} /> */}
         {/* <MenuExamples /> */}
-
-        <div style={{ marginBottom: 96 }}>
-          <Select onChange={handleChange}>
-            <Option value="Tacos">Tacos</Option>
-            <Option value="Burritos">Burritos</Option>
-            <Option value="Enchiladas">Enchiladas</Option>
-            <Option value="Waffles">Waffles</Option>
-            <Option value="Enchiladas">Enchiladas</Option>
-            <Option value="Enchiladas">Enchiladas</Option>
-            <Option value="Enchiladas">Enchiladas</Option>
-          </Select>
-        </div>
 
         {/* Carousel */}
         <Carousel autoplay style={{ marginBottom: 96 }}>
@@ -250,30 +227,6 @@ const WIP: React.FC<WIPProps> = ({}) => {
           <img src="https://source.unsplash.com/1400x900/?service" alt="Image 4" />
         </Carousel>
 
-        <TableContainer mt={20} mb={40} minWidth={600}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                {columns.map((column, index) => (
-                  <TableCell s="1.05rem" fw="bold" key={index}>
-                    {column}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {data.map((row: any, index) => (
-                <TableRow key={index}>
-                  {columns.map((column, index) => (
-                    <TableCell s="0.95rem" key={index}>
-                      {row[column]}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
         <ToggleButtonGroup value={selectedValueToggle} onChange={handleValueChange}>
           <ToggleButton value="option1">Option 1</ToggleButton>
           <ToggleButton value="option2">Option 2</ToggleButton>

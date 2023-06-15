@@ -1,0 +1,32 @@
+.sidebar-outer {
+  position: sticky;
+  color: #fff;
+  background-color: var(--color-primary-main);
+  /* background-color: var(--color-background-default); */
+  transition: width 0.3s ease-in-out;
+  box-shadow: var(--shadow-1);
+}
+
+.sidebar-inner-right {
+  position: sticky;
+  top: 53px;
+  transition: all 0.3s ease-in-out;
+  transform: translateX(100%);
+  visibility: hidden;
+}
+
+.sidebar-inner-right.open {
+  transform: translateX(0%);
+  visibility: visible;
+}
+
+.sidebar-inner-left {
+  position: sticky;
+  top: 53px;
+  transition: transform 0.3s ease-in-out;
+  visibility: hidden;
+}
+
+.sidebar-inner-left.open {
+  visibility: visible;
+}

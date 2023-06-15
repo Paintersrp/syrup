@@ -1,9 +1,10 @@
-import { FC, Fragment, useState } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 import DOMPurify from 'dompurify';
 
 import { ButtonBar } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
 import { BaseProps, Text } from '@/components/Elements';
+import { useApp } from '@/hooks';
 
 import { ParagraphEdit } from './ParagraphEdit';
 import { ParagraphType } from '../types';
@@ -11,26 +12,21 @@ import './css/Paragraph.css';
 
 interface ParagraphProps extends BaseProps {
   data: ParagraphType;
-  editMode?: boolean;
   adminLink?: string;
   text?: string;
-  onUpdate?: (update: any) => void;
 }
 
-export const Paragraph: FC<ParagraphProps> = ({
-  data,
-  editMode,
-  adminLink,
-  text,
-  onUpdate,
-  ...rest
-}) => {
+export const Paragraph: FC<ParagraphProps> = ({ data, adminLink, text, ...rest }) => {
+  const { editMode } = useApp();
+  const [paragraphData, setParagraphData] = useState<ParagraphType>(data);
   const [edit, setEdit] = useState(false);
 
+  useEffect(() => {
+    setParagraphData(data);
+  }, [data]);
+
   const handleUpdate = (updateData: any) => {
-    if (onUpdate) {
-      onUpdate(updateData);
-    }
+    setParagraphData(updateData);
     setEdit(false);
   };
 
@@ -39,7 +35,7 @@ export const Paragraph: FC<ParagraphProps> = ({
       {!edit ? (
         <Fragment>
           <Flexer j="sb" className="paragraph-section-title fade-in">
-            <Text t="h3">{data.title}</Text>
+            <Text t="h3">{paragraphData.title}</Text>
             {!edit && editMode && (
               <ButtonBar
                 editClick={() => setEdit(!edit)}
@@ -49,12 +45,12 @@ export const Paragraph: FC<ParagraphProps> = ({
               />
             )}
           </Flexer>
-          {data.body ? (
+          {paragraphData.body ? (
             <Text
               t="body1"
               className="fade-in paragraph-body"
               dangerouslySetInnerHTML={{
-                __html: DOMPurify.sanitize(data.body),
+                __html: DOMPurify.sanitize(paragraphData.body),
               }}
             />
           ) : null}
@@ -62,10 +58,10 @@ export const Paragraph: FC<ParagraphProps> = ({
       ) : (
         <div>
           <Flexer j="sb" className="paragraph-section-title fade-in">
-            <Text t="h3">{data.title}</Text>
+            <Text t="h3">{paragraphData.title}</Text>
           </Flexer>
           <ParagraphEdit
-            content={data}
+            content={paragraphData}
             onUpdate={handleUpdate}
             type={adminLink}
             handleCancel={() => setEdit(!edit)}

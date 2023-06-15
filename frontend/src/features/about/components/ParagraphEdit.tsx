@@ -4,7 +4,7 @@ import { ConfirmCancelBar } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
 import { BaseProps } from '@/components/Elements';
 import { RichTextInput } from '@/components/Form';
-import { axios } from '@/lib';
+import { axios } from '@/lib/api';
 
 import { ParagraphType } from '../types';
 

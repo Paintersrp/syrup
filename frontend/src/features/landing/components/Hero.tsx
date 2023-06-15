@@ -10,21 +10,16 @@ import { BaseProps, Text } from '@/components/Elements';
 import { palettes } from '@/utils';
 
 import { HeroContent } from '../types';
+import { useApp } from '@/hooks';
 
 interface HeroProps extends BaseProps {
   data: HeroContent;
   contactData: any;
   socialsData: any;
-  editMode: boolean;
 }
 
-export const Hero: React.FC<HeroProps> = ({
-  data,
-  contactData,
-  socialsData,
-  editMode,
-  ...rest
-}) => {
+export const Hero: React.FC<HeroProps> = ({ data, contactData, socialsData, ...rest }) => {
+  const { editMode }: any = useApp();
   const [heroData, setHeroData] = useState(data);
   const [editing, setEditing] = useState(false);
 
@@ -52,9 +47,8 @@ export const Hero: React.FC<HeroProps> = ({
                 <Button
                   size="md"
                   startIcon="launch"
-                  iconSize="16px"
                   manualHover={palettes.primary.light}
-                  w={115}
+                  w={125}
                   style={{ borderRadius: 4 }}
                 >
                   {heroData.buttonText}

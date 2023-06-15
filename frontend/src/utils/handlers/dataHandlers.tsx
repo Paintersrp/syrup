@@ -36,7 +36,6 @@ const handleNestedDataChange = (
   data: any,
   nestedName: string
 ) => {
-  console.log(data, nestedName);
   setData({
     ...data,
     [nestedName]: {

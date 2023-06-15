@@ -33,7 +33,3 @@ export type ContactContent = {
   members: MemberContent[];
   socials: SocialContent[];
 };
-
-export type ContactResponse = {
-  data: ContactContent;
-};

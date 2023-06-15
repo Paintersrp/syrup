@@ -1,6 +1,6 @@
 import { useLoading } from '@/components/Elements';
 import { Page } from '@/components/Layout';
-import { axios } from '@/lib';
+import { axios } from '@/lib/api';
 import React, { useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
 import ModelPanel from './subcomponents/ModelPanel';

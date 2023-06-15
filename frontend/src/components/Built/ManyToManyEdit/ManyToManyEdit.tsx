@@ -1,6 +1,6 @@
 import { Surface } from '@/components/Containers';
 import { BaseProps, Text } from '@/components/Elements';
-import { axios } from '@/lib';
+import { axios } from '@/lib/api';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 

@@ -1,5 +1,6 @@
-import { axios } from '@/lib';
 import { useState } from 'react';
+
+import { axios } from '@/lib/api';
 
 export const useConfirm = (endpoint: string) => {
   const [selectedId, setSelectedId] = useState<number>();

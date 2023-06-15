@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { Stagger } from '@/components/Animation';
 import { ButtonBar } from '@/components/Built';
@@ -9,15 +9,16 @@ import { IconTextItem } from '@/components/Media';
 import { palettes } from '@/utils';
 
 import { HoursContent } from '../types';
+import { useApp } from '@/hooks';
 
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 interface HoursProps extends BaseProps {
   hoursData: HoursContent;
-  editMode: boolean;
 }
 
-export const Hours: React.FC<HoursProps> = ({ hoursData, editMode, ...rest }) => {
+export const Hours: FC<HoursProps> = ({ hoursData, ...rest }) => {
+  const { editMode }: any = useApp();
   const [data, setData] = useState<any>(hoursData);
   const [editing, setEditing] = useState(false);
 

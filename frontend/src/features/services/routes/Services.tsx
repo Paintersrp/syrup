@@ -32,7 +32,7 @@ export const Services: FC = () => {
   }
 
   return (
-    <Page seoData={seoData.services} error={error} header="Explore Our Services">
+    <Page seoData={seoData.services} header="Explore Our Services">
       {data && (
         <Surface j="c" a="c" maxWidth={1200} outerStyle={{ flexGrow: 1 }}>
           {!recommended ? (

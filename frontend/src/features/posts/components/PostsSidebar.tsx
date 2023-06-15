@@ -6,13 +6,13 @@ import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Divider, Tag, Text, Tooltip } from '@/components/Elements';
 import { palettes } from '@/utils';
+import { useApp } from '@/hooks';
 
 interface SidebarProps {
   tags: any;
   handleTagClick: (tag: string) => void;
   selectedTags: string[];
   handleCreate: () => void;
-  auth: { is_superuser: boolean };
   handleDateClick: any;
   selectedDateFilter: number | null;
 }
@@ -22,10 +22,11 @@ export const PostsSidebar: FC<SidebarProps> = ({
   handleTagClick,
   selectedTags,
   handleCreate,
-  auth,
   handleDateClick,
   selectedDateFilter,
 }) => {
+  const { auth } = useApp();
+
   const dateFilters = [
     { label: 'Last 7 days', value: 7 },
     { label: 'Last 30 days', value: 30 },

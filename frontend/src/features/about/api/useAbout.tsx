@@ -1,27 +1,26 @@
-import { axios } from '@/lib';
-import { SetErrorFn } from '@/types';
-import { AboutContent, AboutResponse } from '../types';
+import { axios, ExtractFnReturnType, QueryConfig } from '@/lib/api';
+import { useQuery } from 'react-query';
+import { AboutContent } from '../types';
 
 export type SetAboutDataFn = (data: AboutContent) => void;
 
-export const getAbout = (): Promise<AboutResponse> => {
-  return axios.get<AboutContent>(`/about/`);
+export const getAbout = async (): Promise<AboutContent> => {
+  const response = await axios.get<AboutContent>(`/about/`);
+  return response.data;
 };
 
-export const setAbout = (data: AboutContent, setData: SetAboutDataFn): void => {
-  setData({
-    header: data.header,
-    missionStatement: data.missionStatement,
-    companyHistory: data.companyHistory,
-    values: data.values,
+type QueryFnType = typeof getAbout;
+
+type UseAboutOptions = {
+  config?: QueryConfig<QueryFnType>;
+};
+
+export const useAbout = ({ config }: UseAboutOptions = {}) => {
+  const aboutQuery = useQuery<ExtractFnReturnType<QueryFnType>>({
+    ...config,
+    queryKey: ['about'],
+    queryFn: () => getAbout(),
   });
-};
 
-export const useAbout = async (setData: SetAboutDataFn, setError: SetErrorFn) => {
-  try {
-    const response = await getAbout();
-    setAbout(response.data, setData);
-  } catch (error) {
-    setError(error);
-  }
+  return aboutQuery;
 };

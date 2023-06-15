@@ -73,7 +73,7 @@ export type ServiceContent = {
   servicesTable: [FullTable];
   competitorsTable: [FullTable];
   quizData: [QuizType];
-  processText: string;
+  processText: any;
   processImage: any;
   benefits: BenefitType[];
   benefitsHeader: [SectionHeaderContent];

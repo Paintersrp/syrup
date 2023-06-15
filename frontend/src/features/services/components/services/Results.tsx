@@ -87,10 +87,10 @@ export const Results: FC<ResultsProps> = ({ services, recommended, handleReset }
         )}
       </Flexer>
       <Flexer fd="column" gap={6} mt={24} a="c">
-        <Button size="small" iconSize="22px" startIcon="style" w={135}>
+        <Button size="sm" startIcon="style" w={135}>
           Book a Service
         </Button>
-        <Button size="small" iconSize="22px" onClick={handleReset} startIcon="restart_alt" w={135}>
+        <Button size="sm" onClick={handleReset} startIcon="restart_alt" w={135}>
           Reset Quiz
         </Button>
       </Flexer>

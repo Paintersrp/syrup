@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { PostContent, PostsContent } from '../types';
 
 export const useFilteredPosts = (
-  data: PostsContent | undefined,
+  data: PostContent[] | undefined,
   selectedTags: string[],
   selectedDateFilter: number | null
 ): PostContent[] => {
@@ -10,7 +10,7 @@ export const useFilteredPosts = (
 
   useEffect(() => {
     if (data) {
-      const filtered = data.posts.filter((post) => {
+      const filtered = data.filter((post) => {
         if (selectedTags.length && !post.tags.some((tag) => selectedTags.includes(tag.detail))) {
           return false;
         }

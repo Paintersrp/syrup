@@ -1,4 +1,4 @@
-import { axios } from '@/lib';
+import { axios } from '@/lib/api';
 import Cookies from 'js-cookie';
 
 const LogoutUser = (): void => {

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import Cookies from 'js-cookie';
-import { axios, handleAuth, handleClearAuth } from '@/lib';
+import { axios, handleAuth, handleClearAuth } from '@/lib/api';
 
 const WithAuth = <P extends object>(WrappedComponent: React.ComponentType<P>) => {
   const HOC: React.FC<P> = (props) => {

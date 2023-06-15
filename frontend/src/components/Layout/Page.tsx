@@ -3,8 +3,6 @@ import React, { CSSProperties, ReactNode, Suspense } from 'react';
 import { seoData as data } from '../../settings';
 
 import { Base, Loading, Text } from '../Elements';
-
-import Error from './Error';
 import SEO, { SEOData } from './SEO';
 
 // import  text types instead
@@ -20,8 +18,6 @@ interface PageProps {
   className?: string;
   style?: CSSProperties;
   seoData?: SEOData;
-  error?: any;
-  ready?: boolean;
 }
 
 const Page: React.FC<PageProps> = ({
@@ -33,26 +29,7 @@ const Page: React.FC<PageProps> = ({
   className,
   style,
   seoData = data.default,
-  error = false,
-  ready = true,
 }) => {
-  if (error) {
-    return (
-      <Error
-        message={error.message}
-        description={error.description}
-        instructions={error.instructions}
-        thanks={error.thanks}
-      />
-    );
-  }
-
-  console.log(ready);
-
-  if (!ready) {
-    return <Loading load={true} />;
-  }
-
   return (
     <Base a="c" fd="column" mt={30} w="100%" minh="80vh" bg={backgroundColor}>
       <main

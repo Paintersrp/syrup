@@ -6,7 +6,7 @@ import { Flexer, Surface } from '@/components/Containers';
 import { Breadcrumbs, Divider, Text, Tooltip } from '@/components/Elements';
 import { breakPoints, CapitalizeFirst, palettes, useBreakpoint } from '@/utils';
 import { IconButton } from '@/components/Buttons';
-import { axios } from '@/lib';
+import { axios } from '@/lib/api';
 import RecentActions from '@/features/admin/components/Logging/RecentActions';
 import ModelTable from './ModelTable';
 import InfoMenu from './InfoMenu';

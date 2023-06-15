@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
 import './css/Error.css';
 
 import { palettes } from '@/utils';
@@ -10,12 +9,11 @@ import { Button } from '@/components/Buttons';
 import { ErrorResponse } from '@/types';
 
 const Error: React.FC<ErrorResponse> = ({ message, description, instructions, thanks }) => {
-  const [editing, setEditing] = useState(false);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  const handleBackClick = () => {
-    navigate(-1);
-  };
+  // const handleBackClick = () => {
+  //   navigate(-1);
+  // };
 
   return (
     <Page>
@@ -35,7 +33,8 @@ const Error: React.FC<ErrorResponse> = ({ message, description, instructions, th
               "We couldn't retrieve the data you were looking for. Please try again later."}
           </Text>
           <Button
-            onClick={handleBackClick}
+            // onClick={handleBackClick}
+            onClick={() => window.location.assign(window.location.origin)}
             startIcon="arrow_back"
             mt={16}
             size="sm"

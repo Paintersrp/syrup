@@ -6,8 +6,8 @@ import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { BaseProps, Text } from '@/components/Elements';
 import { Input } from '@/components/Form';
-import { useFormValidation } from '@/hooks';
-import { validateForm } from '@/lib';
+import { useApp, useFormValidation } from '@/hooks';
+import { validateForm } from '@/lib/api';
 import { palettes } from '@/utils';
 
 import {
@@ -20,15 +20,10 @@ import { JobContent } from '../types';
 interface JobApplicationFormProps extends BaseProps {
   job: JobContent;
   formRef: RefObject<any>;
-  editMode: boolean;
 }
 
-export const JobApplicationForm: FC<JobApplicationFormProps> = ({
-  job,
-  formRef,
-  editMode,
-  ...rest
-}) => {
+export const JobApplicationForm: FC<JobApplicationFormProps> = ({ job, formRef, ...rest }) => {
+  const { editMode }: any = useApp();
   const dispatch = useDispatch();
   const fileInputRef = useRef<HTMLInputElement>(null);
 

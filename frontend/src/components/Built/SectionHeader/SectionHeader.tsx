@@ -8,6 +8,7 @@ import { Divider, Text } from '@/components/Elements';
 import { FormGenerator } from '@/components/Form';
 import { FadeOnScroll } from '@/components/Animation';
 import ButtonBar from '../ButtonBar/ButtonBar';
+import { useApp } from '@/hooks';
 
 type AlignmentType = 'Left' | 'Right' | 'Center' | 'left' | 'right' | 'center';
 
@@ -23,11 +24,10 @@ export interface SectionHeaderContent {
 
 interface SectionHeaderProps {
   headerData: SectionHeaderContent;
-  editMode: boolean;
   formTitle: string;
 }
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, editMode, formTitle }) => {
+const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, formTitle }) => {
   const getAlignClass = (alignment: AlignmentType) => {
     switch (alignment) {
       case 'Left':
@@ -44,6 +44,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, editMode, for
     }
   };
 
+  const { editMode }: any = useApp();
   const [editing, setEditing] = useState(false);
   const [header, setHeader] = useState<SectionHeaderContent>(headerData);
   const alignClass = getAlignClass(headerData.alignment);

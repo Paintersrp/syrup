@@ -1,25 +1,13 @@
-import { Suspense } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { Loading } from '@/components/Elements';
 import { Jobs } from './Jobs';
 
-const JobsOutlet = () => {
+export const JobsRoutes = () => {
   return (
-    <Suspense fallback={<Loading load={true} />}>
-      <Outlet />
-    </Suspense>
+    <Routes>
+      <Route path="" element={<Jobs />} />
+      <Route path=":id" element={<Jobs />} />
+      <Route path="*" element={<Navigate to="." />} />
+    </Routes>
   );
 };
-
-export const jobRoutes = [
-  {
-    path: '/jobposting',
-    element: <JobsOutlet />,
-    children: [
-      { path: '', element: <Jobs /> },
-      { path: ':id', element: <Jobs /> },
-      { path: '*', element: <Navigate to="." /> },
-    ],
-  },
-];

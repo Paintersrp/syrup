@@ -1,7 +1,7 @@
 import { Flexer, Surface } from '@/components/Containers';
 import { Breadcrumbs, Text, Tooltip, useLoading } from '@/components/Elements';
 import { Page } from '@/components/Layout';
-import { axios } from '@/lib';
+import { axios } from '@/lib/api';
 import { breakPoints, useBreakpoint } from '@/utils';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';

@@ -4,9 +4,10 @@ import { useDispatch } from 'react-redux';
 import { Container, Item, Surface } from '@/components/Containers';
 import { IconMixin, ImageMixin } from './mixins';
 import { BaseProps, Text } from '@/components/Elements';
-import { axios, validateForm } from '@/lib';
+
 import Input from '../Input/Input';
 import { ConfirmCancelBar, ErrorDisplay } from '@/components/Built';
+import { axios, validateForm } from '@/lib/api';
 
 interface FormGeneratorProps extends BaseProps {
   endpoint: string;

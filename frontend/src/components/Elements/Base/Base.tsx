@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactNode } from 'react';
+import React, { CSSProperties, DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
 import { shadowMap } from '../../../utils';
 
 export const justifyContentMap: {
@@ -80,7 +80,7 @@ export type AlignItemValue =
   | 'stretch';
 
 export interface BaseProps {
-  children?: ReactNode;
+  children?: any;
   m?: CSSProperties['margin'];
   mt?: CSSProperties['marginTop'];
   mb?: CSSProperties['marginBottom'];
