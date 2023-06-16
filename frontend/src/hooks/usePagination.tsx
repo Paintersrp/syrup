@@ -1,9 +1,9 @@
-import React, { useState, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 
 interface TablePaginationProps {
   page: number;
   rowsPerPage: number;
-  handleChangePage: (event: React.MouseEvent<HTMLButtonElement> | null, newPage: number) => void;
+  handleChangePage: (newPage: number) => void;
   handleChangeRowsPerPage: (
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement> | any
   ) => void;
@@ -13,10 +13,7 @@ export function usePagination(defaultRowsPerPage: number = 10): TablePaginationP
   const [page, setPage] = useState<number>(0);
   const [rowsPerPage, setRowsPerPage] = useState<number>(defaultRowsPerPage);
 
-  const handleChangePage = (
-    event: React.MouseEvent<HTMLButtonElement> | null,
-    newPage: number
-  ): void => {
+  const handleChangePage = (newPage: number): void => {
     setPage(newPage);
   };
 

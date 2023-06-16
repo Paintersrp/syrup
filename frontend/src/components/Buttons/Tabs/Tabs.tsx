@@ -8,7 +8,7 @@ interface TabsProps extends BaseProps {
   children: ReactElement<TabProps> | ReactElement<TabProps>[];
 }
 
-const Tabs: React.FC<TabsProps> = ({ children, ...rest }) => {
+export const Tabs: React.FC<TabsProps> = ({ children, ...rest }) => {
   const [activeTab, setActiveTab] = useState<number>(0);
 
   const handleTabClick = (index: number) => {
@@ -36,4 +36,3 @@ const Tabs: React.FC<TabsProps> = ({ children, ...rest }) => {
   );
 };
 
-export default Tabs;

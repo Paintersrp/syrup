@@ -1,8 +1,8 @@
-import Button, { ButtonSize } from '@/components/Buttons/Button/Button';
+import React, { CSSProperties } from 'react';
+
+import { Button, ButtonSize } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { palettes } from '@/utils';
-import React from 'react';
-import { CSSProperties } from 'react';
 
 interface ContactButtonsProps {
   contactData: {

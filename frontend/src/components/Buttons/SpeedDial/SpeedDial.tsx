@@ -3,7 +3,7 @@ import './SpeedDial.css';
 
 import { Base, BaseProps } from '../../Elements';
 import { MaterialIcon } from '../../Media';
-import FAB from '../FAB/FAB';
+import { FAB } from '../FAB/FAB';
 
 interface SpeedDialItemProps {
   label: string;

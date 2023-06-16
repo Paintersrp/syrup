@@ -9,6 +9,7 @@ import { useApp } from '@/hooks';
 import { palettes } from '@/utils';
 
 import { ServiceType } from '../../types';
+import { Divider2 } from '@/components/Elements/Divider/Divider2';
 
 type ServiceAboutProps = {
   data: ServiceType;
@@ -47,7 +48,7 @@ export const ServiceAbout: FC<ServiceAboutProps> = ({ data }) => {
               <Text t="h5" a="c" c={palettes.primary.main}>
                 About Our {aboutData.service_title} Service
               </Text>
-              <Divider mt={8} mb={8} />
+              <Divider mt={8} mb={8} text="test" color={palettes.primary.light} />
               <Text t="body1" mb={8}>
                 {aboutData.paragraph_one}
               </Text>

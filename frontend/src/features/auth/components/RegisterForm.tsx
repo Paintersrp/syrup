@@ -1,11 +1,11 @@
-import { FormEvent, MouseEvent, useState, FC, Fragment } from 'react';
+import { MouseEvent, useState, FC, Fragment } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { faCoins } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
 import './css/RegisterForm.css';
 
 import { Collapser } from '@/components/Animation';
-import { ActionButton, Button } from '@/components/Buttons';
+import { Button, IconButton } from '@/components/Buttons';
 import { Container, Flexer, Item } from '@/components/Containers';
 import { Text } from '@/components/Elements';
 import { Input } from '@/components/Form';
@@ -30,7 +30,7 @@ const RegisterForm: FC = ({}) => {
     setIsAdvanced(!isAdvanced);
   };
 
-  const submitLogic = async (event: FormEvent<HTMLFormElement>) => {
+  const submitLogic = async (event: any) => {
     event?.preventDefault();
     useRegister(formData, dispatch, navigate, setError);
   };
@@ -66,12 +66,7 @@ const RegisterForm: FC = ({}) => {
         ))}
       </Container>
       <Flexer fd="column" j="c" mt={16}>
-        <Button
-          type="submit"
-          size="sm"
-          style={{ fontSize: '0.95rem', width: 80 }}
-          onClick={submitLogic}
-        >
+        <Button type="submit" size="sm" onClick={submitLogic}>
           Submit
         </Button>
         <Flexer j="fs" mt={8}>
@@ -84,8 +79,8 @@ const RegisterForm: FC = ({}) => {
         <Text w="90%" a="r" mr={8}>
           Advanced Registration
         </Text>
-        <ActionButton
-          type={isAdvanced ? 'close' : 'open'}
+        <IconButton
+          material={isAdvanced ? 'expand_less' : 'expand_more'}
           size="t"
           fontSize="0.9rem"
           onClick={(e: MouseEvent<HTMLButtonElement>) => handleOpen(e)}

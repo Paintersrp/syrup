@@ -1,6 +1,6 @@
-import React, { ReactEventHandler } from "react";
-import classNames from "classnames";
-import "./Tabs.css";
+import React, { ReactEventHandler } from 'react';
+import classNames from 'classnames';
+import './Tabs.css';
 
 export interface TabProps {
   onClick: ReactEventHandler;
@@ -8,8 +8,8 @@ export interface TabProps {
   active?: boolean;
 }
 
-const Tab: React.FC<TabProps> = ({ onClick, text, active }) => {
-  const tabClasses = classNames("tab-button", { active: active });
+export const Tab: React.FC<TabProps> = ({ onClick, text, active }) => {
+  const tabClasses = classNames('tab-button', { active: active });
 
   return (
     <button className={tabClasses} onClick={onClick}>
@@ -17,5 +17,3 @@ const Tab: React.FC<TabProps> = ({ onClick, text, active }) => {
     </button>
   );
 };
-
-export default Tab;

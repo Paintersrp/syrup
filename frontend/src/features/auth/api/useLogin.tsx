@@ -84,7 +84,6 @@ export const useLogin = async (
     }
 
     navigate('/');
-
     setTimeout(() => {
       dispatch({ type: 'ALERT_SUCCESS', message: 'Login Successful' });
     }, 275);

@@ -1,4 +1,4 @@
-import React, {
+import {
   useEffect,
   useState,
   CSSProperties,
@@ -13,7 +13,6 @@ import { ColorShade, ColorState, colorSwitch } from '../../../utils/theming/styl
 import { MaterialIcon } from '../../Media';
 import { Flexer } from '../../Containers';
 import { Text } from '../../Elements';
-import { palettes } from '@/utils';
 
 type ButtonType = 'button' | 'submit' | 'reset' | undefined;
 export type ButtonSize = 'tiny' | 'sm' | 'md' | 'lg';
@@ -23,10 +22,6 @@ const sizes = {
   sm: { py: 4, px: 4, fs: '0.81rem', is: '16px' },
   md: { py: 4, px: 6, fs: '0.95rem', is: '17px' },
   lg: { py: 8, px: 8, fs: '1rem', is: '20px' },
-};
-
-const variant = {
-  primary: { className: 'primary-button', hoverColor: palettes.primary.main },
 };
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
@@ -41,7 +36,7 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   manualHover?: string;
   type?: ButtonType;
   children: ReactNode;
-  onClick?: (event: any) => void;
+  onClick?: any;
   className?: string | undefined;
   style?: CSSProperties;
   disabled?: boolean;
@@ -52,7 +47,7 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   href?: string | undefined;
 };
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const {
     size = 'sm',
     w: width = 'auto',
@@ -138,5 +133,3 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
     </button>
   );
 });
-
-export default Button;

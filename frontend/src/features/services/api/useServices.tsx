@@ -57,6 +57,5 @@ export const useServices = async (
     }
   } catch (error) {
     setError(error);
-    console.log('error', error);
   }
 };

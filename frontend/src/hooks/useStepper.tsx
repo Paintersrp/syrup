@@ -25,7 +25,7 @@ export const useStepper = (): UseStepperResult => {
 
   return {
     activeStep,
-    setActiveStep,
+    setActiveStep, // unnecessary
     handleStepChange,
     handleNext,
     handleBack,

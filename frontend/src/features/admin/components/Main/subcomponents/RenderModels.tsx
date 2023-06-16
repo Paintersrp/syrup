@@ -7,7 +7,7 @@ import { palettes } from '@/utils';
 import { Flexer } from '@/components/Containers';
 import { ListItem, Tooltip } from '@/components/Elements';
 import { Icon } from '@/components/Media';
-import { ActionButton } from '@/components/Buttons';
+import { IconButton } from '@/components/Buttons';
 
 interface Model {
   url: string | null;
@@ -67,8 +67,8 @@ const RenderModels: React.FC<RenderModelsProps> = ({ modelItem, appName }) => {
                         }}
                       >
                         <Tooltip text={`Create ${model.verbose_name} Object`} position="bottom">
-                          <ActionButton
-                            type="add"
+                          <IconButton
+                            material="add"
                             size="t"
                             color="secondary"
                             style={{ marginRight: 16 }}

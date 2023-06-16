@@ -12,25 +12,25 @@ const createSalt = async (rounds: number = 12): Promise<string> => {
   return salt;
 };
 
-export const setSalt = async (setError: SetErrorFn, formData: any) => {
-  try {
-    const salt = await createSalt();
+// export const setSalt = async (setError: SetErrorFn, formData: any) => {
+//   try {
+//     const salt = await createSalt();
 
-    if (salt) {
-      return { loginData: hashPassword(formData, salt), salt: { salt } };
-    } else {
-      return {
-        loginData: {
-          username: formData.username,
-          password: formData.password,
-        },
-        salt: null,
-      };
-    }
-  } catch (error) {
-    setError(error);
-  }
-};
+//     if (salt) {
+//       return { loginData: hashPassword(formData, salt), salt: { salt } };
+//     } else {
+//       return {
+//         loginData: {
+//           username: formData.username,
+//           password: formData.password,
+//         },
+//         salt: null,
+//       };
+//     }
+//   } catch (error) {
+//     setError(error);
+//   }
+// };
 
 export const postUser = (formData: any): Promise<any> => {
   return axios.post<any>(`/auth/register/`, formData);
@@ -59,7 +59,6 @@ export const useRegister = async (
     Cookies.set('username', formData.username, { expires: 90 });
 
     navigate('/');
-
     setTimeout(() => {
       dispatch({ type: 'ALERT_SUCCESS', message: 'Login Successful' });
     }, 275);

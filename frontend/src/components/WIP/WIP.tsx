@@ -21,6 +21,7 @@ import Switch from '../Form/Switch/Switch';
 import { Option, Select } from '../Form';
 import { Page } from '../Layout';
 import BButton from '../Buttons/Button/BButton';
+import { css } from '@emotion/react';
 
 interface WIPProps {}
 
@@ -134,10 +135,34 @@ const WIP: React.FC<WIPProps> = ({}) => {
     }));
   };
 
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(!open);
+
+  // const styleTest = css({
+  //   background: `${open ? 'darkorchid' : 'red'}`,
+  //   transition: 'background 0.3s ease',
+  //   '&:hover': { background: 'black' },
+  // });
+
+  const styleTest = css({
+    background: 'red',
+    transition: 'background 0.3s ease',
+    '&:is(.open)': {
+      background: 'darkorchid',
+    },
+    '&:hover': {
+      background: 'black',
+    },
+  });
+
   return (
     <Page>
       <Flexer j="c" a="c" fd="column" mt={40}>
-        <BButton size="tiny" palette="error" variant="standard">
+        <button className={`${open ? 'open' : ''}`} onClick={handleOpen} css={styleTest}>
+          test
+        </button>
+
+        <BButton size="lg" pal="error" var="standard" mt={8} mb={24}>
           Test
         </BButton>
         <div>

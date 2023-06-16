@@ -1,5 +1,7 @@
-import { axios, ExtractFnReturnType, QueryConfig } from '@/lib/api';
 import { useQuery } from 'react-query';
+
+import { axios, ExtractFnReturnType, QueryConfig } from '@/lib/api';
+
 import { AboutContent } from '../types';
 
 export type SetAboutDataFn = (data: AboutContent) => void;

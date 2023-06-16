@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { Flexer } from '../../../Containers';
-import { palettes } from '../../../../utils';
 import Divider from '../../Divider/Divider';
 import { BaseProps } from '../../Base/Base';
 import Text from '../../Text/Text';
+import { Flexer } from '@/components/Containers';
+import { palettes } from '@/utils';
 
 interface DrawerFooterProps extends BaseProps {
   title?: string;

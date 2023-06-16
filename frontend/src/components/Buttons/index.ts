@@ -1,18 +1,14 @@
-import ActionButton from './ActionButton/ActionButton';
-import Button from './Button/Button';
-
-import FAB from './FAB/FAB';
-import IconButton from '../../components/Buttons/IconButton/IconButton';
-import { SpeedDial, SpeedDialItem } from '../../components/Buttons/SpeedDial/SpeedDial';
-import Tab from './Tabs/Tab';
-import Tabs from './Tabs/Tabs';
-import ToggleButton from '../../components/Buttons/ToggleButton/ToggleButton';
-import ToggleButtonGroup from './ToggleButton/ToggleButtonGroup';
+import { Button } from './Button/Button';
+import { FAB } from './FAB/FAB';
+import { IconButton } from './IconButton/IconButton';
+import { SpeedDial, SpeedDialItem } from './SpeedDial/SpeedDial';
+import { Tab } from './Tabs/Tab';
+import { Tabs } from './Tabs/Tabs';
+import { ToggleButton } from './ToggleButton/ToggleButton';
+import { ToggleButtonGroup } from './ToggleButton/ToggleButtonGroup';
 
 export {
-  ActionButton,
   Button,
-
   FAB,
   IconButton,
   SpeedDial,
@@ -23,6 +19,6 @@ export {
   ToggleButtonGroup,
 };
 
-import type { IconButtonSize } from '../../components/Buttons/IconButton/IconButton';
-
-export { IconButtonSize };
+import type { ButtonPalette, ButtonSize, ButtonVariant } from './Button/BButton';
+import type { IconButtonSize } from './IconButton/IconButton';
+export { ButtonPalette, ButtonSize, ButtonVariant, IconButtonSize };

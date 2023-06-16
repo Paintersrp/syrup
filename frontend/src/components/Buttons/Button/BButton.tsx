@@ -9,8 +9,8 @@ import { palettes } from '@/utils';
 
 type ButtonType = 'button' | 'submit' | 'reset' | undefined;
 export type ButtonSize = 'tiny' | 'sm' | 'md' | 'lg';
-export type ButtonVariants = 'outlined' | 'standard';
-export type ButtonPalettes = 'primary' | 'secondary' | 'error' | 'success' | 'info';
+export type ButtonVariant = 'outlined' | 'standard';
+export type ButtonPalette = 'primary' | 'secondary' | 'error' | 'success' | 'info';
 
 const sizes = {
   tiny: { py: 2, px: 2, fontSize: '0.8rem', iconSize: '14px' },
@@ -78,8 +78,8 @@ const buttonPalettes = {
 
 export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: ButtonSize;
-  variant?: ButtonVariants;
-  palette?: ButtonPalettes;
+  var?: ButtonVariant;
+  pal?: ButtonPalette;
   w?: CSSProperties['width'];
   ml?: CSSProperties['marginLeft'];
   mr?: CSSProperties['marginRight'];
@@ -88,7 +88,7 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   manualHover?: string;
   type?: ButtonType;
   children: ReactNode;
-  onClick?: (event: any) => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
   className?: string | undefined;
   style?: CSSProperties;
   disabled?: boolean;
@@ -100,8 +100,8 @@ export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 const BButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
   const {
     size = 'md',
-    variant = 'standard',
-    palette = 'primary',
+    var: variant = 'standard',
+    pal: palette = 'primary',
     w: width = 'auto',
     ml: marginLeft,
     mr: marginRight,
@@ -111,7 +111,7 @@ const BButton = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
     type = 'button',
     children,
     onClick,
-    className = undefined,
+    className,
     style,
     disabled = false,
     startIcon,

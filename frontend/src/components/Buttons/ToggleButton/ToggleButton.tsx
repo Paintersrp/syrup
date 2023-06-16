@@ -9,7 +9,7 @@ interface ToggleButtonProps {
   style?: CSSProperties;
 }
 
-const ToggleButton: React.FC<ToggleButtonProps> = ({
+export const ToggleButton: React.FC<ToggleButtonProps> = ({
   value,
   onClick,
   children,
@@ -27,5 +27,3 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({
     </button>
   );
 };
-
-export default ToggleButton;

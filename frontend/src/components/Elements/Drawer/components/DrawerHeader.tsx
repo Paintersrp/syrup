@@ -1,8 +1,9 @@
+import { Flexer } from '@/components/Containers';
+import { palettes } from '@/utils';
 import React, { ReactNode } from 'react';
-import { palettes } from '../../../../utils/theming/theme';
 
 import { BaseProps, JustifyContentValue } from '../../Base/Base';
-import { Flexer } from '../../../Containers';
+
 import Divider from '../../Divider/Divider';
 
 interface DrawerHeaderProps extends BaseProps {

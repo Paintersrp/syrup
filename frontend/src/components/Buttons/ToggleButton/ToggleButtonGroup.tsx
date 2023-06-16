@@ -13,7 +13,7 @@ interface ToggleButtonGroupProps extends BaseProps {
   mb?: CSSProperties['marginBottom'];
 }
 
-const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
+export const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
   value,
   onChange,
   children,
@@ -52,5 +52,3 @@ const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
     </Base>
   );
 };
-
-export default ToggleButtonGroup;

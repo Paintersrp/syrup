@@ -3,8 +3,8 @@ import './ErrorDisplay.css';
 
 import { handleClearErrors, handleClearNestedErrors, palettes } from '@/utils';
 import { Flexer } from '@/components/Containers';
-import { ActionButton } from '@/components/Buttons';
 import { Text } from '@/components/Elements';
+import { IconButton } from '@/components/Buttons';
 
 interface ErrorDisplayProps {
   errors: any[];
@@ -55,12 +55,12 @@ const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
           className="error-item"
           // style={{ height: `${maxHeight + 8}px` }}
         >
-          <ActionButton
+          <IconButton
             size="t"
             fontSize="21px"
             className="error-clear-button"
             onClick={() => clearError(index)}
-            type="cancel"
+            material="cancel"
             iconColor={palettes.error.main}
             iconHoverColor={palettes.error.dark}
           />

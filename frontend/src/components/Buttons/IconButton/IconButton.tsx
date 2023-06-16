@@ -53,7 +53,7 @@ const sizeSwitch = (size: IconButtonSize): number => {
   }
 };
 
-const IconButton: React.FC<IconButtonProps> = ({
+export const IconButton: React.FC<IconButtonProps> = ({
   size = 'lg',
   fontSize = '1rem',
   shade = 'main',
@@ -143,5 +143,3 @@ const IconButton: React.FC<IconButtonProps> = ({
     </button>
   );
 };
-
-export default IconButton;

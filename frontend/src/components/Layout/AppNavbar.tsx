@@ -1,12 +1,13 @@
-import React, { FC, ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import './css/AppNavbar.css';
 import { Navbar, Text } from '@/components/Elements';
-import { ActionButton } from '@/components/Buttons';
+// import { ActionButton } from '@/components/Buttons';
 import { breakPoints, LogoutUser, palettes, useBreakpoint } from '@/utils';
 import { Flexer } from '@/components/Containers';
 import { SiteLinkType } from '@/settings';
+import { IconButton } from '../Buttons';
 
 interface AppNavbarProps {
   menuButton?: boolean;
@@ -31,7 +32,7 @@ const AppNavbar: FC<AppNavbarProps> = ({
   return (
     <Navbar>
       {menuButton && (
-        <ActionButton
+        <IconButton
           size="lg"
           onClick={menuOnClick}
           style={{
@@ -39,7 +40,7 @@ const AppNavbar: FC<AppNavbarProps> = ({
             marginLeft: !menuOpen ? 12 : 12 + drawerSize,
           }}
           className="menu-button"
-          type="menu"
+          material="subject"
           iconColor={palettes.secondary.main}
           iconHoverColor={palettes.secondary.main}
         />

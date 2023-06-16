@@ -1,11 +1,11 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 
-import ListItem from '../../List/ListItem';
-import { Flexer } from '../../../Containers';
-import { palettes } from '../../../../utils';
+import { Flexer } from '@/components/Containers';
+import { palettes } from '@/utils';
 import { BaseProps } from '../../Base/Base';
-import Divider from '../../Divider/Divider';
 import List from '../../List/List';
+import ListItem from '../../List/ListItem';
+import Divider from '../../Divider/Divider';
 
 interface DrawerContentProps {
   handleClose?: () => void;

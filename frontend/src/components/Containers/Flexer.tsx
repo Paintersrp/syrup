@@ -28,7 +28,6 @@ const Flexer: React.FC<FlexerProps> = ({
   return (
     <Base
       {...rest}
-      // className={`${className} ${fade ? 'fade-in' : ''}`}
       className={clsx(className, fade ? 'fade-in' : '')}
       style={{
         ...style,

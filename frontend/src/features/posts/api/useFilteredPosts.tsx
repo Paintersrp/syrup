@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
-import { PostContent, PostsContent } from '../types';
+
+import { PostContent } from '../types';
 
 export const useFilteredPosts = (
   data: PostContent[] | undefined,

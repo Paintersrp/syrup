@@ -65,7 +65,7 @@ const ModelDashboard: React.FC<ModelDashboardProps> = ({}) => {
   }
 
   return (
-    <Page error={error}>
+    <Page>
       <ModelPanel apiData={data} recentActions={recentActions} type={type} />
     </Page>
   );

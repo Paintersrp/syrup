@@ -15,7 +15,7 @@ interface FABProps extends BaseProps {
   className?: string;
 }
 
-const FAB: React.FC<FABProps> = ({
+export const FAB: React.FC<FABProps> = ({
   icon,
   label,
   tooltip,
@@ -55,5 +55,3 @@ const FAB: React.FC<FABProps> = ({
     </Base>
   );
 };
-
-export default FAB;

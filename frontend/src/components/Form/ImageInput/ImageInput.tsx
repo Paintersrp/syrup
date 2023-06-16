@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from 'react';
 import './ImageInput.css';
 
-import Button from '../../Buttons/Button/Button';
+import { Button } from '@/components/Buttons';
 import { BaseProps, Text } from '../../Elements';
 import { Flexer } from '../../Containers';
 
@@ -30,10 +30,9 @@ const ImageInput: React.FC<ImageInputProps> = ({
   return (
     <Flexer j="c" {...rest}>
       <Button
-        onClick={(e) => handleSelectFile(e)}
+        onClick={(e: any) => handleSelectFile(e)}
         className={`input-button${dense ? '-dense' : ''}`}
         startIcon="upload"
-        iconSize={dense ? '16px' : '18px'}
       >
         <Text t="subtitle1" a="c" s={dense ? '0.85rem' : '0.95rem'}>
           {!newImage ? `Select New ${type}` : newImageName}

@@ -12,6 +12,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@emotion/babel-plugin": "^11.11.0",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
@@ -38,7 +39,8 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
     "react-transition-group": "^4.4.5",
-    "redux": "^4.2.1"
+    "redux": "^4.2.1",
+    "styled-components": "^5.3.11"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.0.20",
@@ -52,9 +54,10 @@
     "@types/bcryptjs": "^2.4.2",
     "@types/dompurify": "^3.0.2",
     "@types/js-cookie": "^3.0.3",
-    "@types/react": "^18.0.28",
+    "@types/react": "^18.2.12",
     "@types/react-dom": "^18.0.11",
     "@types/react-transition-group": "^4.4.6",
+    "@types/styled-components": "^5.1.26",
     "@vitejs/plugin-react": "^4.0.0",
     "eslint": "^8.38.0",
     "eslint-plugin-react": "^7.32.2",
