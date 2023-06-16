@@ -50,6 +50,10 @@ const DividerLine = styled.hr<DividerProps>`
   // The below definition looks a little different than ({ mb })
   // ({ thick = 1, dashed = false, color = 'rgba(0, 0, 0, 0.1)' })
   // Using thick = 1 instead of just thick applies 1 as the default if no prop is passed
+
+  // The end result of this definition might look like:
+  // border-top: 1px solid "rgba(0,0,0,0.1)"
+  // border-top: 2px dashed #ffffff
   border-top: ${({ thick = 1, dashed = false, color = 'rgba(0, 0, 0, 0.1)' }) =>
     `${thick}px ${dashed ? 'dashed' : 'solid'} ${color}`};
 
