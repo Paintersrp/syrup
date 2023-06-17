@@ -51,7 +51,7 @@ const MaterialIcon: FC<MaterialIconProps> = ({
         marginTop: marginTop && marginTop,
         paddingLeft: paddingLeft && paddingLeft,
         paddingRight: paddingRight && paddingRight,
-        color: colors.background || 'inherit',
+        // color: colors.background || 'inherit',
         fontSize: size,
       }}
     >

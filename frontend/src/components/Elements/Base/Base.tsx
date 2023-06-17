@@ -1,5 +1,5 @@
-import React, { CSSProperties, DetailedHTMLProps, HTMLAttributes, ReactNode } from 'react';
-import { shadowMap } from '../../../utils';
+import React, { CSSProperties } from 'react';
+import { baseCx } from '@/theme/commonCx';
 
 export const justifyContentMap: {
   [key: string]: CSSProperties['justifyContent'];
@@ -103,7 +103,6 @@ export interface BaseProps {
   fs?: CSSProperties['fontSize'];
   fw?: CSSProperties['fontWeight'];
   ta?: CSSProperties['textAlign'];
-  td?: CSSProperties['textDecoration'];
   d?: CSSProperties['display'];
   fd?: CSSProperties['flexDirection'];
   j?: JustifyContentValue | string;
@@ -125,37 +124,36 @@ export interface BaseProps {
 
 const Base: React.FC<BaseProps> = ({
   children,
-  m: margin,
-  mt: marginTop,
-  mb: marginBottom,
-  ml: marginLeft,
-  mr: marginRight,
-  p: padding,
-  pt: paddingTop,
-  pb: paddingBottom,
-  pl: paddingLeft,
-  pr: paddingRight,
-  w: width,
-  minw: minWidth,
-  maxw: maxWidth,
-  h: height,
-  minh: minHeight,
-  maxh: maxHeight,
-  c: color,
-  bg: backgroundColor,
-  br: borderRadius,
-  fs: fontSize,
-  fw: fontWeight,
-  ta: textAlign,
-  td: textDecoration,
-  d: display,
-  fd: flexDirection,
-  j: justifyContent,
-  a: alignItems,
+  m,
+  mt,
+  mb,
+  ml,
+  mr,
+  p,
+  pt,
+  pb,
+  pl,
+  pr,
+  w,
+  minw,
+  maxw,
+  h,
+  minh,
+  maxh,
+  c,
+  bg,
+  br,
+  fs,
+  fw,
+  ta,
+  d,
+  fd,
+  j,
+  a,
   gap,
-  z: zIndex,
-  o: opacity,
-  bs: boxShadow,
+  z,
+  o,
+  bs,
   style,
   className,
   ref,
@@ -166,39 +164,37 @@ const Base: React.FC<BaseProps> = ({
   onBlur,
   onKeyDown,
 }) => {
-  const baseStyle: CSSProperties = {
-    margin: margin,
-    marginTop: marginTop,
-    marginBottom: marginBottom,
-    marginLeft: marginLeft,
-    marginRight: marginRight,
-    padding: padding,
-    paddingTop: paddingTop,
-    paddingBottom: paddingBottom,
-    paddingLeft: paddingLeft,
-    paddingRight: paddingRight,
-    width: width,
-    minWidth: minWidth,
-    maxWidth: maxWidth,
-    height: height,
-    minHeight: minHeight,
-    maxHeight: maxHeight,
-    color: color,
-    backgroundColor: backgroundColor,
-    borderRadius: borderRadius,
-    fontSize: fontSize,
-    fontWeight: fontWeight,
-    textAlign: textAlign,
-    textDecoration: textDecoration,
-    display: display,
-    flexDirection: flexDirection,
-    justifyContent: justifyContent && justifyContentMap[justifyContent],
-    alignItems: alignItems && alignItemsMap[alignItems],
-    gap: gap,
-    zIndex: zIndex,
-    opacity: opacity,
-    boxShadow: boxShadow && shadowMap[boxShadow],
-    ...style,
+  const baseCssProps = {
+    m,
+    mt,
+    mb,
+    ml,
+    mr,
+    p,
+    pt,
+    pb,
+    pl,
+    pr,
+    w,
+    minw,
+    maxw,
+    h,
+    minh,
+    maxh,
+    c,
+    bg,
+    br,
+    fs,
+    fw,
+    ta,
+    d,
+    fd,
+    j,
+    a,
+    gap,
+    z,
+    o,
+    bs,
   };
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
@@ -210,7 +206,8 @@ const Base: React.FC<BaseProps> = ({
   return (
     <div
       className={className}
-      style={baseStyle}
+      css={baseCx.root(baseCssProps)}
+      style={style}
       onClick={onClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}

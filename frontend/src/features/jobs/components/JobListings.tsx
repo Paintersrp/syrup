@@ -74,20 +74,13 @@ export const JobListings: FC<JobListingsProps> = ({
                   {currentId !== jobPosting.id ? (
                     <Tooltip text={`Apply Now - ${jobPosting.position}`} position="bottom">
                       <Link to={`/jobs/${jobPosting.id}`}>
-                        <Button
-                          color={index % 2 === 0 ? palettes.secondary.dark : palettes.primary.main}
-                          size="md"
-                        >
+                        <Button size="sm" palette={index % 2 === 0 ? 'secondary' : 'primary'}>
                           Apply
                         </Button>
                       </Link>
                     </Tooltip>
                   ) : (
-                    <Button
-                      size="md"
-                      disabled
-                      color={index % 2 === 0 ? palettes.secondary.dark : palettes.primary.main}
-                    >
+                    <Button size="sm" disabled palette={index % 2 === 0 ? 'secondary' : 'primary'}>
                       Apply
                     </Button>
                   )}

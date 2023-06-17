@@ -1,5 +1,6 @@
 import { FC, Fragment, useEffect, useState } from 'react';
 import DOMPurify from 'dompurify';
+import { css } from '@emotion/react';
 
 import { ButtonBar } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
@@ -8,7 +9,21 @@ import { useApp } from '@/hooks';
 
 import { ParagraphEdit } from './ParagraphEdit';
 import { ParagraphType } from '../types';
-import './css/Paragraph.css';
+
+const paragraphCx = {
+  sectionTitle: css({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderBottom: '1px solid #222',
+  }),
+  sectionBody: css({
+    '& p': {
+      fontSize: '0.95rem',
+      fontWeight: 500,
+    },
+  }),
+};
 
 interface ParagraphProps extends BaseProps {
   data: ParagraphType;
@@ -34,8 +49,10 @@ export const Paragraph: FC<ParagraphProps> = ({ data, adminLink, text, ...rest }
     <Flexer mt={32} mb={32} fd="column" {...rest}>
       {!edit ? (
         <Fragment>
-          <Flexer j="sb" className="paragraph-section-title fade-in">
-            <Text t="h3">{paragraphData.title}</Text>
+          <Flexer j="sb" pb={4} mb={12} className="fade-in" css={paragraphCx.sectionTitle}>
+            <Text t="h3" fw="bold">
+              {paragraphData.title}
+            </Text>
             {!edit && editMode && (
               <ButtonBar
                 editClick={() => setEdit(!edit)}
@@ -48,7 +65,8 @@ export const Paragraph: FC<ParagraphProps> = ({ data, adminLink, text, ...rest }
           {paragraphData.body ? (
             <Text
               t="body1"
-              className="fade-in paragraph-body"
+              className="fade-in"
+              css={paragraphCx.sectionBody}
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(paragraphData.body),
               }}
@@ -57,7 +75,7 @@ export const Paragraph: FC<ParagraphProps> = ({ data, adminLink, text, ...rest }
         </Fragment>
       ) : (
         <div>
-          <Flexer j="sb" className="paragraph-section-title fade-in">
+          <Flexer j="sb" className="fade-in" css={paragraphCx.sectionTitle}>
             <Text t="h3">{paragraphData.title}</Text>
           </Flexer>
           <ParagraphEdit

@@ -1,12 +1,31 @@
 import React, { CSSProperties } from 'react';
-import './FAB.css';
+import clsx from 'clsx';
+import { css } from '@emotion/react';
 
 import { Base, BaseProps, Tooltip } from '../../Elements';
 import { MaterialIcon } from '../../Media';
 
+const fabCx = {
+  fabButton: css({
+    position: 'relative',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 40,
+    height: 40,
+    borderRadius: '50%',
+    backgroundColor: '#2196f3',
+    color: '#ffffff',
+    boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.26)',
+    border: 'none',
+    outline: 'none',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s',
+  }),
+};
+
 interface FABProps extends BaseProps {
   icon: string;
-  label?: string;
   tooltip?: string;
   position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
   onClick: () => void;
@@ -17,7 +36,6 @@ interface FABProps extends BaseProps {
 
 export const FAB: React.FC<FABProps> = ({
   icon,
-  label,
   tooltip,
   position = 'bottom-right',
   onClick,
@@ -37,14 +55,13 @@ export const FAB: React.FC<FABProps> = ({
   };
 
   const button = (
-    <button className="fab-button" onClick={onClick}>
+    <button css={fabCx.fabButton} onClick={onClick}>
       <MaterialIcon icon={icon} color="#fff" size={size} />
-      {label && <span className="fab-label">{label}</span>}
     </button>
   );
 
   return (
-    <Base className={`fab-container ${className}`} style={containerStyle} {...rest}>
+    <Base className={clsx(className)} d="f" a="c" j="c" style={containerStyle} {...rest}>
       {tooltip ? (
         <Tooltip text={tooltip} position={position.includes('top') ? 'bottom' : 'top'}>
           {button}

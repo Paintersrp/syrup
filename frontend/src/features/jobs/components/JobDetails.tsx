@@ -53,7 +53,7 @@ export const JobDetails: FC<JobDetailsProps> = ({ job, handleApplyNowClick, ...r
                 order: isSmallScreen ? 0 : 1,
               }}
             >
-              <Button size="small" onClick={handleApplyNowClick} startIcon="approval">
+              <Button size="sm" onClick={handleApplyNowClick} startIcon="approval">
                 Apply Now
               </Button>
             </Item>

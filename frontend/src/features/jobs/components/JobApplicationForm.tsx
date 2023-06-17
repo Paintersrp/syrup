@@ -82,7 +82,7 @@ export const JobApplicationForm: FC<JobApplicationFormProps> = ({ job, formRef, 
                 onChange={handleChange}
                 style={{ display: 'none' }}
               />
-              <Button size="small" onClick={handleClick} startIcon="attach_file" w={160}>
+              <Button size="sm" onClick={handleClick} startIcon="attach_file" w={160}>
                 {values.resume ? values.resume.name : 'Upload Resume'}
               </Button>
             </Flexer>
@@ -92,7 +92,7 @@ export const JobApplicationForm: FC<JobApplicationFormProps> = ({ job, formRef, 
               </Text>
             )}
             <Flexer j="c" mt={8}>
-              <Button size="small" onClick={handleSubmit} startIcon="publish" w={160}>
+              <Button size="sm" onClick={handleSubmit} startIcon="publish" w={160}>
                 Submit Application
               </Button>
             </Flexer>

@@ -89,8 +89,7 @@ const BulkActions: React.FC<BulkActionsProps> = ({
         <Button
           w="auto"
           ml={6}
-          size="medium"
-          textSize="0.9rem"
+          size="md"
           className={`${disabledCheck ? 'error-button' : 'success-button'}`}
           onClick={handlePerformAction}
           disabled={disabledCheck}

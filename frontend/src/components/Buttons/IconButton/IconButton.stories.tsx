@@ -1,6 +1,6 @@
 import { Meta, StoryFn } from '@storybook/react';
 
-import IconButton, { IconButtonProps } from './IconButton';
+import { IconButton, IconButtonProps } from './IconButton';
 
 const meta: Meta = {
   title: 'Components/IconButton',

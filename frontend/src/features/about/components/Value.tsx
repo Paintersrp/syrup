@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 import axios from 'axios';
 
 import { ButtonBar, ConfirmationModal } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
-import { BaseProps, Text } from '@/components/Elements';
+import { Base, BaseProps, Text } from '@/components/Elements';
 import { FormGenerator } from '@/components/Form';
 import { MaterialIcon } from '@/components/Media';
 
 import { ValueType } from '../types';
-import './css/Value.css';
 import { useApp } from '@/hooks';
+import { palettes } from '@/utils';
 
 interface ValueProps extends BaseProps {
   value: ValueType;
@@ -17,7 +17,7 @@ interface ValueProps extends BaseProps {
   start: number;
 }
 
-export const Value: React.FC<ValueProps> = ({ value, index, start, ...rest }) => {
+export const Value: FC<ValueProps> = ({ value, index, start, ...rest }) => {
   const { editMode } = useApp();
   const [valueData, setValueData] = useState<ValueType>(value);
   const [editing, setEditing] = useState(false);
@@ -60,18 +60,18 @@ export const Value: React.FC<ValueProps> = ({ value, index, start, ...rest }) =>
   return (
     <Flexer j="c" a="c" key={index} {...rest}>
       {!editing ? (
-        <div className="value-container fade-in">
+        <Base minw="100%" m="8px 0" className="fade-in">
           <MaterialIcon
             size="28px"
             icon={valueData.icon}
-            className={index % 2 === start ? 'value-icon' : 'value-icon-alt'}
+            css={{ color: index % 2 === start ? palettes.primary.main : palettes.secondary.main }}
           />
-          <Text className="value-title" a="c" mb={8}>
+          <Text s="1rem" fw="500" mt={4} a="c" mb={8}>
             {valueData.title}
           </Text>
           <Flexer a="c" j="fe" w="90%">
             {!editing && editMode && (
-              <React.Fragment>
+              <Fragment>
                 <ButtonBar
                   editClick={() => setEditing(!editing)}
                   deleteClick={() => handleDelete(value.id)}
@@ -79,10 +79,10 @@ export const Value: React.FC<ValueProps> = ({ value, index, start, ...rest }) =>
                   text="Value"
                   obj={value.id}
                 />
-              </React.Fragment>
+              </Fragment>
             )}
           </Flexer>
-        </div>
+        </Base>
       ) : (
         <FormGenerator
           endpoint={`value/${valueData.id}/`}

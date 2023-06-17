@@ -115,7 +115,7 @@ export const DisplayTable: FC<DisplayTableProps> = ({
                   <TableCell a="center">
                     {pathname === column.link ? (
                       <Tooltip key={column.id} text="Enterprise Tier Page" position="bottom">
-                        <Button startIcon="link" w={110} disabled>
+                        <Button size="sm" startIcon="link" w={110} disabled>
                           Learn More
                         </Button>
                       </Tooltip>

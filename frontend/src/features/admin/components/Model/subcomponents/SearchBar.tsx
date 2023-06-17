@@ -16,8 +16,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ handleClearSearch, searchTerm, se
         <Button
           w="auto"
           mr={6}
-          size="medium"
-          textSize="0.9rem"
+          size="md"
           className={`${searchTerm === '' ? 'error-button' : 'success-button'}`}
           onClick={handleClearSearch}
           disabled={searchTerm === ''}

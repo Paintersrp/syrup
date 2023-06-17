@@ -2,13 +2,27 @@ import React, { useEffect, useState, MouseEvent, CSSProperties } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import clsx from 'clsx';
-import './IconButton.css';
+import { css } from '@emotion/react';
 
 import { colorSwitch } from '../../../utils/theming/styleSwitches';
 import { MaterialIcon } from '../../Media';
 
-type Shade = 'light' | 'dark' | 'main';
+const iconButtonCx = {
+  iconButton: css({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    border: 'none',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease',
+    fontSize: '0.9rem',
+    color: '#ffffff',
+    boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
+  }),
+};
 
+type Shade = 'light' | 'dark' | 'main';
 export type IconButtonSize = 't' | 'tiny' | 'sm' | 'small' | 'md' | 'medium' | 'lg' | 'large';
 
 export interface IconButtonProps {
@@ -100,7 +114,8 @@ export const IconButton: React.FC<IconButtonProps> = ({
   return (
     <button
       disabled={disabled}
-      className={clsx('collapse-button', className)}
+      css={iconButtonCx.iconButton}
+      className={clsx(className)}
       onClick={href ? handleHref : onClick}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
@@ -132,8 +147,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
         <MaterialIcon
           icon={material}
           size={fontSize}
-          style={{ ...iconStyle }}
-          color={!hover ? iconColor : iconHoverColor}
+          style={{ ...iconStyle, color: !hover ? iconColor : iconHoverColor }}
         />
       ) : (
         <React.Fragment>

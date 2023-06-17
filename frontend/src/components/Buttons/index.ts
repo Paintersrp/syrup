@@ -19,6 +19,6 @@ export {
   ToggleButtonGroup,
 };
 
-import type { ButtonPalette, ButtonSize, ButtonVariant } from './Button/BButton';
+import type { ButtonPalette, ButtonSize, ButtonVariant } from './Button/Button';
 import type { IconButtonSize } from './IconButton/IconButton';
 export { ButtonPalette, ButtonSize, ButtonVariant, IconButtonSize };

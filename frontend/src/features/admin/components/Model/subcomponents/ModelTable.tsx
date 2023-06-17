@@ -131,7 +131,7 @@ const ModelTable: React.FC<ModelTableProps> = ({
   };
 
   const handleCustomPageChange = (newPage: number) => {
-    handleChangePage(null, newPage);
+    handleChangePage(newPage);
   };
 
   const handleCustomRowsPerPageChange = (newRowsPerPage: any) => {
@@ -174,7 +174,7 @@ const ModelTable: React.FC<ModelTableProps> = ({
         searchTerm={searchTerm}
         setSearchTerm={setSearchTerm}
       />
-      <TableContainer mt={20}>
+      <TableContainer mt={20} bs={1} br={6}>
         <Table>
           <ModelTableHead
             keys={keys}

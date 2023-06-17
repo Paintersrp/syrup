@@ -91,7 +91,7 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
   }
 
   return (
-    <Page error={error}>
+    <Page>
       <Surface maxWidth={1200} pt={32} pb={32} px={3} py={3} boxShadow={1} br={8} j="c">
         {Object.keys(models).length > 0 && (
           <React.Fragment>

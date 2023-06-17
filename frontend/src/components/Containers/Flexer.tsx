@@ -29,13 +29,13 @@ const Flexer: React.FC<FlexerProps> = ({
     <Base
       {...rest}
       className={clsx(className, fade ? 'fade-in' : '')}
+      d="flex"
+      gap={gap}
+      w={width}
       style={{
         ...style,
-        width: width,
-        display: 'flex',
         flexGrow: grow ? 1 : 0,
         flexWrap: wrap ? 'wrap' : undefined,
-        gap: gap,
       }}
     >
       {children}

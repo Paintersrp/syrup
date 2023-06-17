@@ -44,13 +44,7 @@ export const Hero: React.FC<HeroProps> = ({ data, contactData, socialsData, ...r
             </Text>
             <Flexer j="c" a="c">
               <Link to="/services">
-                <Button
-                  size="md"
-                  startIcon="launch"
-                  manualHover={palettes.primary.light}
-                  w={125}
-                  style={{ borderRadius: 4 }}
-                >
+                <Button size="md" startIcon="launch" w={125}>
                   {heroData.buttonText}
                 </Button>
               </Link>

@@ -54,7 +54,15 @@ const Surface: React.FC<SurfaceProps> = ({
   };
 
   return (
-    <Base className={outerClass} style={containerStyle} onClick={onClick} {...rest}>
+    <Base
+      w="100%"
+      minh={minHeight}
+      d="flex"
+      className={outerClass}
+      style={containerStyle}
+      onClick={onClick}
+      {...rest}
+    >
       <div style={contentStyle} className={innerClass}>
         {children}
       </div>

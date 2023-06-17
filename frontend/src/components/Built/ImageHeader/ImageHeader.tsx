@@ -25,13 +25,20 @@ export const ImageHeader: React.FC<ImageHeaderProps> = ({
   ...rest
 }) => {
   return (
-    <Flexer j="c" fd="column" className={`${fade ? 'fade-in' : ''}`} mb={marginBottom} {...rest}>
+    <Flexer
+      j="c"
+      a="c"
+      fd="column"
+      className={`${fade ? 'fade-in' : ''}`}
+      mb={marginBottom}
+      {...rest}
+    >
       {header && (
         <Text t={headerType} a="c" className="image-header-title">
           {header}
         </Text>
       )}
-      <div style={{ width: '100%' }}>
+      <div style={{ width: '85%' }}>
         {src && (
           <Media
             className="image-header-media"

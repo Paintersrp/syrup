@@ -41,6 +41,7 @@ const AppNavbar: FC<AppNavbarProps> = ({
           }}
           className="menu-button"
           material="subject"
+          fontSize="24px"
           iconColor={palettes.secondary.main}
           iconHoverColor={palettes.secondary.main}
         />

@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 
 import { ButtonBar } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
 import { Base, BaseProps, Loading, Text } from '@/components/Elements';
+import { useApp } from '@/hooks';
 
 import { ValueType } from '../types';
 import { Value } from './Value';
-import './css/Values.css';
-import { useApp } from '@/hooks';
 
 interface ValuesProps extends BaseProps {
   valuesData: ValueType[];
 }
 
-export const Values: React.FC<ValuesProps> = ({ valuesData, ...rest }) => {
+export const Values: FC<ValuesProps> = ({ valuesData, ...rest }) => {
   const { editMode } = useApp();
   const [loading, setLoading] = useState(true);
   const [rowOne, setRowOne] = useState<ValueType[] | null>(null);
@@ -42,9 +41,11 @@ export const Values: React.FC<ValuesProps> = ({ valuesData, ...rest }) => {
   }
 
   return (
-    <Base className="values-root" {...rest}>
-      <Flexer j="sb" className="values-container">
-        <Text t="h3">Core Values</Text>
+    <Base mb={32} {...rest}>
+      <Flexer j="sb" mb={12} pb={4} css={{ borderBottom: '1px solid #222' }}>
+        <Text t="h3" fw="bold">
+          Core Values
+        </Text>
         {editMode && <ButtonBar adminLink="About" tooltipPosition="top" text="Values" />}
       </Flexer>
 

@@ -20,7 +20,7 @@ import Alert from '../Elements/Alert/Alert';
 import Switch from '../Form/Switch/Switch';
 import { Option, Select } from '../Form';
 import { Page } from '../Layout';
-import BButton from '../Buttons/Button/BButton';
+import { Button } from '../Buttons/Button/Button';
 import { css } from '@emotion/react';
 
 interface WIPProps {}
@@ -162,9 +162,9 @@ const WIP: React.FC<WIPProps> = ({}) => {
           test
         </button>
 
-        <BButton size="lg" pal="error" var="standard" mt={8} mb={24}>
+        <Button size="lg" palette="success" variant="standard" mt={8} mb={24}>
           Test
-        </BButton>
+        </Button>
         <div>
           <Switch
             name="field1"

@@ -94,7 +94,7 @@ function RecentActions({
       </PanelHeader>
       <Collapser isOpen={actionsOpen}>
         {recentActions.length > 0 ? (
-          <TableContainer br={0}>
+          <TableContainer br={0} bs={1}>
             <Table size="medium">
               <TableHead>
                 <TableRow>

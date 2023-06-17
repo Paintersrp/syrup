@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './SectionHeader.css';
 
 import { palettes } from '@/utils';
 import { Flexer } from '@/components/Containers';
@@ -61,7 +60,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, formTitle }) 
           <Flexer fd="column">
             {header.subtitle && (
               <FadeOnScroll onScreenPercentage={0.1} animationDuration={0.5}>
-                <Text t="subtitle1" a="c" className="section-header-subtitle">
+                <Text t="subtitle1" a="c" s="0.95rem" fw="600" c={palettes.secondary.main}>
                   {header.subtitle}
                 </Text>
               </FadeOnScroll>
@@ -69,7 +68,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, formTitle }) 
 
             {header.title && (
               <FadeOnScroll onScreenPercentage={0.1} animationDuration={1.5}>
-                <Text t="h2" a={alignClass} className="section-header-title">
+                <Text t="h2" a={alignClass} s="2rem" fw="600" mb={8}>
                   {header.title}
                 </Text>
               </FadeOnScroll>
@@ -79,7 +78,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, formTitle }) 
           {header.description && (
             <Flexer fd="column" a="c">
               <FadeOnScroll onScreenPercentage={0.1} animationDuration={2.5}>
-                <Text t="h5" a={alignClass} className="section-header-description" w={500}>
+                <Text t="h5" a={alignClass} s="0.95rem" fw="500" mb={16} w={500}>
                   {header.description}
                 </Text>
               </FadeOnScroll>
@@ -122,7 +121,6 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, formTitle }) 
           editClick={() => setEditing(!editing)}
           adminLink="sectionheader"
           text="Section Header"
-          tooltipPosition="bottom"
           mt={8}
         />
       )}

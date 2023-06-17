@@ -86,14 +86,7 @@ export const ContactForm: FC<ContactFormProps> = ({ socialData, color = 'light',
           />
         ))}
         <Flexer j="c" mt={12}>
-          <Button
-            startIcon="email"
-            onClick={handleSubmit}
-            style={{ borderRadius: 4 }}
-            textSize="0.8rem"
-            iconSize="16px"
-            w={110}
-          >
+          <Button size="sm" startIcon="email" onClick={handleSubmit} w={110}>
             Get In Touch
           </Button>
         </Flexer>

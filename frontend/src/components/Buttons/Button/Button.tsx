@@ -1,135 +1,170 @@
-import {
-  useEffect,
-  useState,
-  CSSProperties,
-  ReactNode,
-  ButtonHTMLAttributes,
-  forwardRef,
-} from 'react';
+import { useState, CSSProperties, ReactNode, ButtonHTMLAttributes, forwardRef } from 'react';
+import { css } from '@emotion/react';
 import clsx from 'clsx';
-import './Button.css';
 
-import { ColorShade, ColorState, colorSwitch } from '../../../utils/theming/styleSwitches';
-import { MaterialIcon } from '../../Media';
-import { Flexer } from '../../Containers';
-import { Text } from '../../Elements';
+import { Flexer } from '@/components/Containers';
+import { Text } from '@/components/Elements';
+import { MaterialIcon } from '@/components/Media';
+import { baseCx } from '@/theme/commonCx';
+import { buttonPalettes, iconPalettes } from '@/theme/palettes';
 
-type ButtonType = 'button' | 'submit' | 'reset' | undefined;
 export type ButtonSize = 'tiny' | 'sm' | 'md' | 'lg';
+export type ButtonVariant = 'outlined' | 'standard';
+export type ButtonPalette = 'primary' | 'secondary' | 'error' | 'success' | 'info';
 
 const sizes = {
-  tiny: { py: 2, px: 2, fs: '0.8rem', is: '14px' },
-  sm: { py: 4, px: 4, fs: '0.81rem', is: '16px' },
-  md: { py: 4, px: 6, fs: '0.95rem', is: '17px' },
-  lg: { py: 8, px: 8, fs: '1rem', is: '20px' },
+  tiny: { py: 2, px: 2, fontSize: '0.8rem', iconSize: '14px' },
+  sm: { py: 4, px: 4, fontSize: '0.81rem', iconSize: '16px' },
+  md: { py: 4, px: 6, fontSize: '0.95rem', iconSize: '17px' },
+  lg: { py: 8, px: 8, fontSize: '1rem', iconSize: '20px' },
 };
 
-export type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+const buttonCx = {
+  buttonRoot: (props: RootProps) => {
+    const padding = props.size ? `${sizes[props.size].py}px ${sizes[props.size].px}px` : '';
+    const borderRadius = `${props.br ? props.br : 4}px`;
+    const minWidth = props.hasIcon ? 70 : 55;
+
+    const buttonStyle = {
+      border: 'none',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      cursor: 'pointer',
+      transition: 'background-color 0.3s ease',
+      padding,
+      borderRadius,
+      minWidth,
+    };
+
+    const v = props.variant ?? 'standard';
+    const p = props.palette ?? 'primary';
+
+    return [
+      baseCx.root(props),
+      buttonStyle,
+      buttonPalettes[p][v],
+      props.disabled ? buttonCx.buttonDisabled : '',
+    ];
+  },
+  buttonDisabled: css({
+    opacity: '0.5',
+    pointerEvents: 'none',
+    cursor: 'not-allowed',
+  }),
+};
+
+export type RootProps = {
   size?: ButtonSize;
+  variant?: ButtonVariant;
+  palette?: ButtonPalette;
   w?: CSSProperties['width'];
   ml?: CSSProperties['marginLeft'];
   mr?: CSSProperties['marginRight'];
   mt?: CSSProperties['marginTop'];
   mb?: CSSProperties['marginBottom'];
-  color?: string;
-  shade?: ColorShade;
-  manualHover?: string;
-  type?: ButtonType;
-  children: ReactNode;
-  onClick?: any;
-  className?: string | undefined;
-  style?: CSSProperties;
+  br?: CSSProperties['borderRadius'];
   disabled?: boolean;
-  startIcon?: string;
-  endIcon?: string;
-  iconColor?: string;
-  iconHoverColor?: string;
-  href?: string | undefined;
+  hasIcon?: boolean;
 };
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>((props, ref) => {
-  const {
-    size = 'sm',
-    w: width = 'auto',
-    ml: marginLeft,
-    mr: marginRight,
-    mt: marginTop,
-    mb: marginBottom,
-    color = 'primary',
-    shade = 'main',
-    manualHover,
-    type = 'button',
-    children,
-    onClick,
-    className = undefined,
-    style,
-    disabled = false,
-    startIcon,
-    endIcon,
-    iconColor = '#f5f5f5',
-    iconHoverColor = '#f5f5f5',
-    href,
-  } = props;
-
-  const [colors, setColors] = useState<ColorState>(colorSwitch(color, shade));
-  const [hover, setHover] = useState<boolean>(false);
-
-  useEffect(() => {
-    setColors(colorSwitch(color, shade));
-  }, [color, shade]);
-
-  const handleHref = () => {
-    if (href) {
-      window.location.href = href;
-    }
+export type ButtonProps = RootProps &
+  ButtonHTMLAttributes<HTMLButtonElement> & {
+    children: ReactNode;
+    onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    className?: string | undefined;
+    style?: CSSProperties;
+    startIcon?: string;
+    endIcon?: string;
+    href?: string | undefined;
   };
 
-  return (
-    <button
-      ref={ref}
-      className={clsx('button-base', className, disabled ? 'disabled' : '')}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-      onClick={href ? handleHref : onClick}
-      type={type}
-      disabled={disabled}
-      style={{
-        ...style,
-        width: width,
-        marginLeft: marginLeft,
-        marginRight: marginRight,
-        marginTop: marginTop,
-        marginBottom: marginBottom,
-        padding: `${sizes[size]?.py}px ${sizes[size]?.px}px`,
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        // padding: sizeSwitch(size),
-        backgroundColor: hover ? (manualHover ? manualHover : colors.hover) : colors.background,
-      }}
-    >
-      <Flexer a="c" j="c">
-        {startIcon && (
-          <MaterialIcon
-            icon={startIcon}
-            size={sizes[size]?.is}
-            mr={0}
-            ml={0}
-            color={hover ? iconHoverColor : iconColor}
-          />
-        )}
-        <Text a="c" t="button" fw="600" s={sizes[size]?.fs}>
-          {children}
-        </Text>
-        {endIcon && (
-          <MaterialIcon
-            icon={endIcon}
-            size={sizes[size].is}
-            ml={0}
-            color={hover ? iconHoverColor : iconColor}
-          />
-        )}
-      </Flexer>
-    </button>
-  );
-});
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      size = 'md',
+      variant = 'standard',
+      palette = 'primary',
+      w,
+      ml,
+      mr,
+      mt,
+      mb,
+      br,
+      type = 'button',
+      children,
+      onClick,
+      className,
+      style,
+      disabled = false,
+      startIcon,
+      endIcon,
+      href,
+    },
+    ref
+  ) => {
+    const hasIcon = !(!startIcon && !endIcon);
+    const rootProps: RootProps = {
+      size,
+      variant,
+      palette,
+      w,
+      ml,
+      mr,
+      mt,
+      mb,
+      br,
+      disabled,
+      hasIcon,
+    };
+
+    const [hover, setHover] = useState(false);
+    const handleHref = () => {
+      if (href) {
+        window.location.href = href;
+      }
+    };
+
+    return (
+      <button
+        ref={ref}
+        className={clsx(className)}
+        css={buttonCx.buttonRoot(rootProps)}
+        onMouseEnter={() => setHover(true)}
+        onMouseLeave={() => setHover(false)}
+        onClick={href ? handleHref : onClick}
+        type={type}
+        disabled={disabled}
+        style={style}
+      >
+        <Flexer a="c" j="c">
+          {startIcon && (
+            <MaterialIcon
+              icon={startIcon}
+              size={sizes[size]?.iconSize}
+              color={
+                hover
+                  ? iconPalettes[palette][variant]?.hover
+                  : iconPalettes[palette][variant]?.color
+              }
+            />
+          )}
+          <Text a="c" t="button" fw="600" s={sizes[size]?.fontSize}>
+            {children}
+          </Text>
+          {endIcon && (
+            <MaterialIcon
+              icon={endIcon}
+              size={sizes[size]?.iconSize}
+              color={
+                hover
+                  ? iconPalettes[palette][variant]?.hover
+                  : iconPalettes[palette][variant]?.color
+              }
+            />
+          )}
+        </Flexer>
+      </button>
+    );
+  }
+);
