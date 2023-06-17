@@ -5,8 +5,8 @@ import clsx from 'clsx';
 import { Flexer } from '@/components/Containers';
 import { Text } from '@/components/Elements';
 import { MaterialIcon } from '@/components/Media';
-import { baseCx } from '@/theme/commonCx';
-import { buttonPalettes, iconPalettes } from '@/theme/palettes';
+import { baseCx } from '@/theme/cx';
+import { buttonPalette, iconPalette } from '@/theme/palettes';
 
 export type ButtonSize = 'tiny' | 'sm' | 'md' | 'lg';
 export type ButtonVariant = 'outlined' | 'standard';
@@ -43,7 +43,7 @@ const buttonCx = {
     return [
       baseCx.root(props),
       buttonStyle,
-      buttonPalettes[p][v],
+      buttonPalette[p][v],
       props.disabled ? buttonCx.buttonDisabled : '',
     ];
   },
@@ -143,9 +143,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               icon={startIcon}
               size={sizes[size]?.iconSize}
               color={
-                hover
-                  ? iconPalettes[palette][variant]?.hover
-                  : iconPalettes[palette][variant]?.color
+                hover ? iconPalette[palette][variant]?.hover : iconPalette[palette][variant]?.color
               }
             />
           )}
@@ -157,9 +155,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               icon={endIcon}
               size={sizes[size]?.iconSize}
               color={
-                hover
-                  ? iconPalettes[palette][variant]?.hover
-                  : iconPalettes[palette][variant]?.color
+                hover ? iconPalette[palette][variant]?.hover : iconPalette[palette][variant]?.color
               }
             />
           )}

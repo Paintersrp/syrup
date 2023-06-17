@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 import { Flexer } from '@/components/Containers';
 import { Text } from '@/components/Elements';
-import { baseCx } from '@/theme/commonCx';
+import { baseCx } from '@/theme/cx';
 
 const dividerCx = {
   root: css({

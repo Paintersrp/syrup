@@ -1,5 +1,6 @@
 import React, { CSSProperties } from 'react';
-import { baseCx } from '@/theme/commonCx';
+
+import { baseCx } from '@/theme/cx';
 
 export const justifyContentMap: {
   [key: string]: CSSProperties['justifyContent'];

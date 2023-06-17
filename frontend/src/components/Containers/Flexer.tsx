@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { ReactNode, CSSProperties } from 'react';
+import React, { CSSProperties } from 'react';
 import { Base, BaseProps } from '../Elements';
 
 interface FlexerProps extends BaseProps {

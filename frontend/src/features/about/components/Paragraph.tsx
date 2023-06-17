@@ -12,9 +12,6 @@ import { ParagraphType } from '../types';
 
 const paragraphCx = {
   sectionTitle: css({
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
     borderBottom: '1px solid #222',
   }),
   sectionBody: css({
