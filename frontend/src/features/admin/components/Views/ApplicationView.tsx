@@ -1,8 +1,9 @@
 import { Flexer, Surface } from '@/components/Containers';
 import { Breadcrumbs, Text, Tooltip, useLoading } from '@/components/Elements';
 import { Page } from '@/components/Layout';
+import { useBreakpoint } from '@/hooks';
 import { axios } from '@/lib/api';
-import { breakPoints, useBreakpoint } from '@/utils';
+
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import Application from './Application';
@@ -12,7 +13,7 @@ interface ApplicationViewPageProps {}
 const ApplicationView: React.FC<ApplicationViewPageProps> = ({}) => {
   const { pk } = useParams<{ pk: string }>();
   const location = useLocation();
-  const isSmallScreen = useBreakpoint(breakPoints.sm);
+  const isSmallScreen = useBreakpoint('sm');
   const { loading, startLoad, endLoad } = useLoading();
 
   const [ready, setReady] = useState<boolean>(false);
@@ -88,7 +89,7 @@ const ApplicationView: React.FC<ApplicationViewPageProps> = ({}) => {
   }
 
   return (
-    <Page error={error}>
+    <Page>
       {metadata && data && job && (
         <Surface maxWidth={1200} pt={32} pb={32} px={3} py={3} boxShadow={1} br={8} j="c">
           <Flexer>

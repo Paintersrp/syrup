@@ -1,10 +1,11 @@
 import React, { CSSProperties, useEffect, useRef, useState } from 'react';
 import './ErrorDisplay.css';
 
-import { handleClearErrors, handleClearNestedErrors, palettes } from '@/utils';
+import { handleClearErrors, handleClearNestedErrors } from '@/utils';
 import { Flexer } from '@/components/Containers';
 import { Text } from '@/components/Elements';
 import { IconButton } from '@/components/Buttons';
+import { colors } from '@/theme/common';
 
 interface ErrorDisplayProps {
   errors: any[];
@@ -61,8 +62,8 @@ const ErrorDisplay: React.FC<ErrorDisplayProps> = ({
             className="error-clear-button"
             onClick={() => clearError(index)}
             material="cancel"
-            iconColor={palettes.error.main}
-            iconHoverColor={palettes.error.dark}
+            iconColor={colors.error.main}
+            iconHoverColor={colors.error.dark}
           />
           <div ref={(ref) => (contentRefs.current[index] = ref)} style={{ padding: 4 }}>
             <Flexer a="fs" j="fs" fd="column">

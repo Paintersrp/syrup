@@ -3,10 +3,10 @@ import { FC, useEffect, useState } from 'react';
 import { Carousel } from '@/components/Animation';
 import { Button } from '@/components/Buttons';
 import { Flexer, Surface } from '@/components/Containers';
-import { breakPoints, useBreakpoint } from '@/utils';
 
 import { ServiceCard } from './ServiceCards';
 import { ServiceType } from '../../types';
+import { useBreakpoint } from '@/hooks';
 
 type ResultItemProps = {
   index: number;
@@ -43,7 +43,7 @@ type ResultsProps = {
 };
 
 export const Results: FC<ResultsProps> = ({ services, recommended, handleReset }) => {
-  const isSmallScreen = useBreakpoint(breakPoints.sm);
+  const isSmallScreen = useBreakpoint('sm');
   const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {

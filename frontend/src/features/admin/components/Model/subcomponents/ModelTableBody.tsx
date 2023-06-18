@@ -3,7 +3,8 @@ import { Flexer } from '@/components/Containers';
 import { TableBody, TableCell, TableRow, Tooltip } from '@/components/Elements';
 import { Checkbox } from '@/components/Form';
 import { MaterialIcon } from '@/components/Media';
-import { CapitalizeFirst, palettes } from '@/utils';
+import { colors } from '@/theme/common';
+import { CapitalizeFirst } from '@/utils';
 import React from 'react';
 
 interface ModelTableBodyProps {
@@ -196,7 +197,7 @@ const ModelTableBody: React.FC<ModelTableBodyProps> = ({
                 >
                   <IconButton
                     className="success-button"
-                    iconColor={palettes.success.main}
+                    iconColor={colors.success.main}
                     material={
                       model.model_name === 'messages' || model.model_name === 'application'
                         ? 'email'
@@ -220,7 +221,7 @@ const ModelTableBody: React.FC<ModelTableBodyProps> = ({
                 <Tooltip text="Delete" position="bottom">
                   <IconButton
                     className="error-button"
-                    iconColor={palettes.error.main}
+                    iconColor={colors.error.main}
                     material="delete"
                     size="t"
                     fontSize="18px"

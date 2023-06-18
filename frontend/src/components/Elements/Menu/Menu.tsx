@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, ReactNode, CSSProperties } from 're
 import './Menu.css';
 
 import Base, { BaseProps } from '../Base/Base';
-import Divider from '../Divider/Divider';
+import { Divider } from '../Divider/Divider';
 import { Button } from '../../Buttons';
 
 interface MenuProps extends BaseProps {

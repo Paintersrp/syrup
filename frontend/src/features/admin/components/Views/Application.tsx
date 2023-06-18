@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { breakPoints, palettes, useBreakpoint } from '@/utils';
+
 import { axios } from '@/lib/api';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { Divider, Text, Tooltip } from '@/components/Elements';
@@ -9,6 +9,8 @@ import { Button, IconButton } from '@/components/Buttons';
 
 import { Switch } from '@/components/Form';
 import { ButtonBar, ConfirmationModal } from '@/components/Built';
+import { useBreakpoint } from '@/hooks';
+import { colors } from '@/theme/common';
 
 interface ApplicationProps {
   application: any;
@@ -19,7 +21,7 @@ interface ApplicationProps {
 const Application: React.FC<ApplicationProps> = ({ application, job, metadata }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isSmallScreen = useBreakpoint(breakPoints.sm);
+  const isSmallScreen = useBreakpoint('sm');
 
   const [selected, setSelected] = useState<any[]>([]);
   const [open, setOpen] = useState(false);
@@ -88,7 +90,7 @@ const Application: React.FC<ApplicationProps> = ({ application, job, metadata })
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
@@ -101,7 +103,7 @@ const Application: React.FC<ApplicationProps> = ({ application, job, metadata })
     }
   };
 
-  const handleJobSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleJobSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
@@ -135,7 +137,7 @@ const Application: React.FC<ApplicationProps> = ({ application, job, metadata })
             size="t"
             onClick={handleBackButtonClick}
             className="secondary-button"
-            iconColor={palettes.secondary.main}
+            iconColor={colors.secondary.main}
           />
         </Tooltip>
         <Text w="auto" t="body1" fw="500" c="#718096">
@@ -180,7 +182,7 @@ const Application: React.FC<ApplicationProps> = ({ application, job, metadata })
           key === 'looking_for' ||
           key === 'tagline' ? null : (
             <Item xs={12} sm={6} md={4} lg={3} key={key} fd="column" mt={4}>
-              <Text t="subtitle2" fw="600" c={palettes.secondary.main}>
+              <Text t="subtitle2" fw="600" c={colors.secondary.main}>
                 {key === 'created_at'
                   ? 'Created At'
                   : key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ')}
@@ -223,7 +225,7 @@ const Application: React.FC<ApplicationProps> = ({ application, job, metadata })
         {Object.keys(formData).map((key) =>
           key === 'id' || key === 'message' || key === 'job' ? null : (
             <Item xs={12} sm={6} md={4} lg={3} key={key} fd="column" mt={4}>
-              <Text t="subtitle2" fw="600" c={palettes.secondary.main}>
+              <Text t="subtitle2" fw="600" c={colors.secondary.main}>
                 {metadata[key].verbose_name}:
               </Text>
               <Text t="body1" fw="500" style={{ wordBreak: 'break-word' }} c="#718096">
@@ -263,7 +265,7 @@ const Application: React.FC<ApplicationProps> = ({ application, job, metadata })
             material="delete"
             size="t"
             onClick={() => handleDelete(application)}
-            iconColor={palettes.error.main}
+            iconColor={colors.error.main}
             className="error-button"
           />
         </Tooltip>

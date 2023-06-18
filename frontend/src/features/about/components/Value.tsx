@@ -9,7 +9,7 @@ import { MaterialIcon } from '@/components/Media';
 
 import { ValueType } from '../types';
 import { useApp } from '@/hooks';
-import { palettes } from '@/utils';
+import { colors } from '@/theme/common';
 
 interface ValueProps extends BaseProps {
   value: ValueType;
@@ -64,7 +64,7 @@ export const Value: FC<ValueProps> = ({ value, index, start, ...rest }) => {
           <MaterialIcon
             size="28px"
             icon={valueData.icon}
-            css={{ color: index % 2 === start ? palettes.primary.main : palettes.secondary.main }}
+            css={{ color: index % 2 === start ? colors.primary.main : colors.secondary.main }}
           />
           <Text s="1rem" fw="500" mt={4} a="c" mb={8}>
             {valueData.title}

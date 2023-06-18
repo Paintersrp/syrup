@@ -1,10 +1,8 @@
-import { Flexer } from '@/components/Containers';
-import { palettes } from '@/utils';
 import React, { ReactNode } from 'react';
 
-import { BaseProps, JustifyContentValue } from '../../Base/Base';
-
-import Divider from '../../Divider/Divider';
+import { Flexer } from '@/components/Containers';
+import { BaseProps, Divider, JustifyContentValue } from '@/components/Elements';
+import { colors } from '@/theme/common';
 
 interface DrawerHeaderProps extends BaseProps {
   j?: JustifyContentValue;
@@ -12,7 +10,7 @@ interface DrawerHeaderProps extends BaseProps {
   title?: string;
   icon?: ReactNode;
   children?: ReactNode;
-  color?: keyof typeof palettes;
+  color?: keyof typeof colors;
 }
 
 const DrawerHeader: React.FC<DrawerHeaderProps> = ({
@@ -45,7 +43,7 @@ const DrawerHeader: React.FC<DrawerHeaderProps> = ({
         {children}
       </Flexer>
       <div style={{ width: '100%' }}>
-        <Divider color={palettes[color].hover} thickness={1} />
+        <Divider color={colors[color].hover} thickness={1} />
       </div>
     </React.Fragment>
   );

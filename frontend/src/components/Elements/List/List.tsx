@@ -3,8 +3,8 @@ import './List.css';
 
 import { JustifyContentValue } from '../Base/Base';
 import { Surface } from '../../Containers';
-import { palettes } from '../../../utils';
-import Divider from '../Divider/Divider';
+import { Divider } from '../Divider/Divider';
+import { colors } from '@/theme/common';
 
 interface ListProps {
   children: ReactNode;
@@ -76,7 +76,7 @@ const List: React.FC<ListProps> = ({
           })}
           {renderDivider && (
             <span>
-              <Divider color={palettes.primary.hover} />
+              <Divider color={colors.primary.hover} />
             </span>
           )}
         </React.Fragment>

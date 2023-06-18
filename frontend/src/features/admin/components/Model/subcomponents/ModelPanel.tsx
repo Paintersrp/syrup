@@ -4,12 +4,14 @@ import { useDispatch } from 'react-redux';
 
 import { Flexer, Surface } from '@/components/Containers';
 import { Breadcrumbs, Divider, Text, Tooltip } from '@/components/Elements';
-import { breakPoints, CapitalizeFirst, palettes, useBreakpoint } from '@/utils';
+import { CapitalizeFirst } from '@/utils';
 import { IconButton } from '@/components/Buttons';
 import { axios } from '@/lib/api';
 import RecentActions from '@/features/admin/components/Logging/RecentActions';
 import ModelTable from './ModelTable';
 import InfoMenu from './InfoMenu';
+import { useBreakpoint } from '@/hooks';
+import { colors } from '@/theme/common';
 
 interface ModelPanelProps {
   apiData: any;
@@ -22,7 +24,7 @@ const ModelPanel: React.FC<ModelPanelProps> = ({ apiData, recentActions, type })
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  const isSmallScreen = useBreakpoint(breakPoints.sm);
+  const isSmallScreen = useBreakpoint('sm');
 
   const [data, setData] = useState<any[]>([]);
   const [selected, setSelected] = useState<any[]>([]);
@@ -252,9 +254,9 @@ const ModelPanel: React.FC<ModelPanelProps> = ({ apiData, recentActions, type })
                   size="sm"
                   material="add"
                   fontSize="24px"
-                  manualHoverColor={palettes.primary.light}
+                  manualHoverColor={colors.primary.light}
                   className="info-button"
-                  iconColor={palettes.info.dark}
+                  iconColor={colors.info.dark}
                 />
               </Link>
             </Tooltip>

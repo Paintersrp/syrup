@@ -7,7 +7,6 @@ import { Button } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { FormGenerator } from '@/components/Form';
 import { BaseProps, Text } from '@/components/Elements';
-import { palettes } from '@/utils';
 
 import { HeroContent } from '../types';
 import { useApp } from '@/hooks';

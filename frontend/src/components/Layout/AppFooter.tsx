@@ -1,22 +1,29 @@
-import React, { useState, FC } from 'react';
+import { useState, FC } from 'react';
 import { Link } from 'react-router-dom';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import './css/AppFooter.css';
+
+import { Button, IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Divider, Text, Tooltip } from '@/components/Elements';
 import { Input } from '@/components/Form';
-import { handleDataChange, palettes } from '@/utils';
-import { Button, IconButton } from '@/components/Buttons';
 import { Icon } from '@/components/Media';
-import { LINKS, LOGO, SOCIALS, TITLE } from '@/settings';
+import { SiteLinkType } from '@/providers/LayoutProvider';
+import { colors } from '@/theme/common';
+import { LOGO, SOCIALS, TITLE } from '@/settings';
+import { handleDataChange } from '@/utils';
 
-interface Data {
+type SubscribeDTO = {
   email: string;
-}
+};
 
-const AppFooter: FC = ({}) => {
+type AppFooterProps = {
+  links: SiteLinkType[];
+};
+
+export const AppFooter: FC<AppFooterProps> = ({ links }) => {
   const [state, setState] = useState('initial');
-  const [data, setData] = useState<Data>({ email: '' });
+  const [data, setData] = useState<SubscribeDTO>({ email: '' });
 
   return (
     <footer className="footer-root">
@@ -71,7 +78,7 @@ const AppFooter: FC = ({}) => {
           </Flexer>
           <Flexer className="footer-item" key="footer-links">
             <Flexer fd="column" j="c" a="c">
-              {LINKS.map((link) => {
+              {links.map((link) => {
                 if (!link.footer) {
                   return null;
                 }
@@ -106,7 +113,7 @@ const AppFooter: FC = ({}) => {
                           fontSize="1.5rem"
                           icon={platform.icon}
                           invertColors
-                          manualHoverColor={palettes.secondary.light}
+                          manualHoverColor={colors.secondary.light}
                         />
                       </Tooltip>
                     </span>
@@ -126,5 +133,3 @@ const AppFooter: FC = ({}) => {
     </footer>
   );
 };
-
-export default AppFooter;

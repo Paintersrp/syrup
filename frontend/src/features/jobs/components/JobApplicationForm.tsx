@@ -8,7 +8,6 @@ import { BaseProps, Text } from '@/components/Elements';
 import { Input } from '@/components/Form';
 import { useApp, useFormValidation } from '@/hooks';
 import { validateForm } from '@/lib/api';
-import { palettes } from '@/utils';
 
 import {
   applicationFields,
@@ -16,6 +15,7 @@ import {
   useApplicationForm,
 } from '../api/useApplicationForm';
 import { JobContent } from '../types';
+import { colors } from '@/theme/common';
 
 interface JobApplicationFormProps extends BaseProps {
   job: JobContent;
@@ -87,7 +87,7 @@ export const JobApplicationForm: FC<JobApplicationFormProps> = ({ job, formRef, 
               </Button>
             </Flexer>
             {errors.resume && (
-              <Text c={palettes.error.main} a="c">
+              <Text c={colors.error.main} a="c">
                 {errors.resume}
               </Text>
             )}

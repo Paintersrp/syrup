@@ -5,10 +5,10 @@ import { Flexer } from '@/components/Containers';
 import { BaseProps, List, Text } from '@/components/Elements';
 import { IconTextItem } from '@/components/Media';
 import { useApp } from '@/hooks';
-import { palettes } from '@/utils';
 
 import { SetJobsDataFn } from '../api/useJobs';
 import { JobContent } from '../types';
+import { colors } from '@/theme/common';
 
 interface JobQualificationProps {
   title: string;
@@ -47,7 +47,7 @@ export const JobQualification: FC<JobQualificationProps> = ({
                 key={index}
                 icon="check_circle"
                 text={item.detail}
-                iconColor={index % 2 === 0 ? palettes.primary.main : palettes.secondary.main}
+                iconColor={index % 2 === 0 ? colors.primary.main : colors.secondary.main}
                 iconSize="21px"
               />
             ))}

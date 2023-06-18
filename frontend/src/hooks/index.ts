@@ -1,4 +1,5 @@
 export { useApp } from './useApp';
+export { useBreakpoint } from './useBreakpoint';
 export { useConfirm } from './useConfirm';
 export { useDrawer } from './useDrawer';
 export { useFormValidation } from './useFormValidation';

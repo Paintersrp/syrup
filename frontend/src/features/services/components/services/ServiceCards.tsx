@@ -7,9 +7,9 @@ import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item } from '@/components/Containers';
 import { Base, Text } from '@/components/Elements';
 import { MaterialIcon, Media } from '@/components/Media';
-import { palettes } from '@/utils';
 
 import { ServiceType } from '../../types';
+import { colors } from '@/theme/common';
 
 interface ServiceCardProps {
   service: ServiceType;
@@ -37,7 +37,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service, ...rest }) =>
               icon="check"
               size="20px"
               className="service-card-icon"
-              color={palettes.info.dark}
+              color={colors.info.dark}
             />
             <Text t="body1" a="c" fw="400" s="14px" mr={20}>
               {feature.detail}

@@ -2,7 +2,6 @@ import { FC } from 'react';
 
 import { Surface } from '@/components/Containers';
 import { Page } from '@/components/Layout';
-import { seoData } from '@/settings';
 
 import { useAbout } from '../api/useAbout';
 import { AboutHeader } from '../components/AboutHeader';
@@ -19,7 +18,7 @@ export const About: FC = () => {
   }
 
   return (
-    <Page seoData={seoData.about}>
+    <Page>
       {data && (
         <Surface maxWidth={900} j="c" a="c">
           <AboutHeader data={data.header} />

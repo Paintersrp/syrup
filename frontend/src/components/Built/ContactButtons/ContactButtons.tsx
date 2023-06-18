@@ -2,7 +2,6 @@ import React, { CSSProperties } from 'react';
 
 import { Button, ButtonSize } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
-import { palettes } from '@/utils';
 
 interface ContactButtonsProps {
   contactData: {
@@ -30,7 +29,6 @@ const ContactButtons: React.FC<ContactButtonsProps> = ({
         href={`tel:${contactData?.phone || ''}`}
         w={size === 'md' ? 105 : size === 'sm' ? 85 : size === 'tiny' ? 75 : 110}
         mr={4}
-        manualHover={palettes.primary.light}
         style={{ borderRadius: borderRadius }}
       >
         Call Us
@@ -41,7 +39,6 @@ const ContactButtons: React.FC<ContactButtonsProps> = ({
         href={`mailto:${contactData?.email || ''}`}
         w={size === 'md' ? 105 : size === 'sm' ? 85 : size === 'tiny' ? 75 : 110}
         ml={4}
-        manualHover={palettes.primary.light}
         style={{ borderRadius: borderRadius }}
       >
         Email Us

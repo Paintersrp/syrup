@@ -2,11 +2,10 @@ import * as React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { HelmetProvider } from 'react-helmet-async';
 
-import { Button } from '@/components/Buttons';
-import { Loading, Text } from '@/components/Elements';
+import { Loading } from '@/components/Elements';
 import { QueryClientProvider } from 'react-query';
 import { queryClient } from '@/lib/api';
-import Error from '@/components/Layout/Error';
+import { Error } from '@/components/Layout/Error';
 
 const ErrorFallback = ({ error }: { error: any | null }) => {
   return (

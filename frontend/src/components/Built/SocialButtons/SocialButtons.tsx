@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import { SOCIALS, SocialType } from '@/settings';
-import { palettes } from '@/utils';
+import { SOCIALS } from '@/settings';
+
 import { IconButton, IconButtonSize } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Text, Tooltip } from '@/components/Elements';
@@ -10,6 +10,8 @@ import { Text, Tooltip } from '@/components/Elements';
 import { Stagger } from '@/components/Animation';
 import { FormGenerator } from '@/components/Form';
 import ButtonBar from '../ButtonBar/ButtonBar';
+import { SocialContent } from '@/types';
+import { colors } from '@/theme/common';
 
 interface SocialButtonsProps {
   socialsData: any;
@@ -37,9 +39,9 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
   let finalColor: string;
 
   if (color === 'light') {
-    finalColor = palettes.background.light;
+    finalColor = colors.background.light;
   } else if (color === 'dark') {
-    finalColor = palettes.primary.main;
+    finalColor = colors.primary.main;
   }
 
   useEffect(() => {
@@ -74,7 +76,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
           )}
 
           <Stagger direction="right" orientation="horizontal">
-            {SOCIALS.map((platform: SocialType, index: number) => {
+            {SOCIALS.map((platform: SocialContent, index: number) => {
               if (socials[platform.name]) {
                 return (
                   <Tooltip
@@ -86,7 +88,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
                       size={buttonSize}
                       fontSize="1.5rem"
                       invertColors={invertColors}
-                      manualHoverColor={palettes.secondary.main}
+                      manualHoverColor={colors.secondary.main}
                       style={{ color: finalColor, marginRight: 4 }}
                       aria-label={platform.name}
                       icon={platform.icon}

@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
 import { Flexer } from '@/components/Containers';
-import { palettes } from '@/utils';
 import { BaseProps } from '../../Base/Base';
 import List from '../../List/List';
 import ListItem from '../../List/ListItem';
-import Divider from '../../Divider/Divider';
+import { Divider } from '../../Divider/Divider';
+import { colors } from '@/theme/common';
 
 interface DrawerContentProps {
   handleClose?: () => void;
@@ -40,7 +40,7 @@ const DrawerContent: FC<DrawerContentProps> = ({ items, itemClass, ...rest }) =>
         ))}
       </List>
       <div style={{ width: '100%' }}>
-        <Divider mt={0} color={palettes.primary.hover} />
+        <Divider mt={0} color={colors.primary.hover} />
       </div>
     </Flexer>
   );

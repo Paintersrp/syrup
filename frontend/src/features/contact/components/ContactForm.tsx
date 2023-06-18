@@ -7,7 +7,6 @@ import { Flexer, Item, Surface } from '@/components/Containers';
 import { BaseProps, Text } from '@/components/Elements';
 import { Input, Option, Select } from '@/components/Form';
 import { useApp, useFormValidation } from '@/hooks';
-import { SocialType } from '@/settings';
 
 import {
   contactFields,
@@ -16,9 +15,10 @@ import {
   useContactForm,
 } from '../api/useContactForm';
 import { validateForm } from '@/lib/api';
+import { SocialContent } from '@/types';
 
 interface ContactFormProps extends BaseProps {
-  socialData: SocialType[];
+  socialData: SocialContent[];
   color?: 'light' | 'dark' | undefined;
 }
 

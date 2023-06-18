@@ -2,7 +2,7 @@ import Accordion from './Accordion/Accordion';
 import Alert from './Alert/Alert';
 import Base from './Base/Base';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
-import Divider from './Divider/Divider';
+import { Divider } from './Divider/Divider';
 import Drawer from './Drawer/Drawer';
 import DrawerHeader from './Drawer/components/DrawerHeader';
 import DrawerFooter from './Drawer/components/DrawerFooter';
@@ -77,7 +77,7 @@ export type {
 
 import { useLoading } from '../../hooks/useLoading';
 
-export {  useLoading };
+export { useLoading };
 
 // Prop Maps
 import { alignItemsMap, justifyContentMap } from './Base/Base';

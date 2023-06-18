@@ -3,11 +3,11 @@ import { faCode } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import './RenderModels.css';
 
-import { palettes } from '@/utils';
 import { Flexer } from '@/components/Containers';
 import { ListItem, Tooltip } from '@/components/Elements';
 import { Icon } from '@/components/Media';
 import { IconButton } from '@/components/Buttons';
+import { colors } from '@/theme/common';
 
 interface Model {
   url: string | null;
@@ -73,7 +73,7 @@ const RenderModels: React.FC<RenderModelsProps> = ({ modelItem, appName }) => {
                             color="secondary"
                             style={{ marginRight: 16 }}
                             className="add-button"
-                            iconColor={palettes.success.main}
+                            iconColor={colors.success.main}
                           />
                         </Tooltip>
                       </Flexer>

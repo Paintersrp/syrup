@@ -6,10 +6,10 @@ import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Divider, Tag, Text, Tooltip } from '@/components/Elements';
 import { Media } from '@/components/Media';
-import { palettes } from '@/utils';
 
 import { PostContent } from '../types';
 import { getReadTime } from '@/lib/api';
+import { colors } from '@/theme/common';
 
 interface PostSidebarProps {
   post: PostContent;
@@ -94,7 +94,7 @@ export const PostSidebar: FC<PostSidebarProps> = ({
             fontSize="20px"
             onClick={() => handleCreate()}
             material="add"
-            iconColor={palettes.info.dark}
+            iconColor={colors.info.dark}
             className="info-button"
           />
         </Tooltip>
@@ -104,7 +104,7 @@ export const PostSidebar: FC<PostSidebarProps> = ({
             size="t"
             material="bookmark_add"
             className="info-button"
-            iconColor={palettes.info.dark}
+            iconColor={colors.info.dark}
           />
         </Tooltip>
         {auth.is_superuser && (
@@ -115,7 +115,7 @@ export const PostSidebar: FC<PostSidebarProps> = ({
                 fontSize="20px"
                 onClick={() => handleCreate()}
                 material="admin_panel_settings"
-                iconColor={palettes.info.dark}
+                iconColor={colors.info.dark}
                 className="info-button"
               />
             </Tooltip>

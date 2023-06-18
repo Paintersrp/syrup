@@ -2,12 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './css/NotFound.css';
 
-import { palettes } from '@/utils';
 import { Page } from '@/components/Layout';
 import { Flexer, Surface } from '@/components/Containers';
 import { Text } from '@/components/Elements';
+import { colors } from '@/theme/common/colors';
 
-const NotFound: React.FC = () => {
+export const NotFound: React.FC = () => {
   return (
     <Page>
       <Surface fillHeight j="c" a="c">
@@ -19,10 +19,10 @@ const NotFound: React.FC = () => {
         <Text t="h2" a="c" mb={2}>
           Oops! Page Not Found
         </Text>
-        <Text t="body1" s="1.2rem" c={palettes.text.secondary} a="c">
+        <Text t="body1" s="1.2rem" c={colors.text.secondary} a="c">
           We're sorry, but the page you are looking for could not be found.
         </Text>
-        <Text t="body1" s="0.9rem" c={palettes.text.secondary} a="c" mt={2}>
+        <Text t="body1" s="0.9rem" c={colors.text.secondary} a="c" mt={2}>
           Please check the URL or go back to the homepage.
         </Text>
         <Flexer j="c" mt={20} gap={12}>
@@ -40,5 +40,3 @@ const NotFound: React.FC = () => {
     </Page>
   );
 };
-
-export default NotFound;

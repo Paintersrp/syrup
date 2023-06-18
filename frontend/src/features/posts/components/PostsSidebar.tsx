@@ -5,8 +5,9 @@ import './css/PostsSidebar.css';
 import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Divider, Tag, Text, Tooltip } from '@/components/Elements';
-import { palettes } from '@/utils';
+
 import { useApp } from '@/hooks';
+import { colors } from '@/theme/common';
 
 interface SidebarProps {
   tags: any;
@@ -48,7 +49,7 @@ export const PostsSidebar: FC<SidebarProps> = ({
             mr={8}
             mb={8}
             minw={50}
-            bg={selectedTags.includes(tag.detail) ? palettes.primary.main : undefined}
+            bg={selectedTags.includes(tag.detail) ? colors.primary.main : undefined}
             c={selectedTags.includes(tag.detail) ? 'white' : undefined}
           />
         ))}
@@ -66,7 +67,7 @@ export const PostsSidebar: FC<SidebarProps> = ({
             mr={8}
             mb={8}
             minw={50}
-            bg={selectedDateFilter === filter.value ? palettes.primary.main : undefined}
+            bg={selectedDateFilter === filter.value ? colors.primary.main : undefined}
             c={selectedDateFilter === filter.value ? 'white' : undefined}
           />
         ))}
@@ -79,7 +80,7 @@ export const PostsSidebar: FC<SidebarProps> = ({
             fontSize="20px"
             onClick={() => handleCreate()}
             material="add"
-            iconColor={palettes.info.dark}
+            iconColor={colors.info.dark}
             className="info-button"
           />
         </Tooltip>
@@ -92,7 +93,7 @@ export const PostsSidebar: FC<SidebarProps> = ({
                 fontSize="20px"
                 onClick={() => handleCreate()}
                 material="admin_panel_settings"
-                iconColor={palettes.info.dark}
+                iconColor={colors.info.dark}
                 className="info-button"
               />
             </Tooltip>

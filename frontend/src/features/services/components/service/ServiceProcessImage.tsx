@@ -3,8 +3,9 @@ import { FC, Fragment, useEffect, useState } from 'react';
 import { ButtonBar } from '@/components/Built';
 import { Item } from '@/components/Containers';
 import { Media } from '@/components/Media';
-import { breakPoints, useBreakpoint } from '@/utils';
+
 import { Base } from '@/components/Elements';
+import { useBreakpoint } from '@/hooks';
 
 type ServiceProcesImageProps = {
   imageItem: any;
@@ -17,7 +18,7 @@ export const ServiceProcessImage: FC<ServiceProcesImageProps> = ({
   preview = false,
   editMode,
 }) => {
-  const isMediumScreen = useBreakpoint(breakPoints.md);
+  const isMediumScreen = useBreakpoint('md');
 
   const [data, setData] = useState(imageItem);
   const [editing, setEditing] = useState(false);

@@ -99,7 +99,7 @@ interface DividerProps {
   className?: string;
 }
 
-export const Divider2: FC<DividerProps> = ({
+export const Divider22: FC<DividerProps> = ({
   mb,
   mt,
   mr,

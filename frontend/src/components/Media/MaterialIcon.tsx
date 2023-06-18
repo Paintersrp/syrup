@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState, CSSProperties } from 'react';
-import { colorSwitch } from '../../utils/theming/styleSwitches';
+import { colorSwitch } from '../../theme/delete/styleSwitches';
 
 interface MaterialIconProps {
   size?: CSSProperties['fontSize'];

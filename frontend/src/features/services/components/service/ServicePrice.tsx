@@ -4,7 +4,7 @@ import { Flexer } from '@/components/Containers';
 import { ButtonBar } from '@/components/Built';
 import { Text } from '@/components/Elements';
 import { useApp } from '@/hooks';
-import { palettes } from '@/utils';
+import { colors } from '@/theme/common';
 
 type ServicePriceProps = {
   data: any;
@@ -28,7 +28,7 @@ export const ServicePrice: FC<ServicePriceProps> = ({ data }) => {
     <Flexer fd="column" a="c" j="c" mb={64}>
       {
         !editing ? (
-          <Text t="h2" mb={8} fw="bold" a="c" u uo={6} c={palettes.primary.main}>
+          <Text t="h2" mb={8} fw="bold" a="c" u uo={6} c={colors.primary.main}>
             ${priceData.price}/mo
           </Text>
         ) : null

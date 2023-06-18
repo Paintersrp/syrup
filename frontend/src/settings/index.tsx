@@ -1,7 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoins } from '@fortawesome/free-solid-svg-icons';
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import {
   faFacebookSquare,
   faTwitter,
@@ -10,8 +9,9 @@ import {
   faYoutube,
   faGithub,
 } from '@fortawesome/free-brands-svg-icons';
-import { palettes } from '../utils';
+
 import { SocialContent } from '@/types';
+import { colors } from '@/theme/common/colors';
 
 export const SOCIALS: SocialContent[] = [
   { name: 'facebook', icon: faFacebookSquare, handle: 'Test' },
@@ -25,5 +25,5 @@ export const SOCIALS: SocialContent[] = [
 export const TITLE: string = 'DEBLUR';
 
 export const LOGO: React.ReactNode = (
-  <FontAwesomeIcon icon={faCoins} style={{ fontSize: '1.5rem', color: palettes.secondary.main }} />
+  <FontAwesomeIcon icon={faCoins} style={{ fontSize: '1.5rem', color: colors.secondary.main }} />
 );

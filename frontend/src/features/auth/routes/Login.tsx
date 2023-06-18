@@ -5,7 +5,7 @@ import LoginForm from '../components/LoginForm';
 
 export const Login: FC = () => {
   return (
-    <AuthLayout >
+    <AuthLayout>
       <LoginForm />
     </AuthLayout>
   );

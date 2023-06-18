@@ -3,13 +3,13 @@ import DOMPurify from 'dompurify';
 import { Link } from 'react-router-dom';
 import './css/PostsList.css';
 
-import { breakPoints, useBreakpoint } from '@/utils';
 import { Container, Flexer, Item } from '@/components/Containers';
 import { Divider, Text } from '@/components/Elements';
 import { Media } from '@/components/Media';
 
 import { PostInfoBar } from './PostInfoBar';
 import { PostContent } from '../types';
+import { useBreakpoint } from '@/hooks';
 
 interface PostsListProps {
   posts: PostContent[];
@@ -17,7 +17,7 @@ interface PostsListProps {
 }
 
 export const PostsList: FC<PostsListProps> = ({ posts, title = 'Latest News' }) => {
-  const isSmallScreen = useBreakpoint(breakPoints.sm);
+  const isSmallScreen = useBreakpoint('sm');
 
   return (
     <div className="post-list-root">

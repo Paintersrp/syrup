@@ -5,12 +5,11 @@ import { ConfirmationModal, SectionHeader, SectionHeaderContent } from '@/compon
 import { Container, Flexer } from '@/components/Containers';
 import { BaseProps } from '@/components/Elements';
 
-import { palettes } from '@/utils';
-
 import { PostCard } from './PostCard';
 import { PostContent } from '@/features/posts/types';
 import { useConfirm } from '@/hooks/useConfirm';
 import { useApp } from '@/hooks';
+import { colors } from '@/theme/common';
 interface PostCardsProps extends BaseProps {
   posts: PostContent[];
   header: SectionHeaderContent | any;
@@ -27,7 +26,7 @@ export const PostCards: FC<PostCardsProps> = ({ posts, header, carousel = false,
         <SectionHeader headerData={header} formTitle="Edit Latest Posts Header" />
         <Container style={{ marginTop: 32, marginBottom: 32 }} {...rest}>
           {carousel ? (
-            <Carousel autoplay={false} iconColor={palettes.secondary.main} w={345} h={335}>
+            <Carousel autoplay={false} iconColor={colors.secondary.main} w={345} h={335}>
               {posts.map((post) => (
                 <PostCard
                   key={post.id}

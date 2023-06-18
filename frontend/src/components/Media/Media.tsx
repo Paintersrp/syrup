@@ -2,7 +2,7 @@ import React from 'react';
 import './css/Media.css';
 
 import { Base, BaseProps } from '../Elements';
-import { shadowPalette } from '@/theme/palettes';
+import { shadows } from '@/theme/common';
 
 interface MediaProps extends BaseProps {
   src: string;
@@ -32,7 +32,7 @@ const Media: React.FC<MediaProps> = ({
         className={`media-image  ${mediaClass}`}
         src={src}
         alt={altText}
-        style={{ ...imageStyle, boxShadow: shadowPalette[boxShadow] }}
+        style={{ ...imageStyle, boxShadow: shadows[boxShadow] }}
       />
       {caption && <div className="media-caption">{caption}</div>}
     </Base>

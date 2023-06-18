@@ -5,10 +5,10 @@ import { ButtonBar } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { BaseProps, Divider, Text, Tooltip } from '@/components/Elements';
-import { useApp } from '@/hooks';
-import { breakPoints, palettes, useBreakpoint } from '@/utils';
+import { useApp, useBreakpoint } from '@/hooks';
 
 import { JobContent } from '../types';
+import { colors } from '@/theme/common';
 
 interface JobListingsProps extends BaseProps {
   jobsData: JobContent[];
@@ -25,7 +25,7 @@ export const JobListings: FC<JobListingsProps> = ({
   ...rest
 }) => {
   const { editMode }: any = useApp();
-  const isSmallScreen = useBreakpoint(breakPoints.sm);
+  const isSmallScreen = useBreakpoint('sm');
 
   return (
     <Fragment>
@@ -89,8 +89,7 @@ export const JobListings: FC<JobListingsProps> = ({
 
               <Divider
                 style={{
-                  backgroundColor:
-                    index % 2 === 0 ? palettes.primary.light : palettes.secondary.dark,
+                  backgroundColor: index % 2 === 0 ? colors.primary.light : colors.secondary.dark,
                   width: '100%',
                   marginTop: 4,
                   marginBottom: 4,

@@ -1,6 +1,5 @@
 import { FC, Fragment } from 'react';
 
-import { seoData } from '@/settings';
 import { Loading } from '@/components/Elements';
 import { Page } from '@/components/Layout';
 import { Item } from '@/components/Containers';
@@ -21,7 +20,7 @@ export const Contact: FC = () => {
   }
 
   return (
-    <Page seoData={seoData.contact}>
+    <Page>
       <Fragment>
         <Members membersData={data.members} />
         <Contacts>

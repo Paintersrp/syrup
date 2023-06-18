@@ -8,7 +8,7 @@ import { Flexer, Item, Surface } from '@/components/Containers';
 import { List, Text, Tooltip } from '@/components/Elements';
 import { IconButton } from '@/components/Buttons';
 import { Collapser } from '@/components/Animation';
-import { palettes } from '@/utils';
+import { colors } from '@/theme/common';
 
 interface RenderSectionsProps {
   models: Record<string, any>;
@@ -86,7 +86,7 @@ const RenderSections: React.FC<RenderSectionsProps> = ({
                         fontSize="21px"
                         size="t"
                         material="admin_panel_settings"
-                        iconColor={palettes.info.dark}
+                        iconColor={colors.info.dark}
                       />
                     </Tooltip>
                   </Link>
@@ -101,7 +101,7 @@ const RenderSections: React.FC<RenderSectionsProps> = ({
                           fontSize="18px"
                           size="t"
                           material="launch"
-                          iconColor={palettes.info.dark}
+                          iconColor={colors.info.dark}
                         />
                       </Tooltip>
                     </Link>

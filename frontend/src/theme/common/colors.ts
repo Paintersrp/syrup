@@ -1,10 +1,53 @@
-export const palettes: any = {
+type ColorValue = string;
+
+export interface ColorPalette {
+  main: ColorValue;
+  light: ColorValue;
+  dark: ColorValue;
+  contrastText: ColorValue;
+  hover: ColorValue;
+}
+
+export interface Colors {
+  primary: ColorPalette;
+  secondary: ColorPalette;
+  success: ColorPalette;
+  warning: ColorPalette;
+  error: ColorPalette;
+  info: ColorPalette;
+  text: {
+    dark: ColorValue;
+    light: ColorValue;
+    primary: ColorValue;
+    secondary: ColorValue;
+    disabled: ColorValue;
+    min: ColorValue;
+    hint: ColorValue;
+    hover: ColorValue;
+  };
+  action: {
+    active: ColorValue;
+    hover: ColorValue;
+    hoverLight: ColorValue;
+    selected: ColorValue;
+    disabled: ColorValue;
+    disabledBackground: ColorValue;
+  };
+  background: {
+    default: ColorValue;
+    paper: ColorValue;
+    light: ColorValue;
+    hover: ColorValue;
+  };
+  [key: string]: ColorPalette | any;
+}
+
+export const colors: Colors = {
   primary: {
     main: '#2e3b55',
     light: '#6b7c9b',
     dark: '#00152e',
     contrastText: '#fff',
-    gold: '#ff8c00',
     hover: '#6b7c9b5a',
   },
   secondary: {
@@ -18,24 +61,28 @@ export const palettes: any = {
     light: '#81c784',
     main: '#4caf50',
     dark: '#388e3c',
+    contrastText: '#fff',
     hover: '#4caf505a',
   },
   warning: {
     light: '#ffd54f',
     main: '#ffeb3b',
     dark: '#f57f17',
+    contrastText: '#222',
     hover: '#ffeb3b5a',
   },
   error: {
     light: '#e57373',
     main: '#f44336',
     dark: '#d32f2f',
+    contrastText: '#fff',
     hover: '#f443365a',
   },
   info: {
     light: '#64b5f6',
     main: '#3f51b5',
     dark: '#1976d2',
+    contrastText: '#fff',
     hover: '#3f51b55a',
   },
   text: {
@@ -62,13 +109,4 @@ export const palettes: any = {
     light: '#f5f5f5',
     hover: '#f5f5f55a',
   },
-};
-
-export const breakPoints = {
-  xs: 0,
-  sm: 500,
-  md: 650,
-  lg: 900,
-  xl: 1280,
-  xxl: 1920,
 };

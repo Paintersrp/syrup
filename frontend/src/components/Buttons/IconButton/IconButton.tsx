@@ -4,7 +4,7 @@ import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import clsx from 'clsx';
 import { css } from '@emotion/react';
 
-import { colorSwitch } from '../../../utils/theming/styleSwitches';
+import { colorSwitch } from '../../../theme/delete/styleSwitches';
 import { MaterialIcon } from '../../Media';
 
 const iconButtonCx = {

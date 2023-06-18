@@ -4,15 +4,13 @@ import { ButtonBar } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Flexer, Surface } from '@/components/Containers';
 import { Text, Stepper } from '@/components/Elements';
-import { useFormValidation, useStepper } from '@/hooks';
+import { useBreakpoint, useFormValidation, useStepper } from '@/hooks';
 import { validateForm } from '@/lib/api';
-import { breakPoints, useBreakpoint } from '@/utils';
 
 import { handleAnswerChange, handleSkipQuiz, handleSubmitQuiz } from '../../api/useQuestionnaire';
 import { QuestionnaireForm } from './QuestionnaireForm';
 import { QuestionnaireStep } from './QuestionnaireStep';
 import { QuizType, ServiceType } from '../../types';
-
 
 type QuestionnaireProps = {
   services: ServiceType[];
@@ -27,7 +25,7 @@ export const Questionnaire: FC<QuestionnaireProps> = ({
   quizData,
   editMode,
 }) => {
-  const isSmallScreen = useBreakpoint(breakPoints.sm);
+  const isSmallScreen = useBreakpoint('sm');
   const { activeStep, setActiveStep, handleStepChange, handleNext, handleBack } = useStepper();
 
   const questions = quizData[0].question_sets[0].questions;

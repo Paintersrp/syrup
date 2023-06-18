@@ -5,10 +5,10 @@ import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item } from '@/components/Containers';
 import { BaseProps, Text } from '@/components/Elements';
 import { FormGenerator } from '@/components/Form';
-import { useApp } from '@/hooks';
-import { breakPoints, palettes, useBreakpoint } from '@/utils';
+import { useApp, useBreakpoint } from '@/hooks';
 
 import { JobContent } from '../types';
+import { colors } from '@/theme/common';
 
 interface JobDetailsProps extends BaseProps {
   job: JobContent;
@@ -17,7 +17,7 @@ interface JobDetailsProps extends BaseProps {
 
 export const JobDetails: FC<JobDetailsProps> = ({ job, handleApplyNowClick, ...rest }) => {
   const { editMode }: any = useApp();
-  const isSmallScreen = useBreakpoint(breakPoints.xs);
+  const isSmallScreen = useBreakpoint('xs');
   const [jobData, setJobData] = useState(job);
   const [editing, setEditing] = useState(false);
 
@@ -71,10 +71,10 @@ export const JobDetails: FC<JobDetailsProps> = ({ job, handleApplyNowClick, ...r
               </Text>
             </Item>
           </Container>
-          <Text t="body1" c={palettes.text.secondary}>
+          <Text t="body1" c={colors.text.secondary}>
             {jobData.location}
           </Text>
-          <Text t="body1" c={palettes.text.secondary}>
+          <Text t="body1" c={colors.text.secondary}>
             {jobData.type}
           </Text>
           <Text t="h3" fw="bold" mt={32} mb={2}>

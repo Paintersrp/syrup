@@ -7,8 +7,55 @@ import { Alert } from '@/components/Elements';
 import { AppDrawer, AppFooter, AppNavbar } from '@/components/Layout';
 import { useApp, useDrawer } from '@/hooks';
 import { closeAlert } from '@/lib/redux';
-import { LINKS, LOGO, TITLE } from '@/settings';
+import { LOGO, TITLE } from '@/settings';
 import { ScrollToTop } from '@/utils';
+
+export interface SiteLinkType {
+  to: string;
+  key: string;
+  footer: boolean;
+  navbar: boolean;
+}
+
+export const LINKS: SiteLinkType[] = [
+  {
+    to: '/',
+    key: 'Home',
+    footer: false,
+    navbar: true,
+  },
+  {
+    to: '/about',
+    key: 'About',
+    footer: true,
+    navbar: true,
+  },
+  {
+    to: '/contact',
+    key: 'Contact',
+    footer: true,
+    navbar: true,
+  },
+  {
+    to: '/services',
+    key: 'Services',
+    footer: true,
+    navbar: true,
+  },
+  {
+    to: '/posts',
+    key: 'Posts',
+    footer: true,
+    navbar: true,
+  },
+
+  {
+    to: '/WIP',
+    key: 'WIP',
+    footer: true,
+    navbar: true,
+  },
+];
 
 type LayoutProviderProps = {
   children: React.ReactNode;
@@ -38,7 +85,7 @@ export const LayoutProvider: FC<LayoutProviderProps> = ({ children }) => {
 
       <ScrollToTop />
       <ScrollToTopFAB />
-      <AppFooter />
+      <AppFooter links={LINKS} />
     </Router>
   );
 };

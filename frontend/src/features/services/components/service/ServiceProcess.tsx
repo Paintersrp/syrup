@@ -3,11 +3,11 @@ import { FC, Fragment, useEffect, useState } from 'react';
 import { ButtonBar } from '@/components/Built';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { Divider, Text } from '@/components/Elements';
-import { useApp } from '@/hooks';
-import { breakPoints, palettes, useBreakpoint } from '@/utils';
+import { useApp, useBreakpoint } from '@/hooks';
 
 import { ServiceProcessImage } from './ServiceProcessImage';
 import { ServiceProcessText } from './ServiceProcessText';
+import { colors } from '@/theme/common';
 
 type ServiceProcessType = {
   contentText: any;
@@ -21,7 +21,7 @@ export const ServiceProcess: FC<ServiceProcessType> = ({
   processImage,
 }) => {
   const { editMode }: any = useApp();
-  const isMediumScreen = useBreakpoint(breakPoints.md);
+  const isMediumScreen = useBreakpoint('md');
   const [contentTextData, setContextTextData] = useState(contentText);
   const [editing, setEditing] = useState(false);
 
@@ -55,7 +55,7 @@ export const ServiceProcess: FC<ServiceProcessType> = ({
           {
             !editing ? (
               <Fragment>
-                <Text t="h5" a="c" c={palettes.primary.main}>
+                <Text t="h5" a="c" c={colors.primary.main}>
                   {contentTextData.title}
                 </Text>
                 {/* <Text t="body1" a="c">

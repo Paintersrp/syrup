@@ -3,11 +3,11 @@ import { FC } from 'react';
 import ListItem from '../../List/ListItem';
 import { ListItemDataType } from './DrawerContent';
 
-import Divider from '../../Divider/Divider';
+import { Divider } from '../../Divider/Divider';
 import { BaseProps } from '../../Base/Base';
 import List from '../../List/List';
 import { Flexer } from '@/components/Containers';
-import { palettes } from '@/utils';
+import { colors } from '@/theme/common';
 
 interface DrawerFooterLinksProps extends BaseProps {
   handleClose?: () => void;
@@ -19,7 +19,7 @@ const DrawerFooterLinks: FC<DrawerFooterLinksProps> = ({ items, itemClass, ...re
   return (
     <Flexer fd="column" {...rest}>
       <div style={{ width: '100%' }}>
-        <Divider mt={0} color={palettes.primary.hover} />
+        <Divider mt={0} color={colors.primary.hover} />
       </div>
       <List j="c" a="c" spacing={2} maxWidth={400} boxShadow={0} px={0}>
         {items.map((item, index) => (

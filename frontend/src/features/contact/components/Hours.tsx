@@ -6,10 +6,10 @@ import { Flexer } from '@/components/Containers';
 import { BaseProps } from '@/components/Elements';
 import { FormGenerator } from '@/components/Form';
 import { IconTextItem } from '@/components/Media';
-import { palettes } from '@/utils';
 
 import { HoursContent } from '../types';
 import { useApp } from '@/hooks';
+import { colors } from '@/theme/common';
 
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -53,8 +53,8 @@ export const Hours: FC<HoursProps> = ({ hoursData, ...rest }) => {
                 icon="today"
                 text={dayOfWeek}
                 subtext={data[dayOfWeek.toLowerCase()]}
-                iconColor={data[dayOfWeek.toLowerCase()] === 'Closed' ? palettes.error.main : ''}
-                subtextColor={data[dayOfWeek.toLowerCase()] === 'Closed' ? palettes.error.main : ''}
+                iconColor={data[dayOfWeek.toLowerCase()] === 'Closed' ? colors.error.main : ''}
+                subtextColor={data[dayOfWeek.toLowerCase()] === 'Closed' ? colors.error.main : ''}
                 divider={dayOfWeek !== 'Sunday'}
               />
             ))}

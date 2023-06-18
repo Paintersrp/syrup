@@ -5,7 +5,7 @@ import { Container, Flexer, Item } from '@/components/Containers';
 import { Divider, Text } from '@/components/Elements';
 import { IconTextItem } from '@/components/Media';
 import { useApp } from '@/hooks';
-import { palettes } from '@/utils';
+import { colors } from '@/theme/common';
 
 type ServiceFeatureProps = {
   data: any;
@@ -40,7 +40,7 @@ const ServiceFeature: FC<ServiceFeatureProps> = ({ data, editMode, title, fieldN
                 obj={featureData.id}
               />
             )}
-            <Text t="h5" a="c" c={palettes.primary.main}>
+            <Text t="h5" a="c" c={colors.primary.main}>
               {title}
             </Text>
             <Divider mb={2} mt={2} />
@@ -50,7 +50,7 @@ const ServiceFeature: FC<ServiceFeatureProps> = ({ data, editMode, title, fieldN
                   key={`${fieldName}-${index}`}
                   icon="check"
                   text={item.detail}
-                  iconColor={index % 2 === 0 ? palettes.secondary.main : palettes.primary.main}
+                  iconColor={index % 2 === 0 ? colors.secondary.main : colors.primary.main}
                   fontSize="1rem"
                   iconSize="24px"
                   fw="400"

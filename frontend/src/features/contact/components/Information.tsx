@@ -5,10 +5,10 @@ import { Flexer, Surface } from '@/components/Containers';
 import { BaseProps } from '@/components/Elements';
 import { FormGenerator } from '@/components/Form';
 import { IconTextItem } from '@/components/Media';
-import { palettes } from '@/utils';
 
 import { ContactInformationContent } from '../types';
 import { useApp } from '@/hooks';
+import { colors } from '@/theme/common';
 
 interface InformationProps extends BaseProps {
   contactData: ContactInformationContent;
@@ -54,7 +54,7 @@ export const Information: FC<InformationProps> = ({ contactData, ...rest }) => {
               icon="phone"
               text={data.phone}
               subtext="Phone"
-              iconColor={palettes.secondary.main}
+              iconColor={colors.secondary.main}
               divider
             />
             <IconTextItem

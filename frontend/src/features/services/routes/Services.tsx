@@ -6,7 +6,6 @@ import { Surface } from '@/components/Containers';
 import { Loading } from '@/components/Elements';
 import { Page } from '@/components/Layout';
 import { usePageSetup } from '@/hooks';
-import { seoData } from '@/settings';
 
 import { handleResetQuiz } from '../api/useQuestionnaire';
 import { useServices } from '../api/useServices';
@@ -32,7 +31,7 @@ export const Services: FC = () => {
   }
 
   return (
-    <Page seoData={seoData.services} header="Explore Our Services">
+    <Page header="Explore Our Services">
       {data && (
         <Surface j="c" a="c" maxWidth={1200} outerStyle={{ flexGrow: 1 }}>
           {!recommended ? (

@@ -45,7 +45,7 @@ interface DividerProps {
   className?: string;
 }
 
-const Divider: FC<DividerProps> = ({
+export const Divider: FC<DividerProps> = ({
   mb,
   mt,
   mr,
@@ -77,5 +77,3 @@ const Divider: FC<DividerProps> = ({
     </div>
   );
 };
-
-export default Divider;

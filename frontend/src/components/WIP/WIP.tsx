@@ -12,7 +12,7 @@ import {
   TreeNode,
 } from '../Elements';
 import { ToggleButton, ToggleButtonGroup } from '../Buttons';
-import { breakPoints, useBreakpoint } from '../../utils';
+
 import { Carousel, Stagger } from '../Animation';
 import { Flexer, Surface } from '../Containers';
 import Gallery from '../Media/Gallery';
@@ -22,6 +22,7 @@ import { Option, Select } from '../Form';
 import { Page } from '../Layout';
 import { Button } from '../Buttons/Button/Button';
 import { css } from '@emotion/react';
+import { useBreakpoint } from '@/hooks';
 
 interface WIPProps {}
 
@@ -109,7 +110,7 @@ const WIP: React.FC<WIPProps> = ({}) => {
     };
   }, []);
 
-  const isSmallScreen = useBreakpoint(breakPoints.sm);
+  const isSmallScreen = useBreakpoint('sm');
 
   const [alert, setAlert] = useState<any>(null);
 

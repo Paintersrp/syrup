@@ -3,10 +3,9 @@ import { useParams } from 'react-router-dom';
 
 import { DisplayTable } from '@/components/Built';
 import { Flexer, Surface } from '@/components/Containers';
-import { Loading, Text } from '@/components/Elements';
+import { Loading } from '@/components/Elements';
 import { Page } from '@/components/Layout';
 import { usePageSetup } from '@/hooks';
-import { seoData } from '@/settings';
 
 import { useServices } from '../api/useServices';
 import { ServiceAbout } from '../components/service/ServiceAbout';
@@ -16,7 +15,6 @@ import { ServicePrice } from '../components/service/ServicePrice';
 import { ServiceHeader } from '../components/service/ServiceHeader';
 import { ServiceContent } from '../types';
 import { ServiceContact } from '../components/service/ServiceContact';
-import Sidebar from '@/components/Elements/Sidebar/Sidebar';
 import { Button } from '@/components/Buttons';
 
 export const Service: FC = () => {
@@ -67,7 +65,7 @@ export const Service: FC = () => {
   }
 
   return (
-    <Page seoData={seoData.services}>
+    <Page>
       <Flexer>
         <Surface px={isSidebarOpen ? 2 : 4} py={4} j="c" a="c" mt={0} mb={24} boxShadow={0} br={6}>
           <Flexer fd="column">

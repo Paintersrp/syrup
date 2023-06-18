@@ -4,7 +4,7 @@ import { ErrorDisplay } from '@/components/Built';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { Input } from '@/components/Form';
 import { Divider, Text } from '@/components/Elements';
-import { breakPoints, useBreakpoint } from '@/utils';
+import { useBreakpoint } from '@/hooks';
 
 type QuestionnaireFormProps = {
   values: {
@@ -24,7 +24,7 @@ export const QuestionnaireForm: FC<QuestionnaireFormProps> = ({
   errors,
   setErrors,
 }) => {
-  const isSmallScreen = useBreakpoint(breakPoints.sm);
+  const isSmallScreen = useBreakpoint('sm');
 
   return (
     <Flexer fd="column" mt={8}>

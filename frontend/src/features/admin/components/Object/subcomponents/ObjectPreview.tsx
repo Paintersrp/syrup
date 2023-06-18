@@ -37,14 +37,14 @@ const ObjectPreview: FC<ObjectPreviewProps> = ({ modelName, formData, newImage }
         </Flexer>
       );
     case 'SectionHeader':
-      return <SectionHeader headerData={formData} editMode={false} formTitle="" />;
+      return <SectionHeader headerData={formData} formTitle="" />;
     // case "ServiceTier":
     //   return <Service service={formData[0]} />;
     case 'AboutHeader':
       return <ImageHeader header={formData.header} src={newImage ? newImage : formData.image} />;
     case 'MissionStatement':
     case 'CompanyHistory':
-      return <Paragraph editMode={false} data={formData} />;
+      return <Paragraph data={formData} />;
     // case "Process":
     //   return <Process step={formData} noEdit fade={false} />;
     case 'Value':
@@ -57,7 +57,7 @@ const ObjectPreview: FC<ObjectPreviewProps> = ({ modelName, formData, newImage }
         </Flexer>
       );
     case 'ContactInformation':
-      return <Information contactData={formData} editMode={false} />;
+      return <Information contactData={formData} />;
     case 'Socials':
       return (
         <Flexer j="c">
@@ -65,7 +65,7 @@ const ObjectPreview: FC<ObjectPreviewProps> = ({ modelName, formData, newImage }
         </Flexer>
       );
     case 'Hours':
-      return <Hours hoursData={formData} editMode={false} />;
+      return <Hours hoursData={formData} />;
     case 'TeamMember':
       return <Member member={formData} editMode={false} newImage={newImage} mt={48} />;
     // case "Benefits":
@@ -99,9 +99,9 @@ const ObjectPreview: FC<ObjectPreviewProps> = ({ modelName, formData, newImage }
     //   );
     case 'JobPosting':
       return (
-        <Job editMode={false}>
-          <JobDetails job={formData} handleApplyNowClick={() => null} editMode={false} />
-          <JobQualifications job={formData} editMode={false} />
+        <Job>
+          <JobDetails job={formData} handleApplyNowClick={() => null} />
+          <JobQualifications job={formData} />
         </Job>
       );
     // case "FAQ":

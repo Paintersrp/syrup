@@ -6,10 +6,9 @@ import { Base, Divider, Text } from '@/components/Elements';
 import { FormGenerator } from '@/components/Form';
 import { Media } from '@/components/Media';
 import { useApp } from '@/hooks';
-import { palettes } from '@/utils';
 
 import { ServiceType } from '../../types';
-import { Divider2 } from '@/components/Elements/Divider/Divider2';
+import { colors } from '@/theme/common';
 
 type ServiceAboutProps = {
   data: ServiceType;
@@ -45,10 +44,10 @@ export const ServiceAbout: FC<ServiceAboutProps> = ({ data }) => {
         <Container j="fs" a="fs" mb={24}>
           <Item xs={12} sm={12} md={12} lg={6}>
             <Flexer fd="column" w="85%">
-              <Text t="h5" a="c" c={palettes.primary.main}>
+              <Text t="h5" a="c" c={colors.primary.main}>
                 About Our {aboutData.service_title} Service
               </Text>
-              <Divider mt={8} mb={8} text="test" color={palettes.primary.light} />
+              <Divider mt={8} mb={8} text="test" color={colors.primary.light} />
               <Text t="body1" mb={8}>
                 {aboutData.paragraph_one}
               </Text>

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 
-import { palettes } from '@/utils';
 import { Flexer } from '@/components/Containers';
 
 import { Divider, Text } from '@/components/Elements';
@@ -8,6 +7,7 @@ import { FormGenerator } from '@/components/Form';
 import { FadeOnScroll } from '@/components/Animation';
 import ButtonBar from '../ButtonBar/ButtonBar';
 import { useApp } from '@/hooks';
+import { colors } from '@/theme/common';
 
 type AlignmentType = 'Left' | 'Right' | 'Center' | 'left' | 'right' | 'center';
 
@@ -60,7 +60,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, formTitle }) 
           <Flexer fd="column">
             {header.subtitle && (
               <FadeOnScroll onScreenPercentage={0.1} animationDuration={0.5}>
-                <Text t="subtitle1" a="c" s="0.95rem" fw="600" c={palettes.secondary.main}>
+                <Text t="subtitle1" a="c" s="0.95rem" fw="600" c={colors.secondary.main}>
                   {header.subtitle}
                 </Text>
               </FadeOnScroll>
@@ -86,7 +86,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, formTitle }) 
           )}
           {header.showDivider && (
             <div style={{ width: '90%' }}>
-              <Divider color={palettes.text.min} />
+              <Divider color={colors.text.min} />
             </div>
           )}
         </>

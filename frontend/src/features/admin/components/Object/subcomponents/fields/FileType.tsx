@@ -1,7 +1,8 @@
 import { Button } from '@/components/Buttons';
 import { Flexer, Item } from '@/components/Containers';
 import { Text } from '@/components/Elements';
-import { palettes } from '@/utils';
+import { colors } from '@/theme/common';
+
 import React, { useState, ChangeEvent } from 'react';
 
 interface FileTypeProps {
@@ -49,7 +50,7 @@ const FileType: React.FC<FileTypeProps> = ({
       }}
     >
       <Flexer a="c" j="c" mb={16} fd="column">
-        <Button onClick={handleSelectFile} startIcon="attach_file" iconSize="18px">
+        <Button onClick={handleSelectFile} startIcon="attach_file">
           {formData[fieldName] ? `Change ${verboseName} File` : `Upload ${verboseName} File`}
         </Button>
         {formData[fieldName] instanceof File ? (
@@ -77,7 +78,7 @@ const FileType: React.FC<FileTypeProps> = ({
                 </Text>
               </a>
             ) : (
-              <Text t="body1" c={palettes.error.main} a="c" mt={2}>
+              <Text t="body1" c={colors.error.main} a="c" mt={2}>
                 No Resume Uploaded
               </Text>
             )}

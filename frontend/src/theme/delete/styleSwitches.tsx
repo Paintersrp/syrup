@@ -1,4 +1,4 @@
-import { palettes } from './theme';
+import { colors } from '../common';
 
 export type ColorShade = 'light' | 'main' | 'dark';
 export type ColorState = {
@@ -17,10 +17,10 @@ export const colorSwitch = (
     };
   }
 
-  if (palettes[color]) {
-    const selectedShade = palettes[color][shade] || palettes[color].main;
+  if (colors[color]) {
+    const selectedShade = colors[color][shade] || colors[color].main;
     const hoverShade =
-      shade === 'dark' || shade === 'light' ? palettes[color].main : palettes[color].light;
+      shade === 'dark' || shade === 'light' ? colors[color].main : colors[color].light;
     return {
       background: selectedShade,
       hover: hoverShade,

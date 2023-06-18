@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import { breakPoints, palettes, useBreakpoint } from '@/utils';
 import { axios } from '@/lib/api';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { Divider, Text, Tooltip } from '@/components/Elements';
@@ -11,6 +10,8 @@ import { Button } from '@/components/Buttons';
 import InfoMenu from '@/features/admin/components/Model/subcomponents/InfoMenu';
 import getByType from './getByType';
 import ObjectPreview from './ObjectPreview';
+import { useBreakpoint } from '@/hooks';
+import { colors } from '@/theme/common';
 
 interface ObjectAutoFormProps {
   endpointUrl: string | null;
@@ -36,8 +37,7 @@ const ObjectAutoForm: React.FC<ObjectAutoFormProps> = ({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const isSmallScreen = useBreakpoint(breakPoints.xs);
-  const isLargeScreen = useBreakpoint(breakPoints.xl);
+  const isSmallScreen = useBreakpoint('xs');
 
   const [ready, setReady] = useState(false);
   const [previewReady, setPreviewReady] = useState(false);
@@ -364,8 +364,7 @@ const ObjectAutoForm: React.FC<ObjectAutoFormProps> = ({
                   w={80}
                   onClick={handleSubmit}
                   endIcon="check"
-                  color={palettes.success.main}
-                  iconColor={palettes.success.main}
+                  color={colors.success.main}
                   className="success-button"
                 >
                   {Object.keys(data).length === 0 ? 'Create' : 'Update'}
@@ -376,9 +375,7 @@ const ObjectAutoForm: React.FC<ObjectAutoFormProps> = ({
                   onClick={variant === 'full' ? routeBackToModel : handleClose}
                   w={80}
                   endIcon="close"
-                  iconSize="20px"
-                  color={palettes.error.main}
-                  iconColor={palettes.error.main}
+                  color={colors.error.main}
                   className="error-button"
                 >
                   Cancel

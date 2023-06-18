@@ -4,7 +4,6 @@ import { Loading } from '@/components/Elements';
 import { Page } from '@/components/Layout';
 import { PostCards } from '@/features/posts';
 import { ServiceCards } from '@/features/services';
-import { seoData } from '@/settings';
 
 import { useLanding } from '../api/useLanding';
 import { Hero } from '../components/Hero';
@@ -19,7 +18,7 @@ export const Landing: FC = () => {
   }
 
   return (
-    <Page seoData={seoData.landing}>
+    <Page>
       <Hero data={data.hero} contactData={data.contactInfo} socialsData={data.socials} />
       <ServiceCards services={data.services} />
       <Processes processData={data.processes} headerData={data.processHeader[0]} />

@@ -3,9 +3,9 @@ import { FC } from 'react';
 import { Flexer, Surface } from '@/components/Containers';
 import { Divider, Text } from '@/components/Elements';
 import { Checkbox, Radio, RadioGroup } from '@/components/Form';
-import { breakPoints, useBreakpoint } from '@/utils';
 
 import { Question } from '../../types';
+import { useBreakpoint } from '@/hooks';
 
 type QuestionnaireStepProps = {
   questions: Question[];
@@ -20,7 +20,7 @@ export const QuestionnaireStep: FC<QuestionnaireStepProps> = ({
   selectedValues,
   handleValueChange,
 }) => {
-  const isSmallScreen = useBreakpoint(breakPoints.sm);
+  const isSmallScreen = useBreakpoint('sm');
 
   return (
     <Flexer fd="column" mt={8}>

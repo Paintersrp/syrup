@@ -4,10 +4,11 @@ import './css/IconScroller.css';
 
 import { Base, BaseProps } from '@/components/Elements';
 import { Icon } from '@/components/Media';
-import { SOCIALS, SocialType } from '@/settings';
+import { SOCIALS } from '@/settings';
+import { SocialContent } from '@/types';
 
 export const IconScroller: React.FC<BaseProps> = ({ ...rest }) => {
-  const duplicatedPartners: SocialType[] = [...SOCIALS, ...SOCIALS, ...SOCIALS];
+  const duplicatedPartners: SocialContent[] = [...SOCIALS, ...SOCIALS, ...SOCIALS];
   const [isScrolling, setIsScrolling] = useState<boolean>(true);
 
   return (
@@ -21,7 +22,7 @@ export const IconScroller: React.FC<BaseProps> = ({ ...rest }) => {
           className="icon-scroller-wrapper"
           style={{ animationPlayState: isScrolling ? 'running' : 'paused' }}
         >
-          {duplicatedPartners.map((social: SocialType, index: number) => (
+          {duplicatedPartners.map((social: SocialContent, index: number) => (
             <div key={`${social.name}-${index}`} className="icon-scroller-icon">
               <Link to={`https://www.${social.name}.com/${social.handle}`}>
                 <Icon icon={social.icon} size="2.5rem" />

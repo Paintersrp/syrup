@@ -1,7 +1,8 @@
 import { IconButton } from '@/components/Buttons';
 import { Surface } from '@/components/Containers';
 import { Divider, List, ListItem, Menu, Text } from '@/components/Elements';
-import { palettes } from '@/utils';
+import { colors } from '@/theme/common';
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -23,7 +24,7 @@ const InfoMenu: React.FC<InfoMenuProps> = ({ textItem }) => {
             material="info"
             fontSize="22px"
             className="info-button"
-            iconColor={palettes.info.dark}
+            iconColor={colors.info.dark}
           />
         }
         position="bottom-left"

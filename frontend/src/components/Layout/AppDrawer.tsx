@@ -19,7 +19,7 @@ import DrawerContent, {
 import { Drawer, DrawerFooter, DrawerFooterLinks, DrawerHeader } from '@/components/Elements';
 import { Flexer } from '@/components/Containers';
 
-interface AppDrawerProps {
+type AppDrawerProps = {
   open?: boolean;
   handleClose?: () => void;
   variant?: 'standard' | 'permanent' | 'persistent';
@@ -27,9 +27,9 @@ interface AppDrawerProps {
   color?: string;
   companyIcon?: string | undefined | any;
   companyTitle?: string | undefined;
-}
+};
 
-const AppDrawer: FC<AppDrawerProps> = ({
+export const AppDrawer: FC<AppDrawerProps> = ({
   open = false,
   handleClose = () => {},
   variant = 'standard',
@@ -122,5 +122,3 @@ const AppDrawer: FC<AppDrawerProps> = ({
     </Drawer>
   );
 };
-
-export default AppDrawer;

@@ -1,5 +1,5 @@
 import { alignItemsMap, BaseProps, justifyContentMap } from '@/components/Elements';
-import { shadowPalette } from '@/theme/palettes';
+import { shadows } from '@/theme/common';
 
 export const baseCx = {
   root: ({
@@ -53,7 +53,7 @@ export const baseCx = {
       borderRadius: br ? `${br}px` : undefined,
       color: c ? c : undefined,
       backgroundColor: bg ? bg : undefined,
-      boxShadow: bs ? shadowPalette[bs] : undefined,
+      boxShadow: bs ? shadows[bs] : undefined,
       fontSize: fs ? fs : undefined,
       fontWeight: fw ? fw : undefined,
       display: d ? d : undefined,

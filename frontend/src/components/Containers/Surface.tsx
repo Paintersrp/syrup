@@ -1,7 +1,7 @@
 import React, { ReactNode, CSSProperties } from 'react';
 
 import { Base, BaseProps } from '@/components/Elements';
-import { shadowPalette } from '@/theme/palettes';
+import { shadows } from '@/theme/common';
 
 interface SurfaceProps extends BaseProps {
   children?: ReactNode;
@@ -47,7 +47,7 @@ const Surface: React.FC<SurfaceProps> = ({
     maxWidth: maxWidth,
     minHeight: minHeight,
     padding: `${paddingY * 8}px ${paddingX * 8}px`,
-    boxShadow: shadowPalette[boxShadow],
+    boxShadow: shadows[boxShadow],
     borderRadius: borderRadius,
     width: '100%',
     ...innerStyle,

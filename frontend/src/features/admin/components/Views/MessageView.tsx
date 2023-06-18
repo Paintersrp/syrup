@@ -5,15 +5,16 @@ import { Page } from '@/components/Layout';
 import { Flexer, Surface } from '@/components/Containers';
 import { Breadcrumbs, Text, Tooltip, useLoading } from '@/components/Elements';
 import { axios } from '@/lib/api';
-import { breakPoints, useBreakpoint } from '@/utils';
+
 import Message from './Message';
+import { useBreakpoint } from '@/hooks';
 
 const MessageView: React.FC<{
   // setCount: React.Dispatch<React.SetStateAction<number>>;
 }> = ({}) => {
   const { pk } = useParams<{ pk: string }>();
   const location = useLocation();
-  const isSmallScreen = useBreakpoint(breakPoints.sm);
+  const isSmallScreen = useBreakpoint('sm');
   const { loading, startLoad, endLoad } = useLoading();
 
   const [ready, setReady] = useState(false);
@@ -89,7 +90,7 @@ const MessageView: React.FC<{
   }
 
   return (
-    <Page error={error}>
+    <Page>
       {metadata && data && (
         <Surface maxWidth={1200} pt={32} pb={32} px={3} py={3} boxShadow={1} br={8} j="c">
           <Flexer>

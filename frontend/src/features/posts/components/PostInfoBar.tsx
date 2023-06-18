@@ -4,9 +4,9 @@ import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Text, Tooltip } from '@/components/Elements';
 import { formatDate, getReadTime } from '@/lib/api';
-import { palettes } from '@/utils';
 
 import { PostContent } from '../types';
+import { colors } from '@/theme/common';
 
 export const PostInfoBar: FC<{ post: PostContent }> = ({ post }) => {
   const { author, author_details, created_at, content, id } = post;
@@ -37,7 +37,7 @@ export const PostInfoBar: FC<{ post: PostContent }> = ({ post }) => {
           size="t"
           material="bookmark_add"
           className="primary-button"
-          iconColor={palettes.primary.main}
+          iconColor={colors.primary.main}
         />
       </Tooltip>
     </Flexer>

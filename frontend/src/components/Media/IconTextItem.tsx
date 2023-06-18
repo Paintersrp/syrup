@@ -1,9 +1,10 @@
 import React, { CSSProperties } from 'react';
 
-import { BaseProps, Divider, Text, TextAlign } from '../Elements';
 import MaterialIcon from './MaterialIcon';
-import { palettes } from '../../utils';
-import { Flexer } from '../Containers';
+
+import { Flexer } from '@/components/Containers';
+import { colors } from '@/theme/common';
+import { BaseProps, Divider, Text, TextAlign } from '../Elements';
 
 interface IconTextItemProps extends BaseProps {
   icon?: string;
@@ -24,7 +25,7 @@ const IconTextItem: React.FC<IconTextItemProps> = ({
   subtext,
   iconColor,
   iconSize = '20px',
-  subtextColor = palettes.text.secondary,
+  subtextColor = colors.text.secondary,
   divider,
   textAlign,
   fontSize,

@@ -1,8 +1,9 @@
 import { Flexer, Surface } from '@/components/Containers';
 import { Breadcrumbs, Text, Tooltip, useLoading } from '@/components/Elements';
 import { Page } from '@/components/Layout';
+import { useBreakpoint } from '@/hooks';
 import { axios } from '@/lib/api';
-import { breakPoints, CapitalizeFirst, useBreakpoint } from '@/utils';
+import { CapitalizeFirst } from '@/utils';
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import ObjectAutoForm from './subcomponents/ObjectAutoForm';
@@ -15,7 +16,7 @@ const ObjectDashboard: React.FC = () => {
   const { str, pk } = useParams();
   const location = useLocation();
   const { loading, startLoad, endLoad } = useLoading();
-  const isSmallScreen = useBreakpoint(breakPoints.sm);
+  const isSmallScreen = useBreakpoint('sm');
 
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<any>(null);
@@ -135,7 +136,7 @@ const ObjectDashboard: React.FC = () => {
   }
 
   return (
-    <Page error={error}>
+    <Page>
       {metadata && (
         <Surface maxWidth={1200} pt={32} pb={32} px={3} py={3} boxShadow={1} br={8} j="c">
           <Flexer>

@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+import { Breakpoint, breakpoints } from '@/theme/common';
 
-const useBreakpoint = (breakpoint: number): boolean => {
+export const useBreakpoint = (breakpoint: Breakpoint): boolean => {
   const [isAtBreakpoint, setIsAtBreakpoint] = useState(false);
 
   useEffect(() => {
     const handleResize = (): void => {
-      setIsAtBreakpoint(window.innerWidth <= breakpoint);
+      setIsAtBreakpoint(window.innerWidth <= breakpoints[breakpoint]);
     };
 
     handleResize();
@@ -19,5 +20,3 @@ const useBreakpoint = (breakpoint: number): boolean => {
 
   return isAtBreakpoint;
 };
-
-export default useBreakpoint;

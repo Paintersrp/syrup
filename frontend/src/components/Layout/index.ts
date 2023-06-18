@@ -1,10 +1,7 @@
-import AppDrawer from './AppDrawer';
-import AppFooter from './AppFooter';
-import AppNavbar from './AppNavbar';
-import Page from './Page';
-import SEO from './SEO';
-
-export { AppDrawer, AppFooter, AppNavbar, Page, SEO };
-
-import type { SEOData } from './SEO';
-export type { SEOData };
+export { AppDrawer } from './AppDrawer';
+export { AppFooter } from './AppFooter';
+export { AppNavbar } from './AppNavbar';
+export { Error } from './Error';
+export { NotFound } from './NotFound';
+export { Page } from './Page';
+export { SEO, seoData } from './SEO';

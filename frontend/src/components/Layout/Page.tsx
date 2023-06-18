@@ -1,15 +1,13 @@
 import React, { CSSProperties, ReactNode, Suspense } from 'react';
 
-import { seoData as data } from '../../settings';
-
 import { Base, Loading, Text } from '../Elements';
-import SEO, { SEOData } from './SEO';
+import { SEO } from './SEO';
 
 // import  text types instead
 type HeaderType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 type HeaderAlign = 'l' | 'r' | 'c' | 'left' | 'right' | 'center';
 
-interface PageProps {
+type PageProps = {
   children: ReactNode;
   header?: string;
   backgroundColor?: CSSProperties['backgroundColor'];
@@ -17,10 +15,9 @@ interface PageProps {
   headerAlign?: HeaderAlign;
   className?: string;
   style?: CSSProperties;
-  seoData?: SEOData;
-}
+};
 
-const Page: React.FC<PageProps> = ({
+export const Page: React.FC<PageProps> = ({
   children,
   header,
   headerAlign = 'center',
@@ -28,7 +25,6 @@ const Page: React.FC<PageProps> = ({
   backgroundColor = '#F5F5F5',
   className,
   style,
-  seoData = data.default,
 }) => {
   return (
     <Base a="c" fd="column" mt={30} w="100%" minh="80vh" bg={backgroundColor}>
@@ -49,7 +45,7 @@ const Page: React.FC<PageProps> = ({
               {header}
             </Text>
           ) : null}
-          <SEO data={seoData} />
+          <SEO />
           {children}
         </Suspense>
       </main>
