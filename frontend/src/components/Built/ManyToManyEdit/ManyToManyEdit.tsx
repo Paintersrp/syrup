@@ -1,8 +1,9 @@
+import { FC, FormEvent, useEffect, useState } from 'react';
+
 import { Surface } from '@/components/Containers';
 import { BaseProps, Text } from '@/components/Elements';
 import { axios } from '@/lib/api';
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useAlertStore } from '@/stores/alert';
 
 import ConfirmCancelBar from '../ConfirmCancelBar/ConfirmCancelBar';
 import ManyToManyField from './ManyToManyField';
@@ -17,7 +18,7 @@ interface MTMEditProps extends BaseProps {
   fieldName: string;
 }
 
-const ManyToManyEdit: React.FC<MTMEditProps> = ({
+const ManyToManyEdit: FC<MTMEditProps> = ({
   data,
   updateData,
   handleCancel,
@@ -27,7 +28,8 @@ const ManyToManyEdit: React.FC<MTMEditProps> = ({
   fieldName,
   ...rest
 }) => {
-  const dispatch = useDispatch();
+  const { showAlert } = useAlertStore();
+
   const [formData, setFormData] = useState<any>(data);
 
   useEffect(() => {
@@ -41,14 +43,14 @@ const ManyToManyEdit: React.FC<MTMEditProps> = ({
     }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
     try {
       const res = await axios.patch(`http://localhost:8000/api/${endpoint}/${id}/`, formData);
       setFormData(res.data);
       updateData(res.data);
-      dispatch({ type: 'ALERT_SUCCESS', message: 'Data Updated' });
+      showAlert('success', 'Data Updated');
     } catch (error) {
       console.log(error);
     }

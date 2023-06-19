@@ -1,7 +1,6 @@
 import { MouseEvent, useState, FC, Fragment } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { faCoins } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch } from 'react-redux';
 import './css/RegisterForm.css';
 
 import { Collapser } from '@/components/Animation';
@@ -14,11 +13,15 @@ import { handleDataChange } from '@/utils';
 
 import { advancedRegisterFields, registerFields, registerInitialData } from '../api/registerConst';
 import { useRegister } from '../api/useRegister';
+import { useAuthStore } from '@/stores/auth';
+import { useAlertStore } from '@/stores/alert';
 
 // Form Validation
 
 const RegisterForm: FC = ({}) => {
-  const dispatch = useDispatch();
+  const authStore = useAuthStore();
+  const alertStore = useAlertStore();
+
   const navigate = useNavigate();
 
   const [error, setError] = useState<any>();
@@ -32,7 +35,7 @@ const RegisterForm: FC = ({}) => {
 
   const submitLogic = async (event: any) => {
     event?.preventDefault();
-    useRegister(formData, dispatch, navigate, setError);
+    useRegister(formData, navigate, setError, alertStore, authStore);
   };
 
   return (

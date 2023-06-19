@@ -4,11 +4,11 @@ import { ButtonBar, ManyToManyEdit } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
 import { BaseProps, List, Text } from '@/components/Elements';
 import { IconTextItem } from '@/components/Media';
-import { useApp } from '@/hooks';
 
 import { SetJobsDataFn } from '../api/useJobs';
 import { JobContent } from '../types';
 import { colors } from '@/theme/common';
+import { useEditModeStore } from '@/stores/editmode';
 
 interface JobQualificationProps {
   title: string;
@@ -74,7 +74,7 @@ interface JobQualificationsProps extends BaseProps {
 }
 
 export const JobQualifications: FC<JobQualificationsProps> = ({ job, ...rest }) => {
-  const { editMode }: any = useApp();
+  const { editMode }: any = useEditModeStore();
   const [jobData, setJobData] = useState(job);
 
   useEffect(() => {

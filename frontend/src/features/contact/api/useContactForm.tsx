@@ -1,4 +1,5 @@
 import { axios } from '@/lib/api';
+import { AlertStore } from '@/stores/alert';
 
 export const contactFields = [
   {
@@ -53,15 +54,16 @@ export const postMessage = (values: ContactDTO): Promise<any> => {
   return axios.post<any>(`/messages/`, values);
 };
 
-export const useContactForm = async (resetForm: ResetFormFn, values: ContactDTO, dispatch: any) => {
+export const useContactForm = async (
+  resetForm: ResetFormFn,
+  values: ContactDTO,
+  alertStore: AlertStore
+) => {
   try {
     await postMessage(values);
     resetForm(initialContactData);
-    dispatch({ type: 'ALERT_SUCCESS', message: 'Message Sent' });
+    alertStore.showAlert('success', 'Message Sent');
   } catch (error) {
-    dispatch({
-      type: 'ALERT_FAIL',
-      message: 'Error occurred, try again later',
-    });
+    alertStore.showAlert('error', 'Error occurred, try again later');
   }
 };

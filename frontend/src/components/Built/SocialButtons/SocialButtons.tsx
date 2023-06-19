@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 
 import { SOCIALS } from '@/settings';
 
@@ -8,10 +7,11 @@ import { Flexer } from '@/components/Containers';
 import { Text, Tooltip } from '@/components/Elements';
 
 import { Stagger } from '@/components/Animation';
-import { FormGenerator } from '@/components/Form';
+
 import ButtonBar from '../ButtonBar/ButtonBar';
 import { SocialContent } from '@/types';
 import { colors } from '@/theme/common';
+import { FormGenerator } from '@/features/editable/components/FormGenerator';
 
 interface SocialButtonsProps {
   socialsData: any;
@@ -32,8 +32,6 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
   buttonClass,
   buttonSize = 'lg',
 }) => {
-  const auth = useSelector<any>((state) => state.auth);
-
   const [socials, setSocials] = useState(socialsData);
   const [editing, setEditing] = useState(false);
   let finalColor: string;

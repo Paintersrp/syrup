@@ -75,10 +75,6 @@ export type {
   TooltipPosition,
 };
 
-import { useLoading } from '../../hooks/useLoading';
-
-export { useLoading };
-
 // Prop Maps
 import { alignItemsMap, justifyContentMap } from './Base/Base';
 export { alignItemsMap, justifyContentMap };

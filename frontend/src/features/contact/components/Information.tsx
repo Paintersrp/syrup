@@ -3,19 +3,20 @@ import { FC, useEffect, useState } from 'react';
 import { ButtonBar, ContactButtons } from '@/components/Built';
 import { Flexer, Surface } from '@/components/Containers';
 import { BaseProps } from '@/components/Elements';
-import { FormGenerator } from '@/components/Form';
+
 import { IconTextItem } from '@/components/Media';
 
 import { ContactInformationContent } from '../types';
-import { useApp } from '@/hooks';
 import { colors } from '@/theme/common';
+import { useEditModeStore } from '@/stores/editmode';
+import { FormGenerator } from '@/features/editable/components/FormGenerator';
 
 interface InformationProps extends BaseProps {
   contactData: ContactInformationContent;
 }
 
 export const Information: FC<InformationProps> = ({ contactData, ...rest }) => {
-  const { editMode }: any = useApp();
+  const { editMode } = useEditModeStore();
   const [data, setData] = useState<ContactInformationContent>(contactData);
   const [editing, setEditing] = useState(false);
 

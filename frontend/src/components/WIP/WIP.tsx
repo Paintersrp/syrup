@@ -1,28 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Text,
-  TreeNode,
-} from '../Elements';
+import { Text, TreeNode } from '../Elements';
 import { ToggleButton, ToggleButtonGroup } from '../Buttons';
 
 import { Carousel, Stagger } from '../Animation';
 import { Flexer, Surface } from '../Containers';
 import Gallery from '../Media/Gallery';
-import Alert from '../Elements/Alert/Alert';
 import Switch from '../Form/Switch/Switch';
-import { Option, Select } from '../Form';
 import { Page } from '../Layout';
 import { Button } from '../Buttons/Button/Button';
-import { css } from '@emotion/react';
 import { useBreakpoint } from '@/hooks';
+import { useEditModeStore } from '@/stores/editmode';
+import { Editable } from '../../features/editable/components/Editable';
 
 interface WIPProps {}
 
@@ -60,37 +49,6 @@ const WIP: React.FC<WIPProps> = ({}) => {
     },
   ];
 
-  const leftItems = [
-    { id: '1', name: 'Item 1' },
-    { id: '2', name: 'Item 2' },
-    { id: '3', name: 'Item 3' },
-    { id: '4', name: 'Item 4' },
-  ];
-
-  const rightItems = [
-    { id: '5', name: 'Item 5' },
-    { id: '6', name: 'Item 6' },
-    { id: '7', name: 'Item 7' },
-  ];
-
-  const columns = ['Name', 'Age', 'Country'];
-  const data = [
-    { Name: 'John Doe', Age: 25, Country: 'USA' },
-    { Name: 'Jane Smith', Age: 30, Country: 'Canada' },
-    { Name: 'Bob Johnson', Age: 35, Country: 'UK' },
-  ];
-
-  const [selectedValue, setSelectedValue] = useState('');
-  const [formData, setFormData] = useState([]);
-
-  const handleChange = (event: any) => {
-    setSelectedValue(event.target.value);
-  };
-
-  const handleItemClick = (label: string) => {
-    console.log(`Clicked on "${label}"`);
-  };
-
   const [selectedValueToggle, setSelectedValueToggle] = useState<string | null>(null);
 
   const handleValueChange = (value: string | null) => {
@@ -112,18 +70,6 @@ const WIP: React.FC<WIPProps> = ({}) => {
 
   const isSmallScreen = useBreakpoint('sm');
 
-  const [alert, setAlert] = useState<any>(null);
-
-  const showAlert = (message: string, type: any) => {
-    setAlert({ message, type });
-  };
-
-  const handleCloseAlert = () => {
-    setAlert(null);
-  };
-
-  const dispatch = useDispatch();
-
   const [switches, setSwitches] = useState({
     field1: false,
     field2: false,
@@ -136,32 +82,25 @@ const WIP: React.FC<WIPProps> = ({}) => {
     }));
   };
 
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(!open);
-
-  // const styleTest = css({
-  //   background: `${open ? 'darkorchid' : 'red'}`,
-  //   transition: 'background 0.3s ease',
-  //   '&:hover': { background: 'black' },
-  // });
-
-  const styleTest = css({
-    background: 'red',
-    transition: 'background 0.3s ease',
-    '&:is(.open)': {
-      background: 'darkorchid',
-    },
-    '&:hover': {
-      background: 'black',
-    },
-  });
+  const { editMode, editModeToggle } = useEditModeStore();
 
   return (
     <Page>
+      <Editable
+        name="test"
+        data={{ name: 'hello', icon: null, image: null }}
+        onUpdate={() => console.log('Updated')}
+        onDelete={() => console.log('Deleted')}
+        endpoint="/"
+        mt={96}
+      >
+        <Text t="h1" mt={40} a="c">
+          Test
+        </Text>
+      </Editable>
       <Flexer j="c" a="c" fd="column" mt={40}>
-        <button className={`${open ? 'open' : ''}`} onClick={handleOpen} css={styleTest}>
-          test
-        </button>
+        <h1>Edit Mode: {editMode ? 'On' : 'Off'}</h1>
+        <button onClick={editModeToggle}>Toggle Mode</button>
 
         <Button size="lg" palette="success" variant="standard" mt={8} mb={24}>
           Test
@@ -241,11 +180,6 @@ const WIP: React.FC<WIPProps> = ({}) => {
           <h1>Stock Image Gallery</h1>
           <Gallery images={stockImages} layout="masonry" />
         </Stagger>
-
-        {/* <TransferList leftItems={leftItems} rightItems={rightItems} /> */}
-        {/* <MenuExamples /> */}
-
-        {/* Carousel */}
         <Carousel autoplay style={{ marginBottom: 96 }}>
           <img src="https://source.unsplash.com/1400x901/?service" alt="Image 1" />
           <img src="https://source.unsplash.com/1400x902/?service" alt="Image 2" />

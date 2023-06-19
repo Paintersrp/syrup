@@ -11,7 +11,7 @@ interface ImageMixinProps {
   newImageName: string;
 }
 
-const ImageMixin: React.FC<ImageMixinProps> = ({
+export const ImageMixin: React.FC<ImageMixinProps> = ({
   handleChange,
   formData,
   newImage,
@@ -44,5 +44,3 @@ const ImageMixin: React.FC<ImageMixinProps> = ({
     </>
   );
 };
-
-export default ImageMixin;

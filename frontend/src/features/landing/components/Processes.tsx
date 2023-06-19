@@ -6,7 +6,7 @@ import { BaseProps } from '@/components/Elements';
 
 import { Process } from './Process';
 import { ProcessContent } from '../types';
-import { useApp } from '@/hooks';
+import { useEditModeStore } from '@/stores/editmode';
 
 interface ProcessesProps extends BaseProps {
   headerData: SectionHeaderContent | any;
@@ -14,7 +14,7 @@ interface ProcessesProps extends BaseProps {
 }
 
 export const Processes: React.FC<ProcessesProps> = ({ headerData, processData, ...rest }) => {
-  const { editMode }: any = useApp();
+  const { editMode }: any = useEditModeStore();
   return (
     <Flexer j="c" a="c" mb={24} style={{ minWidth: 325 }} {...rest}>
       <Flexer fd="column" style={{ maxWidth: 1200, padding: 20 }}>

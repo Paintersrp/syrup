@@ -3,17 +3,17 @@ import { FC, useEffect, useState } from 'react';
 import { ButtonBar } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
 import { Base, BaseProps, Loading, Text } from '@/components/Elements';
-import { useApp } from '@/hooks';
 
 import { ValueType } from '../types';
 import { Value } from './Value';
+import { useEditModeStore } from '@/stores/editmode';
 
 interface ValuesProps extends BaseProps {
   valuesData: ValueType[];
 }
 
 export const Values: FC<ValuesProps> = ({ valuesData, ...rest }) => {
-  const { editMode } = useApp();
+  const { editMode } = useEditModeStore();
   const [loading, setLoading] = useState(true);
   const [rowOne, setRowOne] = useState<ValueType[] | null>(null);
   const [rowTwo, setRowTwo] = useState<ValueType[] | null>(null);

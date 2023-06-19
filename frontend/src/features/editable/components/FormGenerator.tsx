@@ -1,13 +1,13 @@
-import React, { useState, CSSProperties, FormEvent } from 'react';
-import { useDispatch } from 'react-redux';
+import { CSSProperties, FC, FormEvent, useState } from 'react';
 
-import { Container, Item, Surface } from '@/components/Containers';
-import { IconMixin, ImageMixin } from './mixins';
-import { BaseProps, Text } from '@/components/Elements';
-
-import Input from '../Input/Input';
 import { ConfirmCancelBar, ErrorDisplay } from '@/components/Built';
+import { Container, Item, Surface } from '@/components/Containers';
+import { BaseProps, Text } from '@/components/Elements';
+import { Input } from '@/components/Form';
 import { axios, validateForm } from '@/lib/api';
+import { useAlertStore } from '@/stores/alert';
+import { ImageMixin } from './ImageMixin';
+import { IconMixin } from './IconMixin';
 
 interface FormGeneratorProps extends BaseProps {
   endpoint: string;
@@ -30,7 +30,7 @@ interface FormGeneratorProps extends BaseProps {
   fade?: boolean;
 }
 
-const FormGenerator: React.FC<FormGeneratorProps> = ({
+export const FormGenerator: FC<FormGeneratorProps> = ({
   endpoint,
   data,
   onUpdate,
@@ -51,11 +51,15 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
   fade = false,
   ...rest
 }) => {
+  // add validation
+  const { showAlert } = useAlertStore();
+
   const [errors, setErrors] = useState<any>([]);
   const [state, setState] = useState({ ...data });
+
+  // move into imagemixin?
   const [newImage, setNewImage] = useState<any>(null);
   const [newImageName, setNewImageName] = useState<any>(null);
-  const dispatch = useDispatch();
 
   const handleChange = (e: any) => {
     if (e.target.name === 'image') {
@@ -73,6 +77,7 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
     }
   };
 
+  //merge handler
   const handleSwitchChange = (event: any) => {
     setState({
       ...state,
@@ -81,7 +86,6 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
   };
 
   const handleSubmit = async (e: FormEvent) => {
-    console.log('yup');
     e.preventDefault();
     setErrors(validateForm(state));
 
@@ -92,7 +96,7 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
     try {
       const res = await axios.patch(endpoint, state);
       onUpdate(res.data);
-      dispatch({ type: 'ALERT_SUCCESS', message: 'Data Updated' });
+      showAlert('success', 'Data Updated');
     } catch (error) {
       console.log(error);
     }
@@ -178,5 +182,3 @@ const FormGenerator: React.FC<FormGeneratorProps> = ({
     </Surface>
   );
 };
-
-export default FormGenerator;

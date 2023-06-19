@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import { Flexer, Surface } from '@/components/Containers';
 import { Breadcrumbs, Divider, Text, Tooltip } from '@/components/Elements';
@@ -12,6 +11,7 @@ import ModelTable from './ModelTable';
 import InfoMenu from './InfoMenu';
 import { useBreakpoint } from '@/hooks';
 import { colors } from '@/theme/common';
+import { useAlertStore } from '@/stores/alert';
 
 interface ModelPanelProps {
   apiData: any;
@@ -21,8 +21,9 @@ interface ModelPanelProps {
 }
 
 const ModelPanel: React.FC<ModelPanelProps> = ({ apiData, recentActions, type }) => {
+  const { showAlert } = useAlertStore();
+
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const location = useLocation();
   const isSmallScreen = useBreakpoint('sm');
 
@@ -115,10 +116,7 @@ const ModelPanel: React.FC<ModelPanelProps> = ({ apiData, recentActions, type })
       .delete(deleteEndpoint)
       .then(() => {
         setData((prevData) => prevData.filter((dataItem) => dataItem.id !== selected.id));
-        dispatch({
-          type: 'ALERT_SUCCESS',
-          message: `${model.verbose_name} - Object: ${selected.id} Deleted`,
-        });
+        showAlert('success', `${model.verbose_name} - Object: ${selected.id} Deleted`);
       })
       .catch((err) => {
         console.log(err);
@@ -132,10 +130,7 @@ const ModelPanel: React.FC<ModelPanelProps> = ({ apiData, recentActions, type })
         .delete(`${url}del/bulk/`, { data: { ids: selectedIds } })
         .then(() => {
           setData((prevData) => prevData.filter((dataItem) => !selectedIds.includes(dataItem.id)));
-          dispatch({
-            type: 'ALERT_SUCCESS',
-            message: `${model.verbose_name} - Object(s): ${selectedIds} Deleted`,
-          });
+          showAlert('success', `${model.verbose_name} - Object: ${selectedIds} Deleted`);
         })
         .catch((err) => {
           console.log(err);
@@ -146,10 +141,8 @@ const ModelPanel: React.FC<ModelPanelProps> = ({ apiData, recentActions, type })
         .delete(`${url}bulk/`, { data: { ids: selectedIds } })
         .then((response) => {
           setData((prevData) => prevData.filter((dataItem) => !selectedIds.includes(dataItem.id)));
-          dispatch({
-            type: 'ALERT_SUCCESS',
-            message: `${model.verbose_name} - Object(s): ${selectedIds} Deleted`,
-          });
+          showAlert('success', `${model.verbose_name} - Object: ${selectedIds} Deleted`);
+
           // if (model.verbose_name === 'Messages') {
           //   setCount(response.data.count);
           // }
@@ -192,11 +185,8 @@ const ModelPanel: React.FC<ModelPanelProps> = ({ apiData, recentActions, type })
             )
           );
         }
+        showAlert('success', `${model.verbose_name} - Object(s): ${selectedIds} Updated`);
 
-        dispatch({
-          type: 'ALERT_SUCCESS',
-          message: `${model.verbose_name} - Object(s): ${selectedIds} Updated`,
-        });
         // if (field[0] === 'is_read') {
         //   setCount(response.data.count);
         // }

@@ -1,12 +1,11 @@
 import { FC, FormEvent } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { ButtonBar, ErrorDisplay, SocialButtons } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Flexer, Item, Surface } from '@/components/Containers';
 import { BaseProps, Text } from '@/components/Elements';
 import { Input, Option, Select } from '@/components/Form';
-import { useApp, useFormValidation } from '@/hooks';
+import { useFormValidation } from '@/hooks';
 
 import {
   contactFields,
@@ -16,6 +15,8 @@ import {
 } from '../api/useContactForm';
 import { validateForm } from '@/lib/api';
 import { SocialContent } from '@/types';
+import { useEditModeStore } from '@/stores/editmode';
+import { useAlertStore } from '@/stores/alert';
 
 interface ContactFormProps extends BaseProps {
   socialData: SocialContent[];
@@ -23,12 +24,12 @@ interface ContactFormProps extends BaseProps {
 }
 
 export const ContactForm: FC<ContactFormProps> = ({ socialData, color = 'light', ...rest }) => {
-  const { editMode }: any = useApp();
-  const dispatch = useDispatch();
+  const alertStore = useAlertStore();
+  const { editMode } = useEditModeStore();
 
   const submitLogic = (event: FormEvent) => {
     event.preventDefault();
-    useContactForm(resetForm, values, dispatch);
+    useContactForm(resetForm, values, alertStore);
   };
 
   const { values, errors, setErrors, isSubmitting, handleChange, handleSubmit, resetForm } =

@@ -1,6 +1,7 @@
 import { Flexer, Item } from '@/components/Containers';
 import { HelpText } from '@/components/Elements';
-import { IconMixin, Input } from '@/components/Form';
+import { Input } from '@/components/Form';
+import {IconMixin} from '@/features/editable/components/IconMixin';
 import React, { ChangeEvent } from 'react';
 
 interface DynamicTypeProps {

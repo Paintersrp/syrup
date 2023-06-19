@@ -8,8 +8,8 @@ import { BaseProps } from '@/components/Elements';
 import { PostCard } from './PostCard';
 import { PostContent } from '@/features/posts/types';
 import { useConfirm } from '@/hooks/useConfirm';
-import { useApp } from '@/hooks';
 import { colors } from '@/theme/common';
+import { useEditModeStore } from '@/stores/editmode';
 interface PostCardsProps extends BaseProps {
   posts: PostContent[];
   header: SectionHeaderContent | any;
@@ -17,7 +17,7 @@ interface PostCardsProps extends BaseProps {
 }
 
 export const PostCards: FC<PostCardsProps> = ({ posts, header, carousel = false, ...rest }) => {
-  const { editMode }: any = useApp();
+  const { editMode }: any = useEditModeStore();
   const { open, handleClose, handleConfirm, handleDelete } = useConfirm('post');
 
   return (

@@ -1,14 +1,13 @@
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { ScrollToTopFAB } from '@/components/Built';
 import { Alert } from '@/components/Elements';
 import { AppDrawer, AppFooter, AppNavbar } from '@/components/Layout';
-import { useApp, useDrawer } from '@/hooks';
-import { closeAlert } from '@/lib/redux';
+import { useDrawer } from '@/hooks';
 import { LOGO, TITLE } from '@/settings';
 import { ScrollToTop } from '@/utils';
+import { useAlertStore } from '@/stores/alert';
 
 export interface SiteLinkType {
   to: string;
@@ -62,18 +61,12 @@ type LayoutProviderProps = {
 };
 
 export const LayoutProvider: FC<LayoutProviderProps> = ({ children }) => {
-  const dispatch = useDispatch();
   const { isDrawerOpen, handleDrawer } = useDrawer();
-  const { alert } = useApp();
+  const { alertState, closeAlert } = useAlertStore();
 
   return (
     <Router>
-      {alert.open && (
-        <Alert
-          alert={{ message: alert.message, type: alert.type }}
-          onClose={() => dispatch(closeAlert())}
-        />
-      )}
+      {alertState.open && <Alert alert={alertState} onClose={() => closeAlert()} />}
       <AppNavbar menuButton menuOpen={isDrawerOpen} menuOnClick={handleDrawer} links={LINKS} />
       <AppDrawer
         open={isDrawerOpen}

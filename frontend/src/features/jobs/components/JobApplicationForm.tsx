@@ -1,13 +1,15 @@
 import { FC, RefObject, useRef, FormEvent } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { ButtonBar, ErrorDisplay } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { BaseProps, Text } from '@/components/Elements';
 import { Input } from '@/components/Form';
-import { useApp, useFormValidation } from '@/hooks';
+import { useFormValidation } from '@/hooks';
 import { validateForm } from '@/lib/api';
+import { colors } from '@/theme/common';
+import { useEditModeStore } from '@/stores/editmode';
+import { useAlertStore } from '@/stores/alert';
 
 import {
   applicationFields,
@@ -15,7 +17,6 @@ import {
   useApplicationForm,
 } from '../api/useApplicationForm';
 import { JobContent } from '../types';
-import { colors } from '@/theme/common';
 
 interface JobApplicationFormProps extends BaseProps {
   job: JobContent;
@@ -23,8 +24,9 @@ interface JobApplicationFormProps extends BaseProps {
 }
 
 export const JobApplicationForm: FC<JobApplicationFormProps> = ({ job, formRef, ...rest }) => {
-  const { editMode }: any = useApp();
-  const dispatch = useDispatch();
+  const alertStore = useAlertStore();
+  const { editMode }: any = useEditModeStore();
+
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleClick = () => {
@@ -33,7 +35,7 @@ export const JobApplicationForm: FC<JobApplicationFormProps> = ({ job, formRef, 
 
   const submitLogic = (event: FormEvent) => {
     event.preventDefault();
-    useApplicationForm(resetForm, values, dispatch);
+    useApplicationForm(resetForm, values, alertStore);
   };
 
   const { values, errors, setErrors, isSubmitting, handleChange, handleSubmit, resetForm } =

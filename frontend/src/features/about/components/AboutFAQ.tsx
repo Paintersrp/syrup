@@ -4,12 +4,12 @@ import { ButtonBar } from '@/components/Built';
 import { Tab, Tabs } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Accordion, BaseProps, Text } from '@/components/Elements';
-import { useApp } from '@/hooks';
+import { useEditModeStore } from '@/stores/editmode';
 
 interface AboutFAQProps extends BaseProps {}
 
 export const AboutFAQ: FC<AboutFAQProps> = ({ ...rest }) => {
-  const { editMode } = useApp();
+  const { editMode } = useEditModeStore();
   const [tabState, setTabState] = useState(0);
 
   return (

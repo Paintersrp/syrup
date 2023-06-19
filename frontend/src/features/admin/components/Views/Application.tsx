@@ -1,16 +1,15 @@
-import React, { useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
-import { axios } from '@/lib/api';
+import { ButtonBar, ConfirmationModal } from '@/components/Built';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { Divider, Text, Tooltip } from '@/components/Elements';
 import { Button, IconButton } from '@/components/Buttons';
-
 import { Switch } from '@/components/Form';
-import { ButtonBar, ConfirmationModal } from '@/components/Built';
 import { useBreakpoint } from '@/hooks';
+import { axios } from '@/lib/api';
 import { colors } from '@/theme/common';
+import { useAlertStore } from '@/stores/alert';
 
 interface ApplicationProps {
   application: any;
@@ -18,9 +17,10 @@ interface ApplicationProps {
   metadata: any;
 }
 
-const Application: React.FC<ApplicationProps> = ({ application, job, metadata }) => {
+const Application: FC<ApplicationProps> = ({ application, job, metadata }) => {
+  const { showAlert } = useAlertStore();
+
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const isSmallScreen = useBreakpoint('sm');
 
   const [selected, setSelected] = useState<any[]>([]);
@@ -65,25 +65,21 @@ const Application: React.FC<ApplicationProps> = ({ application, job, metadata })
       .delete(deleteEndpoint)
       .then(() => {
         handleBackButtonClick();
-        dispatch({
-          type: 'ALERT_SUCCESS',
-          message: `Message - Object: ${selected[0].id} Deleted`,
-        });
+        showAlert('success', `Application - Object: ${selected[0].id} Deleted`);
       })
       .catch((err) => {
         console.log(err);
-        // setError(err);
       });
   };
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [event.target.name]: event.target.value,
     });
   };
 
-  const handleJobChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleJobChange = (event: ChangeEvent<HTMLInputElement>) => {
     setJobData({
       ...jobData,
       [event.target.name]: event.target.checked,
@@ -97,7 +93,7 @@ const Application: React.FC<ApplicationProps> = ({ application, job, metadata })
       const res = await axios.patch(`/application/${formData.id}/`, formData);
       setFormData(res.data);
       setOriginalStatus(res.data.status);
-      dispatch({ type: 'ALERT_SUCCESS', message: 'Data updated' });
+      showAlert('success', 'Data updated');
     } catch (error) {
       console.log(error);
     }
@@ -110,7 +106,7 @@ const Application: React.FC<ApplicationProps> = ({ application, job, metadata })
       const res = await axios.patch(`/jobposting/${jobData.id}/`, jobData);
       setJobData(res.data);
       setOriginalFilled(res.data.filled);
-      dispatch({ type: 'ALERT_SUCCESS', message: 'Data updated' });
+      showAlert('success', 'Data updated');
     } catch (error) {
       console.log(error);
     }

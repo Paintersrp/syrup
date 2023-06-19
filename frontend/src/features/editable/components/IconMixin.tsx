@@ -12,7 +12,7 @@ interface IconMixinType {
   background?: string;
 }
 
-const IconMixin: React.FC<IconMixinType> = ({
+export const IconMixin: React.FC<IconMixinType> = ({
   fieldName,
   handleChange,
   formData,
@@ -46,5 +46,3 @@ const IconMixin: React.FC<IconMixinType> = ({
     </React.Fragment>
   );
 };
-
-export default IconMixin;

@@ -5,11 +5,12 @@ import { ButtonBar, SectionHeader, SectionHeaderContent } from '@/components/Bui
 import { IconButton } from '@/components/Buttons';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { Base, Text, Tooltip } from '@/components/Elements';
-import { FormGenerator } from '@/components/Form';
+
 import { MaterialIcon } from '@/components/Media';
 
 import { BenefitType } from '../../types';
 import { colors } from '@/theme/common';
+import { FormGenerator } from '@/features/editable/components/FormGenerator';
 
 type BenefitProps = {
   benefit: BenefitType;

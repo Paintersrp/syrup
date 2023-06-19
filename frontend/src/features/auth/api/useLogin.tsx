@@ -1,12 +1,12 @@
 import bcrypt from 'bcryptjs';
 import Cookies from 'js-cookie';
-import { Dispatch } from 'redux';
 
 import { axios } from '@/lib/api';
-import { setAuth, setUser } from '@/lib/redux';
 import { SetErrorFn } from '@/types';
 
 import { AuthContent, AuthResponse, LoginFormDTO } from '../types';
+import { AlertStore } from '@/stores/alert';
+import { AuthStore } from '@/stores/auth';
 
 type LoginDTO = { username: string; password: string };
 type SaltResponse = { data: { salt?: string } };
@@ -51,31 +51,17 @@ export const getUser = (loginData: any): Promise<AuthResponse> => {
   return axios.post<AuthContent>(`/auth/login/`, loginData);
 };
 
-export function dispatchAuth(res: AuthResponse, dispatch: Dispatch): void {
-  dispatch(
-    setAuth({
-      is_authenticated: res.data.authenticated,
-    })
-  );
-  dispatch(
-    setUser({
-      is_superuser: res.data.is_superuser,
-      username: res.data.username,
-    })
-  );
-}
-
 export const useLogin = async (
   formData: LoginFormDTO,
   loginData: LoginDTO,
-  dispatch: Dispatch,
   navigate: any,
-  setError: SetErrorFn
+  setError: SetErrorFn,
+  alertStore: AlertStore,
+  authStore: AuthStore
 ) => {
   try {
     const response = await getUser(loginData);
-
-    dispatchAuth(response, dispatch);
+    authStore.handleAuth(response);
 
     if (formData.remember) {
       const expires = new Date(Date.parse(response.data.exp));
@@ -85,13 +71,10 @@ export const useLogin = async (
 
     navigate('/');
     setTimeout(() => {
-      dispatch({ type: 'ALERT_SUCCESS', message: 'Login Successful' });
+      alertStore.showAlert('success', 'Login Successful');
     }, 275);
   } catch (error) {
     setError(error);
-    dispatch({
-      type: 'ALERT_FAIL',
-      message: 'Error occurred, try again later',
-    });
+    alertStore.showAlert('error', 'Error occurred, try again later');
   }
 };

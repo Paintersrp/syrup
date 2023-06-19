@@ -4,11 +4,12 @@ import { ButtonBar } from '@/components/Built';
 import { IconButton } from '@/components/Buttons';
 import { Flexer, Item, Surface } from '@/components/Containers';
 import { BaseProps, Divider, Text, Tooltip } from '@/components/Elements';
-import { FormGenerator } from '@/components/Form';
+
 import { Media } from '@/components/Media';
 import { SOCIALS } from '@/settings';
 
 import { MemberContent } from '../types';
+import { FormGenerator } from '@/features/editable/components/FormGenerator';
 
 interface MemberProps extends BaseProps {
   member: MemberContent;

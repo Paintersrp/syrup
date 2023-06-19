@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import { Dispatch, FC, Fragment, SetStateAction, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
-import { axios } from '@/lib/api';
+import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { Divider, Text, Tooltip } from '@/components/Elements';
-import { Button } from '@/components/Buttons';
+import { useBreakpoint } from '@/hooks';
+import { axios } from '@/lib/api';
+import { colors } from '@/theme/common';
+import { useAlertStore } from '@/stores/alert';
 
 import InfoMenu from '@/features/admin/components/Model/subcomponents/InfoMenu';
 import getByType from './getByType';
 import ObjectPreview from './ObjectPreview';
-import { useBreakpoint } from '@/hooks';
-import { colors } from '@/theme/common';
 
 interface ObjectAutoFormProps {
   endpointUrl: string | null;
@@ -21,10 +21,10 @@ interface ObjectAutoFormProps {
   variant?: string;
   handleClose?: () => void;
   refresh: boolean;
-  setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
+  setRefresh: Dispatch<SetStateAction<boolean>>;
 }
 
-const ObjectAutoForm: React.FC<ObjectAutoFormProps> = ({
+const ObjectAutoForm: FC<ObjectAutoFormProps> = ({
   endpointUrl,
   data = {},
   handleUpdate,
@@ -34,7 +34,8 @@ const ObjectAutoForm: React.FC<ObjectAutoFormProps> = ({
   refresh,
   setRefresh,
 }) => {
-  const dispatch = useDispatch();
+  const { showAlert } = useAlertStore();
+
   const navigate = useNavigate();
   const location = useLocation();
   const isSmallScreen = useBreakpoint('xs');
@@ -239,10 +240,7 @@ const ObjectAutoForm: React.FC<ObjectAutoFormProps> = ({
           const response = await axios.post(endpointUrl, formDataWithoutId);
           routeBackToModel();
           handleUpdate();
-          dispatch({
-            type: 'ALERT_SUCCESS',
-            message: `${model.verbose_name} Object - Created ${model.verbose_name}`,
-          });
+          showAlert('success', `${model.verbose_name} Object - Created ${model.verbose_name}`);
         } catch (err) {
           console.log(err);
         }
@@ -250,10 +248,9 @@ const ObjectAutoForm: React.FC<ObjectAutoFormProps> = ({
     } else {
       try {
         const response = await axios.patch(`${endpointUrl}${data.id}/`, formDataWithoutId);
-
         routeBackToModel();
         handleUpdate();
-        dispatch({ type: 'ALERT_SUCCESS', message: 'Object Updated' });
+        showAlert('success', 'Object Updated');
       } catch (err) {
         console.log(err);
       }
@@ -415,7 +412,7 @@ const ObjectAutoForm: React.FC<ObjectAutoFormProps> = ({
       <Divider mb={16} mt={24} />
 
       {modelMetadata.pagesAssociated && (
-        <React.Fragment>
+        <Fragment>
           <Text a="c" t="h3">
             Associated Pages
           </Text>
@@ -430,7 +427,7 @@ const ObjectAutoForm: React.FC<ObjectAutoFormProps> = ({
               </Tooltip>
             ))}
           </Flexer>
-        </React.Fragment>
+        </Fragment>
       )}
     </Surface>
   );

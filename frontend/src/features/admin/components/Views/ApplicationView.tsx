@@ -1,5 +1,5 @@
 import { Flexer, Surface } from '@/components/Containers';
-import { Breadcrumbs, Text, Tooltip, useLoading } from '@/components/Elements';
+import { Breadcrumbs, Text, Tooltip } from '@/components/Elements';
 import { Page } from '@/components/Layout';
 import { useBreakpoint } from '@/hooks';
 import { axios } from '@/lib/api';
@@ -14,7 +14,6 @@ const ApplicationView: React.FC<ApplicationViewPageProps> = ({}) => {
   const { pk } = useParams<{ pk: string }>();
   const location = useLocation();
   const isSmallScreen = useBreakpoint('sm');
-  const { loading, startLoad, endLoad } = useLoading();
 
   const [ready, setReady] = useState<boolean>(false);
   const [error, setError] = useState<null | string>(null);
@@ -29,8 +28,6 @@ const ApplicationView: React.FC<ApplicationViewPageProps> = ({}) => {
   const [job, setJob] = useState<any>(null);
 
   useEffect(() => {
-    startLoad();
-
     if (location.state) {
       setUrl(location.state.url);
       setAppName(location.state.appName);
@@ -46,12 +43,10 @@ const ApplicationView: React.FC<ApplicationViewPageProps> = ({}) => {
           setData(response.data.application);
           setJob(response.data.job);
           setReady(true);
-          endLoad();
         })
         .catch((err) => {
           setError(err.error);
           setReady(true);
-          endLoad();
         });
     } else if (pk) {
       axios
@@ -66,7 +61,6 @@ const ApplicationView: React.FC<ApplicationViewPageProps> = ({}) => {
         .catch((err) => {
           setError(err.error);
           setReady(true);
-          endLoad();
         });
       axios
         .get(`application/${pk}/`)
@@ -74,12 +68,10 @@ const ApplicationView: React.FC<ApplicationViewPageProps> = ({}) => {
           setData(response.data.application);
           setJob(response.data.job);
           setReady(true);
-          endLoad();
         })
         .catch((err) => {
           setError(err.error);
           setReady(true);
-          endLoad();
         });
     }
   }, [location.state, pk]);

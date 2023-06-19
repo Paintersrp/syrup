@@ -1,36 +1,17 @@
 import bcrypt from 'bcryptjs';
 import Cookies from 'js-cookie';
-import { Dispatch } from 'redux';
 
 import { axios } from '@/lib/api';
 import { SetErrorFn } from '@/types';
 
-import { dispatchAuth, getUser, hashPassword } from './useLogin';
+import { getUser, hashPassword } from './useLogin';
+import { AuthStore } from '@/stores/auth';
+import { AlertStore } from '@/stores/alert';
 
 const createSalt = async (rounds: number = 12): Promise<string> => {
   const salt = await bcrypt.genSalt(rounds);
   return salt;
 };
-
-// export const setSalt = async (setError: SetErrorFn, formData: any) => {
-//   try {
-//     const salt = await createSalt();
-
-//     if (salt) {
-//       return { loginData: hashPassword(formData, salt), salt: { salt } };
-//     } else {
-//       return {
-//         loginData: {
-//           username: formData.username,
-//           password: formData.password,
-//         },
-//         salt: null,
-//       };
-//     }
-//   } catch (error) {
-//     setError(error);
-//   }
-// };
 
 export const postUser = (formData: any): Promise<any> => {
   return axios.post<any>(`/auth/register/`, formData);
@@ -38,9 +19,10 @@ export const postUser = (formData: any): Promise<any> => {
 
 export const useRegister = async (
   formData: any,
-  dispatch: Dispatch,
   navigate: any,
-  setError: SetErrorFn
+  setError: SetErrorFn,
+  alertStore: AlertStore,
+  authStore: AuthStore
 ) => {
   try {
     const salt = await createSalt();
@@ -52,7 +34,7 @@ export const useRegister = async (
     });
 
     const response = await getUser(loginData);
-    dispatchAuth(response, dispatch);
+    authStore.handleAuth(response);
 
     const expires = new Date(Date.parse(response.data.exp));
     Cookies.set('jwt', response.data.jwt, { expires });
@@ -60,13 +42,10 @@ export const useRegister = async (
 
     navigate('/');
     setTimeout(() => {
-      dispatch({ type: 'ALERT_SUCCESS', message: 'Login Successful' });
+      alertStore.showAlert('success', 'Login Successful');
     }, 275);
   } catch (error) {
     setError(error);
-    dispatch({
-      type: 'ALERT_FAIL',
-      message: 'Error occurred, try again later',
-    });
+    alertStore.showAlert('error', 'Error occurred, try again later');
   }
 };

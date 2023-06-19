@@ -6,8 +6,8 @@ import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Divider, Tag, Text, Tooltip } from '@/components/Elements';
 
-import { useApp } from '@/hooks';
 import { colors } from '@/theme/common';
+import { useAuthStore } from '@/stores/auth';
 
 interface SidebarProps {
   tags: any;
@@ -26,7 +26,7 @@ export const PostsSidebar: FC<SidebarProps> = ({
   handleDateClick,
   selectedDateFilter,
 }) => {
-  const { auth } = useApp();
+  const { authState } = useAuthStore();
 
   const dateFilters = [
     { label: 'Last 7 days', value: 7 },
@@ -85,7 +85,7 @@ export const PostsSidebar: FC<SidebarProps> = ({
           />
         </Tooltip>
 
-        {auth.is_superuser && (
+        {authState.is_superuser && (
           <Link to={`/admin/post`}>
             <Tooltip text={`Posts Admin Panel`} position="bottom">
               <IconButton

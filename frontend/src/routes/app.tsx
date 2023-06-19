@@ -1,4 +1,3 @@
-import { useSelector } from 'react-redux';
 import { useRoutes } from 'react-router-dom';
 
 import { adminRoutes } from './admin';
@@ -6,15 +5,16 @@ import { protectedRoutes } from './protected';
 import { publicRoutes } from './public';
 
 import { WIP } from '@/components/WIP';
+import { useAuthStore } from '@/stores/auth';
 
 export const AppRoutes = () => {
-  const auth: any = useSelector<any>((state) => state.auth);
+  const { authState } = useAuthStore();
 
   const commonRoutes = [{ path: '/WIP', element: <WIP /> }];
 
-  const routes = auth.is_superuser
+  const routes = authState.is_superuser
     ? [...protectedRoutes, ...adminRoutes]
-    : auth.username
+    : authState.username
     ? protectedRoutes
     : publicRoutes;
 

@@ -6,15 +6,16 @@ import { BaseProps, Text } from '@/components/Elements';
 
 import { Member } from './Member';
 import { MemberContent } from '../types';
-import { useApp } from '@/hooks';
+
+import { useEditModeStore } from '@/stores/editmode';
 
 interface MembersProps extends BaseProps {
   membersData: MemberContent[];
 }
 
 export const Members: FC<MembersProps> = ({ membersData, ...rest }) => {
-  const { editMode } = useApp();
-  
+  const { editMode } = useEditModeStore();
+
   return (
     <Flexer j="c" mt={40} {...rest}>
       <Flexer j="c" a="c" fd="column" mb={24} style={{ maxWidth: 900 }}>

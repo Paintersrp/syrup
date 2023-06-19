@@ -3,15 +3,16 @@ import { FC, useEffect, useState } from 'react';
 import { Flexer } from '@/components/Containers';
 import { ButtonBar } from '@/components/Built';
 import { Text } from '@/components/Elements';
-import { useApp } from '@/hooks';
+
 import { colors } from '@/theme/common';
+import { useEditModeStore } from '@/stores/editmode';
 
 type ServicePriceProps = {
   data: any;
 };
 
 export const ServicePrice: FC<ServicePriceProps> = ({ data }) => {
-  const { editMode } = useApp();
+  const { editMode } = useEditModeStore();
   const [priceData, setPriceData] = useState(data);
   const [editing, setEditing] = useState(false);
 

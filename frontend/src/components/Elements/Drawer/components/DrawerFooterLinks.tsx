@@ -34,6 +34,7 @@ const DrawerFooterLinks: FC<DrawerFooterLinksProps> = ({ items, itemClass, ...re
             to={item.to}
             pt={8}
             pb={8}
+            css={{ cursor: 'pointer' }}
           />
         ))}
       </List>

@@ -3,19 +3,20 @@ import { FC, useEffect, useState } from 'react';
 import { ButtonBar } from '@/components/Built';
 import { Container, Flexer, Item } from '@/components/Containers';
 import { Base, Divider, Text } from '@/components/Elements';
-import { FormGenerator } from '@/components/Form';
+
 import { Media } from '@/components/Media';
-import { useApp } from '@/hooks';
 
 import { ServiceType } from '../../types';
 import { colors } from '@/theme/common';
+import { useEditModeStore } from '@/stores/editmode';
+import { FormGenerator } from '@/features/editable/components/FormGenerator';
 
 type ServiceAboutProps = {
   data: ServiceType;
 };
 
 export const ServiceAbout: FC<ServiceAboutProps> = ({ data }) => {
-  const { editMode }: any = useApp();
+  const { editMode }: any = useEditModeStore();
   const [aboutData, setAboutData] = useState(data);
   const [editing, setEditing] = useState(false);
 

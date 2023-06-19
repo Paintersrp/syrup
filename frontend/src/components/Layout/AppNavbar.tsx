@@ -1,6 +1,5 @@
 import { FC, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import './css/AppNavbar.css';
 
 import { IconButton } from '@/components/Buttons';
@@ -9,8 +8,9 @@ import { Navbar, Text } from '@/components/Elements';
 import { useBreakpoint } from '@/hooks';
 import { LogoutUser } from '@/utils';
 
-import { breakpoints, colors } from '@/theme/common';
+import { colors } from '@/theme/common';
 import { SiteLinkType } from '@/providers/LayoutProvider';
+import { useAuthStore } from '@/stores/auth';
 
 type AppNavbarProps = {
   menuButton?: boolean;
@@ -29,7 +29,7 @@ export const AppNavbar: FC<AppNavbarProps> = ({
   links,
   children,
 }) => {
-  const auth: any = useSelector<any>((state) => state.auth);
+  const { authState } = useAuthStore();
   const isSmallScreen = useBreakpoint('sm');
 
   return (
@@ -67,7 +67,7 @@ export const AppNavbar: FC<AppNavbarProps> = ({
             })}
           </Flexer>
 
-          {!auth.is_authenticated ? (
+          {!authState.is_authenticated ? (
             <Flexer j="fe" className="link-container" style={{ marginRight: 24 }}>
               <Link key="login" to="auth/login">
                 <Text t="h4">Login</Text>

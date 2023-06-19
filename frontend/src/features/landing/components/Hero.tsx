@@ -5,11 +5,12 @@ import './css/Hero.css';
 import { ButtonBar, ContactButtons, SocialButtons } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
-import { FormGenerator } from '@/components/Form';
+
 import { BaseProps, Text } from '@/components/Elements';
 
 import { HeroContent } from '../types';
-import { useApp } from '@/hooks';
+import { useEditModeStore } from '@/stores/editmode';
+import { FormGenerator } from '@/features/editable/components/FormGenerator';
 
 interface HeroProps extends BaseProps {
   data: HeroContent;
@@ -18,7 +19,7 @@ interface HeroProps extends BaseProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ data, contactData, socialsData, ...rest }) => {
-  const { editMode }: any = useApp();
+  const { editMode } = useEditModeStore();
   const [heroData, setHeroData] = useState(data);
   const [editing, setEditing] = useState(false);
 

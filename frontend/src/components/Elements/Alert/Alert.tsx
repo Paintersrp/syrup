@@ -4,8 +4,8 @@ import './Alert.css';
 import Base, { BaseProps } from '../Base/Base';
 import { MaterialIcon } from '../../Media';
 import Text from '../Text/Text';
+import { AlertState } from '@/stores/alert';
 
-type AlertType = 'success' | 'error' | 'warning' | 'info' | null;
 type AlertFromDirection = 'left' | 'right' | 'bottom' | 'top';
 type AlertPosition =
   | 'top-left'
@@ -15,13 +15,8 @@ type AlertPosition =
   | 'bottom-center'
   | 'bottom-right';
 
-interface AlertItem {
-  message: string;
-  type: AlertType;
-}
-
 interface AlertProps extends BaseProps {
-  alert: AlertItem | null;
+  alert: AlertState | null;
   onClose: () => void;
   position?: AlertPosition;
   from?: AlertFromDirection;

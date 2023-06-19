@@ -1,5 +1,4 @@
 import { useState, FC, FormEvent, Fragment } from 'react';
-import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { faCoins } from '@fortawesome/free-solid-svg-icons';
 import './css/LoginForm.css';
@@ -9,6 +8,8 @@ import { Flexer } from '@/components/Containers';
 import { Text } from '@/components/Elements';
 import { Checkbox, Input } from '@/components/Form';
 import { Icon } from '@/components/Media';
+import { useAlertStore } from '@/stores/alert';
+import { useAuthStore } from '@/stores/auth';
 import { ErrorResponse } from '@/types';
 import { handleDataChange } from '@/utils';
 
@@ -25,14 +26,16 @@ const LoginForm: FC = ({}) => {
   });
   const [error, setError] = useState<ErrorResponse | unknown>();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+  const alertStore = useAlertStore();
+  const authStore = useAuthStore();
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const loginData = await useSalt(setError, formData);
 
     if (loginData) {
-      useLogin(formData, loginData, dispatch, navigate, setError);
+      useLogin(formData, loginData, navigate, setError, alertStore, authStore);
     }
   };
 

@@ -4,12 +4,13 @@ import { Stagger } from '@/components/Animation';
 import { ButtonBar } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
 import { BaseProps } from '@/components/Elements';
-import { FormGenerator } from '@/components/Form';
+
 import { IconTextItem } from '@/components/Media';
 
 import { HoursContent } from '../types';
-import { useApp } from '@/hooks';
 import { colors } from '@/theme/common';
+import { useEditModeStore } from '@/stores/editmode';
+import { FormGenerator } from '@/features/editable/components/FormGenerator';
 
 const daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -18,7 +19,7 @@ interface HoursProps extends BaseProps {
 }
 
 export const Hours: FC<HoursProps> = ({ hoursData, ...rest }) => {
-  const { editMode }: any = useApp();
+  const { editMode } = useEditModeStore();
   const [data, setData] = useState<any>(hoursData);
   const [editing, setEditing] = useState(false);
 

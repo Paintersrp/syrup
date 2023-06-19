@@ -1,5 +1,4 @@
-import React, { FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { FC } from 'react';
 import './css/AppDrawer.css';
 import {
   faBusinessTime,
@@ -18,6 +17,8 @@ import DrawerContent, {
 } from '@/components/Elements/Drawer/components/DrawerContent';
 import { Drawer, DrawerFooter, DrawerFooterLinks, DrawerHeader } from '@/components/Elements';
 import { Flexer } from '@/components/Containers';
+import { useEditModeStore } from '@/stores/editmode';
+import { useAuthStore } from '@/stores/auth';
 
 type AppDrawerProps = {
   open?: boolean;
@@ -38,16 +39,11 @@ export const AppDrawer: FC<AppDrawerProps> = ({
   companyIcon = undefined,
   companyTitle = undefined,
 }) => {
-  const dispatch = useDispatch();
-  const auth: any = useSelector<any>((state) => state.auth);
-  const editmode: any = useSelector<any>((state) => state.editMode);
+  const { authState } = useAuthStore();
+  const { editModeToggle } = useEditModeStore();
 
   const handleEditClick = () => {
-    if (editmode.editMode) {
-      dispatch({ type: 'TOGGLE_EDITMODE_OFF' });
-    } else {
-      dispatch({ type: 'TOGGLE_EDITMODE_ON' });
-    }
+    editModeToggle();
     handleClose();
   };
 
@@ -112,7 +108,9 @@ export const AppDrawer: FC<AppDrawerProps> = ({
           <DrawerContent items={linkListItemData} itemClass="drawer-list-item" />
           <Flexer fd="column">
             <DrawerFooterLinks
-              items={auth.is_authenticated ? authedBottomListItemData : unauthedBottomListItemData}
+              items={
+                authState.is_authenticated ? authedBottomListItemData : unauthedBottomListItemData
+              }
               itemClass="drawer-list-item"
             />
             <DrawerFooter title={companyTitle} />

@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 
 import { DisplayTable } from '@/components/Built';
 import { Surface } from '@/components/Containers';
@@ -13,9 +12,10 @@ import { Questionnaire } from '../components/services/Questionnaire';
 import { Results } from '../components/services/Results';
 import { Benefits } from '../components/services/Benefits';
 import { ServiceContent, ServiceType } from '../types';
+import { useEditModeStore } from '@/stores/editmode';
 
 export const Services: FC = () => {
-  const editMode: boolean = useSelector((state: any) => state.editMode.editMode);
+  const { editMode } = useEditModeStore();
   const { error, setError, ready, setReady } = usePageSetup();
 
   const [data, setData] = useState<ServiceContent>();

@@ -1,6 +1,5 @@
 import { useState, useEffect, FC, Fragment } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import DOMPurify from 'dompurify';
 import './Post.css';
 
@@ -16,14 +15,15 @@ import { usePost } from '../api/usePost';
 import { PostsList } from '../components/PostsList';
 import { PostSidebar } from '../components/PostSidebar';
 import { PostContent } from '../types';
+import { useAuthStore } from '@/stores/auth';
+import { useEditModeStore } from '@/stores/editmode';
 
 export const Post: FC = () => {
   const { id } = useParams<{ id: any }>();
   const navigate = useNavigate();
 
-  const auth = useSelector((state: any) => state.auth);
-  const editMode = useSelector((state: any) => state.editMode.editMode);
-
+  const { authState } = useAuthStore();
+  const { editMode } = useEditModeStore();
   const { error, setError, ready, setReady } = usePageSetup();
 
   const [editing, setEditing] = useState(false);
@@ -106,7 +106,7 @@ export const Post: FC = () => {
               tags={post.tags}
               author_details={post.author_details}
               handleCreate={() => handleCreatePost(navigate)}
-              auth={auth}
+              auth={authState}
             />
           </div>
         </Flexer>

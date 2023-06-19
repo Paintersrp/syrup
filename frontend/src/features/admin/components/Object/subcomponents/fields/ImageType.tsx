@@ -1,7 +1,7 @@
 import { Flexer, Item } from '@/components/Containers';
-import { ImageMixin } from '@/components/Form';
-import React from 'react';
+import {ImageMixin} from '@/features/editable/components/ImageMixin';
 
+import React from 'react';
 
 interface ImageTypeProps {
   formData: any;

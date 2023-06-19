@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import { Breadcrumbs, Text, Tooltip, useLoading } from '@/components/Elements';
+import { Breadcrumbs, Text, Tooltip } from '@/components/Elements';
 import { axios } from '@/lib/api';
 import { Page } from '@/components/Layout';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
@@ -14,8 +14,6 @@ import AppLinks from './subcomponents/AppLinks';
 interface AppDashboardProps {}
 
 const AppDashboard: React.FC<AppDashboardProps> = ({}) => {
-  const { loading, startLoad, endLoad } = useLoading();
-
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<any>(null);
 
@@ -59,7 +57,6 @@ const AppDashboard: React.FC<AppDashboardProps> = ({}) => {
   };
 
   useEffect(() => {
-    startLoad();
     axios
       .get(`/get_app/${str}/`)
       .then((response) => {
@@ -76,7 +73,6 @@ const AppDashboard: React.FC<AppDashboardProps> = ({}) => {
       .catch((err) => {
         setError(err.error);
         setReady(true);
-        endLoad();
       });
 
     axios
@@ -84,12 +80,10 @@ const AppDashboard: React.FC<AppDashboardProps> = ({}) => {
       .then((response) => {
         setRecentActions(response.data);
         setReady(true);
-        endLoad();
       })
       .catch((err) => {
         setError(err.error);
         setReady(true);
-        endLoad();
       });
   }, []);
 

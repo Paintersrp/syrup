@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './MainDashboard.css';
 
-import { Breadcrumbs, Text, useLoading } from '@/components/Elements';
+import { Breadcrumbs, Text } from '@/components/Elements';
 import { axios } from '@/lib/api';
 import { Page } from '@/components/Layout';
 import { Container, Flexer, Surface } from '@/components/Containers';
@@ -12,8 +12,6 @@ import RenderSections from './subcomponents/RenderSections';
 interface MainDashboardProps {}
 
 const MainDashboard: React.FC<MainDashboardProps> = () => {
-  const { loading, startLoad, endLoad } = useLoading();
-
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<any>(null);
 
@@ -49,7 +47,6 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
   };
 
   useEffect(() => {
-    startLoad();
     axios
       .get('/get_models/')
       .then((response) => {
@@ -69,7 +66,6 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
       .catch((err) => {
         setError(err.error);
         setReady(true);
-        endLoad();
       });
 
     axios
@@ -77,12 +73,10 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
       .then((response) => {
         setRecentActions(response.data);
         setReady(true);
-        endLoad();
       })
       .catch((err) => {
         setError(err.error);
         setReady(true);
-        endLoad();
       });
   }, []);
 

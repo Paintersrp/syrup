@@ -1,15 +1,11 @@
-import { FC, Fragment, useEffect, useState } from 'react';
-import axios from 'axios';
+import { FC, useEffect, useState } from 'react';
 
-import { ButtonBar, ConfirmationModal } from '@/components/Built';
-import { Flexer } from '@/components/Containers';
 import { Base, BaseProps, Text } from '@/components/Elements';
-import { FormGenerator } from '@/components/Form';
 import { MaterialIcon } from '@/components/Media';
 
 import { ValueType } from '../types';
-import { useApp } from '@/hooks';
 import { colors } from '@/theme/common';
+import { Editable } from '@/features/editable';
 
 interface ValueProps extends BaseProps {
   value: ValueType;
@@ -18,11 +14,7 @@ interface ValueProps extends BaseProps {
 }
 
 export const Value: FC<ValueProps> = ({ value, index, start, ...rest }) => {
-  const { editMode } = useApp();
   const [valueData, setValueData] = useState<ValueType>(value);
-  const [editing, setEditing] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [selectedId, setSelectedId] = useState<string | number | null>(null);
 
   useEffect(() => {
     setValueData(value);
@@ -30,82 +22,31 @@ export const Value: FC<ValueProps> = ({ value, index, start, ...rest }) => {
 
   const updateValue = (updateValue: ValueType) => {
     setValueData(updateValue);
-    setEditing(false);
   };
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleDelete = (id: string | number | null) => {
-    handleOpen();
-    setSelectedId(id);
-  };
-
-  const handleConfirmDelete = () => {
-    confirmedDelete(selectedId);
-    handleClose();
-  };
-
-  const confirmedDelete = async (id: string | number | null) => {
-    if (id) {
-      await axios.delete(`http://localhost:8000/api/value/${id}/`);
-    }
+  const editConfig = {
+    name: 'value',
+    id: valueData.id,
+    data: valueData,
+    endpoint: 'value/',
+    onUpdate: updateValue,
+    enableDelete: true,
+    fade: true,
+    ...rest,
   };
 
   return (
-    <Flexer j="c" a="c" key={index} {...rest}>
-      {!editing ? (
-        <Base minw="100%" m="8px 0" className="fade-in">
-          <MaterialIcon
-            size="28px"
-            icon={valueData.icon}
-            css={{ color: index % 2 === start ? colors.primary.main : colors.secondary.main }}
-          />
-          <Text s="1rem" fw="500" mt={4} a="c" mb={8}>
-            {valueData.title}
-          </Text>
-          <Flexer a="c" j="fe" w="90%">
-            {!editing && editMode && (
-              <Fragment>
-                <ButtonBar
-                  editClick={() => setEditing(!editing)}
-                  deleteClick={() => handleDelete(value.id)}
-                  tooltipPosition="top"
-                  text="Value"
-                  obj={value.id}
-                />
-              </Fragment>
-            )}
-          </Flexer>
-        </Base>
-      ) : (
-        <FormGenerator
-          endpoint={`value/${valueData.id}/`}
-          onUpdate={updateValue}
-          data={valueData}
-          title="Edit"
-          width="90%"
-          excludeKeys={['id', 'icon']}
-          handleCancel={() => setEditing(!editing)}
-          iconMixin
-          px={1.5}
-          py={1.5}
-          boxShadow
-          placement="top"
+    <Editable {...editConfig}>
+      <Base minw="100%" m="8px 0" className="fade-in">
+        <MaterialIcon
+          size="28px"
+          icon={valueData.icon}
+          css={{ color: index % 2 === start ? colors.primary.main : colors.secondary.main }}
         />
-      )}
-      <ConfirmationModal
-        open={open}
-        handleClose={handleClose}
-        handleConfirm={handleConfirmDelete}
-        message="Are you sure you want to delete this?"
-        // warning="Warning: This cannot be undone."
-      />
-    </Flexer>
+        <Text s="1rem" fw="500" mt={4} a="c" mb={8}>
+          {valueData.title}
+        </Text>
+      </Base>
+    </Editable>
   );
 };

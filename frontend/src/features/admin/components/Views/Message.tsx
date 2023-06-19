@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import { axios } from '@/lib/api';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
@@ -10,6 +9,7 @@ import { Switch } from '@/components/Form';
 import { ConfirmationModal } from '@/components/Built';
 import { useBreakpoint } from '@/hooks';
 import { colors } from '@/theme/common';
+import { useAlertStore } from '@/stores/alert';
 
 interface MessageProps {
   message: {
@@ -31,8 +31,9 @@ interface MessageProps {
 }
 
 const Message: React.FC<MessageProps> = ({ message, metadata }) => {
+  const { showAlert } = useAlertStore();
+
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const isSmallScreen = useBreakpoint('sm');
 
   const [selected, setSelected] = useState<any>([]);
@@ -87,10 +88,7 @@ const Message: React.FC<MessageProps> = ({ message, metadata }) => {
       .delete(deleteEndpoint)
       .then(() => {
         handleBackButtonClick();
-        dispatch({
-          type: 'ALERT_SUCCESS',
-          message: `Message - Object: ${selected.id} Deleted`,
-        });
+        showAlert('success', `Message - Object: ${selected.id} Deleted`);
       })
       .catch((err) => {
         console.log(err);
@@ -106,7 +104,7 @@ const Message: React.FC<MessageProps> = ({ message, metadata }) => {
       setFormData(res.data);
       setOriginalRead(res.data.is_read);
       setOriginalArchived(res.data.is_archived);
-      dispatch({ type: 'ALERT_SUCCESS', message: 'Data updated' });
+      showAlert('success', 'Data updated');
     } catch (error) {
       console.log(error);
     }

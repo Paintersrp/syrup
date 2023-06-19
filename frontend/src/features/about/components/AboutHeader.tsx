@@ -3,16 +3,17 @@ import { useState, FC, useEffect } from 'react';
 import { ButtonBar, ImageHeader, ImageHeaderEdit } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
 import { Base, BaseProps } from '@/components/Elements';
-import { useApp } from '@/hooks';
 
 import { ImageHeaderType } from '../types';
+import { useEditModeStore } from '@/stores/editmode';
 
 interface ParagraphProps extends BaseProps {
   data: ImageHeaderType;
 }
 
 export const AboutHeader: FC<ParagraphProps> = ({ data, ...rest }) => {
-  const { editMode } = useApp();
+  const { editMode } = useEditModeStore();
+
   const [headerData, setHeaderData] = useState<ImageHeaderType>(data);
   const [edit, setEdit] = useState(false);
 

@@ -5,10 +5,10 @@ import { css } from '@emotion/react';
 import { ButtonBar } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
 import { BaseProps, Text } from '@/components/Elements';
-import { useApp } from '@/hooks';
 
 import { ParagraphEdit } from './ParagraphEdit';
 import { ParagraphType } from '../types';
+import { useEditModeStore } from '@/stores/editmode';
 
 const paragraphCx = {
   sectionTitle: css({
@@ -29,7 +29,8 @@ interface ParagraphProps extends BaseProps {
 }
 
 export const Paragraph: FC<ParagraphProps> = ({ data, adminLink, text, ...rest }) => {
-  const { editMode } = useApp();
+  const { editMode } = useEditModeStore();
+
   const [paragraphData, setParagraphData] = useState<ParagraphType>(data);
   const [edit, setEdit] = useState(false);
 

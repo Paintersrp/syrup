@@ -5,10 +5,11 @@ import { ButtonBar } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { BaseProps, Divider, Text, Tooltip } from '@/components/Elements';
-import { useApp, useBreakpoint } from '@/hooks';
+import { useBreakpoint } from '@/hooks';
 
 import { JobContent } from '../types';
 import { colors } from '@/theme/common';
+import { useEditModeStore } from '@/stores/editmode';
 
 interface JobListingsProps extends BaseProps {
   jobsData: JobContent[];
@@ -24,7 +25,7 @@ export const JobListings: FC<JobListingsProps> = ({
   currentId = null,
   ...rest
 }) => {
-  const { editMode }: any = useApp();
+  const { editMode }: any = useEditModeStore();
   const isSmallScreen = useBreakpoint('sm');
 
   return (

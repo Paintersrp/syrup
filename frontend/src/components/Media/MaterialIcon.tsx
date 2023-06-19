@@ -13,7 +13,7 @@ interface MaterialIconProps {
   paddingRight?: number;
   className?: string;
   style?: CSSProperties;
-  icon: string | null;
+  icon: string | null | undefined;
 }
 
 const MaterialIcon: FC<MaterialIconProps> = ({

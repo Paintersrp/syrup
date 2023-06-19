@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 import { Flexer } from '@/components/Containers';
 
 import { Divider, Text } from '@/components/Elements';
-import { FormGenerator } from '@/components/Form';
+
 import { FadeOnScroll } from '@/components/Animation';
 import ButtonBar from '../ButtonBar/ButtonBar';
-import { useApp } from '@/hooks';
 import { colors } from '@/theme/common';
+import { useEditModeStore } from '@/stores/editmode';
+import { FormGenerator } from '@/features/editable/components/FormGenerator';
 
 type AlignmentType = 'Left' | 'Right' | 'Center' | 'left' | 'right' | 'center';
 
@@ -43,7 +44,8 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, formTitle }) 
     }
   };
 
-  const { editMode }: any = useApp();
+  const { editMode } = useEditModeStore();
+
   const [editing, setEditing] = useState(false);
   const [header, setHeader] = useState<SectionHeaderContent>(headerData);
   const alignClass = getAlignClass(headerData.alignment);

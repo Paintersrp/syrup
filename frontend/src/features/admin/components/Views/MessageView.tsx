@@ -3,19 +3,16 @@ import { Link, useLocation, useParams } from 'react-router-dom';
 
 import { Page } from '@/components/Layout';
 import { Flexer, Surface } from '@/components/Containers';
-import { Breadcrumbs, Text, Tooltip, useLoading } from '@/components/Elements';
+import { Breadcrumbs, Text, Tooltip } from '@/components/Elements';
 import { axios } from '@/lib/api';
 
 import Message from './Message';
 import { useBreakpoint } from '@/hooks';
 
-const MessageView: React.FC<{
-  // setCount: React.Dispatch<React.SetStateAction<number>>;
-}> = ({}) => {
+const MessageView: React.FC<{}> = ({}) => {
   const { pk } = useParams<{ pk: string }>();
   const location = useLocation();
   const isSmallScreen = useBreakpoint('sm');
-  const { loading, startLoad, endLoad } = useLoading();
 
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<any>(null);
@@ -29,8 +26,6 @@ const MessageView: React.FC<{
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
-    startLoad();
-
     if (location.state) {
       setUrl(location.state.url);
       setAppName(location.state.appName);
@@ -46,12 +41,10 @@ const MessageView: React.FC<{
           setData(response.data.messages);
           // setCount(response.data.count);
           setReady(true);
-          endLoad();
         })
         .catch((err) => {
           setError(err.error);
           setReady(true);
-          endLoad();
         });
     } else if (pk) {
       axios
@@ -66,7 +59,6 @@ const MessageView: React.FC<{
         .catch((err) => {
           setError(err.error);
           setReady(true);
-          endLoad();
         });
       axios
         .get(`messages/${pk}/`)
@@ -74,12 +66,10 @@ const MessageView: React.FC<{
           setData(response.data.messages);
           // setCount(response.data.count);
           setReady(true);
-          endLoad();
         })
         .catch((err) => {
           setError(err.error);
           setReady(true);
-          endLoad();
         });
     }
     // }, [location.state, pk, setCount]);

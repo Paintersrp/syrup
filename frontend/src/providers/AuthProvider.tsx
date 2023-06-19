@@ -1,8 +1,8 @@
 import { useEffect, createContext, ReactNode, useContext, FC } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
 
-import { axios, handleAuth, handleClearAuth } from '@/lib/api';
+import { axios } from '@/lib/api';
+import { useAuthStore } from '@/stores/auth';
 
 export const AuthContext = createContext<any>({
   is_authenticated: false,
@@ -16,31 +16,24 @@ type AuthProviderProps = {
 };
 
 export const AuthProvider: FC<AuthProviderProps> = ({ children }) => {
-  const dispatch = useDispatch();
+  const { authState, handleAuth, handleClearAuth } = useAuthStore();
 
   useEffect(() => {
     if (Cookies.get('jwt')) {
       axios
         .get('auth/verify/')
         .then((res) => {
-          handleAuth(res, dispatch);
-          if (res.data.refreshed_token) {
-            Cookies.remove('jwt');
-            const expires = new Date(Date.parse(res.data.exp));
-            Cookies.set('jwt', res.data.refreshed_token, { expires });
-          }
+          handleAuth(res);
         })
         .catch((err) => {
-          handleClearAuth(dispatch);
+          handleClearAuth();
         });
     } else {
-      handleClearAuth(dispatch);
+      handleClearAuth();
     }
-  }, [dispatch]);
+  }, []);
 
-  const auth: any = useSelector<any>((state) => state.auth);
-
-  return <AuthContext.Provider value={{ auth }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ authState }}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => useContext(AuthContext);

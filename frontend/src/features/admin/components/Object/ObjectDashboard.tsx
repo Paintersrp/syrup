@@ -1,5 +1,5 @@
 import { Flexer, Surface } from '@/components/Containers';
-import { Breadcrumbs, Text, Tooltip, useLoading } from '@/components/Elements';
+import { Breadcrumbs, Text, Tooltip } from '@/components/Elements';
 import { Page } from '@/components/Layout';
 import { useBreakpoint } from '@/hooks';
 import { axios } from '@/lib/api';
@@ -15,7 +15,6 @@ interface ModelData {
 const ObjectDashboard: React.FC = () => {
   const { str, pk } = useParams();
   const location = useLocation();
-  const { loading, startLoad, endLoad } = useLoading();
   const isSmallScreen = useBreakpoint('sm');
 
   const [ready, setReady] = useState(false);
@@ -47,7 +46,6 @@ const ObjectDashboard: React.FC = () => {
   };
 
   useEffect(() => {
-    startLoad();
     if (!location.state && !pk) {
       axios
         .get(`/get_models/${str}/`)
@@ -59,14 +57,12 @@ const ObjectDashboard: React.FC = () => {
           setModel(response.data);
           setFormattedAppName(CapitalizeFirst(response.data.app_name));
 
-          endLoad();
           setReady(true);
           setCreate(true);
         })
         .catch((err) => {
           setError(err.error);
           setReady(true);
-          endLoad();
         });
     } else if (!location.state && pk) {
       axios
@@ -82,7 +78,6 @@ const ObjectDashboard: React.FC = () => {
         .catch((err) => {
           setError(err.error);
           setReady(true);
-          endLoad();
         });
       axios
         .get(`/${str}/${pk}/`)
@@ -90,12 +85,10 @@ const ObjectDashboard: React.FC = () => {
           setData(response.data);
           setCreate(false);
           setReady(true);
-          endLoad();
         })
         .catch((err) => {
           setError(err.error);
           setReady(true);
-          endLoad();
         });
     } else {
       setUrl(location.state.url);
@@ -108,7 +101,6 @@ const ObjectDashboard: React.FC = () => {
       setFormattedAppName(CapitalizeFirst(location.state.appName));
 
       setReady(true);
-      endLoad();
     }
   }, []);
 

@@ -1,4 +1,3 @@
-import { useLoading } from '@/components/Elements';
 import { Page } from '@/components/Layout';
 import { axios } from '@/lib/api';
 import React, { useEffect, useState } from 'react';
@@ -12,7 +11,6 @@ interface ModelDashboardProps {
 const ModelDashboard: React.FC<ModelDashboardProps> = ({}) => {
   const { id } = useParams<{ id: string }>();
   const location = useLocation();
-  const { loading, startLoad, endLoad } = useLoading();
 
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<any>(null);
@@ -35,7 +33,6 @@ const ModelDashboard: React.FC<ModelDashboardProps> = ({}) => {
   }, [id, location.state]);
 
   useEffect(() => {
-    startLoad();
     axios
       .get(`/get_models/${id}/`)
       .then((response) => {
@@ -44,19 +41,16 @@ const ModelDashboard: React.FC<ModelDashboardProps> = ({}) => {
       .catch((err) => {
         setError(err.error);
         setReady(true);
-        endLoad();
       });
     axios
       .get(`/recent_admin_actions/?model=${id}`)
       .then((response) => {
         setRecentActions(response.data);
         setReady(true);
-        endLoad();
       })
       .catch((err) => {
         setError(err.error);
         setReady(true);
-        endLoad();
       });
   }, [id]);
 

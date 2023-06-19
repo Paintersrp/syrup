@@ -4,11 +4,12 @@ import { SlideOnScroll } from '@/components/Animation';
 import { ButtonBar } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
 import { BaseProps, Text } from '@/components/Elements';
-import { FormGenerator } from '@/components/Form';
+
 import { MaterialIcon } from '@/components/Media';
 
 import { ProcessContent } from '../types';
 import { colors } from '@/theme/common';
+import { FormGenerator } from '@/features/editable/components/FormGenerator';
 
 interface ProcessProps extends BaseProps {
   data: ProcessContent;

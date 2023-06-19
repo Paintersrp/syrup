@@ -4,11 +4,13 @@ import { ButtonBar } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item } from '@/components/Containers';
 import { BaseProps, Text } from '@/components/Elements';
-import { FormGenerator } from '@/components/Form';
-import { useApp, useBreakpoint } from '@/hooks';
+
+import { useBreakpoint } from '@/hooks';
 
 import { JobContent } from '../types';
 import { colors } from '@/theme/common';
+import { useEditModeStore } from '@/stores/editmode';
+import { FormGenerator } from '@/features/editable/components/FormGenerator';
 
 interface JobDetailsProps extends BaseProps {
   job: JobContent;
@@ -16,7 +18,7 @@ interface JobDetailsProps extends BaseProps {
 }
 
 export const JobDetails: FC<JobDetailsProps> = ({ job, handleApplyNowClick, ...rest }) => {
-  const { editMode }: any = useApp();
+  const { editMode }: any = useEditModeStore();
   const isSmallScreen = useBreakpoint('xs');
   const [jobData, setJobData] = useState(job);
   const [editing, setEditing] = useState(false);

@@ -1,4 +1,5 @@
 import { axios } from '@/lib/api';
+import { AlertStore } from '@/stores/alert';
 
 export const applicationFields = [
   {
@@ -58,16 +59,13 @@ export const postApplication = (values: ApplicationDTO): Promise<any> => {
 export const useApplicationForm = async (
   resetForm: ResetFormFn,
   values: ApplicationDTO,
-  dispatch: any
+  alertStore: AlertStore
 ) => {
   try {
     await postApplication(values);
     resetForm(initialApplicationData);
-    dispatch({ type: 'ALERT_SUCCESS', message: 'Application Sent' });
+    alertStore.showAlert('success', 'Application Sent');
   } catch (error) {
-    dispatch({
-      type: 'ALERT_FAIL',
-      message: 'Error occurred, try again later',
-    });
+    alertStore.showAlert('success', 'Error occurred, try again later');
   }
 };

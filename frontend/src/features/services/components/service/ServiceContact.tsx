@@ -1,5 +1,4 @@
 import { FC, useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import { ButtonBar, SocialButtons } from '@/components/Built';
 import { Button } from '@/components/Buttons';
@@ -8,9 +7,11 @@ import { Text } from '@/components/Elements';
 import { Input } from '@/components/Form';
 import { MaterialIcon } from '@/components/Media';
 import { ContactInformationContent, Information } from '@/features/contact';
-import { useApp, useFormValidation } from '@/hooks';
+import { useFormValidation } from '@/hooks';
 import { axios, validateForm } from '@/lib/api';
 import { SocialContent } from '@/types';
+import { useEditModeStore } from '@/stores/editmode';
+import { useAlertStore } from '@/stores/alert';
 
 import { ServiceType } from '../../types';
 
@@ -53,9 +54,10 @@ export const ServiceContact: FC<ServiceContactProps> = ({
   contactData,
   socialData,
 }) => {
-  const { editMode }: any = useApp();
+  const { showAlert } = useAlertStore();
+  const { editMode } = useEditModeStore();
+
   const [apiError, setApiError] = useState(null);
-  const dispatch = useDispatch();
 
   const submitLogic = (event: any) => {
     event.preventDefault();
@@ -71,14 +73,11 @@ export const ServiceContact: FC<ServiceContactProps> = ({
           message: '',
           subject: '',
         });
-        dispatch({ type: 'ALERT_SUCCESS', message: 'Message Sent' });
+        showAlert('success', 'Message Sent');
       })
       .catch((err) => {
         setApiError(err);
-        dispatch({
-          type: 'ALERT_FAIL',
-          message: 'Error occured, try again later',
-        });
+        showAlert('error', 'Error occured, try again later');
       });
   };
 

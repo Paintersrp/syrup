@@ -1,7 +1,3 @@
-import FormGenerator from './FormGenerator/FormGenerator';
-import { IconMixin, ImageMixin } from './FormGenerator/mixins';
-export { FormGenerator, IconMixin, ImageMixin };
-
 import Checkbox from './Checkbox/Checkbox';
 import Input from './Input/Input';
 import ImageInput from './ImageInput/ImageInput';
