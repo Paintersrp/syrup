@@ -6,7 +6,8 @@ import './css/PostCard.css';
 import { SlideOnScroll } from '@/components/Animation';
 import { ButtonBar } from '@/components/Built';
 import { Flexer, Item, Surface } from '@/components/Containers';
-import { BaseProps, Tag, Text } from '@/components/Elements';
+import { Tag, Text } from '@/components/Elements';
+import { BaseProps } from '@/theme/base';
 import { Media } from '@/components/Media';
 import { PostContent } from '@/features/posts/types';
 

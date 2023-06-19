@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import './MenuItem.css';
 
-import Base, { BaseProps } from '../Base/Base';
+import { Base, BaseProps } from '@/theme/base';
 import { Flexer } from '../../Containers';
 import { Icon } from '../../Media';
 

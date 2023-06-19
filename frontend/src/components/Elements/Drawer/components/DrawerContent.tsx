@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { Flexer } from '@/components/Containers';
-import { BaseProps } from '../../Base/Base';
+import { BaseProps } from '@/theme/base';
 import List from '../../List/List';
 import ListItem from '../../List/ListItem';
 import { Divider } from '../../Divider/Divider';

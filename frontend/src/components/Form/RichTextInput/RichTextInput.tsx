@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-import { Base, BaseProps } from '../../Elements';
+import { Base, BaseProps } from '@/theme/base';
 
 interface RichTextInputProps extends BaseProps {
   fieldName?: string;

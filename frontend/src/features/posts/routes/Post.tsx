@@ -5,7 +5,8 @@ import './Post.css';
 
 import { ButtonBar } from '@/components/Built';
 import { Flexer, Surface } from '@/components/Containers';
-import { Base, Loading, Text } from '@/components/Elements';
+import { Loading, Text } from '@/components/Elements';
+import { Base } from '@/theme/base';
 import { Page } from '@/components/Layout';
 import { usePageSetup } from '@/hooks';
 import { scrollToTop } from '@/utils';

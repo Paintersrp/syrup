@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { faChevronLeft, faChevronRight, faPlay, faPause } from '@fortawesome/free-solid-svg-icons';
 import './css/Carousel.css';
 
-import { Base, BaseProps } from '../Elements';
+import { Base, BaseProps } from '@/theme/base';
 import { Icon } from '../Media';
 
 interface CarouselProps extends BaseProps {

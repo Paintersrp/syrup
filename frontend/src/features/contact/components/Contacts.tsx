@@ -1,7 +1,8 @@
 import { FC, ReactNode } from 'react';
 
 import { Container, Flexer } from '@/components/Containers';
-import { BaseProps, Text } from '@/components/Elements';
+import { Text } from '@/components/Elements';
+import { BaseProps } from '@/theme/base';
 
 interface ContactsProps extends BaseProps {
   children: ReactNode;

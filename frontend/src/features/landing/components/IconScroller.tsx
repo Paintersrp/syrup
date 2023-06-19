@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './css/IconScroller.css';
 
-import { Base, BaseProps } from '@/components/Elements';
+import { Base, BaseProps } from '@/theme/base';
 import { Icon } from '@/components/Media';
 import { SOCIALS } from '@/settings';
 import { SocialContent } from '@/types';

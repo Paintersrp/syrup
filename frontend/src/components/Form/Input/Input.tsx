@@ -1,7 +1,8 @@
 import React, { useState, ChangeEvent } from 'react';
 import './Input.css';
 
-import { Base, BaseProps, HelpText } from '../../Elements';
+import {  HelpText } from '../../Elements';
+import { Base, BaseProps } from '@/theme/base';
 
 interface InputProps extends BaseProps {
   id?: string;

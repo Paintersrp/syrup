@@ -1,7 +1,7 @@
 import React, { useState, ReactElement } from 'react';
 import './Tabs.css';
 
-import { Base, BaseProps } from '../../Elements';
+import { Base, BaseProps } from '@/theme/base';
 import { TabProps } from './Tab';
 
 interface TabsProps extends BaseProps {
@@ -35,4 +35,3 @@ export const Tabs: React.FC<TabsProps> = ({ children, ...rest }) => {
     </Base>
   );
 };
-

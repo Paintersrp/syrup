@@ -1,6 +1,6 @@
 import React, { ReactNode, CSSProperties } from 'react';
 
-import { Base, BaseProps } from '@/components/Elements';
+import { Base, BaseProps } from '@/theme/base';
 import { shadows } from '@/theme/common';
 
 interface SurfaceProps extends BaseProps {

@@ -2,7 +2,8 @@ import React from 'react';
 
 import { SectionHeader, SectionHeaderContent } from '@/components/Built';
 import { Container, Flexer, Item } from '@/components/Containers';
-import { BaseProps } from '@/components/Elements';
+
+import { BaseProps } from '@/theme/base';
 
 import { Process } from './Process';
 import { ProcessContent } from '../types';

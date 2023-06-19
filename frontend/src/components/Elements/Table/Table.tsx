@@ -2,7 +2,7 @@ import React, { ReactNode, CSSProperties } from 'react';
 import './Table.css';
 
 import Text from '../Text/Text';
-import Base, { BaseProps } from '../Base/Base';
+import { Base, BaseProps } from '@/theme/base';
 
 type SharedTableProps = {
   children: ReactNode;

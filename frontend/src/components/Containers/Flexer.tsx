@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import React, { CSSProperties } from 'react';
-import { Base, BaseProps } from '../Elements';
+import { Base, BaseProps } from '@/theme/base';
 
 interface FlexerProps extends BaseProps {
   w?: number | string;

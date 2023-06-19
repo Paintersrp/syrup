@@ -1,55 +1,39 @@
 import { darken, lighten, transparentize } from 'polished';
-import { breakpoints } from './common/breakpoints';
-import { shadows } from './common/shadows';
 
-import { BaseTheme, Colors, ExtendedTheme } from '@/theme/types';
+import { breakpoints } from '@/theme/common/breakpoints';
+import { shadows } from '@/theme/common/shadows';
+import { Theme, ExtendedTheme } from '@/theme/types';
+import { generateColorSet } from '@/theme/utils/generate';
 
-const defaultColors: Colors = {
+export const defaultColors: any = {
+  ...generateColorSet('primary', '#2e3b55', 0.1, 0.05),
+  ...generateColorSet('secondary', '#ff8c00', 0.2, 0.05),
+  ...generateColorSet('tertiary', '#9E5CF7', 0.2, 0.05),
+  ...generateColorSet('quaternary', '#3ad984', 0.2, 0.2),
+  ...generateColorSet('error', '#f44336', 0.05, 0.15),
+  ...generateColorSet('warning', '#f08a24', 0.1, 0.05),
+  ...generateColorSet('success', '#4caf50', 0.1, 0.1),
+  ...generateColorSet('info', '#1976d2', 0.2, 0.15),
+  ...generateColorSet('slate', '#444f60', 0.1, 0.05),
+  ...generateColorSet('smoke', '#dbe5ef', 0.05, 0.05),
+
+  dark: '#222',
+  darkLight: lighten(0.1, '#222'),
+  darker: '#000',
+
+  light: '#f5f5f5',
+  lighter: '#fff',
+  lightDark: darken(0.05, '#f5f5f5'),
+
   transparent: 'transparent',
-  almostBlack: '#111319',
-  lightBlack: '#2F3336',
-  almostWhite: '#E6E6E6',
-  veryDarkBlue: '#08090C',
-  slate: '#9BA6B2',
-  slateLight: '#DAE1E9',
-  slateDark: '#394351',
-  smoke: '#F4F7FA',
-  smokeLight: '#F9FBFC',
-  smokeDark: '#E8EBED',
-  white: '#FFFFFF',
-  white05: 'rgba(255, 255, 255, 0.05)',
-  white10: 'rgba(255, 255, 255, 0.1)',
-  white50: 'rgba(255, 255, 255, 0.5)',
-  white75: 'rgba(255, 255, 255, 0.75)',
-  black: '#000',
-  black05: 'rgba(0, 0, 0, 0.05)',
-  black10: 'rgba(0, 0, 0, 0.1)',
-  black50: 'rgba(0, 0, 0, 0.50)',
-  black75: 'rgba(0, 0, 0, 0.75)',
   accent: '#0366d6',
   yellow: '#EDBA07',
-  warmGrey: '#EDF2F7',
-  searchHighlight: '#FDEA9B',
-  danger: '#f4345d',
-  warning: '#f08a24',
-  success: '#2f3336',
-  info: '#a0d3e8',
-  brand: {
-    red: '#FF5C80',
-    pink: '#FF4DFA',
-    purple: '#9E5CF7',
-    blue: '#3633FF',
-    marine: '#2BC2FF',
-    green: '#3ad984',
-    yellow: '#F5BE31',
-  },
+  textHighlight: '#FDEA9B',
+  grey: 'rgba(0, 0, 0, 0.50)',
+  charcoal: 'rgba(0,0,0,0.75)',
 };
 
-const buildBaseTheme = (): BaseTheme => {
-  // Usage      => theme.sp(1)           => "4px"
-  //            => theme.sp(1,2)         => "4px 8px"
-  //            => theme.sp(1,2,1,4)     => "4px 8px 1px 16px"
-  // Promotes consistent spacing in application
+const buildBaseTheme = (): Theme => {
   const sp = (...values: number[]) => values.map((value) => `${value * 4}px`).join(' ');
 
   const general = {
@@ -65,20 +49,20 @@ const buildBaseTheme = (): BaseTheme => {
 
   const text = {
     textHighlight: '#FDEA9B',
-    textHighlightForeground: defaultColors.almostBlack,
-    accentText: defaultColors.white,
+    textHighlightForeground: defaultColors.dark,
+    accentText: defaultColors.light,
     selected: defaultColors.accent,
   };
 
   const notice = {
-    noticeInfoBackground: defaultColors.brand.blue,
-    noticeInfoText: defaultColors.almostBlack,
+    noticeInfoBackground: defaultColors.infoLight,
+    noticeInfoText: defaultColors.dark,
     noticeTipBackground: '#F5BE31',
-    noticeTipText: defaultColors.almostBlack,
+    noticeTipText: defaultColors.dark,
     noticeWarningBackground: '#d73a49',
-    noticeWarningText: defaultColors.almostBlack,
-    noticeSuccessBackground: defaultColors.brand.green,
-    noticeSuccessText: defaultColors.almostBlack,
+    noticeWarningText: defaultColors.dark,
+    noticeSuccessBackground: defaultColors.quaternary,
+    noticeSuccessText: defaultColors.dark,
   };
 
   const table = { tableSelectedBackground: transparentize(0.8, defaultColors.accent) };
@@ -100,9 +84,9 @@ export const buildLightTheme = (): ExtendedTheme => {
   const base = buildBaseTheme();
 
   const buttons = {
-    buttonNeutralBackground: base.white,
-    buttonNeutralText: base.almostBlack,
-    buttonNeutralBorder: darken(0.15, base.white),
+    buttonNeutralBackground: base.light,
+    buttonNeutralText: base.dark,
+    buttonNeutralBorder: darken(0.15, base.light),
   };
 
   const dividers = {
@@ -110,13 +94,13 @@ export const buildLightTheme = (): ExtendedTheme => {
   };
 
   const general = {
-    background: base.white,
-    secondaryBackground: base.warmGrey,
+    background: base.light,
+    secondaryBackground: base.smokeLight,
     link: base.accent,
-    cursor: base.almostBlack,
+    cursor: base.dark,
     backdrop: 'rgba(0, 0, 0, 0.2)',
-    commentBackground: base.warmGrey,
-    mentionBackground: base.warmGrey,
+    commentBackground: base.smokeLight,
+    mentionBackground: base.smokeLight,
     progressBarBackground: base.slateLight,
     scrollbarBackground: base.smoke,
     scrollbarThumb: darken(0.15, base.smokeDark),
@@ -128,26 +112,26 @@ export const buildLightTheme = (): ExtendedTheme => {
   };
 
   const lists = {
-    listItemHoverBackground: base.warmGrey,
+    listItemHoverBackground: base.smokeLight,
   };
 
   const menus = {
-    menuItemSelected: base.warmGrey,
-    menuBackground: base.white,
+    menuItemSelected: base.smokeLight,
+    menuBackground: base.light,
     menuShadow: shadows[1],
   };
 
   const modals = {
-    modalBackdrop: base.black10,
-    modalBackground: base.white,
+    modalBackdrop: base.lightDark,
+    modalBackground: base.light,
     modalShadow: shadows[2],
   };
 
   const sidebar = {
-    sidebarBackground: base.warmGrey,
+    sidebarBackground: base.smokeLight,
     sidebarActiveBackground: '#d7e0ea',
     sidebarControlHoverBackground: 'rgb(138 164 193 / 20%)',
-    sidebarDraftBorder: darken('0.25', base.warmGrey),
+    sidebarDraftBorder: darken('0.25', base.smokeLight),
     sidebarText: 'rgb(78, 92, 110)',
   };
 
@@ -157,25 +141,25 @@ export const buildLightTheme = (): ExtendedTheme => {
   };
 
   const text = {
-    text: base.almostBlack,
+    text: base.dark,
     textSecondary: base.slateDark,
     textTertiary: base.slate,
-    textDiffInserted: base.almostBlack,
+    textDiffInserted: base.dark,
     textDiffInsertedBackground: 'rgba(18, 138, 41, 0.16)',
     textDiffDeleted: base.slateDark,
     textDiffDeletedBackground: '#ffebe9',
   };
 
   const toolbars = {
-    toolbarHoverBackground: base.black,
-    toolbarBackground: base.almostBlack,
-    toolbarInput: base.white10,
-    toolbarItem: base.white,
+    toolbarHoverBackground: base.dark,
+    toolbarBackground: base.dark,
+    toolbarInput: base.lightDark,
+    toolbarItem: base.light,
   };
 
   const tooltips = {
-    tooltipBackground: base.almostBlack,
-    tooltipText: base.white,
+    tooltipBackground: base.dark,
+    tooltipText: base.light,
   };
 
   return {
@@ -200,30 +184,30 @@ export const buildDarkTheme = (): ExtendedTheme => {
   const base = buildBaseTheme();
 
   const buttons = {
-    buttonNeutralBackground: base.almostBlack,
-    buttonNeutralText: base.white,
+    buttonNeutralBackground: base.dark,
+    buttonNeutralText: base.light,
     buttonNeutralBorder: base.slateDark,
   };
 
   const dividers = {
-    divider: lighten(0.1, base.almostBlack),
+    divider: lighten(0.1, base.dark),
     titleBarDivider: darken(0.4, base.slate),
   };
 
   const general = {
-    background: base.almostBlack,
-    secondaryBackground: base.black50,
+    background: base.dark,
+    secondaryBackground: base.grey,
     link: '#137FFB',
-    cursor: base.almostWhite,
+    cursor: base.lightDark,
     backdrop: 'rgba(0, 0, 0, 0.5)',
     commentBackground: '#1f232e',
-    mentionBackground: base.white10,
+    mentionBackground: base.lightDark,
     progressBarBackground: base.slate,
-    scrollbarBackground: base.black,
-    scrollbarThumb: base.lightBlack,
+    scrollbarBackground: base.dark,
+    scrollbarThumb: base.lightDark,
   };
 
-  const lists = { listItemHoverBackground: base.white10 };
+  const lists = { listItemHoverBackground: base.lightDark };
 
   const inputs = {
     inputBorder: base.slateDark,
@@ -238,50 +222,50 @@ export const buildDarkTheme = (): ExtendedTheme => {
   };
 
   const modals = {
-    modalBackdrop: base.black50,
+    modalBackdrop: base.grey,
     modalBackground: '#1f2128',
     modalShadow:
       '0 0 0 1px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.08)',
   };
 
   const notices = {
-    noticeInfoText: base.white,
-    noticeTipText: base.white,
-    noticeWarningText: base.white,
-    noticeSuccessText: base.white,
+    noticeInfoText: base.light,
+    noticeTipText: base.light,
+    noticeWarningText: base.light,
+    noticeSuccessText: base.light,
   };
 
   const sidebar = {
-    sidebarBackground: base.veryDarkBlue,
-    sidebarActiveBackground: lighten(0.02, base.almostBlack),
-    sidebarControlHoverBackground: base.white10,
+    sidebarBackground: base.slateDark,
+    sidebarActiveBackground: lighten(0.02, base.dark),
+    sidebarControlHoverBackground: base.lightDark,
     sidebarDraftBorder: darken('0.35', base.slate),
     sidebarText: base.slate,
   };
 
-  const tables = { tableDivider: base.lightBlack, tableSelected: base.accent };
+  const tables = { tableDivider: base.lightDark, tableSelected: base.accent };
 
   const text = {
-    text: base.almostWhite,
+    text: base.lightDark,
     textSecondary: lighten(0.1, base.slate),
     textTertiary: base.slate,
-    textDiffInserted: base.almostWhite,
+    textDiffInserted: base.lightDark,
     textDiffInsertedBackground: 'rgba(63,185,80,0.3)',
-    textDiffDeleted: darken(0.1, base.almostWhite),
+    textDiffDeleted: darken(0.1, base.lightDark),
     textDiffDeletedBackground: 'rgba(248,81,73,0.15)',
     placeholder: base.slateDark,
   };
 
   const toolbars = {
     toolbarHoverBackground: base.slate,
-    toolbarBackground: base.white,
-    toolbarInput: base.black10,
-    toolbarItem: base.lightBlack,
+    toolbarBackground: base.light,
+    toolbarInput: base.lightDark,
+    toolbarItem: base.darkLight,
   };
 
   const tooltips = {
-    tooltipBackground: base.white,
-    tooltipText: base.lightBlack,
+    tooltipBackground: base.light,
+    tooltipText: base.darkLight,
   };
 
   return {

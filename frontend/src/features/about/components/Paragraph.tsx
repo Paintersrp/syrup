@@ -4,7 +4,8 @@ import { css } from '@emotion/react';
 
 import { ButtonBar } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
-import { BaseProps, Text } from '@/components/Elements';
+import { Text } from '@/components/Elements';
+import { BaseProps } from '@/theme/base';
 
 import { ParagraphEdit } from './ParagraphEdit';
 import { ParagraphType } from '../types';

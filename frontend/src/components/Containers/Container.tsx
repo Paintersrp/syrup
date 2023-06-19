@@ -1,5 +1,5 @@
 import React, { ReactNode, CSSProperties } from 'react';
-import { Base, BaseProps } from '../Elements';
+import { Base, BaseProps } from '@/theme/base';
 
 interface ContainerProps extends BaseProps {
   children: ReactNode;

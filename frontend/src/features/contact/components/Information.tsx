@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { ButtonBar, ContactButtons } from '@/components/Built';
 import { Flexer, Surface } from '@/components/Containers';
-import { BaseProps } from '@/components/Elements';
+import { BaseProps } from '@/theme/base';
 
 import { IconTextItem } from '@/components/Media';
 

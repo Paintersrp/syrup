@@ -5,3 +5,4 @@ export { colors } from './colors';
 export type { ColorPalette, Colors } from './colors';
 
 export { shadows } from './shadows';
+export { alignments, properties, justifications, values } from './shorthands';

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import './List.css';
 
-import Base, { BaseProps } from '../Base/Base';
+import { Base, BaseProps } from '@/theme/base';
 import Text from '../Text/Text';
 
 interface ListHeaderProps extends BaseProps {

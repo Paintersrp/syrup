@@ -1,7 +1,7 @@
 import React, { CSSProperties, useState } from 'react';
 import './Tag.css';
 
-import Base, { BaseProps } from '../Base/Base';
+import { Base, BaseProps } from '@/theme/base';
 import { MaterialIcon } from '../../Media';
 import Text from '../Text/Text';
 

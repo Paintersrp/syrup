@@ -3,7 +3,7 @@ import './Accordion.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
-import Base, { BaseProps } from '../Base/Base';
+import { Base, BaseProps } from '@/theme/base';
 
 interface AccordionProps extends BaseProps {
   title: string;

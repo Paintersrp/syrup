@@ -1,7 +1,8 @@
 import React, { CSSProperties, ReactNode, Suspense } from 'react';
 
-import { Base, Loading, Text } from '../Elements';
+import { Loading, Text } from '../Elements';
 import { SEO } from './SEO';
+import { Base } from '@/theme/base';
 
 // import  text types instead
 type HeaderType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';

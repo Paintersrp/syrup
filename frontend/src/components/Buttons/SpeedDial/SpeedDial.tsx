@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './SpeedDial.css';
 
-import { Base, BaseProps } from '../../Elements';
+import { Base, BaseProps } from '@/theme/base';
 import { MaterialIcon } from '../../Media';
 import { FAB } from '../FAB/FAB';
 

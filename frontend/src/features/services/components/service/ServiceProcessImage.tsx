@@ -4,7 +4,7 @@ import { ButtonBar } from '@/components/Built';
 import { Item } from '@/components/Containers';
 import { Media } from '@/components/Media';
 
-import { Base } from '@/components/Elements';
+import { Base } from '@/theme/base';
 import { useBreakpoint } from '@/hooks';
 
 type ServiceProcesImageProps = {

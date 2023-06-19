@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 import { Flexer } from '@/components/Containers';
 import { Text } from '@/components/Elements';
-import { baseCx } from '@/theme/cx';
+import { classify } from '@/theme/base/classify';
 
 const dividerCx = {
   root: css({
@@ -26,7 +26,7 @@ const dividerCx = {
       borderTop,
     };
 
-    return [baseCx.root(P), dividerStyle];
+    return [classify(P), dividerStyle];
   },
 };
 

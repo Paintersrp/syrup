@@ -2,7 +2,7 @@ import { useState, FC, useEffect } from 'react';
 
 import { ButtonBar, ImageHeader, ImageHeaderEdit } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
-import { Base, BaseProps } from '@/components/Elements';
+import { Base, BaseProps } from '@/theme/base';
 
 import { ImageHeaderType } from '../types';
 import { useEditModeStore } from '@/stores/editmode';

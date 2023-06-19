@@ -1,6 +1,5 @@
 import Accordion from './Accordion/Accordion';
 import Alert from './Alert/Alert';
-import Base from './Base/Base';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 import { Divider } from './Divider/Divider';
 import Drawer from './Drawer/Drawer';
@@ -28,7 +27,6 @@ import Text from './Text/Text';
 export {
   Accordion,
   Alert,
-  Base,
   Breadcrumbs,
   Divider,
   Drawer,
@@ -59,22 +57,8 @@ export {
   TreeNode,
 };
 
-import type { AlignItemValue, BaseProps, JustifyContentValue } from './Base/Base';
 import type { TextAlign, TextProps, TextType } from './Text/Text';
 import type { TooltipPosition } from './Tooltip/Tooltip';
 import type { TableSizes } from './Table/Table';
 
-export type {
-  AlignItemValue,
-  BaseProps,
-  JustifyContentValue,
-  TableSizes,
-  TextAlign,
-  TextProps,
-  TextType,
-  TooltipPosition,
-};
-
-// Prop Maps
-import { alignItemsMap, justifyContentMap } from './Base/Base';
-export { alignItemsMap, justifyContentMap };
+export type { TableSizes, TextAlign, TextProps, TextType, TooltipPosition };

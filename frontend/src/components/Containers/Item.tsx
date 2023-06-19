@@ -2,7 +2,7 @@ import React from 'react';
 import clsx from 'clsx';
 import './css/Item.css';
 
-import { Base, BaseProps } from '../Elements';
+import { Base, BaseProps } from '@/theme/base';
 
 interface ItemProps extends BaseProps {
   xs?: number;

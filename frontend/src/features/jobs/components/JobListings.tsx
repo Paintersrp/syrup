@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { ButtonBar } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
-import { BaseProps, Divider, Text, Tooltip } from '@/components/Elements';
+import { Divider, Text, Tooltip } from '@/components/Elements';
+import { BaseProps } from '@/theme/base';
 import { useBreakpoint } from '@/hooks';
 
 import { JobContent } from '../types';

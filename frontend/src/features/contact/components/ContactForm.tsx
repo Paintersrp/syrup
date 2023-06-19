@@ -3,7 +3,8 @@ import { FC, FormEvent } from 'react';
 import { ButtonBar, ErrorDisplay, SocialButtons } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Flexer, Item, Surface } from '@/components/Containers';
-import { BaseProps, Text } from '@/components/Elements';
+import { Text } from '@/components/Elements';
+import { BaseProps } from '@/theme/base';
 import { Input, Option, Select } from '@/components/Form';
 import { useFormValidation } from '@/hooks';
 

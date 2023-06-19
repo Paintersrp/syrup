@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import './css/Stagger.css';
 
-import { Base, BaseProps } from '../Elements';
+import { Base, BaseProps } from '@/theme/base';
 
 interface StaggerProps extends BaseProps {
   direction?: 'left' | 'right';

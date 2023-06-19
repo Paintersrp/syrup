@@ -1,12 +1,13 @@
 import React, { ReactNode } from 'react';
 
 import { Flexer } from '@/components/Containers';
-import { BaseProps, Divider, JustifyContentValue } from '@/components/Elements';
+import { Divider } from '@/components/Elements';
 import { colors } from '@/theme/common';
+import { BaseProps, JustificationValue } from '@/theme/base';
 
 interface DrawerHeaderProps extends BaseProps {
-  j?: JustifyContentValue;
-  a?: JustifyContentValue;
+  j?: JustificationValue;
+  a?: JustificationValue;
   title?: string;
   icon?: ReactNode;
   children?: ReactNode;

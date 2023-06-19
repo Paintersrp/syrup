@@ -1,7 +1,7 @@
 import React, { useState, ReactNode, CSSProperties } from 'react';
 import './ToggleButtonGroup.css';
 
-import { Base, BaseProps } from '../../Elements';
+import { Base, BaseProps } from '@/theme/base';
 
 interface ToggleButtonGroupProps extends BaseProps {
   value: string | null;

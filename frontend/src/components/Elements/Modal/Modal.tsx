@@ -1,6 +1,6 @@
-import React, { useState, useEffect, FC, ReactNode, CSSProperties } from 'react';
+import { useState, useEffect, FC, ReactNode, CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
-import Base, { BaseProps } from '../Base/Base';
+import { Base, BaseProps } from '@/theme/base';
 import './Modal.css';
 
 interface ModalProps extends BaseProps {

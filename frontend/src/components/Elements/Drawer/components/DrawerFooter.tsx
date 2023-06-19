@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Divider } from '../../Divider/Divider';
-import { BaseProps } from '../../Base/Base';
+import { BaseProps } from '@/theme/base';
 import Text from '../../Text/Text';
 import { Flexer } from '@/components/Containers';
 import { colors } from '@/theme/common';

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, CSSProperties } from 'react';
+import { FC, useEffect, useState, CSSProperties } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { colorSwitch } from '../../theme/delete/styleSwitches';

@@ -1,7 +1,7 @@
-import React, { useState, ReactNode, FC, CSSProperties } from 'react';
+import { useState, ReactNode, FC, CSSProperties } from 'react';
 import './Tooltip.css';
 
-import Base, { BaseProps } from '../Base/Base';
+import { Base, BaseProps } from '@/theme/base';
 
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right' | undefined;
 

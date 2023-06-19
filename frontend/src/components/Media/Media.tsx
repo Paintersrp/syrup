@@ -1,7 +1,7 @@
 import React from 'react';
 import './css/Media.css';
 
-import { Base, BaseProps } from '../Elements';
+import { Base, BaseProps } from '@/theme/base';
 import { shadows } from '@/theme/common';
 
 interface MediaProps extends BaseProps {

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Base, BaseProps, HelpText } from '../../Elements';
+import { HelpText } from '../../Elements';
+import { Base, BaseProps } from '@/theme/base';
 import './Switch.css';
 
 interface SwitchProps extends BaseProps {

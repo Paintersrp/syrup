@@ -4,7 +4,7 @@ import ListItem from '../../List/ListItem';
 import { ListItemDataType } from './DrawerContent';
 
 import { Divider } from '../../Divider/Divider';
-import { BaseProps } from '../../Base/Base';
+import { BaseProps } from '@/theme/base';
 import List from '../../List/List';
 import { Flexer } from '@/components/Containers';
 import { colors } from '@/theme/common';

@@ -1,47 +1,63 @@
 import { Breakpoints } from '../common';
 
-export interface Colors {
-  transparent: string;
-  almostBlack: string;
-  lightBlack: string;
-  almostWhite: string;
-  veryDarkBlue: string;
+export interface ThemeColors {
+  primary: string;
+  primaryLight: string;
+  primaryDark: string;
+
+  secondary: string;
+  secondaryLight: string;
+  secondaryDark: string;
+
+  tertiary: string;
+  tertiaryLight: string;
+  tertiaryDark: string;
+
+  quaternary: string;
+  quaternaryLight: string;
+  quaternaryDark: string;
+
+  error: string;
+  errorLight: string;
+  errorDark: string;
+
+  warning: string;
+  warningLight: string;
+  warningDark: string;
+
+  success: string;
+  successLight: string;
+  successDark: string;
+
+  info: string;
+  infoLight: string;
+  infoDark: string;
+
   slate: string;
   slateLight: string;
   slateDark: string;
+
   smoke: string;
   smokeLight: string;
   smokeDark: string;
-  white: string;
-  white05: string;
-  white10: string;
-  white50: string;
-  white75: string;
-  black: string;
-  black05: string;
-  black10: string;
-  black50: string;
-  black75: string;
+
+  dark: string;
+  darkLight: string;
+  darker: string;
+
+  light: string;
+  lighter: string;
+  lightDark: string;
+
+  transparent: string;
   accent: string;
   yellow: string;
-  warmGrey: string;
-  searchHighlight: string;
-  danger: string;
-  warning: string;
-  success: string;
-  info: string;
-  brand: {
-    red: string;
-    pink: string;
-    purple: string;
-    blue: string;
-    marine: string;
-    green: string;
-    yellow: string;
-  };
+  textHighlight: string;
+  grey: string;
+  charcoal: string;
 }
 
-export interface BaseTheme extends Colors {
+export interface Theme extends ThemeColors {
   breakpoints: Breakpoints;
   shadows: Record<number, string>;
   sp: (...values: number[]) => string;
@@ -64,11 +80,11 @@ export interface BaseTheme extends Colors {
   tableSelectedBackground: string;
 }
 
-export interface ExtendedTheme extends BaseTheme {
+export interface ExtendedTheme extends Theme {
   isDark: true | false;
-  buttonNeutralBackground: string;
-  buttonNeutralText: string;
-  buttonNeutralBorder: string;
+  buttonNeutralBackground?: string;
+  buttonNeutralText?: string;
+  buttonNeutralBorder?: string;
   divider: string;
   background: string;
   secondaryBackground: string;
@@ -114,3 +130,5 @@ export interface ExtendedTheme extends BaseTheme {
   tooltipBackground: string;
   tooltipText: string;
 }
+
+export type { Breakpoints };

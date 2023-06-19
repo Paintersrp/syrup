@@ -1,7 +1,8 @@
 import React, { CSSProperties, ReactNode } from 'react';
 import './Option.css';
 
-import { Base, BaseProps, Text } from '../../Elements';
+import { Text } from '../../Elements';
+import { Base, BaseProps } from '@/theme/base';
 
 export interface OptionProps extends BaseProps {
   children?: ReactNode;

@@ -4,7 +4,8 @@ import MaterialIcon from './MaterialIcon';
 
 import { Flexer } from '@/components/Containers';
 import { colors } from '@/theme/common';
-import { BaseProps, Divider, Text, TextAlign } from '../Elements';
+import { Divider, Text, TextAlign } from '../Elements';
+import { BaseProps } from '@/theme/base';
 
 interface IconTextItemProps extends BaseProps {
   icon?: string;

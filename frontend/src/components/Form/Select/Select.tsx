@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef, ReactNode, CSSProperties } from 'react';
 import './Select.css';
 
-import { Base, BaseProps, Divider, HelpText, Text } from '../../Elements';
+import { Divider, HelpText, Text } from '../../Elements';
+import { Base, BaseProps } from '@/theme/base';
 import { OptionProps } from '../Option/Option';
 import { MaterialIcon } from '../../Media';
 

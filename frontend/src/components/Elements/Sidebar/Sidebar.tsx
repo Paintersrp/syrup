@@ -1,5 +1,5 @@
 import { CSSProperties, FC, ReactNode } from 'react';
-import Base, { BaseProps } from '../Base/Base';
+import { Base, BaseProps } from '@/theme/base';
 import './Sidebar.css';
 
 interface SidebarProps extends BaseProps {

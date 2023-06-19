@@ -2,7 +2,8 @@ import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 import { css } from '@emotion/react';
 
-import { Base, BaseProps, Tooltip } from '../../Elements';
+import { Tooltip } from '../../Elements';
+import { Base, BaseProps } from '@/theme/base';
 import { MaterialIcon } from '../../Media';
 
 const fabCx = {

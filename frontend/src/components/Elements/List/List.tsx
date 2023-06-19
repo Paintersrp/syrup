@@ -1,10 +1,10 @@
 import React, { ReactNode, CSSProperties } from 'react';
 import './List.css';
 
-import { JustifyContentValue } from '../Base/Base';
 import { Surface } from '../../Containers';
 import { Divider } from '../Divider/Divider';
 import { colors } from '@/theme/common';
+import { JustificationValue } from '@/theme/base';
 
 interface ListProps {
   children: ReactNode;
@@ -22,8 +22,8 @@ interface ListProps {
   pb?: number;
   br?: number;
   b?: string;
-  j?: JustifyContentValue | string;
-  a?: JustifyContentValue | string;
+  j?: JustificationValue | string;
+  a?: JustificationValue | string;
   fd?: CSSProperties['flexDirection'];
   fillHeight?: boolean;
   className?: string;

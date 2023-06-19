@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react';
 
 import { ButtonBar } from '@/components/Built';
 import { Surface } from '@/components/Containers';
-import { BaseProps } from '@/components/Elements';
+import { BaseProps } from '@/theme/base';
 import { useEditModeStore } from '@/stores/editmode';
 
 interface JobProps extends BaseProps {

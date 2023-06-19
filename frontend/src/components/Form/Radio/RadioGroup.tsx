@@ -1,6 +1,6 @@
 import { Children, cloneElement, CSSProperties, FC, isValidElement, ReactElement } from 'react';
 
-import Base, { BaseProps } from '../../Elements/Base/Base';
+import { Base, BaseProps } from '@/theme/base';
 import { RadioProps } from './Radio';
 
 interface RadioGroupProps extends BaseProps {

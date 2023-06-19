@@ -5,7 +5,8 @@ import './css/Service.css';
 import { Carousel } from '@/components/Animation';
 import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item } from '@/components/Containers';
-import { Base, Text } from '@/components/Elements';
+import { Text } from '@/components/Elements';
+import { Base } from '@/theme/base';
 import { MaterialIcon, Media } from '@/components/Media';
 
 import { ServiceType } from '../../types';

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Alert.css';
 
-import Base, { BaseProps } from '../Base/Base';
+import { Base, BaseProps } from '@/theme/base';
 import { MaterialIcon } from '../../Media';
 import Text from '../Text/Text';
 import { AlertState } from '@/stores/alert';

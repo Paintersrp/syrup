@@ -4,7 +4,7 @@ import './List.css';
 
 import ListItemWithIcon from './ListItemWithIcon';
 import ListItemTextOnly from './ListItemTextOnly';
-import Base, { BaseProps } from '../Base/Base';
+import { Base, BaseProps } from '@/theme/base';
 
 interface ListItemProps extends BaseProps {
   text?: string;

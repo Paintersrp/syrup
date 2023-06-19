@@ -2,7 +2,8 @@ import { FC, useEffect, useState } from 'react';
 
 import { ButtonBar } from '@/components/Built';
 import { Container, Flexer, Item } from '@/components/Containers';
-import { Base, Divider, Text } from '@/components/Elements';
+import { Divider, Text } from '@/components/Elements';
+import { Base } from '@/theme/base';
 
 import { Media } from '@/components/Media';
 

@@ -12,6 +12,8 @@ import { Button } from '../Buttons/Button/Button';
 import { useBreakpoint } from '@/hooks';
 import { useEditModeStore } from '@/stores/editmode';
 import { Editable } from '../../features/editable/components/Editable';
+import { PalettePreview } from './PalettePreview';
+import { defaultColors } from '@/theme';
 
 interface WIPProps {}
 
@@ -84,13 +86,15 @@ const WIP: React.FC<WIPProps> = ({}) => {
 
   const { editMode, editModeToggle } = useEditModeStore();
 
+  console.log('default', defaultColors);
+
   return (
     <Page>
+      <PalettePreview />
       <Editable
         name="test"
         data={{ name: 'hello', icon: null, image: null }}
         onUpdate={() => console.log('Updated')}
-        onDelete={() => console.log('Deleted')}
         endpoint="/"
         mt={96}
       >
@@ -102,7 +106,7 @@ const WIP: React.FC<WIPProps> = ({}) => {
         <h1>Edit Mode: {editMode ? 'On' : 'Off'}</h1>
         <button onClick={editModeToggle}>Toggle Mode</button>
 
-        <Button size="lg" palette="success" variant="standard" mt={8} mb={24}>
+        <Button size="lg" palette="dark" variant="outlined" mt={8} mb={24}>
           Test
         </Button>
         <div>

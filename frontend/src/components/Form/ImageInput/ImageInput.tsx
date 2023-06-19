@@ -2,7 +2,8 @@ import React, { ChangeEvent } from 'react';
 import './ImageInput.css';
 
 import { Button } from '@/components/Buttons';
-import { BaseProps, Text } from '../../Elements';
+import { Text } from '../../Elements';
+import { BaseProps } from '@/theme/base';
 import { Flexer } from '../../Containers';
 
 interface ImageInputProps extends BaseProps {

@@ -1,10 +1,11 @@
 import React, { CSSProperties } from 'react';
 import './ImageHeader.css';
 
-import { BaseProps, Text, TextType } from '@/components/Elements';
+import { Text, TextType } from '@/components/Elements';
 import { TITLE } from '@/settings';
 import { Flexer } from '@/components/Containers';
 import { Media } from '@/components/Media';
+import { BaseProps } from '@/theme/base';
 
 interface ImageHeaderProps extends BaseProps {
   header?: string;

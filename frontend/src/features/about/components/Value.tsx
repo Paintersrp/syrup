@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
-import { Base, BaseProps, Text } from '@/components/Elements';
+import { Text } from '@/components/Elements';
+import { Base, BaseProps } from '@/theme/base';
 import { MaterialIcon } from '@/components/Media';
 
 import { ValueType } from '../types';

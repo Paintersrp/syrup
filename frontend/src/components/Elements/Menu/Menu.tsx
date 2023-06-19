@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, ReactNode, CSSProperties } from 'react';
 import './Menu.css';
 
-import Base, { BaseProps } from '../Base/Base';
+import { Base, BaseProps } from '@/theme/base';
 import { Divider } from '../Divider/Divider';
 import { Button } from '../../Buttons';
 

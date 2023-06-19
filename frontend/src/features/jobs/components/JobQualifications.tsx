@@ -2,8 +2,9 @@ import { FC, Fragment, useEffect, useState } from 'react';
 
 import { ButtonBar, ManyToManyEdit } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
-import { BaseProps, List, Text } from '@/components/Elements';
+import { List, Text } from '@/components/Elements';
 import { IconTextItem } from '@/components/Media';
+import { BaseProps } from '@/theme/base';
 
 import { SetJobsDataFn } from '../api/useJobs';
 import { JobContent } from '../types';

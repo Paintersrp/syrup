@@ -1,4 +1,4 @@
-import React, { ReactNode, CSSProperties, FC } from 'react';
+import { ReactNode, CSSProperties, FC } from 'react';
 import classNames from 'classnames';
 import './Navbar.css';
 

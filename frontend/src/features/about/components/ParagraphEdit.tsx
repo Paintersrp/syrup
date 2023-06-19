@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { ConfirmCancelBar } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
-import { BaseProps } from '@/components/Elements';
+import { BaseProps } from '@/theme/base';
 import { RichTextInput } from '@/components/Form';
 import { axios } from '@/lib/api';
 

@@ -2,7 +2,8 @@ import { FC, useEffect, useState } from 'react';
 
 import { ButtonBar } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
-import { Base, BaseProps, Loading, Text } from '@/components/Elements';
+import { Loading, Text } from '@/components/Elements';
+import { Base, BaseProps } from '@/theme/base';
 
 import { ValueType } from '../types';
 import { Value } from './Value';

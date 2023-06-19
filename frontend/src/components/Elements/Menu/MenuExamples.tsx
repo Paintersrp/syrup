@@ -9,7 +9,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 
 import { Flexer } from '../../Containers';
-import Divider from '../Divider/Divider';
+import { Divider } from '../Divider/Divider';
 import MenuItem from './MenuItem';
 import Text from '../Text/Text';
 import Menu from './Menu';
@@ -68,7 +68,7 @@ const MenuExamples = (): ReactElement => {
                 buttonText={menu.buttonText}
                 position={menu.position}
               >
-                {set.items.map((item, itemIndex) => (
+                {/* {set.items.map((item, itemIndex) => (
                   <MenuItem
                     key={itemIndex}
                     icon={item.icon}
@@ -78,7 +78,7 @@ const MenuExamples = (): ReactElement => {
                   >
                     {item.label}
                   </MenuItem>
-                ))}
+                ))} */}
               </Menu>
             </div>
           ))}

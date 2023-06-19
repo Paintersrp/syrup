@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './css/Gallery.css';
 
-import { Base, BaseProps } from '../Elements';
+import { Base, BaseProps } from '@/theme/base';
 
 interface GalleryProps extends BaseProps {
   images: { url: string; caption?: string }[];

@@ -1,12 +1,13 @@
 import { FC, FormEvent, useEffect, useState } from 'react';
 
 import { Surface } from '@/components/Containers';
-import { BaseProps, Text } from '@/components/Elements';
+import { Text } from '@/components/Elements';
 import { axios } from '@/lib/api';
 import { useAlertStore } from '@/stores/alert';
 
 import ConfirmCancelBar from '../ConfirmCancelBar/ConfirmCancelBar';
 import ManyToManyField from './ManyToManyField';
+import { BaseProps } from '@/theme/base';
 
 interface MTMEditProps extends BaseProps {
   data: any;

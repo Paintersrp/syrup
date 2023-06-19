@@ -3,8 +3,9 @@ import { useState, FC, Fragment } from 'react';
 import { ButtonBar } from '@/components/Built';
 import { Tab, Tabs } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
-import { Accordion, BaseProps, Text } from '@/components/Elements';
+import { Accordion, Text } from '@/components/Elements';
 import { useEditModeStore } from '@/stores/editmode';
+import { BaseProps } from '@/theme/base';
 
 interface AboutFAQProps extends BaseProps {}
 

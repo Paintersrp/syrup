@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import './TransferList.css';
 
-import Base, { BaseProps } from '../Base/Base';
+import { Base, BaseProps } from '@/theme/base';
 import { IconButton } from '../../Buttons';
 
 interface TransferListItem {

@@ -3,7 +3,7 @@ import { FC, Fragment } from 'react';
 import { Carousel } from '@/components/Animation';
 import { ConfirmationModal, SectionHeader, SectionHeaderContent } from '@/components/Built';
 import { Container, Flexer } from '@/components/Containers';
-import { BaseProps } from '@/components/Elements';
+import { BaseProps } from '@/theme/base';
 
 import { PostCard } from './PostCard';
 import { PostContent } from '@/features/posts/types';

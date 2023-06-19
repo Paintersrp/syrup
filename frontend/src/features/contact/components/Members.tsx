@@ -2,8 +2,8 @@ import { FC } from 'react';
 
 import { ButtonBar } from '@/components/Built';
 import { Container, Flexer } from '@/components/Containers';
-import { BaseProps, Text } from '@/components/Elements';
-
+import { Text } from '@/components/Elements';
+import { BaseProps } from '@/theme/base';
 import { Member } from './Member';
 import { MemberContent } from '../types';
 

@@ -6,7 +6,8 @@ import { ButtonBar, ContactButtons, SocialButtons } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 
-import { BaseProps, Text } from '@/components/Elements';
+import { Text } from '@/components/Elements';
+import { BaseProps } from '@/theme/base';
 
 import { HeroContent } from '../types';
 import { useEditModeStore } from '@/stores/editmode';

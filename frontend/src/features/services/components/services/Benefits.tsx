@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { ButtonBar, SectionHeader, SectionHeaderContent } from '@/components/Built';
 import { IconButton } from '@/components/Buttons';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
-import { Base, Text, Tooltip } from '@/components/Elements';
+import { Text, Tooltip } from '@/components/Elements';
+import { Base } from '@/theme/base';
 
 import { MaterialIcon } from '@/components/Media';
 

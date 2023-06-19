@@ -4,7 +4,6 @@ import { Link, To, useLocation } from 'react-router-dom';
 import { Button } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import {
-  BaseProps,
   Divider,
   Table,
   TableBody,
@@ -17,6 +16,7 @@ import {
   Tooltip,
 } from '@/components/Elements';
 import { MaterialIcon } from '@/components/Media';
+import { BaseProps } from '@/theme/base';
 
 type Cell = { id: string; value: any };
 

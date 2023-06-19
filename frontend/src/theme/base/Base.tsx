@@ -1,84 +1,7 @@
 import React, { CSSProperties } from 'react';
 
-import { baseCx } from '@/theme/cx';
-
-export const justifyContentMap: {
-  [key: string]: CSSProperties['justifyContent'];
-} = {
-  l: 'flex-start',
-  fs: 'flex-start',
-  start: 'flex-start',
-  'flex-start': 'flex-start',
-  r: 'flex-end',
-  fe: 'flex-end',
-  right: 'flex-end',
-  'flex-end': 'flex-end',
-  c: 'center',
-  center: 'center',
-  sb: 'space-between',
-  'space-between': 'space-between',
-  sa: 'space-around',
-  'space-around': 'space-around',
-  se: 'space-evenly',
-  'space-evenly': 'space-evenly',
-};
-
-export const alignItemsMap: {
-  [key: string]: CSSProperties['alignItems'];
-} = {
-  t: 'flex-start',
-  top: 'flex-start',
-  fs: 'flex-start',
-  start: 'flex-start',
-  'flex-start': 'flex-start',
-  b: 'flex-end',
-  bottom: 'flex-end',
-  fe: 'flex-end',
-  end: 'flex-end',
-  'flex-end': 'flex-end',
-  c: 'center',
-  center: 'center',
-  base: 'baseline',
-  baseline: 'baseline',
-  s: 'stretch',
-  stretch: 'stretch',
-};
-
-export type JustifyContentValue =
-  | 'l'
-  | 'fs'
-  | 'start'
-  | 'flex-start'
-  | 'r'
-  | 'fe'
-  | 'right'
-  | 'flex-end'
-  | 'c'
-  | 'center'
-  | 'sb'
-  | 'space-between'
-  | 'sa'
-  | 'space-around'
-  | 'se'
-  | 'space-evenly';
-
-export type AlignItemValue =
-  | 't'
-  | 'top'
-  | 'fs'
-  | 'start'
-  | 'flex-start'
-  | 'b'
-  | 'bottom'
-  | 'fe'
-  | 'end'
-  | 'flex-end'
-  | 'c'
-  | 'center'
-  | 'base'
-  | 'baseline'
-  | 's'
-  | 'stretch';
+import { classify } from './classify';
+import { AlignmentValue, JustificationValue } from './types';
 
 export interface BaseProps {
   children?: any;
@@ -106,8 +29,8 @@ export interface BaseProps {
   ta?: CSSProperties['textAlign'];
   d?: CSSProperties['display'];
   fd?: CSSProperties['flexDirection'];
-  j?: JustifyContentValue | string;
-  a?: AlignItemValue | string;
+  j?: JustificationValue | string;
+  a?: AlignmentValue | string;
   gap?: CSSProperties['gap'];
   z?: CSSProperties['zIndex'];
   o?: CSSProperties['opacity'];
@@ -123,7 +46,7 @@ export interface BaseProps {
   onKeyDown?: (event: React.KeyboardEvent) => void;
 }
 
-const Base: React.FC<BaseProps> = ({
+export const Base: React.FC<BaseProps> = ({
   children,
   m,
   mt,
@@ -204,10 +127,12 @@ const Base: React.FC<BaseProps> = ({
     }
   };
 
+  // console.log(classify(baseCssProps));
+
   return (
     <div
       className={className}
-      css={baseCx.root(baseCssProps)}
+      css={classify(baseCssProps)}
       style={style}
       onClick={onClick}
       onMouseEnter={onMouseEnter}
@@ -221,5 +146,3 @@ const Base: React.FC<BaseProps> = ({
     </div>
   );
 };
-
-export default Base;
