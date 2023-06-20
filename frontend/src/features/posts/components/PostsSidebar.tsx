@@ -76,12 +76,11 @@ export const PostsSidebar: FC<SidebarProps> = ({
       <Flexer j="fe" gap={6}>
         <Tooltip text="Create Post" position="bottom">
           <IconButton
-            size="t"
-            fontSize="20px"
+            size="tiny"
             onClick={() => handleCreate()}
-            material="add"
-            iconColor={colors.info.dark}
-            className="info-button"
+            icon="add"
+            palette="info"
+            variant="hover"
           />
         </Tooltip>
 
@@ -89,12 +88,11 @@ export const PostsSidebar: FC<SidebarProps> = ({
           <Link to={`/admin/post`}>
             <Tooltip text={`Posts Admin Panel`} position="bottom">
               <IconButton
-                size="t"
-                fontSize="20px"
+                size="tiny"
                 onClick={() => handleCreate()}
-                material="admin_panel_settings"
-                iconColor={colors.info.dark}
-                className="info-button"
+                icon="admin_panel_settings"
+                palette="info"
+                variant="hover"
               />
             </Tooltip>
           </Link>

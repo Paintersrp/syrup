@@ -53,12 +53,10 @@ const RenderSections: React.FC<RenderSectionsProps> = ({
             </Link>
             <Flexer j="fe" a="c" grow>
               <IconButton
-                size="t"
-                fontSize="21px"
+                size="tiny"
                 color="secondary"
-                material={isOpen ? 'expand_more' : 'expand_less'}
+                icon={isOpen ? 'expand_more' : 'expand_less'}
                 onClick={toggleOpen}
-                iconColor="#fff"
               />
             </Flexer>
           </div>
@@ -83,10 +81,8 @@ const RenderSections: React.FC<RenderSectionsProps> = ({
                     >
                       <IconButton
                         className="launch-button"
-                        fontSize="21px"
-                        size="t"
-                        material="admin_panel_settings"
-                        iconColor={colors.info.dark}
+                        size="tiny"
+                        icon="admin_panel_settings"
                       />
                     </Tooltip>
                   </Link>
@@ -96,13 +92,7 @@ const RenderSections: React.FC<RenderSectionsProps> = ({
                       style={{ marginRight: 16, padding: '4px 0px 2px 0px' }}
                     >
                       <Tooltip text="View Site Page" position="bottom">
-                        <IconButton
-                          className="launch-button"
-                          fontSize="18px"
-                          size="t"
-                          material="launch"
-                          iconColor={colors.info.dark}
-                        />
+                        <IconButton className="launch-button" size="tiny" icon="launch" />
                       </Tooltip>
                     </Link>
                   )}

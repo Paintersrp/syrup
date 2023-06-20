@@ -2,15 +2,17 @@ import React, { CSSProperties, ButtonHTMLAttributes } from 'react';
 import clsx from 'clsx';
 import { useTheme } from '@emotion/react';
 
-import { Icon } from '@/components/Media';
 import { iconPalette, PaletteOptions } from '@/theme/palettes';
 import { classify } from '@/theme/base';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
 const iconButtonSizes = {
   tiny: { width: 26, height: 26, iconSize: '21px' },
   sm: { width: 32, height: 32, iconSize: '24px' },
   md: { width: 36, height: 36, iconSize: '24px' },
   lg: { width: 40, height: 40, iconSize: '26px' },
+  xl: { width: 48, height: 48, iconSize: '26px' },
 };
 
 const iconButtonCx = {
@@ -56,16 +58,18 @@ export type RootProps = {
   theme?: any;
 };
 
-export type IconButtonProps = RootProps &
+export type BrandButtonProps = RootProps &
   ButtonHTMLAttributes<HTMLButtonElement> & {
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
     className?: string | undefined;
     style?: CSSProperties;
+    iconStyle?: CSSProperties;
     href?: string | undefined;
-    icon: string;
+    icon: IconDefinition;
+    fontSize: string;
   };
 
-export const IconButton: React.FC<IconButtonProps> = ({
+export const BrandButton: React.FC<BrandButtonProps> = ({
   size = 'sm',
   variant = 'standard',
   palette = 'primary',
@@ -80,6 +84,8 @@ export const IconButton: React.FC<IconButtonProps> = ({
   onClick = () => {},
   className,
   style,
+  iconStyle,
+  fontSize = '1rem',
   icon,
   disabled,
 }) => {
@@ -113,7 +119,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
       onClick={href ? handleHref : onClick}
       style={style}
     >
-      <Icon icon={icon} size={iconButtonSizes[size].iconSize} />
+      <FontAwesomeIcon icon={icon} style={{ ...iconStyle, fontSize }} />
     </button>
   );
 };

@@ -3,15 +3,15 @@ import { Link } from 'react-router-dom';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import './css/AppFooter.css';
 
-import { Button, IconButton } from '@/components/Buttons';
+import { Button } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Divider, Text, Tooltip } from '@/components/Elements';
 import { Input } from '@/components/Form';
 import { Icon } from '@/components/Media';
 import { SiteLinkType } from '@/providers/LayoutProvider';
-import { colors } from '@/theme/common';
 import { LOGO, SOCIALS, TITLE } from '@/settings';
 import { handleDataChange } from '@/utils';
+import { BrandButton } from '../Buttons/BrandButton/BrandButton';
 
 type SubscribeDTO = {
   email: string;
@@ -69,7 +69,7 @@ export const AppFooter: FC<AppFooterProps> = ({ links }) => {
                   onClick={() => setState(state === 'success' ? 'initial' : 'success')}
                 >
                   {state === 'success' && (
-                    <Icon icon={faCheck} color="#f5f5f5" mr={4} ml={0} size="1.2rem" />
+                    <Icon icon="check" color="#f5f5f5" mr={4} ml={0} size="1.2rem" />
                   )}
                   {state === 'success' ? 'Subscribed' : 'Subscribe'}
                 </Button>
@@ -102,18 +102,20 @@ export const AppFooter: FC<AppFooterProps> = ({ links }) => {
             <Text t="h5" a="c" style={{ marginBottom: 2 }}>
               Connect with Us
             </Text>
-            <Flexer j="c" a="c" wrap>
+            <Flexer j="c" a="c" wrap gap={6}>
               {SOCIALS.map((platform) => {
                 if (platform.handle) {
                   return (
-                    <span key={`${platform.name}-footer-social`} style={{ marginRight: 4 }}>
+                    <span key={`${platform.name}-footer-social`}>
                       <Tooltip text={platform.handle} position="bottom">
-                        <IconButton
-                          size="md"
+                        <BrandButton
+                          palette="secondary"
+                          variant="float"
+                          size="sm"
                           fontSize="1.5rem"
+                          aria-label={platform.name}
                           icon={platform.icon}
-                          invertColors
-                          manualHoverColor={colors.secondary.light}
+                          mt={4}
                         />
                       </Tooltip>
                     </span>

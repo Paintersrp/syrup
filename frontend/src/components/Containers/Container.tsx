@@ -1,4 +1,4 @@
-import React, { ReactNode, CSSProperties } from 'react';
+import { ReactNode, CSSProperties, FC, Children, isValidElement, cloneElement } from 'react';
 import { Base, BaseProps } from '@/theme/base';
 
 interface ContainerProps extends BaseProps {
@@ -17,7 +17,7 @@ interface ChildProps {
   className?: string;
 }
 
-const Container: React.FC<ContainerProps> = ({
+export const Container: FC<ContainerProps> = ({
   children,
   align = 'center',
   justify = 'center',
@@ -28,8 +28,8 @@ const Container: React.FC<ContainerProps> = ({
   className,
   ...rest
 }) => {
-  const childrenWithSpacing = React.Children.map(children, (child) => {
-    if (React.isValidElement(child)) {
+  const childrenWithSpacing = Children.map(children, (child) => {
+    if (isValidElement(child)) {
       const childClassName = child.props.className;
       const childHasItemClass = childClassName && childClassName.includes('item');
 
@@ -39,7 +39,7 @@ const Container: React.FC<ContainerProps> = ({
 
       const props: ChildProps = { style, className: childClassName };
 
-      return React.cloneElement(child, props);
+      return cloneElement(child, props);
     }
     return child;
   });
@@ -64,4 +64,3 @@ const Container: React.FC<ContainerProps> = ({
   );
 };
 
-export default Container;

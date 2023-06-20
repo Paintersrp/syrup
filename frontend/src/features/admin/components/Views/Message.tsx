@@ -127,12 +127,11 @@ const Message: React.FC<MessageProps> = ({ message, metadata }) => {
         <Flexer a="c" j="sb">
           <Tooltip text="Go Back" position="bottom">
             <IconButton
-              fontSize="24px"
-              material="arrow_back"
-              size="t"
+              palette="secondary"
+              variant="hover"
+              icon="arrow_back"
+              size="tiny"
               onClick={handleBackButtonClick}
-              className="secondary-button"
-              iconColor={colors.secondary.main}
             />
           </Tooltip>
           <Text w="auto" t="body1" fw="500" c="#718096">
@@ -206,12 +205,11 @@ const Message: React.FC<MessageProps> = ({ message, metadata }) => {
         <Flexer j="fe">
           <Tooltip text={`Delete Message Object: ${formData.id}`} position="top">
             <IconButton
-              fontSize="21px"
-              material="delete"
-              size="t"
+              icon="delete"
+              size="tiny"
               onClick={() => handleDelete(message)}
-              iconColor={colors.error.main}
-              className="error-button"
+              variant="hover"
+              palette="error"
             />
           </Tooltip>
         </Flexer>

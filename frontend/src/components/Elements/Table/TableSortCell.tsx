@@ -1,7 +1,7 @@
 import React from 'react';
 import './TableSortCell.css';
 
-import { MaterialIcon } from '../../Media';
+import { Icon } from '../../Media';
 import Text from '../Text/Text';
 
 interface TableSortCellProps {
@@ -24,7 +24,7 @@ const TableSortCell: React.FC<TableSortCellProps> = ({ active, direction, onClic
       <Text w="auto" fw="bold">
         {label}
       </Text>
-      <MaterialIcon color="#222" size="18px" ml={4} icon={getIconName()} />
+      <Icon color="#222" size="18px" ml={4} icon={getIconName()} />
     </div>
   );
 };

@@ -5,8 +5,8 @@ import { Text } from '@/components/Elements';
 import { axios } from '@/lib/api';
 import { useAlertStore } from '@/stores/alert';
 
-import ConfirmCancelBar from '../ConfirmCancelBar/ConfirmCancelBar';
-import ManyToManyField from './ManyToManyField';
+import { ConfirmCancelBar } from '../ConfirmCancelBar/ConfirmCancelBar';
+import { ManyToManyField } from './ManyToManyField';
 import { BaseProps } from '@/theme/base';
 
 interface MTMEditProps extends BaseProps {
@@ -19,7 +19,7 @@ interface MTMEditProps extends BaseProps {
   fieldName: string;
 }
 
-const ManyToManyEdit: FC<MTMEditProps> = ({
+export const ManyToManyEdit: FC<MTMEditProps> = ({
   data,
   updateData,
   handleCancel,
@@ -89,5 +89,3 @@ const ManyToManyEdit: FC<MTMEditProps> = ({
     </Surface>
   );
 };
-
-export default ManyToManyEdit;

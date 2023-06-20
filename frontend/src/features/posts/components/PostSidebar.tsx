@@ -90,33 +90,25 @@ export const PostSidebar: FC<PostSidebarProps> = ({
       <Flexer j="fe" gap={6}>
         <Tooltip text="Create Post" position="bottom">
           <IconButton
-            size="t"
-            fontSize="20px"
+            size="tiny"
             onClick={() => handleCreate()}
-            material="add"
-            iconColor={colors.info.dark}
-            className="info-button"
+            icon="add"
+            palette="info"
+            variant="hover"
           />
         </Tooltip>
         <Tooltip text="Bookmark Post">
-          <IconButton
-            fontSize="18px"
-            size="t"
-            material="bookmark_add"
-            className="info-button"
-            iconColor={colors.info.dark}
-          />
+          <IconButton size="tiny" icon="bookmark_add" palette="info" variant="hover" />
         </Tooltip>
         {auth.is_superuser && (
           <Link to={`/admin/post`}>
             <Tooltip text={`Posts Admin Panel`} position="bottom">
               <IconButton
-                size="t"
-                fontSize="20px"
+                size="tiny"
                 onClick={() => handleCreate()}
-                material="admin_panel_settings"
-                iconColor={colors.info.dark}
-                className="info-button"
+                icon="admin_panel_settings"
+                palette="info"
+                variant="hover"
               />
             </Tooltip>
           </Link>

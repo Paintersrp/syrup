@@ -11,6 +11,7 @@ import { Error } from '@/components/Layout/Error';
 import { light } from '@/theme';
 
 const ErrorFallback = ({ error }: { error: any | null }) => {
+  console.log(error);
   return (
     <Error
       message={error.error.message}

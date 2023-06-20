@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from 'react';
 
 import { Text } from '@/components/Elements';
 import { Base, BaseProps } from '@/theme/base';
-import { MaterialIcon } from '@/components/Media';
+import { Icon } from '@/components/Media';
 
 import { ValueType } from '../types';
 import { colors } from '@/theme/common';
@@ -39,7 +39,7 @@ export const Value: FC<ValueProps> = ({ value, index, start, ...rest }) => {
   return (
     <Editable {...editConfig}>
       <Base minw="100%" m="8px 0" className="fade-in">
-        <MaterialIcon
+        <Icon
           size="28px"
           icon={valueData.icon}
           css={{ color: index % 2 === start ? colors.primary.main : colors.secondary.main }}

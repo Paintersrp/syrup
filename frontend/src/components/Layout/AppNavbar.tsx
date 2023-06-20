@@ -36,17 +36,16 @@ export const AppNavbar: FC<AppNavbarProps> = ({
     <Navbar>
       {menuButton && (
         <IconButton
-          size="lg"
+          variant="float"
+          palette="secondary"
+          size="sm"
           onClick={menuOnClick}
-          style={{
+          css={{
             position: 'absolute',
             marginLeft: !menuOpen ? 12 : 12 + drawerSize,
           }}
           className="menu-button"
-          material="subject"
-          fontSize="24px"
-          iconColor={colors.secondary.main}
-          iconHoverColor={colors.secondary.main}
+          icon="subject"
         />
       )}
       {!isSmallScreen && (

@@ -40,7 +40,7 @@ const RegisterForm: FC = ({}) => {
 
   return (
     <Fragment>
-      <Icon icon={faCoins} color="primary" size="2rem" style={{ margin: '8px 8px 16px 8px' }} />
+      <Icon icon="send_money" size="2rem" style={{ margin: '8px 8px 16px 8px' }} />
       <Text t="h2" a="c" className="register-heading">
         Register
       </Text>
@@ -83,11 +83,10 @@ const RegisterForm: FC = ({}) => {
           Advanced Registration
         </Text>
         <IconButton
-          material={isAdvanced ? 'expand_less' : 'expand_more'}
-          size="t"
-          fontSize="0.9rem"
+          icon={isAdvanced ? 'expand_less' : 'expand_more'}
+          size="tiny"
           onClick={(e: MouseEvent<HTMLButtonElement>) => handleOpen(e)}
-          iconStyle={{ marginTop: 1 }}
+          style={{ marginTop: 1 }}
         />
       </Flexer>
       <Collapser isOpen={isAdvanced}>

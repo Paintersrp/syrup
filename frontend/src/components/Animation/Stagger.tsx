@@ -1,7 +1,59 @@
-import React, { ReactNode } from 'react';
-import './css/Stagger.css';
-
+import { FC, ReactNode } from 'react';
 import { Base, BaseProps } from '@/theme/base';
+import { css, keyframes } from '@emotion/react';
+
+const staggerAnimation = keyframes`
+    0% {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+`;
+
+const staggerAnimationRight = keyframes`
+    0% {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+`;
+
+export const staggerCx = {
+  stagger: css({
+    display: 'flex',
+    flexDirection: 'column',
+  }),
+  horizontal: css({
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  }),
+  right: css({
+    flexDirection: 'row',
+  }),
+  staggerItem: css({
+    opacity: 0,
+    animation: `${staggerAnimation} 0.5s ease-in-out`,
+    animationFillMode: 'forwards',
+  }),
+  staggerHorizontal: css({
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  }),
+  staggerRightHorizontal: css({
+    flexDirection: 'row',
+  }),
+  staggerWrapperRightItem: css({
+    animationName: staggerAnimationRight,
+  }),
+};
 
 interface StaggerProps extends BaseProps {
   direction?: 'left' | 'right';
@@ -9,20 +61,25 @@ interface StaggerProps extends BaseProps {
   children: ReactNode[];
 }
 
-const Stagger: React.FC<StaggerProps> = ({
+export const Stagger: FC<StaggerProps> = ({
   direction = 'left',
   orientation = 'horizontal',
   children,
   ...rest
 }) => {
-  const staggerWrapperClass = `stagger-wrapper ${direction} ${orientation}`;
-  const staggerItemClass = 'stagger-item';
-
   return (
-    <Base className={staggerWrapperClass} style={{ width: '100%' }} {...rest}>
+    <Base
+      css={[
+        staggerCx.stagger,
+        orientation === 'horizontal' && staggerCx.staggerHorizontal,
+        direction === 'right' && orientation === 'horizontal' && staggerCx.staggerRightHorizontal,
+      ]}
+      w="100%"
+      {...rest}
+    >
       {children.map((child, index) => (
         <div
-          className={staggerItemClass}
+          css={[staggerCx.staggerItem, direction === 'right' && staggerCx.staggerWrapperRightItem]}
           key={index}
           style={{
             animationDelay: `${index * 300}ms`,
@@ -35,5 +92,3 @@ const Stagger: React.FC<StaggerProps> = ({
     </Base>
   );
 };
-
-export default Stagger;

@@ -7,7 +7,7 @@ import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item } from '@/components/Containers';
 import { Text } from '@/components/Elements';
 import { Base } from '@/theme/base';
-import { MaterialIcon, Media } from '@/components/Media';
+import { Icon, Media } from '@/components/Media';
 
 import { ServiceType } from '../../types';
 import { colors } from '@/theme/common';
@@ -34,12 +34,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service, ...rest }) =>
       <Flexer fd="column" mb={10} gap={2} a="c" j="fs" grow minh={155}>
         {service.features.map((feature, index) => (
           <Flexer j="c" key={index}>
-            <MaterialIcon
-              icon="check"
-              size="20px"
-              className="service-card-icon"
-              color={colors.info.dark}
-            />
+            <Icon icon="check" size="20px" className="service-card-icon" color={colors.info.dark} />
             <Text t="body1" a="c" fw="400" s="14px" mr={20}>
               {feature.detail}
             </Text>

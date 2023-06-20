@@ -240,14 +240,7 @@ const ModelPanel: React.FC<ModelPanelProps> = ({ apiData, recentActions, type })
                 }}
                 key={appName}
               >
-                <IconButton
-                  size="sm"
-                  material="add"
-                  fontSize="24px"
-                  manualHoverColor={colors.primary.light}
-                  className="info-button"
-                  iconColor={colors.info.dark}
-                />
+                <IconButton size="sm" icon="add" palette="info" variant="hover" />
               </Link>
             </Tooltip>
             <InfoMenu textItem={model.info_dump} />

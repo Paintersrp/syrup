@@ -2,7 +2,7 @@ import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { TableBody, TableCell, TableRow, Tooltip } from '@/components/Elements';
 import { Checkbox } from '@/components/Form';
-import { MaterialIcon } from '@/components/Media';
+import { Icon } from '@/components/Media';
 import { colors } from '@/theme/common';
 import { CapitalizeFirst } from '@/utils';
 import React from 'react';
@@ -57,7 +57,7 @@ const ModelTableBody: React.FC<ModelTableBodyProps> = ({
     );
   }
   function renderIcon(icon: string) {
-    return <MaterialIcon size="21px" icon={icon} />;
+    return <Icon size="21px" icon={icon} />;
   }
 
   function getTableCellContent(key: string, item: any) {
@@ -174,11 +174,10 @@ const ModelTableBody: React.FC<ModelTableBodyProps> = ({
                 <Flexer j="c" a="c">
                   <Tooltip text="View Analysis" position="bottom">
                     <IconButton
-                      fontSize="18px"
-                      material="bar_chart"
-                      size="t"
+                      palette="success"
+                      icon="bar_chart"
+                      size="tiny"
                       onClick={() => handleEdit(item, 'analysis', false)}
-                      className="success-button"
                     />
                   </Tooltip>
                 </Flexer>
@@ -196,15 +195,13 @@ const ModelTableBody: React.FC<ModelTableBodyProps> = ({
                   position="bottom"
                 >
                   <IconButton
-                    className="success-button"
-                    iconColor={colors.success.main}
-                    material={
+                    palette="success"
+                    icon={
                       model.model_name === 'messages' || model.model_name === 'application'
                         ? 'email'
                         : 'edit'
                     }
-                    fontSize="18px"
-                    size="t"
+                    size="tiny"
                     onClick={
                       model.model_name === 'post'
                         ? () => handleEdit(item, 'control', true)
@@ -220,11 +217,10 @@ const ModelTableBody: React.FC<ModelTableBodyProps> = ({
               <Flexer j="c">
                 <Tooltip text="Delete" position="bottom">
                   <IconButton
-                    className="error-button"
-                    iconColor={colors.error.main}
-                    material="delete"
-                    size="t"
-                    fontSize="18px"
+                    variant="hover"
+                    palette="error"
+                    icon="delete"
+                    size="tiny"
                     onClick={() => handleDelete(item)}
                   />
                 </Tooltip>

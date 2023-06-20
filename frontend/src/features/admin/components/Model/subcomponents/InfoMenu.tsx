@@ -18,15 +18,7 @@ const InfoMenu: React.FC<InfoMenuProps> = ({ textItem }) => {
   return (
     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
       <Menu
-        manualButton={
-          <IconButton
-            size="sm"
-            material="info"
-            fontSize="22px"
-            className="info-button"
-            iconColor={colors.info.dark}
-          />
-        }
+        manualButton={<IconButton palette="info" size="sm" icon="info" className="info-button" />}
         position="bottom-left"
         style={{ width: 300, borderRadius: 8 }}
       >

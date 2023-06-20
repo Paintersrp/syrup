@@ -1,24 +1,18 @@
 import { FC } from 'react';
 import './css/AppDrawer.css';
-import {
-  faBusinessTime,
-  faAddressCard,
-  faArrowRightToBracket,
-  faArrowRightFromBracket,
-  faUserPlus,
-  faIdCard,
-  faHome,
-  faWrench,
-  faEdit,
-} from '@fortawesome/free-solid-svg-icons';
-import { LogoutUser } from '@/utils';
-import DrawerContent, {
-  ListItemDataType,
-} from '@/components/Elements/Drawer/components/DrawerContent';
-import { Drawer, DrawerFooter, DrawerFooterLinks, DrawerHeader } from '@/components/Elements';
+
 import { Flexer } from '@/components/Containers';
+import {
+  Drawer,
+  DrawerContent,
+  DrawerFooter,
+  DrawerFooterLinks,
+  DrawerHeader,
+  ListItemDataType,
+} from '@/components/Elements';
 import { useEditModeStore } from '@/stores/editmode';
 import { useAuthStore } from '@/stores/auth';
+import { LogoutUser } from '@/utils';
 
 type AppDrawerProps = {
   open?: boolean;
@@ -53,22 +47,22 @@ export const AppDrawer: FC<AppDrawerProps> = ({
   };
 
   const linkListItemData: ListItemDataType[] = [
-    { text: 'Home', to: '/', icon: faHome, onClick: handleClose },
-    { text: 'About', to: '/about', icon: faAddressCard, onClick: handleClose },
-    { text: 'WIP', to: '/WIP', icon: faBusinessTime, onClick: handleClose },
+    { text: 'Home', to: '/', icon: 'home', onClick: handleClose },
+    { text: 'About', to: '/about', icon: 'contact_mail', onClick: handleClose },
+    { text: 'WIP', to: '/WIP', icon: 'work', onClick: handleClose },
   ];
 
   const unauthedBottomListItemData: ListItemDataType[] = [
     {
       text: 'Register',
       to: '/register',
-      icon: faUserPlus,
+      icon: 'person_add',
       onClick: handleClose,
     },
     {
       text: 'Login',
       to: '/login',
-      icon: faArrowRightToBracket,
+      icon: 'login',
       onClick: handleClose,
     },
   ];
@@ -77,25 +71,25 @@ export const AppDrawer: FC<AppDrawerProps> = ({
     {
       text: 'Edit Mode',
       to: '',
-      icon: faEdit,
+      icon: 'edit',
       onClick: handleEditClick,
     },
     {
       text: 'Admin',
       to: '/admin',
-      icon: faWrench,
+      icon: 'admin_panel_settings',
       onClick: handleClose,
     },
     {
       text: 'Profile',
       to: '/profile',
-      icon: faIdCard,
+      icon: 'account_circle',
       onClick: handleClose,
     },
     {
       text: 'Logout',
       to: '/logout',
-      icon: faArrowRightFromBracket,
+      icon: 'logout',
       onClick: handleLogout,
     },
   ];

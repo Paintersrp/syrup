@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Text, TreeNode } from '../Elements';
-import { ToggleButton, ToggleButtonGroup } from '../Buttons';
+import { IconButton, SpeedDial, SpeedDialItem, ToggleButton, ToggleButtonGroup } from '../Buttons';
 
 import { Carousel, Stagger } from '../Animation';
 import { Flexer, Surface } from '../Containers';
@@ -86,11 +86,82 @@ const WIP: React.FC<WIPProps> = ({}) => {
 
   const { editMode, editModeToggle } = useEditModeStore();
 
-  console.log('default', defaultColors);
-
   return (
     <Page>
       <PalettePreview />
+      <Flexer wrap a="c" j="c" mt={24} gap={12}>
+        <IconButton variant="hover" icon="check" />
+        <IconButton variant="hover" palette="secondary" icon="check" />
+        <IconButton variant="hover" palette="tertiary" icon="check" />
+        <IconButton variant="hover" palette="quaternary" icon="check" />
+        <IconButton variant="hover" palette="error" icon="check" />
+        <IconButton variant="hover" palette="warning" icon="check" />
+        <IconButton variant="hover" palette="success" icon="check" />
+        <IconButton variant="hover" palette="info" icon="check" />
+        <IconButton variant="hover" palette="dark" icon="check" />
+        <IconButton variant="hover" palette="slate" icon="check" />
+        <IconButton variant="hover" palette="smoke" icon="check" />
+      </Flexer>
+      <Flexer wrap a="c" j="c" mt={24} gap={12}>
+        <IconButton variant="standard" icon="check" />
+        <IconButton variant="standard" palette="secondary" icon="check" />
+        <IconButton variant="standard" palette="tertiary" icon="check" />
+        <IconButton variant="standard" palette="quaternary" icon="check" />
+        <IconButton variant="standard" palette="error" icon="check" />
+        <IconButton variant="standard" palette="warning" icon="check" />
+        <IconButton variant="standard" palette="success" icon="check" />
+        <IconButton variant="standard" palette="info" icon="check" />
+        <IconButton variant="standard" palette="dark" icon="check" />
+        <IconButton variant="standard" palette="slate" icon="check" />
+        <IconButton variant="standard" palette="smoke" icon="check" />
+      </Flexer>
+
+      <Flexer wrap a="c" j="c" mt={24} gap={12}>
+        <Button>Test</Button>
+        <Button palette="secondary">Test</Button>
+        <Button palette="tertiary">Test</Button>
+        <Button palette="quaternary">Test</Button>
+        <Button palette="error">Test</Button>
+        <Button palette="warning">Test</Button>
+        <Button palette="success">Test</Button>
+        <Button palette="info">Test</Button>
+        <Button palette="dark">Test</Button>
+        <Button palette="slate">Test</Button>
+        <Button palette="smoke">Test</Button>
+      </Flexer>
+      <Flexer wrap a="c" j="c" mt={24} gap={12}>
+        <Button variant="outlined">Test</Button>
+        <Button variant="outlined" palette="secondary">
+          Test
+        </Button>
+        <Button variant="outlined" palette="tertiary">
+          Test
+        </Button>
+        <Button variant="outlined" palette="quaternary">
+          Test
+        </Button>
+        <Button variant="outlined" palette="error">
+          Test
+        </Button>
+        <Button variant="outlined" palette="warning">
+          Test
+        </Button>
+        <Button variant="outlined" palette="success">
+          Test
+        </Button>
+        <Button variant="outlined" palette="info">
+          Test
+        </Button>
+        <Button variant="outlined" palette="dark">
+          Test
+        </Button>
+        <Button variant="outlined" palette="slate">
+          Test
+        </Button>
+        <Button variant="outlined" palette="smoke">
+          Test
+        </Button>
+      </Flexer>
       <Editable
         name="test"
         data={{ name: 'hello', icon: null, image: null }}
@@ -106,9 +177,6 @@ const WIP: React.FC<WIPProps> = ({}) => {
         <h1>Edit Mode: {editMode ? 'On' : 'Off'}</h1>
         <button onClick={editModeToggle}>Toggle Mode</button>
 
-        <Button size="lg" palette="dark" variant="outlined" mt={8} mb={24}>
-          Test
-        </Button>
         <div>
           <Switch
             name="field1"
@@ -200,6 +268,10 @@ const WIP: React.FC<WIPProps> = ({}) => {
         <div>{isSmallScreen ? <p>Small Screen</p> : <p>Large Screen</p>}</div>
         <div>{innerWidth}</div>
       </Flexer>
+      <SpeedDial position="bottom-left" direction="up">
+        <SpeedDialItem icon="check" onClick={() => console.log('Click1')} label="1" />
+        <SpeedDialItem icon="check" onClick={() => console.log('Click2')} label="2" />
+      </SpeedDial>
     </Page>
   );
 };

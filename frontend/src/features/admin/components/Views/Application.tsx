@@ -128,12 +128,11 @@ const Application: FC<ApplicationProps> = ({ application, job, metadata }) => {
       <Flexer a="c" j="sb">
         <Tooltip text="Go Back" position="bottom">
           <IconButton
-            fontSize="24px"
-            material="arrow_back"
-            size="t"
+            icon="arrow_back"
+            size="tiny"
             onClick={handleBackButtonClick}
-            className="secondary-button"
-            iconColor={colors.secondary.main}
+            palette="secondary"
+            variant="hover"
           />
         </Tooltip>
         <Text w="auto" t="body1" fw="500" c="#718096">
@@ -257,12 +256,11 @@ const Application: FC<ApplicationProps> = ({ application, job, metadata }) => {
       <Flexer j="fe">
         <Tooltip text={`Delete Application Object: ${formData.id}`} position="top">
           <IconButton
-            fontSize="21px"
-            material="delete"
-            size="t"
+            icon="delete"
+            size="tiny"
+            palette="error"
+            variant="hover"
             onClick={() => handleDelete(application)}
-            iconColor={colors.error.main}
-            className="error-button"
           />
         </Tooltip>
       </Flexer>

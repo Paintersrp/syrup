@@ -6,7 +6,7 @@ import { Flexer } from '@/components/Containers';
 import { Text } from '@/components/Elements';
 import { BaseProps } from '@/theme/base';
 
-import { MaterialIcon } from '@/components/Media';
+import { Icon } from '@/components/Media';
 
 import { ProcessContent } from '../types';
 import { colors } from '@/theme/common';
@@ -31,7 +31,7 @@ export const Process: React.FC<ProcessProps> = ({ data, editMode, ...rest }) => 
       <Flexer fd="column" j="c" a="c" mt={12} {...rest}>
         {!editing ? (
           <>
-            <MaterialIcon icon={featureData.icon} color={colors.secondary.main} size="28px" />
+            <Icon icon={featureData.icon} color={colors.secondary.main} size="28px" />
             <Text t="h4" a="c" mt={8} s="1.5rem" fw={700}>
               {featureData.title}
             </Text>

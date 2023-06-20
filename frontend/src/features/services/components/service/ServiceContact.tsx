@@ -5,7 +5,7 @@ import { Button } from '@/components/Buttons';
 import { Container, Item, Surface } from '@/components/Containers';
 import { Text } from '@/components/Elements';
 import { Input } from '@/components/Form';
-import { MaterialIcon } from '@/components/Media';
+import { Icon } from '@/components/Media';
 import { ContactInformationContent, Information } from '@/features/contact';
 import { useFormValidation } from '@/hooks';
 import { axios, validateForm } from '@/lib/api';
@@ -90,7 +90,7 @@ export const ServiceContact: FC<ServiceContactProps> = ({
   return (
     <form id="apply-now-form" ref={formRef} onSubmit={handleSubmit}>
       <Surface maxWidth={1000} boxShadow={1} br={12} mb={64} j="c" px={6}>
-        <MaterialIcon icon="contact_mail" size="36px" />
+        <Icon icon="contact_mail" size="36px" />
         <Text t="h2" a="c">
           Contact Us
         </Text>

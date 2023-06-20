@@ -5,7 +5,7 @@ import { Flexer } from '@/components/Containers';
 import { Divider, Text } from '@/components/Elements';
 
 import { FadeOnScroll } from '@/components/Animation';
-import ButtonBar from '../ButtonBar/ButtonBar';
+import { ButtonBar } from '../ButtonBar/ButtonBar';
 import { colors } from '@/theme/common';
 import { useEditModeStore } from '@/stores/editmode';
 import { FormGenerator } from '@/features/editable/components/FormGenerator';
@@ -27,7 +27,7 @@ interface SectionHeaderProps {
   formTitle: string;
 }
 
-const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, formTitle }) => {
+export const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, formTitle }) => {
   const getAlignClass = (alignment: AlignmentType) => {
     switch (alignment) {
       case 'Left':
@@ -130,4 +130,4 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, formTitle }) 
   );
 };
 
-export default SectionHeader;
+

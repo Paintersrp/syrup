@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 
 import { SOCIALS } from '@/settings';
 
-import { IconButton, IconButtonSize } from '@/components/Buttons';
+import { IconButtonSize } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Text, Tooltip } from '@/components/Elements';
 
 import { Stagger } from '@/components/Animation';
-
-import ButtonBar from '../ButtonBar/ButtonBar';
+import { ButtonBar } from '../ButtonBar/ButtonBar';
 import { SocialContent } from '@/types';
 import { colors } from '@/theme/common';
 import { FormGenerator } from '@/features/editable/components/FormGenerator';
+import { BrandButton } from '@/components/Buttons/BrandButton/BrandButton';
 
 interface SocialButtonsProps {
   socialsData: any;
@@ -23,14 +23,14 @@ interface SocialButtonsProps {
   buttonSize?: IconButtonSize;
 }
 
-const SocialButtons: React.FC<SocialButtonsProps> = ({
+export const SocialButtons: React.FC<SocialButtonsProps> = ({
   socialsData,
   showTitle,
   color = 'light',
   editMode,
   invertColors = true,
   buttonClass,
-  buttonSize = 'lg',
+  buttonSize = 'sm',
 }) => {
   const [socials, setSocials] = useState(socialsData);
   const [editing, setEditing] = useState(false);
@@ -73,7 +73,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
             </div>
           )}
 
-          <Stagger direction="right" orientation="horizontal">
+          <Stagger direction="right" orientation="horizontal" gap={6}>
             {SOCIALS.map((platform: SocialContent, index: number) => {
               if (socials[platform.name]) {
                 return (
@@ -82,12 +82,11 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
                     position="bottom"
                     key={`${platform.name}-${index}`}
                   >
-                    <IconButton
+                    <BrandButton
+                      variant="float"
+                      palette="smoke"
                       size={buttonSize}
                       fontSize="1.5rem"
-                      invertColors={invertColors}
-                      manualHoverColor={colors.secondary.main}
-                      style={{ color: finalColor, marginRight: 4 }}
                       aria-label={platform.name}
                       icon={platform.icon}
                       href={`https://www.${platform.name}.com/${socials[platform.name]}`}
@@ -132,5 +131,3 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
     </div>
   );
 };
-
-export default SocialButtons;

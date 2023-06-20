@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import { CSSProperties, FC } from 'react';
 
 import { Button, ButtonSize } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
@@ -14,7 +14,7 @@ interface ContactButtonsProps {
   borderRadius?: CSSProperties['borderRadius'];
 }
 
-const ContactButtons: React.FC<ContactButtonsProps> = ({
+export const ContactButtons: FC<ContactButtonsProps> = ({
   contactData,
   size = 'md',
   mt: marginTop = 8,
@@ -46,5 +46,3 @@ const ContactButtons: React.FC<ContactButtonsProps> = ({
     </Flexer>
   );
 };
-
-export default ContactButtons;

@@ -1,5 +1,6 @@
-import React from 'react';
+import { CSSProperties, FC, ReactNode } from 'react';
 import clsx from 'clsx';
+
 import './css/Item.css';
 
 import { Base, BaseProps } from '@/theme/base';
@@ -12,12 +13,12 @@ interface ItemProps extends BaseProps {
   xl?: number;
   justify?: string;
   align?: string;
-  children: React.ReactNode;
-  style?: React.CSSProperties;
+  children: ReactNode;
+  style?: CSSProperties;
   className?: string;
 }
 
-const Item: React.FC<ItemProps> = ({
+export const Item: FC<ItemProps> = ({
   xs = 12,
   sm,
   md,
@@ -42,13 +43,15 @@ const Item: React.FC<ItemProps> = ({
     '--item-basis-md': getBasis(md, sm || xs),
     '--item-basis-lg': getBasis(lg, md || sm || xs),
     '--item-basis-xl': getBasis(xl, lg || md || sm || xs),
-  } as React.CSSProperties;
+  } as CSSProperties;
 
   const itemStyle = {
     ...itemBasis,
     display: justify ? 'flex' : '',
     justifyContent: justify ? justify : '',
     alignItems: align ? align : '',
+    maxWidth: '100%',
+    // flex: '0 1 auto',
     ...style,
   };
 
@@ -58,5 +61,3 @@ const Item: React.FC<ItemProps> = ({
     </Base>
   );
 };
-
-export default Item;

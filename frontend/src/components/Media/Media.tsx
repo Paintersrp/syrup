@@ -25,9 +25,10 @@ const Media: React.FC<MediaProps> = ({
   style,
   imageStyle,
   boxShadow = 0,
+  ...rest
 }) => {
   return (
-    <Base className={`media ${className}`} style={style}>
+    <Base className={`media ${className}`} style={style} {...rest}>
       <img
         className={`media-image  ${mediaClass}`}
         src={src}

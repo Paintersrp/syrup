@@ -1,11 +1,11 @@
-import React, { CSSProperties } from 'react';
-import './ImageHeader.css';
+import { CSSProperties, FC } from 'react';
 
 import { Text, TextType } from '@/components/Elements';
 import { TITLE } from '@/settings';
 import { Flexer } from '@/components/Containers';
 import { Media } from '@/components/Media';
 import { BaseProps } from '@/theme/base';
+import { useTheme } from '@emotion/react';
 
 interface ImageHeaderProps extends BaseProps {
   header?: string;
@@ -16,7 +16,7 @@ interface ImageHeaderProps extends BaseProps {
   boxShadow?: boolean;
 }
 
-export const ImageHeader: React.FC<ImageHeaderProps> = ({
+export const ImageHeader: FC<ImageHeaderProps> = ({
   header = `About ${TITLE}`,
   headerType = 'h2',
   src = 'https://source.unsplash.com/1400x900/?service',
@@ -25,6 +25,7 @@ export const ImageHeader: React.FC<ImageHeaderProps> = ({
   boxShadow = false,
   ...rest
 }) => {
+  const theme: any = useTheme();
   return (
     <Flexer
       j="c"
@@ -35,19 +36,12 @@ export const ImageHeader: React.FC<ImageHeaderProps> = ({
       {...rest}
     >
       {header && (
-        <Text t={headerType} a="c" className="image-header-title">
+        <Text t={headerType} a="c" mt={24} mb={24}>
           {header}
         </Text>
       )}
       <div style={{ width: '85%' }}>
-        {src && (
-          <Media
-            className="image-header-media"
-            src={src}
-            altText={header}
-            boxShadow={boxShadow ? 1 : 0}
-          />
-        )}
+        {src && <Media src={src} altText={header} boxShadow={boxShadow ? 1 : 0} mb={24} />}
       </div>
     </Flexer>
   );

@@ -1,10 +1,37 @@
-import React, { useEffect, useState } from 'react';
-import './TransferList.css';
+import { FC, useEffect, useState } from 'react';
+import { css } from '@emotion/react';
 
-import { verboseSource } from '@/utils';
 import { Flexer } from '@/components/Containers';
 import { List, Text } from '@/components/Elements';
 import { IconTextItem } from '@/components/Media';
+import { verboseSource } from '@/utils';
+
+export const transferListCx = {
+  mtmTransferList: css({
+    width: '100%',
+    maxHeight: 260,
+    borderRadius: 4,
+    scrollbarWidth: 'thin',
+    scrollbarColor: '#ccc transparent',
+    '&::-webkit-scrollbar': {
+      width: 10,
+    },
+    '&::-webkit-scrollbar-thumb': {
+      background: '#ccc',
+      borderRadius: 4,
+    },
+    '&::-moz-scrollbar': {
+      width: 10,
+      height: 10,
+      background: '#ccc',
+      borderRadius: 4,
+    },
+    '&::-moz-scrollbar-thumb': {
+      background: '#ccc',
+      borderRadius: 4,
+    },
+  }),
+};
 
 interface TransferListProps {
   fieldName: string;
@@ -13,7 +40,7 @@ interface TransferListProps {
   handleComponentsChange: (fieldName: string, fieldValue: any[]) => void;
 }
 
-const TransferList: React.FC<TransferListProps> = ({
+export const TransferList: FC<TransferListProps> = ({
   fieldName,
   selectedOptions,
   choices,
@@ -55,7 +82,10 @@ const TransferList: React.FC<TransferListProps> = ({
               boxShadow={1}
               a="c"
               j="c"
-              className="mtm-transfer-list"
+              maxh={260}
+              w="100%"
+              br={4}
+              css={transferListCx.mtmTransferList}
               innerStyle={{ overflow: 'auto' }}
             >
               <Text t="h3" a="c">
@@ -88,7 +118,7 @@ const TransferList: React.FC<TransferListProps> = ({
               px={0}
               py={0}
               boxShadow={1}
-              className="mtm-transfer-list"
+              css={transferListCx.mtmTransferList}
               innerStyle={{ overflow: 'auto', flexGrow: 'grow' }}
             >
               <Text t="h3" a="c">
@@ -108,7 +138,7 @@ const TransferList: React.FC<TransferListProps> = ({
             </List>
           ) : (
             <List
-              className="mtm-transfer-list"
+              css={transferListCx.mtmTransferList}
               px={0}
               py={0}
               boxShadow={1}
@@ -122,5 +152,3 @@ const TransferList: React.FC<TransferListProps> = ({
     </Flexer>
   );
 };
-
-export default TransferList;

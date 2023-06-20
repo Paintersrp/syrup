@@ -1,8 +1,9 @@
+import { ChangeEvent, FC } from 'react';
+
 import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Text, Tooltip } from '@/components/Elements';
 import { Option, Select } from '@/components/Form';
-import React, { ChangeEvent } from 'react';
 
 interface PaginationProps {
   count: number;
@@ -13,7 +14,7 @@ interface PaginationProps {
   rowOptions: number[];
 }
 
-export const Pagination: React.FC<PaginationProps> = ({
+export const Pagination: FC<PaginationProps> = ({
   count,
   rowsPerPage,
   page,
@@ -68,9 +69,8 @@ export const Pagination: React.FC<PaginationProps> = ({
       <Flexer w="auto" pr={16}>
         <Tooltip text="Prev" position="bottom" disabled={page === 0}>
           <IconButton
-            size="t"
-            fontSize="20px"
-            material="chevron_left"
+            size="tiny"
+            icon="chevron_left"
             disabled={page === 0}
             onClick={() => handlePageChange(page)}
             style={{ marginRight: 8 }}
@@ -78,9 +78,8 @@ export const Pagination: React.FC<PaginationProps> = ({
         </Tooltip>
         <Tooltip text="Next" position="bottom" disabled={page === totalPages - 1}>
           <IconButton
-            size="t"
-            fontSize="20px"
-            material="chevron_right"
+            size="tiny"
+            icon="chevron_right"
             disabled={page === totalPages - 1}
             onClick={() => handlePageChange(page + 2)}
           />

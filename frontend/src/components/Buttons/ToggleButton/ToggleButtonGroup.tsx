@@ -1,7 +1,28 @@
-import React, { useState, ReactNode, CSSProperties } from 'react';
-import './ToggleButtonGroup.css';
+import {
+  useState,
+  ReactNode,
+  CSSProperties,
+  FC,
+  Children,
+  isValidElement,
+  cloneElement,
+  DOMAttributes,
+} from 'react';
+import clsx from 'clsx';
 
 import { Base, BaseProps } from '@/theme/base';
+import { css, useTheme } from '@emotion/react';
+
+export const toggleButtonGroupCx: any = {
+  borderLeft: css({
+    borderLeft: '1px solid #ccc',
+  }),
+  active: (theme: any) =>
+    css({
+      backgroundColor: theme.primary,
+      color: '#fff',
+    }),
+};
 
 interface ToggleButtonGroupProps extends BaseProps {
   value: string | null;
@@ -13,7 +34,7 @@ interface ToggleButtonGroupProps extends BaseProps {
   mb?: CSSProperties['marginBottom'];
 }
 
-export const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
+export const ToggleButtonGroup: FC<ToggleButtonGroupProps> = ({
   value,
   onChange,
   children,
@@ -21,6 +42,7 @@ export const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
   className,
   ...rest
 }) => {
+  const theme = useTheme();
   const [selectedButton, setSelectedButton] = useState<number | null>(null);
 
   const handleButtonClick = (index: number, childValue: string | null) => {
@@ -29,25 +51,23 @@ export const ToggleButtonGroup: React.FC<ToggleButtonGroupProps> = ({
     onChange(childValue);
   };
 
-  const childrenCount = React.Children.count(children);
+  const childrenCount = Children.count(children);
   const hasOnlyTwoChildren = childrenCount === 2;
 
   return (
-    <Base className={`toggle-button-group ${className}`} style={style} {...rest}>
-      {React.Children.map(children, (child, index) => {
-        if (!React.isValidElement(child)) {
+    <Base d="flex" className={clsx(className)} style={style} {...rest}>
+      {Children.map(children, (child, index) => {
+        if (!isValidElement(child)) {
           return null;
         }
 
         const childValue = child.props.value;
         const isSelected = childValue === value;
-        const buttonClasses = `${isSelected ? 'active' : ''} ${
-          hasOnlyTwoChildren && index === childrenCount - 1 ? 'toggle-button-border-left' : ''
-        }`;
-        return React.cloneElement(child, {
+
+        return cloneElement(child, {
           onClick: () => handleButtonClick(index, childValue),
-          className: buttonClasses,
-        } as React.DOMAttributes<HTMLButtonElement>);
+          active: isSelected,
+        } as DOMAttributes<HTMLButtonElement>);
       })}
     </Base>
   );

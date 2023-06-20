@@ -2,15 +2,19 @@ import React, { useEffect, useState } from 'react';
 
 import { axios } from '@/lib/api';
 import { choiceSource } from '@/utils';
-import TransferList from './TransferList';
+import { TransferList } from './TransferList';
 
-interface Props {
+interface ManyToManyFieldProps {
   data?: any;
   fieldName: string;
   handleComponentsChange: (fieldName: string, fieldValue: any) => void;
 }
 
-const ManyToManyField: React.FC<Props> = ({ data = {}, fieldName, handleComponentsChange }) => {
+export const ManyToManyField: React.FC<ManyToManyFieldProps> = ({
+  data = {},
+  fieldName,
+  handleComponentsChange,
+}) => {
   const [choices, setChoices] = useState<any[]>([]);
 
   useEffect(() => {
@@ -38,5 +42,3 @@ const ManyToManyField: React.FC<Props> = ({ data = {}, fieldName, handleComponen
     </div>
   );
 };
-
-export default ManyToManyField;

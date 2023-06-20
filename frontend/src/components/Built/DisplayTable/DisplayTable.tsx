@@ -15,7 +15,7 @@ import {
   Text,
   Tooltip,
 } from '@/components/Elements';
-import { MaterialIcon } from '@/components/Media';
+import { Icon } from '@/components/Media';
 import { BaseProps } from '@/theme/base';
 
 type Cell = { id: string; value: any };
@@ -88,7 +88,7 @@ export const DisplayTable: FC<DisplayTableProps> = ({
               {data.columns.map((column) => (
                 <TableCell key={column.id}>
                   <Flexer j="c" a="c">
-                    {column.icon && <MaterialIcon icon={column.icon} ml={4} size="26px" />}
+                    {column.icon && <Icon icon={column.icon} ml={4} size="26px" />}
                     <Text t="h5" a="c" fw={500} mr={28}>
                       {column.name}
                     </Text>

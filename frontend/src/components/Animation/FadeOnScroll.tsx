@@ -1,13 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 
 interface FadeOnScrollProps {
-  children: React.ReactNode;
+  children: ReactNode;
   animationDuration?: number;
   onScreenPercentage?: number;
 }
 
-const FadeOnScroll: React.FC<FadeOnScrollProps> = ({
+export const FadeOnScroll: FC<FadeOnScrollProps> = ({
   children,
   animationDuration = 1,
   onScreenPercentage = 0.5,
@@ -22,8 +22,7 @@ const FadeOnScroll: React.FC<FadeOnScrollProps> = ({
         const top = ref.current.offsetTop;
         const height = ref.current.clientHeight;
         const isVisible =
-          top + height * onScreenPercentage <
-          window.pageYOffset + window.innerHeight;
+          top + height * onScreenPercentage < window.pageYOffset + window.innerHeight;
         setIsVisible(isVisible);
 
         if (isVisible) {
@@ -34,9 +33,9 @@ const FadeOnScroll: React.FC<FadeOnScrollProps> = ({
 
     onScroll();
 
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener('scroll', onScroll);
 
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   const start: any = { opacity: 0 };
@@ -46,14 +45,8 @@ const FadeOnScroll: React.FC<FadeOnScrollProps> = ({
   };
 
   return (
-    <motion.div
-      ref={ref}
-      animate={isVisible || hasBeenVisible ? end : start}
-      initial={start}
-    >
+    <motion.div ref={ref} animate={isVisible || hasBeenVisible ? end : start} initial={start}>
       {children}
     </motion.div>
   );
 };
-
-export default FadeOnScroll;

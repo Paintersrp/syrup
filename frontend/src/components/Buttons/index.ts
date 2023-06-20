@@ -1,3 +1,4 @@
+import { BrandButton } from './BrandButton/BrandButton';
 import { Button } from './Button/Button';
 import { FAB } from './FAB/FAB';
 import { IconButton } from './IconButton/IconButton';
@@ -8,6 +9,7 @@ import { ToggleButton } from './ToggleButton/ToggleButton';
 import { ToggleButtonGroup } from './ToggleButton/ToggleButtonGroup';
 
 export {
+  BrandButton,
   Button,
   FAB,
   IconButton,
@@ -19,6 +21,6 @@ export {
   ToggleButtonGroup,
 };
 
-import type { ButtonPalette, ButtonSize, ButtonVariant } from './Button/Button';
+import type { ButtonSize, ButtonVariant } from './Button/Button';
 import type { IconButtonSize } from './IconButton/IconButton';
-export { ButtonPalette, ButtonSize, ButtonVariant, IconButtonSize };
+export { ButtonSize, ButtonVariant, IconButtonSize };

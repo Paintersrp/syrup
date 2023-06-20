@@ -32,13 +32,7 @@ export const PostInfoBar: FC<{ post: PostContent }> = ({ post }) => {
         {formattedDate} • {readTime} min read
       </Text>
       <Tooltip text="Bookmark Post">
-        <IconButton
-          fontSize="18px"
-          size="t"
-          material="bookmark_add"
-          className="primary-button"
-          iconColor={colors.primary.main}
-        />
+        <IconButton palette="primary" variant="hover" size="tiny" icon="bookmark_add" />
       </Tooltip>
     </Flexer>
   );

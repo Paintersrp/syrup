@@ -3,21 +3,14 @@ import { FC } from 'react';
 import { Flexer } from '@/components/Containers';
 import { BaseProps } from '@/theme/base';
 import List from '../../List/List';
-import ListItem from '../../List/ListItem';
+import ListItem, { ListItemDataType } from '../../List/ListItem';
 import { Divider } from '../../Divider/Divider';
 import { colors } from '@/theme/common';
 
-interface DrawerContentProps {
+interface DrawerContentProps extends BaseProps {
   handleClose?: () => void;
   itemClass?: string;
   items: ListItemDataType[];
-}
-
-export interface ListItemDataType extends BaseProps {
-  text: string;
-  to: string;
-  icon?: any;
-  onClick?: () => void;
 }
 
 const DrawerContent: FC<DrawerContentProps> = ({ items, itemClass, ...rest }) => {

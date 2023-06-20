@@ -1,7 +1,7 @@
 import { SectionHeader, SocialButtons } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
 import { Text } from '@/components/Elements';
-import { MaterialIcon } from '@/components/Media';
+import { Icon } from '@/components/Media';
 import { ImageHeader } from '@/components/Built/ImageHeader/ImageHeader';
 import { Paragraph } from '@/features/about/components/Paragraph';
 
@@ -50,7 +50,7 @@ const ObjectPreview: FC<ObjectPreviewProps> = ({ modelName, formData, newImage }
     case 'Value':
       return (
         <Flexer fd="column" j="c" a="c" w="auto" mt={18}>
-          <MaterialIcon size="28px" icon={formData.icon} className="value-icon" />
+          <Icon size="28px" icon={formData.icon} className="value-icon" />
           <Text className="value-title" a="c" mb={8}>
             {formData.title}
           </Text>

@@ -1,5 +1,6 @@
+import { CSSProperties, FC } from 'react';
 import clsx from 'clsx';
-import React, { CSSProperties } from 'react';
+
 import { Base, BaseProps } from '@/theme/base';
 
 interface FlexerProps extends BaseProps {
@@ -14,7 +15,7 @@ interface FlexerProps extends BaseProps {
   fade?: boolean;
 }
 
-const Flexer: React.FC<FlexerProps> = ({
+export const Flexer: FC<FlexerProps> = ({
   w: width = '100%',
   grow = false,
   wrap = false,
@@ -42,5 +43,3 @@ const Flexer: React.FC<FlexerProps> = ({
     </Base>
   );
 };
-
-export default Flexer;

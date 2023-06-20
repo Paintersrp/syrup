@@ -6,16 +6,16 @@ import { Theme, ExtendedTheme } from '@/theme/types';
 import { generateColorSet } from '@/theme/utils/generate';
 
 export const defaultColors: any = {
-  ...generateColorSet('primary', '#2e3b55', 0.1, 0.05),
+  ...generateColorSet('primary', '#2e3b55', 0.1, 0.1),
   ...generateColorSet('secondary', '#ff8c00', 0.2, 0.05),
   ...generateColorSet('tertiary', '#9E5CF7', 0.2, 0.05),
   ...generateColorSet('quaternary', '#3ad984', 0.2, 0.2),
   ...generateColorSet('error', '#f44336', 0.05, 0.15),
-  ...generateColorSet('warning', '#f08a24', 0.1, 0.05),
+  ...generateColorSet('warning', '#f08a24', 0.1, 0.1),
   ...generateColorSet('success', '#4caf50', 0.1, 0.1),
   ...generateColorSet('info', '#1976d2', 0.2, 0.15),
-  ...generateColorSet('slate', '#444f60', 0.1, 0.05),
-  ...generateColorSet('smoke', '#dbe5ef', 0.05, 0.05),
+  ...generateColorSet('slate', '#444f60', 0.1, 0.1),
+  ...generateColorSet('smoke', '#dbe5ef', 0.05, 0.1),
 
   dark: '#222',
   darkLight: lighten(0.1, '#222'),
@@ -59,10 +59,15 @@ const buildBaseTheme = (): Theme => {
     noticeInfoText: defaultColors.dark,
     noticeTipBackground: '#F5BE31',
     noticeTipText: defaultColors.dark,
-    noticeWarningBackground: '#d73a49',
+    noticeWarningBackground: lighten(0.2, defaultColors.errorLight),
     noticeWarningText: defaultColors.dark,
     noticeSuccessBackground: defaultColors.quaternary,
     noticeSuccessText: defaultColors.dark,
+  };
+
+  const errorNotice = {
+    errorNoticeBackground: lighten(0.3, defaultColors.errorLight),
+    errorNoticeBorder: `1px solid ${lighten(0.15, defaultColors.errorLight)}`,
   };
 
   const table = { tableSelectedBackground: transparentize(0.8, defaultColors.accent) };
@@ -72,6 +77,7 @@ const buildBaseTheme = (): Theme => {
     ...font,
     ...text,
     ...notice,
+    ...errorNotice,
     ...table,
     ...defaultColors,
     breakpoints,

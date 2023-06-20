@@ -9,7 +9,7 @@ import Text from '../Text/Text';
 interface ListItemWithIconProps {
   text?: string;
   subtext?: string;
-  icon: IconDefinition;
+  icon: string;
   iconColor?: string;
   textAlign?: 'left' | 'right' | 'center';
   to?: string;

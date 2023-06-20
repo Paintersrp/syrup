@@ -1,9 +1,8 @@
-import React, { CSSProperties, ReactElement, ReactEventHandler } from 'react';
-import { faCheck, faClose } from '@fortawesome/free-solid-svg-icons';
-import './ConfirmCancelBar.css';
+import { CSSProperties, FC, ReactElement, ReactEventHandler } from 'react';
+
+import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Tooltip, TooltipPosition } from '@/components/Elements';
-import { IconButton } from '@/components/Buttons';
 
 interface ConfirmCancelBarProps {
   handleConfirm: ReactEventHandler;
@@ -15,7 +14,7 @@ interface ConfirmCancelBarProps {
   style?: CSSProperties;
 }
 
-const ConfirmCancelBar: React.FC<ConfirmCancelBarProps> = ({
+export const ConfirmCancelBar: FC<ConfirmCancelBarProps> = ({
   handleConfirm,
   handleCancel,
   position = 'top',
@@ -29,25 +28,23 @@ const ConfirmCancelBar: React.FC<ConfirmCancelBarProps> = ({
       <Tooltip text="Confirm" position={position}>
         <IconButton
           size="md"
-          fontSize="20px"
           aria-label="Confirm"
           onClick={handleConfirm}
-          icon={faCheck}
-          className="confirm-button"
+          icon="check"
+          palette="success"
+          variant="hover"
         />
       </Tooltip>
       <Tooltip text="Cancel" position={position}>
         <IconButton
           size="md"
-          fontSize="20px"
           aria-label="Cancel"
           onClick={handleCancel}
-          icon={faClose}
-          className="cancel-button"
+          icon="close"
+          palette="error"
+          variant="hover"
         />
       </Tooltip>
     </Flexer>
   );
 };
-
-export default ConfirmCancelBar;

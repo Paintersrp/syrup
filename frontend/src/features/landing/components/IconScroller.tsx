@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import './css/IconScroller.css';
 
 import { Base, BaseProps } from '@/theme/base';
-import { Icon } from '@/components/Media';
 import { SOCIALS } from '@/settings';
 import { SocialContent } from '@/types';
+import { BrandButton } from '@/components/Buttons';
 
 export const IconScroller: React.FC<BaseProps> = ({ ...rest }) => {
   const duplicatedPartners: SocialContent[] = [...SOCIALS, ...SOCIALS, ...SOCIALS];
@@ -25,7 +25,13 @@ export const IconScroller: React.FC<BaseProps> = ({ ...rest }) => {
           {duplicatedPartners.map((social: SocialContent, index: number) => (
             <div key={`${social.name}-${index}`} className="icon-scroller-icon">
               <Link to={`https://www.${social.name}.com/${social.handle}`}>
-                <Icon icon={social.icon} size="2.5rem" />
+                <BrandButton
+                  icon={social.icon}
+                  fontSize="2.25rem"
+                  palette="primary"
+                  variant="float"
+                  size="lg"
+                />
               </Link>
             </div>
           ))}

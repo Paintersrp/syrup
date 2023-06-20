@@ -1,4 +1,4 @@
-import React, { ReactNode, CSSProperties } from 'react';
+import { ReactNode, CSSProperties, FC } from 'react';
 
 import { Base, BaseProps } from '@/theme/base';
 import { shadows } from '@/theme/common';
@@ -19,7 +19,7 @@ interface SurfaceProps extends BaseProps {
   onClick?: any;
 }
 
-const Surface: React.FC<SurfaceProps> = ({
+export const Surface: FC<SurfaceProps> = ({
   children,
   maxWidth,
   minHeight,
@@ -69,4 +69,3 @@ const Surface: React.FC<SurfaceProps> = ({
     </Base>
   );
 };
-export default Surface;

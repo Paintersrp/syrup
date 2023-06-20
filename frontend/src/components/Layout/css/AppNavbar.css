@@ -20,7 +20,3 @@
   text-underline-offset: 4px;
   color: var(--color-secondary-main);
 }
-
-.menu-button:hover {
-  color: var(--color-secondary-main);
-}

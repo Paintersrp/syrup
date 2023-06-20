@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
+import { ChangeEvent, FC, FormEvent, Fragment, useState } from 'react';
 
-import { Container, Flexer, Item, Surface } from '@/components/Containers';
-import { BaseProps, HelpText, Text } from '@/components/Elements';
-
-import { axios } from '@/lib/api';
-import { Input, ImageInput } from '@/components/Form';
-import { ImageHeader } from './ImageHeader';
 import { ConfirmCancelBar } from '@/components/Built';
-import { ImageHeaderType } from '../../../features/about/types';
+import { Container, Flexer, Item, Surface } from '@/components/Containers';
+import { HelpText, Text } from '@/components/Elements';
+import { Input, ImageInput } from '@/components/Form';
+import { ImageHeaderType } from '@/features/about';
+import { axios } from '@/lib/api';
+import { BaseProps } from '@/theme/base';
 import { ErrorResponse } from '@/types';
 
+import { ImageHeader } from './ImageHeader';
 interface ImageHeaderEditProps extends BaseProps {
   data: ImageHeaderType;
   onUpdate: (updatedData: ImageHeaderType) => void;
   handleCancel: () => void;
 }
 
-export const ImageHeaderEdit: React.FC<ImageHeaderEditProps> = ({
+export const ImageHeaderEdit: FC<ImageHeaderEditProps> = ({
   data,
   onUpdate,
   handleCancel,
@@ -28,7 +28,7 @@ export const ImageHeaderEdit: React.FC<ImageHeaderEditProps> = ({
   const [newImage, setNewImage] = useState<string | null>(null);
   const [newImageName, setNewImageName] = useState<string | null>(null);
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
       const selectedImage = event.target.files[0];
       setImage(selectedImage);
@@ -36,8 +36,7 @@ export const ImageHeaderEdit: React.FC<ImageHeaderEditProps> = ({
       setNewImageName(selectedImage.name);
     }
   };
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     let formData = new FormData();
     formData.append('title', title);
@@ -64,20 +63,20 @@ export const ImageHeaderEdit: React.FC<ImageHeaderEditProps> = ({
         <Input name="title" value={title} onChange={(event) => setTitle(event.target.value)} />
 
         {data.image && (
-          <React.Fragment>
+          <Fragment>
             <Container>
               {!newImage && data.image && (
                 <ImageHeader header="Current Image" headerType="h4" src={data.image} mb={0} />
               )}
               {newImage ? (
-                <React.Fragment>
+                <Fragment>
                   <Item xs={12} sm={6}>
                     <ImageHeader header="Previous Image" headerType="h4" src={data.image} mb={0} />
                   </Item>
                   <Item xs={12} sm={6}>
                     <ImageHeader header="New Image" headerType="h4" src={newImage} mb={0} />
                   </Item>
-                </React.Fragment>
+                </Fragment>
               ) : null}
             </Container>
             <ImageInput
@@ -85,7 +84,7 @@ export const ImageHeaderEdit: React.FC<ImageHeaderEditProps> = ({
               newImage={newImage}
               newImageName={newImageName}
             />
-          </React.Fragment>
+          </Fragment>
         )}
       </Flexer>
       <ConfirmCancelBar

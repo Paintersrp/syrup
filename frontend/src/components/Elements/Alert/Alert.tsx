@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Alert.css';
 
 import { Base, BaseProps } from '@/theme/base';
-import { MaterialIcon } from '../../Media';
+import { Icon } from '../../Media';
 import Text from '../Text/Text';
 import { AlertState } from '@/stores/alert';
 
@@ -77,7 +77,7 @@ const Alert: React.FC<AlertProps> = ({
       onMouseLeave={handleMouseLeave}
       {...rest}
     >
-      <MaterialIcon
+      <Icon
         mr={8}
         icon={alert ? (alert?.type === 'success' ? 'check_circle' : alert?.type) : null}
         color="#fff"

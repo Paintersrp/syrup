@@ -1,15 +1,21 @@
 import React, { FC, MouseEvent } from 'react';
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import './List.css';
 
 import ListItemWithIcon from './ListItemWithIcon';
 import ListItemTextOnly from './ListItemTextOnly';
 import { Base, BaseProps } from '@/theme/base';
 
+export interface ListItemDataType {
+  text: string;
+  to: string;
+  icon?: any;
+  onClick?: () => void;
+}
+
 interface ListItemProps extends BaseProps {
   text?: string;
   subtext?: string;
-  icon?: IconDefinition | null;
+  icon: string;
   button?: boolean;
   onClick?: (event: MouseEvent<HTMLDivElement>) => void;
   style?: React.CSSProperties;

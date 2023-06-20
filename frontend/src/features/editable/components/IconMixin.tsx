@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ICON_OPTIONS, MaterialIcon } from '@/components/Media';
+import { ICON_OPTIONS, Icon } from '@/components/Media';
 import { HelpText, Text } from '@/components/Elements';
 import { Option, Select } from '@/components/Form';
 import { Flexer } from '@/components/Containers';
@@ -37,7 +37,7 @@ export const IconMixin: React.FC<IconMixinType> = ({
         {ICON_OPTIONS.map((icon) => (
           <Option key={`icon-${icon.id}`} value={icon.name}>
             <Flexer>
-              <MaterialIcon size="20px" icon={icon.name} mr={12} />
+              <Icon size="20px" icon={icon.name} mr={12} />
               <Text a="l">{icon.name}</Text>
             </Flexer>
           </Option>

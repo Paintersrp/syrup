@@ -41,7 +41,7 @@ const LoginForm: FC = ({}) => {
 
   return (
     <Fragment>
-      <Icon icon={faCoins} color="primary" size="2rem" style={{ margin: '8px 8px 16px 8px' }} />
+      <Icon icon="send_money" color="primary" size="2rem" style={{ margin: '8px 8px 16px 8px' }} />
       <Text t="h2" a="c" className="login-heading">
         Sign in
       </Text>

@@ -9,7 +9,7 @@ import { Icon } from '../../Media';
 interface MenuItemProps extends BaseProps {
   children: ReactNode;
   onClick?: () => void;
-  icon?: IconDefinition;
+  icon?: string;
   isActive?: boolean;
   textAlign?: 'left' | 'right' | 'center';
   iconColor?: string;

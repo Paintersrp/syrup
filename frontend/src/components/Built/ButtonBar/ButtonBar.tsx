@@ -1,10 +1,9 @@
-import React, { CSSProperties } from 'react';
+import { CSSProperties, FC } from 'react';
 import { Link } from 'react-router-dom';
-import { faScrewdriverWrench, faTrash, faEdit } from '@fortawesome/free-solid-svg-icons';
-import './ButtonBar.css';
+
+import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Tooltip } from '@/components/Elements';
-import { IconButton } from '@/components/Buttons';
 
 type ButtonBarProps = {
   justifyContent?: 'flex-start' | 'flex-end' | 'center';
@@ -14,13 +13,12 @@ type ButtonBarProps = {
   adminLink?: string;
   text?: string;
   obj?: string | number | null;
-  iconColor?: string;
   mt?: CSSProperties['marginTop'];
   mb?: CSSProperties['marginBottom'];
   dense?: boolean;
 };
 
-const ButtonBar: React.FC<ButtonBarProps> = ({
+export const ButtonBar: FC<ButtonBarProps> = ({
   justifyContent = 'flex-end',
   tooltipPosition = 'bottom',
   editClick,
@@ -28,26 +26,25 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
   adminLink,
   text = '',
   obj = null,
-  iconColor = 'secondary',
   mt: marginTop,
   mb: marginBottom,
   dense = 'false',
 }) => {
   return (
-    <Flexer j={justifyContent} mt={marginTop} mb={marginBottom}>
+    <Flexer j={justifyContent} mt={marginTop} mb={marginBottom} gap={2}>
       {editClick && (
         <Tooltip
           text={obj ? `Edit ${text} Object: ${obj}` : `Edit ${text}`}
           position={tooltipPosition}
         >
           <IconButton
+            variant="hover"
             aria-label="Edit"
-            size={dense ? 'tiny' : `small`}
-            fontSize={dense ? '1rem' : '1.2rem'}
+            size={dense ? 'tiny' : `sm`}
             onClick={editClick}
-            icon={faEdit}
+            icon="edit"
             style={{ marginRight: dense ? 1 : 5, marginBottom: dense ? 1 : 5 }}
-            className={`buttonbar-button-${iconColor}`}
+            palette="primary"
           />
         </Tooltip>
       )}
@@ -57,13 +54,13 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
           position={tooltipPosition}
         >
           <IconButton
+            variant="hover"
             aria-label="Delete"
-            size={dense ? 'tiny' : `small`}
-            fontSize={dense ? '1rem' : '1.2rem'}
+            size={dense ? 'tiny' : `sm`}
             onClick={deleteClick}
-            icon={faTrash}
+            icon="delete"
             style={{ marginRight: dense ? 1 : 5, marginBottom: dense ? 1 : 5 }}
-            className={`buttonbar-button-${iconColor}`}
+            palette="error"
           />
         </Tooltip>
       )}
@@ -71,16 +68,16 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
         <Tooltip text={`${text} Admin`} position={tooltipPosition}>
           <Link to={`/admin/${adminLink}`}>
             <IconButton
+              variant="hover"
               aria-label="Admin Panel"
-              size={dense ? 'tiny' : `small`}
-              fontSize={dense ? '1rem' : '1.2rem'}
+              size={dense ? 'tiny' : `sm`}
               onClick={deleteClick}
-              icon={faScrewdriverWrench}
+              icon="admin_panel_settings"
+              palette="primary"
               style={{
                 marginRight: dense ? 0 : 5,
                 marginBottom: dense ? 0 : 5,
               }}
-              className={`buttonbar-button-${iconColor}`}
             />
           </Link>
         </Tooltip>
@@ -88,5 +85,3 @@ const ButtonBar: React.FC<ButtonBarProps> = ({
     </Flexer>
   );
 };
-
-export default ButtonBar;

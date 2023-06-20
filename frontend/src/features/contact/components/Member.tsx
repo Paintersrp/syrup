@@ -1,7 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 
 import { ButtonBar } from '@/components/Built';
-import { IconButton } from '@/components/Buttons';
 import { Flexer, Item, Surface } from '@/components/Containers';
 import { Divider, Text, Tooltip } from '@/components/Elements';
 import { BaseProps } from '@/theme/base';
@@ -11,6 +10,7 @@ import { SOCIALS } from '@/settings';
 
 import { MemberContent } from '../types';
 import { FormGenerator } from '@/features/editable/components/FormGenerator';
+import { BrandButton } from '@/components/Buttons/BrandButton/BrandButton';
 
 interface MemberProps extends BaseProps {
   member: MemberContent;
@@ -78,11 +78,11 @@ export const Member: FC<MemberProps> = ({ member, editMode = false, newImage, ..
                     position="bottom"
                     key={platform.name}
                   >
-                    <IconButton
+                    <BrandButton
+                      variant="hover"
                       size="sm"
-                      fontSize="1.35rem"
+                      fontSize="1.25rem"
                       aria-label={platform.name}
-                      className="info-button"
                       icon={platform.icon}
                       href={`https://www.${platform.name}.com/${memberData[platform.name]}`}
                     />

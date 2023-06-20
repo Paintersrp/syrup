@@ -57,8 +57,9 @@ export {
   TreeNode,
 };
 
+import type { ListItemDataType } from './List/ListItem';
 import type { TextAlign, TextProps, TextType } from './Text/Text';
 import type { TooltipPosition } from './Tooltip/Tooltip';
 import type { TableSizes } from './Table/Table';
 
-export type { TableSizes, TextAlign, TextProps, TextType, TooltipPosition };
+export type { ListItemDataType, TableSizes, TextAlign, TextProps, TextType, TooltipPosition };

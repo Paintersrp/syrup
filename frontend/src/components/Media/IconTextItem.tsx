@@ -1,6 +1,6 @@
 import React, { CSSProperties } from 'react';
 
-import MaterialIcon from './MaterialIcon';
+import Icon from './Icon';
 
 import { Flexer } from '@/components/Containers';
 import { colors } from '@/theme/common';
@@ -37,7 +37,7 @@ const IconTextItem: React.FC<IconTextItemProps> = ({
   return (
     <div onClick={onClick && onClick}>
       <Flexer w="auto" {...rest} j="c" a="c">
-        {icon && <MaterialIcon icon={icon} mr={6} style={{ color: iconColor }} size={iconSize} />}
+        {icon && <Icon icon={icon} mr={6} style={{ color: iconColor }} size={iconSize} />}
         <Flexer fd="column" a="c" j="c" mr={30}>
           {text && (
             <Text a={textAlign} s={fontSize} fw={fw}>

@@ -1,30 +1,53 @@
 import { ExtendedTheme } from '../types';
 
-type IconStyle = (theme: ExtendedTheme) => {
+type IconBasicStyle = (theme: ExtendedTheme) => {
   color: string;
-  hover: string;
+  backgroundColor: string;
+};
+
+type IconHoverStyle = IconBasicStyle & {
+  '&:hover'?: {
+    color: string;
+    backgroundColor: string;
+  };
 };
 
 type IconPalette = {
   [key: string]: {
-    outlined: IconStyle;
-    standard: IconStyle;
+    hover: IconBasicStyle;
+    float: IconBasicStyle;
+    standard: IconHoverStyle;
   };
 };
 
-const createOutlinedStyle = (theme: ExtendedTheme, baseColor: string) => {
+const createHoverStyle = (theme: ExtendedTheme, baseColor: string) => {
   const color = theme[baseColor as keyof ExtendedTheme] as string;
 
   return {
     color,
-    hover: theme.light,
+    transition: 'background 0.3s ease',
+    backgroundColor: 'transparent',
+    '&:hover': {
+      color: baseColor === 'light' ? theme.primary : theme.light,
+      backgroundColor: color,
+    },
+  };
+};
+const createFloatStyle = (theme: ExtendedTheme, baseColor: string) => {
+  const color = theme[baseColor as keyof ExtendedTheme] as string;
+
+  return {
+    color,
+    backgroundColor: 'transparent',
   };
 };
 
-const createStandardStyle = (theme: ExtendedTheme) => {
+const createStandardStyle = (theme: ExtendedTheme, baseColor: string) => {
+  const color = theme[baseColor as keyof ExtendedTheme] as string;
+
   return {
     color: theme.light,
-    hover: theme.light,
+    backgroundColor: color,
   };
 };
 
@@ -37,6 +60,8 @@ const iconConfigurations = [
   'error',
   'info',
   'warning',
+  'slate',
+  'smoke',
   'light',
   'dark',
 ];
@@ -45,7 +70,8 @@ export const iconPalette: IconPalette = {};
 
 iconConfigurations.forEach((color) => {
   iconPalette[color] = {
-    outlined: (theme: ExtendedTheme) => createOutlinedStyle(theme, color),
-    standard: (theme: ExtendedTheme) => createStandardStyle(theme),
+    hover: (theme: ExtendedTheme) => createHoverStyle(theme, color),
+    float: (theme: ExtendedTheme) => createFloatStyle(theme, color),
+    standard: (theme: ExtendedTheme) => createStandardStyle(theme, color),
   };
 });

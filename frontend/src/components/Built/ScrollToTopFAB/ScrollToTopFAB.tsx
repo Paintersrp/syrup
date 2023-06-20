@@ -1,20 +1,68 @@
-import { FC, useEffect, useState } from 'react';
-import './ScrollToTopFAB.css';
+import { FC, Fragment, useEffect, useState } from 'react';
+import { css, keyframes } from '@emotion/react';
 
-import { scrollToTop } from '@/utils';
 import { FAB } from '@/components/Buttons';
+import { scrollToTop } from '@/utils';
 
 interface ScrollToTopFABProps {}
 
+const fadeInAnimation = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const fadeOutAnimation = keyframes`
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+`;
+
+export const scrollToTopFABCx = {
+  fadeInFab: css({
+    animation: `${fadeInAnimation} 0.3s ease-in`,
+  }),
+  fadeOutFab: css({
+    animation: `${fadeOutAnimation} 0.3s ease-out`,
+  }),
+  fabAnimate: css({
+    animationFillMode: 'both',
+  }),
+};
+
 export const ScrollToTopFAB: FC<ScrollToTopFABProps> = () => {
-  const [showFab, setShowFab] = useState(false);
+  const [animateTrigger, setAnimateTrigger] = useState(false);
+  const [hideFab, setHideFab] = useState(false);
 
   useEffect(() => {
+    let prevShowFab = false;
+
     const handleScroll = () => {
-      if (window.pageYOffset > 150) {
-        setShowFab(true);
-      } else {
-        setShowFab(false);
+      const currentScrollY = window.pageYOffset;
+      const shouldShowFab = currentScrollY > 150;
+
+      if (shouldShowFab !== prevShowFab) {
+        prevShowFab = shouldShowFab;
+
+        if (!shouldShowFab) {
+          setAnimateTrigger(true);
+          setTimeout(() => {
+            setHideFab(true);
+            setAnimateTrigger(false);
+          }, 300); // Duration of fade-out animation (0.3s)
+        } else {
+          setHideFab(false);
+        }
       }
     };
 
@@ -30,17 +78,20 @@ export const ScrollToTopFAB: FC<ScrollToTopFABProps> = () => {
   };
 
   return (
-    <>
-      {showFab && (
+    <Fragment>
+      {!hideFab && (
         <FAB
           aria-label="menu"
           onClick={handleClick}
           icon="arrow_upward"
           size="20px"
-          className={`fab-animate ${showFab ? 'fade-in-fab' : 'fade-out-fab'}`}
+          css={[
+            scrollToTopFABCx.fabAnimate,
+            animateTrigger ? scrollToTopFABCx.fadeOutFab : scrollToTopFABCx.fadeInFab,
+          ]}
           tooltip="Scroll to Top"
         />
       )}
-    </>
+    </Fragment>
   );
 };

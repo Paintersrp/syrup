@@ -9,3 +9,8 @@ export const breakpoints: Breakpoints = {
   xl: 1280,
   xxl: 1920,
 };
+
+export const mediaQueries = Object.entries(breakpoints).reduce((acc, [breakpoint, value]) => {
+  acc[breakpoint as Breakpoint] = `@media (max-width: ${value}px)`;
+  return acc;
+}, {} as { [key in Breakpoint]: string });

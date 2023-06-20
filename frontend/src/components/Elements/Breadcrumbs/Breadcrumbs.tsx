@@ -1,17 +1,15 @@
 import React, { ReactNode } from 'react';
 import './Breadcrumbs.css';
-
-import { faChevronRight, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { Icon } from '../../Media';
 
 interface BreadcrumbsProps {
-  separator?: IconDefinition;
+  separator?: string;
   children: ReactNode;
   style?: React.CSSProperties;
 }
 
 const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
-  separator = faChevronRight,
+  separator = 'chevron_right',
   children,
   style,
 }) => {

@@ -14,25 +14,17 @@ const Template: StoryFn<IconButtonProps> = (args) => <IconButton {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   size: 'lg',
-  fontSize: '1rem',
-  shade: 'main',
-  color: 'primary',
-  invertColors: false,
   onClick: () => {
     console.log('IconButton clicked');
   },
-  material: 'check', // Add an appropriate icon definition here
+  icon: 'check', // Add an appropriate icon definition here
 };
 
 export const WithMaterialIcon = Template.bind({});
 WithMaterialIcon.args = {
   size: 'lg',
-  fontSize: '1rem',
-  shade: 'main',
-  color: 'primary',
-  invertColors: false,
   onClick: () => {
     console.log('IconButton clicked');
   },
-  material: 'add_circle', // Add an appropriate material icon name here
+  icon: 'add_circle', // Add an appropriate material icon name here
 };

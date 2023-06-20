@@ -79,14 +79,14 @@ const TransferList: React.FC<TransferListProps> = ({ leftItems, rightItems, ...r
         <IconButton
           className="move-button"
           size="sm"
-          icon={faArrowRight}
+          icon="arrow_right"
           onClick={handleMoveRight}
           mb={4}
         />
         <IconButton
           className="move-button"
           size="sm"
-          icon={faArrowLeft}
+          icon="arrow_left"
           onClick={handleMoveLeft}
           mt={4}
         />

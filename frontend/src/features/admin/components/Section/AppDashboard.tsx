@@ -117,11 +117,9 @@ const AppDashboard: React.FC<AppDashboardProps> = ({}) => {
                 {collapsed ? 'Open All' : 'Collapse All'}
               </Text>
               <IconButton
-                fontSize="21px"
-                size="t"
-                material={collapsed ? 'expand_more' : 'expand_less'}
+                size="tiny"
+                icon={collapsed ? 'expand_more' : 'expand_less'}
                 onClick={collapsed ? handleOpenAll : handleCollapseAll}
-                iconColor="#fff"
               />
             </Flexer>
             <Container a="fs">

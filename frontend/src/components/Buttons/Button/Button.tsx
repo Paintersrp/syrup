@@ -4,28 +4,14 @@ import clsx from 'clsx';
 
 import { Flexer } from '@/components/Containers';
 import { Text } from '@/components/Elements';
-import { MaterialIcon } from '@/components/Media';
-import { buttonPalette, iconPalette } from '@/theme/palettes';
+import { Icon } from '@/components/Media';
+import { buttonPalette, iconPalette, PaletteOptions } from '@/theme/palettes';
 import { classify } from '@/theme/base';
 import { useTheme } from '@emotion/react';
-import { ExtendedTheme, Theme } from '@/theme/types';
+import { ExtendedTheme } from '@/theme/types';
 
 export type ButtonSize = 'tiny' | 'sm' | 'md' | 'lg';
 export type ButtonVariant = 'outlined' | 'standard';
-
-export type ButtonPalette =
-  | 'primary'
-  | 'secondary'
-  | 'tertiary'
-  | 'quaternary'
-  | 'error'
-  | 'success'
-  | 'info'
-  | 'warning'
-  | 'slate'
-  | 'smoke'
-  | 'light'
-  | 'dark';
 
 const sizes = {
   tiny: { py: 2, px: 2, fontSize: '0.8rem', iconSize: '14px' },
@@ -34,7 +20,7 @@ const sizes = {
   lg: { py: 8, px: 8, fontSize: '1rem', iconSize: '20px' },
 };
 
-const buttonCx = {
+export const buttonCx = {
   buttonRoot: (props: RootProps) => {
     const padding = props.size ? `${sizes[props.size].py}px ${sizes[props.size].px}px` : '';
     const borderRadius = `${props.br ? props.br : 4}px`;
@@ -72,7 +58,7 @@ const buttonCx = {
 export type RootProps = {
   size?: ButtonSize;
   variant?: ButtonVariant;
-  palette?: ButtonPalette;
+  palette?: PaletteOptions;
   w?: CSSProperties['width'];
   ml?: CSSProperties['marginLeft'];
   mr?: CSSProperties['marginRight'];
@@ -157,13 +143,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       >
         <Flexer a="c" j="c">
           {startIcon && (
-            <MaterialIcon
+            <Icon
               icon={startIcon}
               size={sizes[size]?.iconSize}
               color={
                 hover
-                  ? iconPalette[palette][variant](theme)?.hover
-                  : iconPalette[palette][variant](theme)?.color
+                  ? iconPalette[palette][variant === 'outlined' ? 'hover' : variant](theme)?.color
+                  : theme.light
               }
             />
           )}
@@ -171,13 +157,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             {children}
           </Text>
           {endIcon && (
-            <MaterialIcon
+            <Icon
               icon={endIcon}
               size={sizes[size]?.iconSize}
               color={
                 hover
-                  ? iconPalette[palette][variant](theme)?.hover
-                  : iconPalette[palette][variant](theme)?.color
+                  ? iconPalette[palette][variant === 'outlined' ? 'float' : variant](theme)?.color
+                  : theme.light
               }
             />
           )}

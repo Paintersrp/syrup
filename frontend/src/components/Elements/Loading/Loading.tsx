@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import './Loading.css';
 
-import { MaterialIcon } from '../../Media';
+import { Icon } from '../../Media';
 
 import { Flexer } from '../../Containers';
 import { colors } from '@/theme/common';
@@ -29,9 +29,9 @@ const Loading: React.FC<LoadingProps> = ({ load }) => {
         <div className="progress"></div>
       </div>
       <Flexer j="c" a="c">
-        <MaterialIcon icon="circle" className="dot-icon dot-1" color={colors.secondary.main} />
-        <MaterialIcon icon="circle" className="dot-icon dot-2" color={colors.secondary.main} />
-        <MaterialIcon icon="circle" className="dot-icon dot-3" color={colors.secondary.main} />
+        <Icon icon="circle" className="dot-icon dot-1" color={colors.secondary.main} />
+        <Icon icon="circle" className="dot-icon dot-2" color={colors.secondary.main} />
+        <Icon icon="circle" className="dot-icon dot-3" color={colors.secondary.main} />
       </Flexer>
     </div>
   );

@@ -88,7 +88,7 @@ function RecentActions({
             }}
             style={{ textDecoration: 'none', color: 'inherit' }}
           >
-            <IconButton material="auto_stories" size="t" fontSize="16px" color="secondary" />
+            <IconButton icon="auto_stories" size="tiny" palette="secondary" />
           </Link>
         </Tooltip>
       </PanelHeader>

@@ -4,7 +4,7 @@ import './Select.css';
 import { Divider, HelpText, Text } from '../../Elements';
 import { Base, BaseProps } from '@/theme/base';
 import { OptionProps } from '../Option/Option';
-import { MaterialIcon } from '../../Media';
+import { Icon } from '../../Media';
 
 interface SelectProps extends BaseProps {
   children: ReactNode;
@@ -104,7 +104,7 @@ const Select: React.FC<SelectProps> = ({
         className={dense ? 'selected-option-dense' : 'selected-option'}
         onClick={handleToggleOptions}
       >
-        {iconMixin && <MaterialIcon size="20px" icon={selectedOption} mr={12} />}
+        {iconMixin && <Icon size="20px" icon={selectedOption} mr={12} />}
         <Text style={textStyle}>{selectedOption || '\u00A0'}</Text>
       </div>
       <div style={style}>

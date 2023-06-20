@@ -4,9 +4,9 @@ import './List.css';
 import { Surface } from '../../Containers';
 import { Divider } from '../Divider/Divider';
 import { colors } from '@/theme/common';
-import { JustificationValue } from '@/theme/base';
+import { BaseProps, JustificationValue } from '@/theme/base';
 
-interface ListProps {
+interface ListProps extends BaseProps {
   children: ReactNode;
   spacing?: number;
   dividers?: boolean;

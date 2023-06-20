@@ -7,7 +7,7 @@ import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { Text, Tooltip } from '@/components/Elements';
 import { Base } from '@/theme/base';
 
-import { MaterialIcon } from '@/components/Media';
+import { Icon } from '@/components/Media';
 
 import { BenefitType } from '../../types';
 import { colors } from '@/theme/common';
@@ -36,7 +36,7 @@ export const Benefit: FC<BenefitProps> = ({ benefit, editMode }) => {
       {!editing ? (
         <Surface boxShadow={1} maxWidth={325} j="c" a="c" br={8} px={1.5} py={1.5}>
           <Flexer j="c">
-            <MaterialIcon icon={data.icon} color={colors.primary.main} size="28px" mb={4} />
+            <Icon icon={data.icon} size="28px" mb={4} />
           </Flexer>
           <Text t="h4" a="c" mt={8} s="1.5rem" fw={700}>
             {data.title}
@@ -48,13 +48,7 @@ export const Benefit: FC<BenefitProps> = ({ benefit, editMode }) => {
             <Flexer j="fe" a="c">
               <Tooltip text={`View ${data.buttonText}`} position="bottom">
                 <Link to={`/${benefit.page_link}`}>
-                  <IconButton
-                    size="t"
-                    material="link"
-                    className="secondary-button"
-                    iconColor={colors.secondary.main}
-                    fontSize="21px"
-                  />
+                  <IconButton size="tiny" icon="link" palette="secondary" variant="hover" />
                 </Link>
               </Tooltip>
             </Flexer>

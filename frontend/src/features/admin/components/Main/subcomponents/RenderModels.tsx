@@ -53,7 +53,7 @@ const RenderModels: React.FC<RenderModelsProps> = ({ modelItem, appName }) => {
                   }}
                 >
                   <Flexer>
-                    <Icon icon={faCode} size="1.1rem" />
+                    <Icon icon="code" size="1.1rem" />
                     <ListItem
                       //   icon={model.icon} change back to model.icon once redone
                       style={{ color: 'black', width: '100%' }}
@@ -68,12 +68,11 @@ const RenderModels: React.FC<RenderModelsProps> = ({ modelItem, appName }) => {
                       >
                         <Tooltip text={`Create ${model.verbose_name} Object`} position="bottom">
                           <IconButton
-                            material="add"
-                            size="t"
-                            color="secondary"
+                            icon="add"
+                            size="tiny"
                             style={{ marginRight: 16 }}
-                            className="add-button"
-                            iconColor={colors.success.main}
+                            variant="hover"
+                            palette="success"
                           />
                         </Tooltip>
                       </Flexer>

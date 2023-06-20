@@ -2,7 +2,7 @@ import React, { CSSProperties, useState } from 'react';
 import './Tag.css';
 
 import { Base, BaseProps } from '@/theme/base';
-import { MaterialIcon } from '../../Media';
+import { Icon } from '../../Media';
 import Text from '../Text/Text';
 
 interface TagProps extends BaseProps {
@@ -45,9 +45,7 @@ const Tag: React.FC<TagProps> = ({ label, onDelete, onClick, className, style, .
       <Text t="subtitle2" s="0.85rem" a="c" className="tag-label">
         {label}
       </Text>
-      {onDelete && (
-        <MaterialIcon size="15px" color="#fff" className="tag-delete-icon" icon="close" />
-      )}
+      {onDelete && <Icon size="15px" color="#fff" className="tag-delete-icon" icon="close" />}
     </Base>
   );
 };

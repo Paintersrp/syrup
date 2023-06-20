@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 
 import { Tooltip } from '../../Elements';
 import { Base, BaseProps } from '@/theme/base';
-import { MaterialIcon } from '../../Media';
+import { Icon } from '../../Media';
 
 const fabCx = {
   fabButton: css({
@@ -57,7 +57,7 @@ export const FAB: React.FC<FABProps> = ({
 
   const button = (
     <button css={fabCx.fabButton} onClick={onClick}>
-      <MaterialIcon icon={icon} color="#fff" size={size} />
+      <Icon icon={icon} color="#fff" size={size} />
     </button>
   );
 

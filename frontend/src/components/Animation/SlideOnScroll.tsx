@@ -1,20 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { FC, ReactNode, useEffect, useRef, useState } from 'react';
+import { motion } from 'framer-motion';
 
 interface SlideOnScrollProps {
-  children: React.ReactNode;
-  from?: "above" | "below" | "left" | "right";
+  children: ReactNode;
+  from?: 'above' | 'below' | 'left' | 'right';
   animationDuration?: number;
   onScreenPercentage?: number;
 }
 
-const SlideOnScroll: React.FC<SlideOnScrollProps> = ({
+export const SlideOnScroll: FC<SlideOnScrollProps> = ({
   children,
-  from = "below",
+  from = 'below',
   animationDuration = 1,
   onScreenPercentage = 0.5,
 }) => {
-  const [ready, setReady] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [hasBeenVisible, setHasBeenVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -25,8 +24,7 @@ const SlideOnScroll: React.FC<SlideOnScrollProps> = ({
         const top = ref.current.offsetTop;
         const height = ref.current.clientHeight;
         const isVisible =
-          top + height * onScreenPercentage <
-          window.pageYOffset + window.innerHeight;
+          top + height * onScreenPercentage < window.pageYOffset + window.innerHeight;
         setIsVisible(isVisible);
 
         if (isVisible) {
@@ -37,31 +35,24 @@ const SlideOnScroll: React.FC<SlideOnScrollProps> = ({
 
     onScroll();
 
-    window.addEventListener("scroll", onScroll);
+    window.addEventListener('scroll', onScroll);
 
-    return () => window.removeEventListener("scroll", onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   let start: any;
   let end: any;
 
-  // const start: any = { y: 200, opacity: 0 };
-  // const end: any = {
-  //   y: 0,
-  //   opacity: 1,
-  //   transition: { duration: animationDuration },
-  // };
-
-  if (from === "above") {
+  if (from === 'above') {
     start = { y: -150, opacity: 0 };
     end = { y: 0, opacity: 1, transition: { duration: animationDuration } };
-  } else if (from === "below") {
+  } else if (from === 'below') {
     start = { y: 150, opacity: 0 };
     end = { y: 0, opacity: 1, transition: { duration: animationDuration } };
-  } else if (from === "left") {
+  } else if (from === 'left') {
     start = { x: -150, opacity: 0 };
     end = { x: 0, opacity: 1, transition: { duration: animationDuration } };
-  } else if (from === "right") {
+  } else if (from === 'right') {
     start = { x: 150, opacity: 0 };
     end = { x: 0, opacity: 1, transition: { duration: animationDuration } };
   } else {
@@ -70,14 +61,8 @@ const SlideOnScroll: React.FC<SlideOnScrollProps> = ({
   }
 
   return (
-    <motion.div
-      ref={ref}
-      animate={isVisible || hasBeenVisible ? end : start}
-      initial={start}
-    >
+    <motion.div ref={ref} animate={isVisible || hasBeenVisible ? end : start} initial={start}>
       {children}
     </motion.div>
   );
 };
-
-export default SlideOnScroll;
