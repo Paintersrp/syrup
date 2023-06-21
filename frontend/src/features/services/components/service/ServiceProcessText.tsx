@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from 'react';
 
-import { ButtonBar } from '@/components/Built';
 import { Base } from '@/theme/base';
 import { IconTextItem } from '@/components/Media';
+import { ButtonBar } from '@/features/editable';
 
 type ServiceProcessTextProps = {
   textItem: any;

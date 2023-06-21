@@ -1,7 +1,10 @@
+import React from 'react';
+
 import { Collapser } from '@/components/Animation';
 import { IconButton } from '@/components/Buttons';
 import { Surface } from '@/components/Containers';
 import {
+  Link,
   Table,
   TableBody,
   TableCell,
@@ -11,8 +14,7 @@ import {
   Text,
   Tooltip,
 } from '@/components/Elements';
-import React from 'react';
-import { Link } from 'react-router-dom';
+
 import PanelHeader from '../Section/subcomponents/PanelHeader';
 
 interface Action {

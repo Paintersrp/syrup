@@ -1,6 +1,6 @@
 import { CSSProperties, FC, FormEvent, useState } from 'react';
 
-import { ConfirmCancelBar, ErrorDisplay } from '@/components/Built';
+
 import { Container, Item, Surface } from '@/components/Containers';
 import { Text } from '@/components/Elements';
 import { Input } from '@/components/Form';
@@ -9,6 +9,8 @@ import { useAlertStore } from '@/stores/alert';
 import { ImageMixin } from './ImageMixin';
 import { IconMixin } from './IconMixin';
 import { BaseProps } from '@/theme/base';
+import { ConfirmCancelBar } from './ConfirmCancelBar';
+import { ErrorDisplay } from './ErrorDisplay';
 
 interface FormGeneratorProps extends BaseProps {
   endpoint: string;

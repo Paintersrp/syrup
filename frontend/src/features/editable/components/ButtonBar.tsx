@@ -1,9 +1,8 @@
 import { CSSProperties, FC } from 'react';
-import { Link } from 'react-router-dom';
 
 import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
-import { Tooltip } from '@/components/Elements';
+import { Link, Tooltip } from '@/components/Elements';
 
 type ButtonBarProps = {
   justifyContent?: 'flex-start' | 'flex-end' | 'center';

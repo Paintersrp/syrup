@@ -1,6 +1,6 @@
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 
-import { ButtonBar } from '@/components/Built';
+import { ButtonBar } from '@/features/editable';
 import { Button } from '@/components/Buttons';
 import { Flexer, Surface } from '@/components/Containers';
 import { Text, Stepper } from '@/components/Elements';

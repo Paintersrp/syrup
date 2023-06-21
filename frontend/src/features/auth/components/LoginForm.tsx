@@ -1,11 +1,10 @@
 import { useState, FC, FormEvent, Fragment } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { faCoins } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 import './css/LoginForm.css';
 
 import { Button } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
-import { Text } from '@/components/Elements';
+import { Link, Text } from '@/components/Elements';
 import { Checkbox, Input } from '@/components/Form';
 import { Icon } from '@/components/Media';
 import { useAlertStore } from '@/stores/alert';

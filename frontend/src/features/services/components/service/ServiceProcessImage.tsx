@@ -1,11 +1,11 @@
 import { FC, Fragment, useEffect, useState } from 'react';
 
-import { ButtonBar } from '@/components/Built';
 import { Item } from '@/components/Containers';
 import { Media } from '@/components/Media';
 
 import { Base } from '@/theme/base';
 import { useBreakpoint } from '@/hooks';
+import { ButtonBar } from '@/features/editable';
 
 type ServiceProcesImageProps = {
   imageItem: any;
@@ -34,11 +34,11 @@ export const ServiceProcessImage: FC<ServiceProcesImageProps> = ({
           xs={12}
           sm={12}
           md={12}
-          lg={preview ? 12 : 6}
+          lg={preview ? 12 : 8}
           style={{
             paddingRight: isMediumScreen ? 0 : 0,
             display: 'flex',
-            order: isMediumScreen ? 2 : 1,
+            order: isMediumScreen ? 1 : 2,
           }}
           justify="center"
           align="flex-start"
@@ -46,7 +46,7 @@ export const ServiceProcessImage: FC<ServiceProcesImageProps> = ({
           {
             !editing ? (
               <Fragment>
-                <Base minw="85%" bs={1} br={8}>
+                <Base minw="100%" bs={1} br={8}>
                   <Media src={data.image || imageItem} altText="service-process-image" />
                 </Base>
                 {!editing && editMode && (

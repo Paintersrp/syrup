@@ -5,20 +5,20 @@ import { Flexer } from '@/components/Containers';
 import { Text } from '@/components/Elements';
 import { classify } from '@/theme/base/classify';
 
-const dividerCx = {
+const cx = {
   root: css({
     width: '100%',
   }),
-  text: (P: DividerProps) =>
+  text: (props: DividerProps) =>
     css({
-      color: P.textColor ?? '#222',
-      fontSize: `${P.textSize ?? 14}px`,
+      color: props.textColor ?? '#222',
+      fontSize: `${props.textSize ?? 14}px`,
       margin: '0px 10px',
     }),
-  divider: (P: DividerProps) => {
-    const thickness = P.thickness ?? 1;
-    const color = P.color ?? 'rgba(0, 0, 0, 0.1)';
-    const borderTop = `${thickness}px ${P.dashed ? 'dashed' : 'solid'} ${color}`;
+  divider: (props: DividerProps) => {
+    const thickness = props.thickness ?? 1;
+    const color = props.color ?? 'rgba(0, 0, 0, 0.1)';
+    const borderTop = `${thickness}px ${props.dashed ? 'dashed' : 'solid'} ${color}`;
 
     const dividerStyle = {
       flexGrow: '1',
@@ -26,7 +26,7 @@ const dividerCx = {
       borderTop,
     };
 
-    return [classify(P), dividerStyle];
+    return [classify(props), dividerStyle];
   },
 };
 
@@ -63,15 +63,15 @@ export const Divider: FC<DividerProps> = ({
   const textProps = { textColor, textSize };
 
   return (
-    <div css={dividerCx.root} style={style} className={className ?? ''}>
-      {!text && <hr css={dividerCx.divider(dividerProps)} />}
+    <div css={cx.root} style={style} className={className ?? ''}>
+      {!text && <hr css={cx.divider(dividerProps)} />}
       {text && (
         <Flexer a="c">
-          <hr css={dividerCx.divider(dividerProps)} />
-          <Text fw="400" w="auto" css={dividerCx.text(textProps)}>
+          <hr css={cx.divider(dividerProps)} />
+          <Text fw="400" w="auto" css={cx.text(textProps)}>
             {text}
           </Text>
-          <hr css={dividerCx.divider(dividerProps)} />
+          <hr css={cx.divider(dividerProps)} />
         </Flexer>
       )}
     </div>

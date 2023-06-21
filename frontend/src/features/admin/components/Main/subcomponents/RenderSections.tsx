@@ -1,14 +1,14 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import './RenderSections.css';
 
 import RenderModels from './RenderModels';
 import { RenderIcon } from './RenderIcon';
 import { Flexer, Item, Surface } from '@/components/Containers';
-import { List, Text, Tooltip } from '@/components/Elements';
+import { Link, List, Text, Tooltip } from '@/components/Elements';
 import { IconButton } from '@/components/Buttons';
 import { Collapser } from '@/components/Animation';
-import { colors } from '@/theme/common';
+
 
 interface RenderSectionsProps {
   models: Record<string, any>;

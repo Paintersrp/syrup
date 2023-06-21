@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import './css/IconScroller.css';
 
 import { Base, BaseProps } from '@/theme/base';
 import { SOCIALS } from '@/settings';
 import { SocialContent } from '@/types';
 import { BrandButton } from '@/components/Buttons';
+import { Link } from '@/components/Elements';
 
 export const IconScroller: React.FC<BaseProps> = ({ ...rest }) => {
   const duplicatedPartners: SocialContent[] = [...SOCIALS, ...SOCIALS, ...SOCIALS];

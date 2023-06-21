@@ -1,12 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+
 import './css/AppLinks.css';
 
-import { faCode } from '@fortawesome/free-solid-svg-icons';
 import PanelHeader from './PanelHeader';
 import { Flexer, Surface } from '@/components/Containers';
 import { Collapser } from '@/components/Animation';
-import { List, ListItem, Tooltip } from '@/components/Elements';
+import { Link, List, ListItem, Tooltip } from '@/components/Elements';
 
 interface AppLinksProps {
   appName: string | undefined;
@@ -34,8 +33,6 @@ const AppLinks: React.FC<AppLinksProps> = ({ appName, links, open, toggleOpen })
         <div>
           <List boxShadow={1} px={0} dividers className="list-border-radius">
             {Object.entries(links).map(([linkName, link], index) => {
-              console.log(linkName, 'linkName');
-
               return (
                 <Flexer className="hover-link" pl={12} key={linkName}>
                   <Tooltip text={`View ${linkName}`} position="right" style={{ width: '100%' }}>
@@ -47,7 +44,7 @@ const AppLinks: React.FC<AppLinksProps> = ({ appName, links, open, toggleOpen })
                     >
                       <Flexer>
                         <ListItem
-                          icon={faCode}
+                          icon="code"
                           style={{ color: 'black', width: '100%' }}
                           text={linkName}
                           textAlign="right"

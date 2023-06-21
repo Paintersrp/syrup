@@ -1,6 +1,6 @@
 import { useState, FC, Fragment } from 'react';
 
-import { ButtonBar } from '@/components/Built';
+import { ButtonBar } from '@/features/editable';
 import { Tab, Tabs } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Accordion, Text } from '@/components/Elements';

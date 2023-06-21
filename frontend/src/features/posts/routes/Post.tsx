@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 import './Post.css';
 
-import { ButtonBar } from '@/components/Built';
+import { ButtonBar } from '@/features/editable';
 import { Flexer, Surface } from '@/components/Containers';
 import { Loading, Text } from '@/components/Elements';
 import { Base } from '@/theme/base';

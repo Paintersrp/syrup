@@ -1,6 +1,6 @@
 import { FC, Fragment, useEffect, useState } from 'react';
 
-import { ButtonBar, ManyToManyEdit } from '@/components/Built';
+import { ButtonBar, ManyToManyEdit } from '@/features/editable';
 import { Flexer } from '@/components/Containers';
 import { List, Text } from '@/components/Elements';
 import { IconTextItem } from '@/components/Media';

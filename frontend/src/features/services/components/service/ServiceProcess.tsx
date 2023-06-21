@@ -1,6 +1,5 @@
 import { FC, Fragment, useEffect, useState } from 'react';
 
-import { ButtonBar } from '@/components/Built';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { Divider, Text } from '@/components/Elements';
 import { useBreakpoint } from '@/hooks';
@@ -9,26 +8,24 @@ import { ServiceProcessImage } from './ServiceProcessImage';
 import { ServiceProcessText } from './ServiceProcessText';
 import { colors } from '@/theme/common';
 import { useEditModeStore } from '@/stores/editmode';
+import { useServiceData } from './ServiceProvider';
+import { ButtonBar } from '@/features/editable';
 
 type ServiceProcessType = {
-  contentText: any;
-  processData: any;
   processImage: any;
 };
 
-export const ServiceProcess: FC<ServiceProcessType> = ({
-  contentText,
-  processData,
-  processImage,
-}) => {
+export const ServiceProcess: FC<ServiceProcessType> = ({ processImage }) => {
+  const { fullData } = useServiceData();
   const { editMode } = useEditModeStore();
   const isMediumScreen = useBreakpoint('md');
-  const [contentTextData, setContextTextData] = useState(contentText);
+
+  const [contentTextData, setContextTextData] = useState(fullData.contentText[0]);
   const [editing, setEditing] = useState(false);
 
   useEffect(() => {
-    setContextTextData(contentText);
-  }, [contentText]);
+    setContextTextData(fullData.contentText[0]);
+  }, [fullData.contentText]);
 
   const updateContentTextData = (updateContentTextData: any) => {
     setContextTextData(updateContentTextData);
@@ -42,7 +39,7 @@ export const ServiceProcess: FC<ServiceProcessType> = ({
         xs={12}
         sm={12}
         md={12}
-        lg={6}
+        lg={4}
         style={{
           paddingLeft: 8,
           display: 'flex',
@@ -52,7 +49,7 @@ export const ServiceProcess: FC<ServiceProcessType> = ({
         justify="center"
         align="center"
       >
-        <Flexer fd="column" w="85%">
+        <Flexer fd="column" w="100%">
           {
             !editing ? (
               <Fragment>
@@ -86,7 +83,7 @@ export const ServiceProcess: FC<ServiceProcessType> = ({
           )}
           <Surface px={0} py={0}>
             <Flexer fd="column" gap={8}>
-              {processData.map((item: any, index: number) => (
+              {fullData.processText.map((item: any, index: number) => (
                 <ServiceProcessText textItem={item} index={index} editMode={editMode} />
               ))}
             </Flexer>

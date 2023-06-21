@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 import { Page } from '@/components/Layout';
 import { Flexer, Surface } from '@/components/Containers';
-import { Breadcrumbs, Text, Tooltip } from '@/components/Elements';
+import { Breadcrumbs, Link, Text, Tooltip } from '@/components/Elements';
 import { axios } from '@/lib/api';
 
 import Message from './Message';

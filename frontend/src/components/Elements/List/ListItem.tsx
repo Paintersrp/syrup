@@ -1,9 +1,9 @@
 import React, { FC, MouseEvent } from 'react';
-import './List.css';
 
 import ListItemWithIcon from './ListItemWithIcon';
 import ListItemTextOnly from './ListItemTextOnly';
 import { Base, BaseProps } from '@/theme/base';
+import clsx from 'clsx';
 
 export interface ListItemDataType {
   text: string;
@@ -15,7 +15,7 @@ export interface ListItemDataType {
 interface ListItemProps extends BaseProps {
   text?: string;
   subtext?: string;
-  icon: string;
+  icon?: string;
   button?: boolean;
   onClick?: (event: MouseEvent<HTMLDivElement>) => void;
   style?: React.CSSProperties;
@@ -42,7 +42,9 @@ const ListItem: FC<ListItemProps> = ({
 }) => {
   return (
     <Base
-      className={`list-item ${className}`}
+      d="flex"
+      a="c"
+      className={clsx(className)}
       onClick={onClick}
       style={{ ...style, cursor: button || to ? 'pointer' : undefined }}
       {...rest}

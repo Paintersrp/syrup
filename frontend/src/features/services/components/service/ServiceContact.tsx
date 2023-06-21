@@ -1,32 +1,30 @@
 import { FC, useState } from 'react';
+import { useTheme } from '@emotion/react';
 
-import { ButtonBar, SocialButtons } from '@/components/Built';
+import { ContactButtons, SocialButtons } from '@/components/Built';
 import { Button } from '@/components/Buttons';
-import { Container, Item, Surface } from '@/components/Containers';
+import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { Text } from '@/components/Elements';
 import { Input } from '@/components/Form';
 import { Icon } from '@/components/Media';
-import { ContactInformationContent, Information } from '@/features/contact';
+import { ButtonBar } from '@/features/editable';
 import { useFormValidation } from '@/hooks';
 import { axios, validateForm } from '@/lib/api';
-import { SocialContent } from '@/types';
 import { useEditModeStore } from '@/stores/editmode';
 import { useAlertStore } from '@/stores/alert';
 
-import { ServiceType } from '../../types';
+import { useServiceData } from './ServiceProvider';
 
 const contactFields = [
   {
     id: 'name',
     label: 'Full Name',
     autoComplete: 'name',
-    grid: 6,
   },
   {
     id: 'email',
     label: 'Email Address',
     autoComplete: 'email',
-    grid: 6,
   },
   {
     id: 'phone',
@@ -41,19 +39,12 @@ const contactFields = [
   },
 ];
 
-type ServiceContactProps = {
-  data: ServiceType;
-  formRef: any;
-  contactData: ContactInformationContent;
-  socialData: SocialContent[];
-};
+type ServiceContactProps = {};
 
-export const ServiceContact: FC<ServiceContactProps> = ({
-  data,
-  formRef,
-  contactData,
-  socialData,
-}) => {
+export const ServiceContact: FC<ServiceContactProps> = ({}) => {
+  const th: any = useTheme();
+  const { data, fullData } = useServiceData();
+
   const { showAlert } = useAlertStore();
   const { editMode } = useEditModeStore();
 
@@ -88,31 +79,25 @@ export const ServiceContact: FC<ServiceContactProps> = ({
   );
 
   return (
-    <form id="apply-now-form" ref={formRef} onSubmit={handleSubmit}>
-      <Surface maxWidth={1000} boxShadow={1} br={12} mb={64} j="c" px={6}>
-        <Icon icon="contact_mail" size="36px" />
-        <Text t="h2" a="c">
-          Contact Us
-        </Text>
+    <Item xs={12} sm={12} md={12} lg={4} align="center" justify="center">
+      <form id="apply-now-form" onSubmit={handleSubmit}>
+        <Surface maxWidth={350} boxShadow={1} br={12} j="c">
+          <Flexer j="c" mb={4}>
+            <Icon icon="contact_mail" size="36px" color={th.primary} />
+          </Flexer>
+          <Text t="h3" s="1.75rem" a="c" mb={2}>
+            Contact Us
+          </Text>
 
-        <Container spacing={1}>
-          <Item xs={12}>
-            <Text a="c" w={700} mb={16}>
-              Contact us today to learn more about our {data.service_title} and how it can help take
-              your business to the next level. We look forward to hearing from you!
-            </Text>
-          </Item>
-          {contactFields.map(
-            (field: { id: string; label: string; grid?: number; multiline?: boolean }) => (
-              <Item
-                xs={12}
-                sm={field.grid ? field.grid : 12}
-                key={field.id}
-                style={{
-                  paddingRight: field.id === 'name' ? 4 : 0,
-                  paddingLeft: field.id === 'email' ? 4 : 0,
-                }}
-              >
+          <Container spacing={1}>
+            <Item xs={12}>
+              <Text a="c" t="body2" mb={16}>
+                Contact us today to learn more about our {data.service_title} Service and how it can
+                help take your business to the next level. We look forward to hearing from you!
+              </Text>
+            </Item>
+            {contactFields.map((field: { id: string; label: string; multiline?: boolean }) => (
+              <Item xs={12} sm={12} key={field.id}>
                 <Input
                   size="medium"
                   id={field.id}
@@ -126,36 +111,42 @@ export const ServiceContact: FC<ServiceContactProps> = ({
                   }}
                   inputStyle={{ marginTop: 2 }}
                   multiline={field.multiline}
+                  rows={6}
                 />
               </Item>
-            )
+            ))}
+            {editMode && <ButtonBar adminLink="messages" text="Messages" />}
+            <Item xs={12} mt={18}>
+              <Button size="sm" type="submit" endIcon="send" w={70}>
+                Send
+              </Button>
+            </Item>
+            <Item xs={12} mt={18}>
+              <Text a="c" t="body1" s="1.05rem" style={{ maxWidth: 700 }}>
+                Prefer to contact us via social media, email, or phone?
+              </Text>
+            </Item>
+          </Container>
+          {fullData && (
+            <Item fd="column" j="c" a="c" mt={12} xs={12}>
+              <ContactButtons
+                contactData={fullData.contactInfo}
+                size="sm"
+                mb={6}
+                borderRadius={4}
+              />
+              <SocialButtons
+                invertColors={false}
+                socialsData={fullData.socials}
+                showTitle={false}
+                editMode={editMode}
+                buttonClass="primary-button"
+                buttonSize="md"
+              />
+            </Item>
           )}
-          {editMode && <ButtonBar adminLink="messages" text="Messages" />}
-          <Item xs={12} mt={18}>
-            <Button size="sm" type="submit" endIcon="send" w={70}>
-              Send
-            </Button>
-          </Item>
-          <Item xs={12} mt={18}>
-            <Text a="c" t="h3" style={{ maxWidth: 700 }}>
-              Prefer to contact us via social media, email, or phone?
-            </Text>
-          </Item>
-        </Container>
-        {contactData && (
-          <Item fd="column" j="c" a="c" mt={12} xs={12}>
-            <Information contactData={contactData} />
-            <SocialButtons
-              invertColors={false}
-              socialsData={socialData}
-              showTitle={false}
-              editMode={editMode}
-              buttonClass="primary-button"
-              buttonSize="md"
-            />
-          </Item>
-        )}
-      </Surface>
-    </form>
+        </Surface>
+      </form>
+    </Item>
   );
 };

@@ -1,4 +1,4 @@
-import { ConfirmationModal } from '@/components/Built';
+import { ConfirmationModal } from '@/features/editable';
 import { Button } from '@/components/Buttons';
 import { Flexer, Item } from '@/components/Containers';
 import { Option, Select } from '@/components/Form';

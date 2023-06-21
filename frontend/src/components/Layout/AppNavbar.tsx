@@ -1,14 +1,13 @@
 import { FC, ReactNode } from 'react';
-import { Link } from 'react-router-dom';
+
 import './css/AppNavbar.css';
 
 import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
-import { Navbar, Text } from '@/components/Elements';
+import { Link, Navbar, Text } from '@/components/Elements';
 import { useBreakpoint } from '@/hooks';
 import { LogoutUser } from '@/utils';
 
-import { colors } from '@/theme/common';
 import { SiteLinkType } from '@/providers/LayoutProvider';
 import { useAuthStore } from '@/stores/auth';
 

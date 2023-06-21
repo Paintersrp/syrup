@@ -1,9 +1,8 @@
 import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 import { Flexer } from '../../Containers';
 import { Icon } from '../../Media';
+import { Link } from '../Link/Link';
 import Text from '../Text/Text';
 
 interface ListItemWithIconProps {

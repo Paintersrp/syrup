@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ButtonBar, ConfirmationModal } from '@/components/Built';
+import { ButtonBar, ConfirmationModal } from '@/features/editable';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { Divider, Text, Tooltip } from '@/components/Elements';
 import { Button, IconButton } from '@/components/Buttons';

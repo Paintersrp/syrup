@@ -37,7 +37,7 @@ const IconTextItem: React.FC<IconTextItemProps> = ({
   return (
     <div onClick={onClick && onClick}>
       <Flexer w="auto" {...rest} j="c" a="c">
-        {icon && <Icon icon={icon} mr={6} style={{ color: iconColor }} size={iconSize} />}
+        {icon && <Icon icon={icon} mr={6} color={iconColor} size={iconSize} />}
         <Flexer fd="column" a="c" j="c" mr={30}>
           {text && (
             <Text a={textAlign} s={fontSize} fw={fw}>

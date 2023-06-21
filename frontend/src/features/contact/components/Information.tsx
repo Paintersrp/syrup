@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 
-import { ButtonBar, ContactButtons } from '@/components/Built';
+import { ContactButtons } from '@/components/Built';
 import { Flexer, Surface } from '@/components/Containers';
 import { BaseProps } from '@/theme/base';
 
@@ -9,7 +9,8 @@ import { IconTextItem } from '@/components/Media';
 import { ContactInformationContent } from '../types';
 import { colors } from '@/theme/common';
 import { useEditModeStore } from '@/stores/editmode';
-import { FormGenerator } from '@/features/editable/components/FormGenerator';
+
+import { ButtonBar, FormGenerator } from '@/features/editable';
 
 interface InformationProps extends BaseProps {
   contactData: ContactInformationContent;
@@ -65,7 +66,7 @@ export const Information: FC<InformationProps> = ({ contactData, ...rest }) => {
               subtext="Address"
               divider
             />
-            <ContactButtons contactData={data} size="sm" mt={12} mb={6} borderRadius={16} />
+            <ContactButtons contactData={data} size="sm" mt={12} mb={6} borderRadius={4} />
           </Surface>
         </div>
       ) : (

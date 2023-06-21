@@ -20,7 +20,7 @@ const sizes = {
   lg: { py: 8, px: 8, fontSize: '1rem', iconSize: '20px' },
 };
 
-export const buttonCx = {
+export const cx = {
   buttonRoot: (props: RootProps) => {
     const padding = props.size ? `${sizes[props.size].py}px ${sizes[props.size].px}px` : '';
     const borderRadius = `${props.br ? props.br : 4}px`;
@@ -45,7 +45,7 @@ export const buttonCx = {
       classify(props),
       buttonStyle,
       buttonPalette[p][v],
-      props.disabled ? buttonCx.buttonDisabled : '',
+      props.disabled ? cx.buttonDisabled : '',
     ];
   },
   buttonDisabled: css({
@@ -133,7 +133,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={clsx(className)}
-        css={buttonCx.buttonRoot(rootProps)}
+        css={cx.buttonRoot(rootProps)}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         onClick={href ? handleHref : onClick}

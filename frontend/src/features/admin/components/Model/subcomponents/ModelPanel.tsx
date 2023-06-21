@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import { Flexer, Surface } from '@/components/Containers';
-import { Breadcrumbs, Divider, Text, Tooltip } from '@/components/Elements';
-import { CapitalizeFirst } from '@/utils';
 import { IconButton } from '@/components/Buttons';
+import { Flexer, Surface } from '@/components/Containers';
+import { Breadcrumbs, Divider, Link, Text, Tooltip } from '@/components/Elements';
+import { useBreakpoint } from '@/hooks';
 import { axios } from '@/lib/api';
-import RecentActions from '@/features/admin/components/Logging/RecentActions';
+import { useAlertStore } from '@/stores/alert';
+import { CapitalizeFirst } from '@/utils';
+
+import { RecentActions } from '../../Logging';
 import ModelTable from './ModelTable';
 import InfoMenu from './InfoMenu';
-import { useBreakpoint } from '@/hooks';
-import { colors } from '@/theme/common';
-import { useAlertStore } from '@/stores/alert';
 
 interface ModelPanelProps {
   apiData: any;

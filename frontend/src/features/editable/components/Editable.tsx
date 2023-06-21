@@ -1,12 +1,13 @@
 import { CSSProperties, FC, Fragment, ReactNode, useState } from 'react';
 
-import { ButtonBar, ConfirmationModal } from '@/components/Built';
 import { Base, BaseProps } from '@/theme/base';
 import { axios } from '@/lib/api';
 import { useEditModeStore } from '@/stores/editmode';
 import { CapitalizeFirst } from '@/utils';
 
 import { FormGenerator } from './FormGenerator';
+import { ButtonBar } from './ButtonBar';
+import { ConfirmationModal } from './ConfirmationModal';
 
 // Variants?
 const defaultFormSettings = {

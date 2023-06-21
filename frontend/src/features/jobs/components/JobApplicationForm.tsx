@@ -1,6 +1,6 @@
 import { FC, RefObject, useRef, FormEvent } from 'react';
 
-import { ButtonBar, ErrorDisplay } from '@/components/Built';
+import { ButtonBar, ErrorDisplay } from '@/features/editable';
 import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { Text } from '@/components/Elements';

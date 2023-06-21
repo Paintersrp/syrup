@@ -1,4 +1,4 @@
-import { ManyToManyField } from '@/components/Built';
+import { ManyToManyField } from '@/features/editable';
 import { Flexer, Item } from '@/components/Containers';
 import { HelpText } from '@/components/Elements';
 

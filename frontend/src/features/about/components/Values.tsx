@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 
-import { ButtonBar } from '@/components/Built';
+import { ButtonBar } from '@/features/editable';
 import { Flexer } from '@/components/Containers';
 import { Loading, Text } from '@/components/Elements';
 import { Base, BaseProps } from '@/theme/base';

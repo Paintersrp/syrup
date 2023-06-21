@@ -1,10 +1,11 @@
 import { CSSProperties, FC } from 'react';
-import { Link, To, useLocation } from 'react-router-dom';
+import { To, useLocation } from 'react-router-dom';
 
 import { Button } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import {
   Divider,
+  Link,
   Table,
   TableBody,
   TableCell,

@@ -5,7 +5,7 @@ import { Text } from '@/components/Elements';
 import { axios } from '@/lib/api';
 import { useAlertStore } from '@/stores/alert';
 
-import { ConfirmCancelBar } from '../ConfirmCancelBar/ConfirmCancelBar';
+import { ConfirmCancelBar } from './ConfirmCancelBar';
 import { ManyToManyField } from './ManyToManyField';
 import { BaseProps } from '@/theme/base';
 

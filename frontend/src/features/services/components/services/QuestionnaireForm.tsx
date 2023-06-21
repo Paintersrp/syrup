@@ -1,6 +1,6 @@
 import { FC, ChangeEvent, Dispatch, SetStateAction } from 'react';
 
-import { ErrorDisplay } from '@/components/Built';
+import { ErrorDisplay} from '@/features/editable';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { Input } from '@/components/Form';
 import { Divider, Text } from '@/components/Elements';

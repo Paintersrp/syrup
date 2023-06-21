@@ -1,12 +1,13 @@
 import { FC, useEffect, useState } from 'react';
 
-import { ButtonBar } from '@/components/Built';
 import { Container, Flexer, Item } from '@/components/Containers';
 import { Divider, Text } from '@/components/Elements';
 import { IconTextItem } from '@/components/Media';
-
+import { ButtonBar } from '@/features/editable';
 import { colors } from '@/theme/common';
 import { useEditModeStore } from '@/stores/editmode';
+
+import { useServiceData } from './ServiceProvider';
 
 type ServiceFeatureProps = {
   data: any;
@@ -32,7 +33,7 @@ const ServiceFeature: FC<ServiceFeatureProps> = ({ data, editMode, title, fieldN
     <Item xs={12} sm={12} md={12} lg={6} style={{ display: 'flex', flexDirection: 'column' }}>
       {
         !editing ? (
-          <Flexer fd="column" w="85%">
+          <Flexer fd="column" w="90%">
             {!editing && editMode && (
               <ButtonBar
                 editClick={() => setEditing(!editing)}
@@ -74,11 +75,10 @@ const ServiceFeature: FC<ServiceFeatureProps> = ({ data, editMode, title, fieldN
   );
 };
 
-type ServiceFeaturesProps = {
-  data: any;
-};
+type ServiceFeaturesProps = {};
 
-export const ServiceFeatures: FC<ServiceFeaturesProps> = ({ data }) => {
+export const ServiceFeatures: FC<ServiceFeaturesProps> = ({}) => {
+  const { data } = useServiceData();
   const { editMode }: any = useEditModeStore();
   const [featureData, setFeatureData] = useState(data);
 
@@ -87,7 +87,7 @@ export const ServiceFeatures: FC<ServiceFeaturesProps> = ({ data }) => {
   }, [data]);
 
   return (
-    <Container direction="row" j="fs" a="fs" mt={24} mb={64}>
+    <Container direction="row" j="fs" a="fs" mt={16} mb={16}>
       <ServiceFeature
         data={featureData}
         editMode={editMode}

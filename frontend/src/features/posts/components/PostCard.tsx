@@ -4,7 +4,7 @@ import DOMPurify from 'dompurify';
 import './css/PostCard.css';
 
 import { SlideOnScroll } from '@/components/Animation';
-import { ButtonBar } from '@/components/Built';
+import { ButtonBar } from '@/features/editable';
 import { Flexer, Item, Surface } from '@/components/Containers';
 import { Tag, Text } from '@/components/Elements';
 import { BaseProps } from '@/theme/base';

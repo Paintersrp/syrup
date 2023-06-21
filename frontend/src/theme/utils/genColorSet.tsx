@@ -1,22 +1,21 @@
 import { darken, lighten } from 'polished';
 
+// Generates a set of color classes based on the passed in name / color / change values
+// Creates a light, dark, and regular class for the passed in color.
+// The lightenValue is used with lighten to control how much to lighten
+// The darkenValue is used with darken to control how much to darken
 type GeneratedThemeColors = {
   [key: string]: string;
 };
 
-type GenerateColorSetFunction = (
+type GenColorSetFn = (
   baseName: string,
   baseColor: string,
   lightenValue: number,
   darkenValue: number
 ) => GeneratedThemeColors;
 
-export const generateColorSet: GenerateColorSetFunction = (
-  baseName,
-  baseColor,
-  lightenValue,
-  darkenValue
-) => {
+export const genColorSet: GenColorSetFn = (baseName, baseColor, lightenValue, darkenValue) => {
   const lightName = `${baseName}Light`;
   const darkName = `${baseName}Dark`;
 

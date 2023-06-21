@@ -1,9 +1,9 @@
 import { Dispatch, FC, Fragment, SetStateAction, useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
-import { Divider, Text, Tooltip } from '@/components/Elements';
+import { Divider, Link, Text, Tooltip } from '@/components/Elements';
 import { useBreakpoint } from '@/hooks';
 import { axios } from '@/lib/api';
 import { colors } from '@/theme/common';

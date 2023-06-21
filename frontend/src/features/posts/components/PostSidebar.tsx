@@ -1,15 +1,13 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
 import './css/PostSidebar.css';
 
 import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
-import { Divider, Tag, Text, Tooltip } from '@/components/Elements';
+import { Divider, Link, Tag, Text, Tooltip } from '@/components/Elements';
 import { Media } from '@/components/Media';
 
 import { PostContent } from '../types';
 import { getReadTime } from '@/lib/api';
-import { colors } from '@/theme/common';
 
 interface PostSidebarProps {
   post: PostContent;

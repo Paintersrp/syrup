@@ -1,4 +1,4 @@
-import { Breakpoints } from '../common';
+import { AnimationStyles, Breakpoints } from '../common';
 
 export interface ThemeColors {
   primary: string;
@@ -57,10 +57,7 @@ export interface ThemeColors {
   charcoal: string;
 }
 
-export interface Theme extends ThemeColors {
-  breakpoints: Breakpoints;
-  shadows: Record<number, string>;
-  sp: (...values: number[]) => string;
+export interface BaseTheme extends ThemeColors {
   backgroundTransition: string;
   fontFamily: string;
   fontFamilyMono: string;
@@ -78,9 +75,13 @@ export interface Theme extends ThemeColors {
   noticeSuccessBackground: string;
   noticeSuccessText: string;
   tableSelectedBackground: string;
+  breakpoints: Breakpoints;
+  shadows: Record<number, string>;
+  animations: AnimationStyles;
+  sp: (...values: number[]) => string;
 }
 
-export interface ExtendedTheme extends Theme {
+export interface ExtendedTheme extends BaseTheme {
   isDark: true | false;
   buttonNeutralBackground?: string;
   buttonNeutralText?: string;

@@ -2,7 +2,6 @@
   position: sticky;
   color: #fff;
   background-color: var(--color-primary-main);
-  /* background-color: var(--color-background-default); */
   transition: width 0.3s ease-in-out;
   box-shadow: var(--shadow-1);
 }

@@ -3,7 +3,6 @@ import { Flexer } from '@/components/Containers';
 import { TableBody, TableCell, TableRow, Tooltip } from '@/components/Elements';
 import { Checkbox } from '@/components/Form';
 import { Icon } from '@/components/Media';
-import { colors } from '@/theme/common';
 import { CapitalizeFirst } from '@/utils';
 import React from 'react';
 

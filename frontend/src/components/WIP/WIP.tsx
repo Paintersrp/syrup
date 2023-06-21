@@ -14,6 +14,7 @@ import { useEditModeStore } from '@/stores/editmode';
 import { Editable } from '../../features/editable/components/Editable';
 import { PalettePreview } from './PalettePreview';
 import { defaultColors } from '@/theme';
+import { Link } from '../Elements/Link/Link';
 
 interface WIPProps {}
 
@@ -89,6 +90,11 @@ const WIP: React.FC<WIPProps> = ({}) => {
   return (
     <Page>
       <PalettePreview />
+      <div>
+        <Link to="/taco" mt={96} pt={96}>
+          Test
+        </Link>
+      </div>
       <Flexer wrap a="c" j="c" mt={24} gap={12}>
         <IconButton variant="hover" icon="check" />
         <IconButton variant="hover" palette="secondary" icon="check" />

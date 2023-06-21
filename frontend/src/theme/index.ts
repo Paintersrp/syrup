@@ -1,21 +1,20 @@
 import { darken, lighten, transparentize } from 'polished';
 
-import { breakpoints } from '@/theme/common/breakpoints';
-import { shadows } from '@/theme/common/shadows';
-import { Theme, ExtendedTheme } from '@/theme/types';
-import { generateColorSet } from '@/theme/utils/generate';
+import { animations, breakpoints, shadows } from '@/theme/common';
+import { BaseTheme, ExtendedTheme } from '@/theme/types';
+import { genColorSet } from '@/theme/utils';
 
 export const defaultColors: any = {
-  ...generateColorSet('primary', '#2e3b55', 0.1, 0.1),
-  ...generateColorSet('secondary', '#ff8c00', 0.2, 0.05),
-  ...generateColorSet('tertiary', '#9E5CF7', 0.2, 0.05),
-  ...generateColorSet('quaternary', '#3ad984', 0.2, 0.2),
-  ...generateColorSet('error', '#f44336', 0.05, 0.15),
-  ...generateColorSet('warning', '#f08a24', 0.1, 0.1),
-  ...generateColorSet('success', '#4caf50', 0.1, 0.1),
-  ...generateColorSet('info', '#1976d2', 0.2, 0.15),
-  ...generateColorSet('slate', '#444f60', 0.1, 0.1),
-  ...generateColorSet('smoke', '#dbe5ef', 0.05, 0.1),
+  ...genColorSet('primary', '#2e3b55', 0.1, 0.1),
+  ...genColorSet('secondary', '#ff8c00', 0.2, 0.05),
+  ...genColorSet('tertiary', '#9E5CF7', 0.2, 0.05),
+  ...genColorSet('quaternary', '#3ad984', 0.2, 0.2),
+  ...genColorSet('error', '#f44336', 0.05, 0.15),
+  ...genColorSet('warning', '#f08a24', 0.1, 0.1),
+  ...genColorSet('success', '#4caf50', 0.1, 0.1),
+  ...genColorSet('info', '#1976d2', 0.2, 0.15),
+  ...genColorSet('slate', '#444f60', 0.1, 0.1),
+  ...genColorSet('smoke', '#dbe5ef', 0.05, 0.1),
 
   dark: '#222',
   darkLight: lighten(0.1, '#222'),
@@ -33,7 +32,7 @@ export const defaultColors: any = {
   charcoal: 'rgba(0,0,0,0.75)',
 };
 
-const buildBaseTheme = (): Theme => {
+const buildBaseTheme = (): BaseTheme => {
   const sp = (...values: number[]) => values.map((value) => `${value * 4}px`).join(' ');
 
   const general = {
@@ -80,6 +79,7 @@ const buildBaseTheme = (): Theme => {
     ...errorNotice,
     ...table,
     ...defaultColors,
+    anim: animations,
     breakpoints,
     shadows,
     sp,
@@ -104,7 +104,7 @@ export const buildLightTheme = (): ExtendedTheme => {
     secondaryBackground: base.smokeLight,
     link: base.accent,
     cursor: base.dark,
-    backdrop: 'rgba(0, 0, 0, 0.2)',
+    backdrop: base.grey,
     commentBackground: base.smokeLight,
     mentionBackground: base.smokeLight,
     progressBarBackground: base.slateLight,

@@ -1,7 +1,7 @@
 import { FC, ReactEventHandler } from 'react';
 import { css, useTheme } from '@emotion/react';
 
-export const tabButtonCx = (active: boolean, theme: any) =>
+export const cx = (active: boolean, theme: any) =>
   css({
     margin: '0px 4px 0px 4px',
     display: 'inline-block',
@@ -35,7 +35,7 @@ export interface TabProps {
 export const Tab: FC<TabProps> = ({ onClick, text, active = false }) => {
   const theme = useTheme();
   return (
-    <button css={tabButtonCx(active, theme)} onClick={onClick}>
+    <button css={cx(active, theme)} onClick={onClick}>
       {text}
     </button>
   );

@@ -1,10 +1,9 @@
 import { FC, Fragment } from 'react';
-import { Link } from 'react-router-dom';
 
-import { ButtonBar } from '@/components/Built';
+import { ButtonBar } from '@/features/editable';
 import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
-import { Divider, Text, Tooltip } from '@/components/Elements';
+import { Divider, Link, Text, Tooltip } from '@/components/Elements';
 import { BaseProps } from '@/theme/base';
 import { useBreakpoint } from '@/hooks';
 

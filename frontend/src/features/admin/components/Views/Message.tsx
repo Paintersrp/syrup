@@ -6,7 +6,7 @@ import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { Divider, Text, Tooltip } from '@/components/Elements';
 import { Button, IconButton } from '@/components/Buttons';
 import { Switch } from '@/components/Form';
-import { ConfirmationModal } from '@/components/Built';
+import { ConfirmationModal } from '@/features/editable';
 import { useBreakpoint } from '@/hooks';
 import { colors } from '@/theme/common';
 import { useAlertStore } from '@/stores/alert';

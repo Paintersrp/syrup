@@ -1,5 +1,4 @@
 import React, { ReactNode, CSSProperties } from 'react';
-import './List.css';
 
 import { Surface } from '../../Containers';
 import { Divider } from '../Divider/Divider';

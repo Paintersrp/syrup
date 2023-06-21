@@ -2,15 +2,15 @@ import { CSSProperties, FC } from 'react';
 
 import { Button, ButtonSize } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
+import { BaseProps } from '@/theme/base';
 
-interface ContactButtonsProps {
+interface ContactButtonsProps extends BaseProps {
   contactData: {
     phone?: string;
     email?: string;
   };
   size?: ButtonSize;
   mt?: CSSProperties['marginTop'];
-  mb?: CSSProperties['marginBottom'];
   borderRadius?: CSSProperties['borderRadius'];
 }
 
@@ -18,11 +18,11 @@ export const ContactButtons: FC<ContactButtonsProps> = ({
   contactData,
   size = 'md',
   mt: marginTop = 8,
-  mb: marginBottom = 0,
   borderRadius,
+  ...rest
 }) => {
   return (
-    <Flexer j="c" mt={marginTop} mb={marginBottom}>
+    <Flexer j="c" mt={marginTop} {...rest}>
       <Button
         size={size}
         startIcon="phone"

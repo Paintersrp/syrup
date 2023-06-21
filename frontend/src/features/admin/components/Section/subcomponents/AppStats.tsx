@@ -1,7 +1,6 @@
 import React from 'react';
 import './css/AppStats.css';
 
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import PanelHeader from './PanelHeader';
 import { Surface } from '@/components/Containers';
 import { Collapser } from '@/components/Animation';
@@ -39,27 +38,26 @@ const AppStats: React.FC<AppStatsProps> = ({ numModels, numObjects, models, open
       <Collapser isOpen={open}>
         <List px={0} className="app-stats-list">
           <ListItem
-            icon={faChevronDown}
+            icon="expand_more"
             text="Number of Models"
             subtext={numModels.toString()}
             textAlign="right"
+            d="flex"
           />
           <ListItem
-            icon={faChevronDown}
+            icon="expand_more"
             text="Number of Objects"
             subtext={numObjects.toString()}
             textAlign="right"
           />
-
           {models.map((model) => {
-            console.log(model);
             if (model.visibility === false) {
               return null;
             }
             return (
               <ListItem
                 key={model.name}
-                icon={faChevronDown}
+                icon="expand_more"
                 text={model.name}
                 subtext={`${model.num_objects} objects`}
                 textAlign="right"

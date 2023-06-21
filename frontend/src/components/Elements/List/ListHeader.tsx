@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import './List.css';
+import clsx from 'clsx';
 
 import { Base, BaseProps } from '@/theme/base';
 import Text from '../Text/Text';
@@ -21,8 +21,16 @@ const ListHeader: FC<ListHeaderProps> = ({
   ...rest
 }) => {
   return (
-    <Base className={`list-header ${className}`} style={style} {...rest}>
-      <Text t="h4" a={headerAlign} u={underline}>
+    <Base
+      d="flex"
+      fd="column"
+      a="c"
+      m="4px 0px"
+      className={clsx(className)}
+      style={style}
+      {...rest}
+    >
+      <Text t="h4" a={headerAlign} u={underline} uo={4}>
         {header}
       </Text>
     </Base>

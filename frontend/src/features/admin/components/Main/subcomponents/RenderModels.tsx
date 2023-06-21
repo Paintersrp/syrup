@@ -1,10 +1,9 @@
 import React from 'react';
-import { faCode } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+
 import './RenderModels.css';
 
 import { Flexer } from '@/components/Containers';
-import { ListItem, Tooltip } from '@/components/Elements';
+import { Link, ListItem, Tooltip } from '@/components/Elements';
 import { Icon } from '@/components/Media';
 import { IconButton } from '@/components/Buttons';
 import { colors } from '@/theme/common';
@@ -55,6 +54,7 @@ const RenderModels: React.FC<RenderModelsProps> = ({ modelItem, appName }) => {
                   <Flexer>
                     <Icon icon="code" size="1.1rem" />
                     <ListItem
+                      icon="check"
                       //   icon={model.icon} change back to model.icon once redone
                       style={{ color: 'black', width: '100%' }}
                       text={model.verbose_name}

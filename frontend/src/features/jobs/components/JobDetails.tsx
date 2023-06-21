@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 
-import { ButtonBar } from '@/components/Built';
+import { ButtonBar } from '@/features/editable';
 import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item } from '@/components/Containers';
 import { Text } from '@/components/Elements';

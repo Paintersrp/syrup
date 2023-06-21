@@ -28,7 +28,7 @@ const fadeOutAnimation = keyframes`
   }
 `;
 
-export const scrollToTopFABCx = {
+export const cx = {
   fadeInFab: css({
     animation: `${fadeInAnimation} 0.3s ease-in`,
   }),
@@ -86,8 +86,8 @@ export const ScrollToTopFAB: FC<ScrollToTopFABProps> = () => {
           icon="arrow_upward"
           size="20px"
           css={[
-            scrollToTopFABCx.fabAnimate,
-            animateTrigger ? scrollToTopFABCx.fadeOutFab : scrollToTopFABCx.fadeInFab,
+            cx.fabAnimate,
+            animateTrigger ? cx.fadeOutFab : cx.fadeInFab,
           ]}
           tooltip="Scroll to Top"
         />

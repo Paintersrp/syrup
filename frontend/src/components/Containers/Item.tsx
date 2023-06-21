@@ -1,8 +1,5 @@
 import { CSSProperties, FC, ReactNode } from 'react';
-import clsx from 'clsx';
-
-import './css/Item.css';
-
+import styled, { css } from 'styled-components';
 import { Base, BaseProps } from '@/theme/base';
 
 interface ItemProps extends BaseProps {
@@ -18,6 +15,33 @@ interface ItemProps extends BaseProps {
   className?: string;
 }
 
+const ItemContainer = styled(Base)<ItemProps>`
+  flex: 0 1 auto;
+  max-width: 100%;
+
+  ${(props: any) => css`
+    @media (min-width: 0px) {
+      flex-basis: ${props['--item-basis-xs']};
+    }
+
+    @media (min-width: 500px) {
+      flex-basis: ${props['--item-basis-sm']};
+    }
+
+    @media (min-width: 650px) {
+      flex-basis: ${props['--item-basis-md']};
+    }
+
+    @media (min-width: 900px) {
+      flex-basis: ${props['--item-basis-lg']};
+    }
+
+    @media (min-width: 1280px) {
+      flex-basis: ${props['--item-basis-xl']};
+    }
+  `};
+`;
+
 export const Item: FC<ItemProps> = ({
   xs = 12,
   sm,
@@ -29,7 +53,6 @@ export const Item: FC<ItemProps> = ({
   children,
   style,
   className,
-
   ...rest
 }) => {
   const getBasis = (breakpointValue: number | undefined, defaultValue: number): string => {
@@ -45,19 +68,19 @@ export const Item: FC<ItemProps> = ({
     '--item-basis-xl': getBasis(xl, lg || md || sm || xs),
   } as CSSProperties;
 
-  const itemStyle = {
-    ...itemBasis,
-    display: justify ? 'flex' : '',
-    justifyContent: justify ? justify : '',
-    alignItems: align ? align : '',
-    maxWidth: '100%',
-    // flex: '0 1 auto',
-    ...style,
-  };
-
   return (
-    <Base className={clsx('item', className)} style={itemStyle} {...rest}>
+    <ItemContainer
+      className={className}
+      style={{
+        display: 'flex',
+        justifyContent: justify,
+        alignItems: align,
+        ...style,
+      }}
+      {...itemBasis}
+      {...rest}
+    >
       {children}
-    </Base>
+    </ItemContainer>
   );
 };

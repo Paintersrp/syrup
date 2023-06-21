@@ -1,10 +1,8 @@
+import React from 'react';
+
 import { IconButton } from '@/components/Buttons';
 import { Surface } from '@/components/Containers';
-import { Divider, List, ListItem, Menu, Text } from '@/components/Elements';
-import { colors } from '@/theme/common';
-
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Divider, Link, List, ListItem, Menu, Text } from '@/components/Elements';
 
 interface InfoMenuProps {
   textItem: {

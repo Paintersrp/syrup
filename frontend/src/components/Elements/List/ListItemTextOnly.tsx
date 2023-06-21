@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { Link } from 'react-router-dom';
 
 import { Flexer } from '../../Containers';
+import { Link } from '../Link/Link';
 import Text from '../Text/Text';
 
 interface ListItemTextOnlyProps {

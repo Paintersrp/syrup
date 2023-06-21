@@ -2,9 +2,9 @@ import { FC } from 'react';
 
 import { Flexer } from '@/components/Containers';
 import { BaseProps } from '@/theme/base';
-import List from '../../List/List';
-import ListItem, { ListItemDataType } from '../../List/ListItem';
-import { Divider } from '../../Divider/Divider';
+import List from '../List/List';
+import ListItem, { ListItemDataType } from '../List/ListItem';
+import { Divider } from '../Divider/Divider';
 import { colors } from '@/theme/common';
 
 interface DrawerContentProps extends BaseProps {

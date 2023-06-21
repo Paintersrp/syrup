@@ -7,7 +7,7 @@ import { Flexer } from '@/components/Containers';
 import { Text, Tooltip } from '@/components/Elements';
 
 import { Stagger } from '@/components/Animation';
-import { ButtonBar } from '../ButtonBar/ButtonBar';
+import { ButtonBar } from '../../../features/editable/components/ButtonBar';
 import { SocialContent } from '@/types';
 import { colors } from '@/theme/common';
 import { FormGenerator } from '@/features/editable/components/FormGenerator';
@@ -73,7 +73,7 @@ export const SocialButtons: React.FC<SocialButtonsProps> = ({
             </div>
           )}
 
-          <Stagger direction="right" orientation="horizontal" gap={6}>
+          <Stagger direction="left" orientation="horizontal" gap={6}>
             {SOCIALS.map((platform: SocialContent, index: number) => {
               if (socials[platform.name]) {
                 return (

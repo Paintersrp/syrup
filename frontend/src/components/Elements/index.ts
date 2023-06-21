@@ -3,10 +3,11 @@ import Alert from './Alert/Alert';
 import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
 import { Divider } from './Divider/Divider';
 import Drawer from './Drawer/Drawer';
-import DrawerHeader from './Drawer/components/DrawerHeader';
-import DrawerFooter from './Drawer/components/DrawerFooter';
-import DrawerFooterLinks from './Drawer/components/DrawerFooterLinks';
-import DrawerContent from './Drawer/components/DrawerContent';
+import DrawerHeader from './Drawer/DrawerHeader';
+import DrawerFooter from './Drawer/DrawerFooter';
+import DrawerFooterLinks from './Drawer/DrawerFooterLinks';
+import DrawerContent from './Drawer/DrawerContent';
+import { Link } from './Link/Link';
 import List from './List/List';
 import ListItem from './List/ListItem';
 import ListHeader from './List/ListHeader';
@@ -34,6 +35,7 @@ export {
   DrawerFooter,
   DrawerFooterLinks,
   DrawerHeader,
+  Link,
   HelpText,
   List,
   ListItem,

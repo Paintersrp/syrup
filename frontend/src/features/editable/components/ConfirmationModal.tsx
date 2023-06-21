@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { ConfirmCancelBar } from '../ConfirmCancelBar/ConfirmCancelBar';
+import { ConfirmCancelBar } from './ConfirmCancelBar';
 import { Modal, Text } from '@/components/Elements';
 import { useTheme } from '@emotion/react';
 

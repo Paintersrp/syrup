@@ -13,7 +13,7 @@ import clsx from 'clsx';
 import { Base, BaseProps } from '@/theme/base';
 import { css, useTheme } from '@emotion/react';
 
-export const toggleButtonGroupCx: any = {
+export const cx: any = {
   borderLeft: css({
     borderLeft: '1px solid #ccc',
   }),

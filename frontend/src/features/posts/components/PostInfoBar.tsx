@@ -6,12 +6,11 @@ import { Text, Tooltip } from '@/components/Elements';
 import { formatDate, getReadTime } from '@/lib/api';
 
 import { PostContent } from '../types';
-import { colors } from '@/theme/common';
 
 export const PostInfoBar: FC<{ post: PostContent }> = ({ post }) => {
-  const { author, author_details, created_at, content, id } = post;
+  const { author_details, created_at, content, id } = post;
 
-  const { wordCount, readTime } = getReadTime(content);
+  const { readTime } = getReadTime(content);
   const formattedDate = formatDate(created_at);
 
   return (

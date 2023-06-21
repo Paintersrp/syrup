@@ -13,6 +13,7 @@ export type BenefitType = {
 };
 
 export type ContentTextType = {
+  id: number;
   slug: string;
   title: string;
   description: string;

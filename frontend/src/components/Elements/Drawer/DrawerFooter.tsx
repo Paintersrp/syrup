@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Divider } from '../../Divider/Divider';
+import { Divider } from '../Divider/Divider';
 import { BaseProps } from '@/theme/base';
-import Text from '../../Text/Text';
+import Text from '../Text/Text';
 import { Flexer } from '@/components/Containers';
 import { colors } from '@/theme/common';
 

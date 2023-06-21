@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { ConfirmCancelBar } from '@/components/Built';
+import { ConfirmCancelBar } from '@/features/editable';
 import { Flexer } from '@/components/Containers';
 import { BaseProps } from '@/theme/base';
 import { RichTextInput } from '@/components/Form';

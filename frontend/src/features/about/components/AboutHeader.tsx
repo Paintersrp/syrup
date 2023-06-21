@@ -1,6 +1,7 @@
 import { useState, FC, useEffect } from 'react';
 
-import { ButtonBar, ImageHeader, ImageHeaderEdit } from '@/components/Built';
+import { ButtonBar } from '@/features/editable';
+import { ImageHeader, ImageHeaderEdit } from '@/components/Built';
 import { Flexer } from '@/components/Containers';
 import { Base, BaseProps } from '@/theme/base';
 

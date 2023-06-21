@@ -1,12 +1,11 @@
 import { MouseEvent, useState, FC, Fragment } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { faCoins } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
 import './css/RegisterForm.css';
 
 import { Collapser } from '@/components/Animation';
 import { Button, IconButton } from '@/components/Buttons';
 import { Container, Flexer, Item } from '@/components/Containers';
-import { Text } from '@/components/Elements';
+import { Link, Text } from '@/components/Elements';
 import { Input } from '@/components/Form';
 import { Icon } from '@/components/Media';
 import { handleDataChange } from '@/utils';

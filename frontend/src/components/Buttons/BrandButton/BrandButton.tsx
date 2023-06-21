@@ -15,7 +15,7 @@ const iconButtonSizes = {
   xl: { width: 48, height: 48, iconSize: '26px' },
 };
 
-const iconButtonCx = {
+const cx = {
   iconButton: (props: RootProps) => {
     const { ml, mr, mt, mb, pl, pr, theme, size, variant, palette } = props;
 
@@ -114,7 +114,7 @@ export const BrandButton: React.FC<BrandButtonProps> = ({
   return (
     <button
       disabled={disabled}
-      css={iconButtonCx.iconButton(rootProps)}
+      css={cx.iconButton(rootProps)}
       className={clsx(className)}
       onClick={href ? handleHref : onClick}
       style={style}

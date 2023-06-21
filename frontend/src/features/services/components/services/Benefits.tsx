@@ -1,17 +1,15 @@
 import { FC, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 
-import { ButtonBar, SectionHeader, SectionHeaderContent } from '@/components/Built';
+import { ButtonBar } from '@/features/editable';
+import { SectionHeader, SectionHeaderContent } from '@/components/Built';
 import { IconButton } from '@/components/Buttons';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
-import { Text, Tooltip } from '@/components/Elements';
+import { Link, Text, Tooltip } from '@/components/Elements';
+import { Icon } from '@/components/Media';
+import { FormGenerator } from '@/features/editable';
 import { Base } from '@/theme/base';
 
-import { Icon } from '@/components/Media';
-
 import { BenefitType } from '../../types';
-import { colors } from '@/theme/common';
-import { FormGenerator } from '@/features/editable/components/FormGenerator';
 
 type BenefitProps = {
   benefit: BenefitType;

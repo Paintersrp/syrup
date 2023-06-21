@@ -1,11 +1,10 @@
 import { useState, FC } from 'react';
-import { Link } from 'react-router-dom';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+
 import './css/AppFooter.css';
 
 import { Button } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
-import { Divider, Text, Tooltip } from '@/components/Elements';
+import { Divider, Link, Text, Tooltip } from '@/components/Elements';
 import { Input } from '@/components/Form';
 import { Icon } from '@/components/Media';
 import { SiteLinkType } from '@/providers/LayoutProvider';

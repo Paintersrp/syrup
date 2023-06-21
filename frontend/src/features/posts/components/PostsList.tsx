@@ -1,10 +1,9 @@
 import { FC, Fragment } from 'react';
 import DOMPurify from 'dompurify';
-import { Link } from 'react-router-dom';
 import './css/PostsList.css';
 
 import { Container, Flexer, Item } from '@/components/Containers';
-import { Divider, Text } from '@/components/Elements';
+import { Divider, Link, Text } from '@/components/Elements';
 import { Media } from '@/components/Media';
 
 import { PostInfoBar } from './PostInfoBar';

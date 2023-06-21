@@ -1,6 +1,7 @@
 import { FC, FormEvent } from 'react';
 
-import { ButtonBar, ErrorDisplay, SocialButtons } from '@/components/Built';
+import { ButtonBar, ErrorDisplay } from '@/features/editable';
+import { SocialButtons } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Flexer, Item, Surface } from '@/components/Containers';
 import { Text } from '@/components/Elements';

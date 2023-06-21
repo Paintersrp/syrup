@@ -2,7 +2,7 @@ import { CSSProperties, FC, ReactNode } from 'react';
 import { useTheme } from '@emotion/react';
 import clsx from 'clsx';
 
-const toggleButtonCx = {
+const cx = {
   toggleButton: (theme: any) => ({
     background: theme.light,
     transition: 'background-color 0.3s ease, color 0.3s ease',
@@ -25,7 +25,7 @@ const toggleButtonCx = {
 
 interface ToggleButtonProps {
   value: string;
-  active: boolean;
+  active?: boolean;
   onClick?: () => void;
   children: ReactNode;
   className?: string;
@@ -45,7 +45,7 @@ export const ToggleButton: FC<ToggleButtonProps> = ({
   return (
     <button
       className={clsx(className)}
-      css={[toggleButtonCx.toggleButton(theme), active && toggleButtonCx.active(theme)]}
+      css={[cx.toggleButton(theme), active && cx.active(theme)]}
       onClick={onClick}
       value={value}
       style={style}

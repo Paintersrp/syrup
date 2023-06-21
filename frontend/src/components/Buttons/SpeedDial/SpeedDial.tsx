@@ -19,7 +19,7 @@ function formatPosition(position: string) {
 }
 
 // positional css needs work
-export const speedDialCx: any = {
+export const cx: any = {
   speedDial: css({
     position: 'fixed',
     zIndex: 9999,
@@ -106,7 +106,7 @@ interface SpeedDialItemProps {
 }
 
 const SpeedDialItem: FC<SpeedDialItemProps> = ({ label, icon, onClick }) => (
-  <button css={speedDialCx.speedDialItem} onClick={onClick}>
+  <button css={cx.speedDialItem} onClick={onClick}>
     <Icon size="24px" color={colors.secondary.main} icon={icon} />
   </button>
 );
@@ -126,18 +126,18 @@ const SpeedDial: FC<SpeedDialProps> = ({ position, direction, children, ...rest 
   };
 
   return (
-    <Base css={[speedDialCx.speedDial, speedDialCx[formattedPosition]]} {...rest}>
+    <Base css={[cx.speedDial, cx[formattedPosition]]} {...rest}>
       <FAB
         position={position}
         icon={isOpen ? 'close' : 'add'}
         onClick={handleToggle}
-        css={[speedDialCx.mainFab]}
+        css={[cx.mainFab]}
         // className="main-fab"
         size="28px"
       />
 
       {isOpen && (
-        <div css={[speedDialCx.speedDialMenu, speedDialCx[direction]]}>
+        <div css={[cx.speedDialMenu, cx[direction]]}>
           {children.map((child, index) => cloneElement(child, { key: index }))}
         </div>
       )}

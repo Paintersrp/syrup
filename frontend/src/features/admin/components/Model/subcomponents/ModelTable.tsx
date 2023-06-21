@@ -1,4 +1,5 @@
-import { ConfirmationModal, Pagination } from '@/components/Built';
+import { Pagination } from '@/components/Built';
+import { ConfirmationModal } from '@/features/editable';
 import { Surface } from '@/components/Containers';
 import { Table, TableContainer } from '@/components/Elements';
 import { usePagination } from '@/hooks';

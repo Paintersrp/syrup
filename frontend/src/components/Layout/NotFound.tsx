@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './css/NotFound.css';
 
 import { Page } from '@/components/Layout';
 import { Flexer, Surface } from '@/components/Containers';
-import { Text } from '@/components/Elements';
+import { Link, Text } from '@/components/Elements';
 import { colors } from '@/theme/common/colors';
 
 export const NotFound: React.FC = () => {

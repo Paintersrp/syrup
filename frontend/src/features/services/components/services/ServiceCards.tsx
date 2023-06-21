@@ -1,16 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './css/Service.css';
 
 import { Carousel } from '@/components/Animation';
 import { Button } from '@/components/Buttons';
 import { Container, Flexer, Item } from '@/components/Containers';
-import { Text } from '@/components/Elements';
-import { Base } from '@/theme/base';
+import { Link, Text } from '@/components/Elements';
 import { Icon, Media } from '@/components/Media';
+import { Base } from '@/theme/base';
+import { colors } from '@/theme/common';
 
 import { ServiceType } from '../../types';
-import { colors } from '@/theme/common';
 
 interface ServiceCardProps {
   service: ServiceType;

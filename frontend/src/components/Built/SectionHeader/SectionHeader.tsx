@@ -5,7 +5,7 @@ import { Flexer } from '@/components/Containers';
 import { Divider, Text } from '@/components/Elements';
 
 import { FadeOnScroll } from '@/components/Animation';
-import { ButtonBar } from '../ButtonBar/ButtonBar';
+import { ButtonBar } from '../../../features/editable/components/ButtonBar';
 import { colors } from '@/theme/common';
 import { useEditModeStore } from '@/stores/editmode';
 import { FormGenerator } from '@/features/editable/components/FormGenerator';
@@ -129,5 +129,3 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({ headerData, formTi
     </>
   );
 };
-
-

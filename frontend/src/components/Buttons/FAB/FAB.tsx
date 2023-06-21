@@ -5,8 +5,10 @@ import { css } from '@emotion/react';
 import { Tooltip } from '../../Elements';
 import { Base, BaseProps } from '@/theme/base';
 import { Icon } from '../../Media';
+import { defaultColors } from '@/theme';
+import { shadows } from '@/theme/common';
 
-const fabCx = {
+const cx = {
   fabButton: css({
     position: 'relative',
     display: 'flex',
@@ -15,9 +17,9 @@ const fabCx = {
     width: 40,
     height: 40,
     borderRadius: '50%',
-    backgroundColor: '#2196f3',
+    backgroundColor: defaultColors.secondary,
     color: '#ffffff',
-    boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.26)',
+    boxShadow: shadows[1],
     border: 'none',
     outline: 'none',
     cursor: 'pointer',
@@ -56,7 +58,7 @@ export const FAB: React.FC<FABProps> = ({
   };
 
   const button = (
-    <button css={fabCx.fabButton} onClick={onClick}>
+    <button css={cx.fabButton} onClick={onClick}>
       <Icon icon={icon} color="#fff" size={size} />
     </button>
   );

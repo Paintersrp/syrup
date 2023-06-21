@@ -1,7 +1,8 @@
 import { FC, Fragment } from 'react';
 
 import { Carousel } from '@/components/Animation';
-import { ConfirmationModal, SectionHeader, SectionHeaderContent } from '@/components/Built';
+import { ConfirmationModal } from '@/features/editable';
+import { SectionHeader, SectionHeaderContent } from '@/components/Built';
 import { Container, Flexer } from '@/components/Containers';
 import { BaseProps } from '@/theme/base';
 

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import './css/Hero.css';
 
-import { ButtonBar, ContactButtons, SocialButtons } from '@/components/Built';
+import { ButtonBar } from '@/features/editable';
+import { ContactButtons, SocialButtons } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 
-import { Text } from '@/components/Elements';
+import { Link, Text } from '@/components/Elements';
 import { BaseProps } from '@/theme/base';
 
 import { HeroContent } from '../types';

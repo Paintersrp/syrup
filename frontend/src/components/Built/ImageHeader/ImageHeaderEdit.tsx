@@ -1,6 +1,6 @@
 import { ChangeEvent, FC, FormEvent, Fragment, useState } from 'react';
 
-import { ConfirmCancelBar } from '@/components/Built';
+import { ConfirmCancelBar } from '@/features/editable';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { HelpText, Text } from '@/components/Elements';
 import { Input, ImageInput } from '@/components/Form';

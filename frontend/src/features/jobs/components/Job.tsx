@@ -1,6 +1,6 @@
 import { FC, ReactNode } from 'react';
 
-import { ButtonBar } from '@/components/Built';
+import { ButtonBar } from '@/features/editable';
 import { Surface } from '@/components/Containers';
 import { BaseProps } from '@/theme/base';
 import { useEditModeStore } from '@/stores/editmode';

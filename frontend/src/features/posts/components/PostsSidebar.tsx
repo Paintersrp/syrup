@@ -1,10 +1,9 @@
 import { FC } from 'react';
-import { Link } from 'react-router-dom';
 import './css/PostsSidebar.css';
 
 import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
-import { Divider, Tag, Text, Tooltip } from '@/components/Elements';
+import { Divider, Link, Tag, Text, Tooltip } from '@/components/Elements';
 
 import { colors } from '@/theme/common';
 import { useAuthStore } from '@/stores/auth';

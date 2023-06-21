@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { css } from '@emotion/react';
 import { mediaQueries } from '@/theme/common/breakpoints';
 
-export const carouselCx = {
+export const cx = {
   carousel: css({
     position: 'relative',
     overflow: 'hidden',
@@ -177,32 +177,32 @@ export const Carousel: FC<CarouselProps> = ({
 
   return (
     <Base d="flex" j="c" className={clsx(className)} {...rest}>
-      <div css={carouselCx.carousel} style={style}>
-        <div css={carouselCx.slides} style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+      <div css={cx.carousel} style={style}>
+        <div css={cx.slides} style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
           {children.map((child, index) => (
-            <div key={index} css={carouselCx.slide}>
+            <div key={index} css={cx.slide}>
               {child}
             </div>
           ))}
         </div>
-        <button css={carouselCx.prevButton} onClick={handlePreviousSlide}>
+        <button css={cx.prevButton} onClick={handlePreviousSlide}>
           <Icon icon="chevron_left" color={iconColor} />
         </button>
-        <button css={carouselCx.nextButton} onClick={handleNextSlide}>
+        <button css={cx.nextButton} onClick={handleNextSlide}>
           <Icon icon="chevron_right" color={iconColor} />
         </button>
-        <div css={carouselCx.indicators}>
+        <div css={cx.indicators}>
           {children.map((_, index) => (
             <div
               key={index}
               css={css`
-                ${carouselCx.indicator} ${index === currentSlide ? carouselCx.activeSlide : ''}
+                ${cx.indicator} ${index === currentSlide ? cx.activeSlide : ''}
               `}
               onClick={() => handleIndicatorClick(index)}
             ></div>
           ))}
         </div>
-        <button css={carouselCx.autoplayToggle} onClick={handleAutoplayToggle}>
+        <button css={cx.autoplayToggle} onClick={handleAutoplayToggle}>
           {autoplayEnabled ? (
             <Icon icon="pause" color={iconColor} />
           ) : (
