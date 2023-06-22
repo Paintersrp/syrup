@@ -1,9 +1,37 @@
-import React, { useState, useRef, useEffect, ReactNode, CSSProperties } from 'react';
-import './Menu.css';
+import {
+  useState,
+  useRef,
+  useEffect,
+  ReactNode,
+  CSSProperties,
+  FC,
+  cloneElement,
+  ReactElement,
+  Children,
+} from 'react';
 
 import { Base, BaseProps } from '@/theme/base';
 import { Divider } from '../Divider/Divider';
 import { Button } from '../../Buttons';
+import { css, useTheme } from '@emotion/react';
+
+const styles = {
+  root: css({
+    position: 'relative',
+    display: 'inline-block',
+  }),
+  container: (theme: any, isOpen: boolean) =>
+    css({
+      position: 'absolute',
+      background: theme.menuBackground,
+      border: theme.menuBorder,
+      boxShadow: theme.shadows[1],
+      zIndex: 999,
+      display: 'flex',
+      borderRadius: 4,
+      animation: isOpen ? theme.anim.fadeIn300 : undefined,
+    }),
+};
 
 interface MenuProps extends BaseProps {
   children: ReactNode;
@@ -14,7 +42,7 @@ interface MenuProps extends BaseProps {
   style?: CSSProperties;
 }
 
-const Menu: React.FC<MenuProps> = ({
+const Menu: FC<MenuProps> = ({
   children,
   position = 'bottom',
   manualButton,
@@ -23,6 +51,7 @@ const Menu: React.FC<MenuProps> = ({
   style,
   ...rest
 }) => {
+  const theme = useTheme();
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -41,7 +70,7 @@ const Menu: React.FC<MenuProps> = ({
   };
 
   const getMenuStyle = () => {
-    const menuStyle: React.CSSProperties = {
+    const menuStyle: any = {
       display: getMenuPosition(),
       ...style,
     };
@@ -76,7 +105,7 @@ const Menu: React.FC<MenuProps> = ({
     };
   }, []);
 
-  const renderChildren = React.Children.map(children, (child, index) => {
+  const renderChildren = Children.map(children, (child, index) => {
     const shouldRenderDivider = dividers && index !== 0;
 
     return (
@@ -87,10 +116,12 @@ const Menu: React.FC<MenuProps> = ({
     );
   });
 
+  const menuStyle = getMenuStyle();
+
   return (
-    <Base className="menu-root" ref={dropdownRef} {...rest}>
+    <Base css={styles.root} ref={dropdownRef} {...rest}>
       {manualButton ? (
-        React.cloneElement(manualButton as React.ReactElement, {
+        cloneElement(manualButton as ReactElement, {
           onClick: toggleDropdown,
         })
       ) : (
@@ -98,9 +129,7 @@ const Menu: React.FC<MenuProps> = ({
           {buttonText}
         </Button>
       )}
-      <div className={`menu-container ${isOpen ? 'open' : ''}`} style={getMenuStyle()}>
-        {renderChildren}
-      </div>
+      <div css={[styles.container(theme, isOpen), [menuStyle]]}>{renderChildren}</div>
     </Base>
   );
 };

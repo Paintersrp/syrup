@@ -80,6 +80,7 @@ export const properties: { [key: string]: string } = {
   gap: 'gap',
   z: 'zIndex',
   o: 'opacity',
+  cur: 'cursor',
 };
 
 export const values: { [key: string]: (value: any) => string | undefined } = {

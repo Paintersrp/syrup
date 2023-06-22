@@ -1,6 +1,19 @@
 import { CSSProperties, FC, ReactNode } from 'react';
 import { Base, BaseProps } from '@/theme/base';
 import './Sidebar.css';
+import { css, useTheme } from '@emotion/react';
+
+// retool component
+const styles = {
+  root: (theme: any) =>
+    css({
+      position: 'sticky',
+      color: '#fff',
+      backgroundColor: theme.primary,
+      transition: 'width 0.3s ease',
+      boxShadow: theme.shadows[1],
+    }),
+};
 
 interface SidebarProps extends BaseProps {
   side: 'left' | 'right';
@@ -23,6 +36,8 @@ const Sidebar: FC<SidebarProps> = ({
   open = true,
   ...rest
 }) => {
+  const theme = useTheme();
+
   return (
     <div className={`${open ? 'open' : 'closed'} sidebar-outer`}>
       <Base

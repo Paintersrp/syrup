@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React, { CSSProperties, forwardRef } from 'react';
 
 import { classify } from './classify';
 import { AlignmentValue, JustificationValue } from './types';
@@ -35,6 +35,7 @@ export interface BaseProps {
   z?: CSSProperties['zIndex'];
   o?: CSSProperties['opacity'];
   bs?: number | undefined;
+  cur?: CSSProperties['cursor'];
   style?: CSSProperties;
   className?: string;
   ref?: any;
@@ -46,103 +47,110 @@ export interface BaseProps {
   onKeyDown?: (event: React.KeyboardEvent) => void;
 }
 
-export const Base: React.FC<BaseProps> = ({
-  children,
-  m,
-  mt,
-  mb,
-  ml,
-  mr,
-  p,
-  pt,
-  pb,
-  pl,
-  pr,
-  w,
-  minw,
-  maxw,
-  h,
-  minh,
-  maxh,
-  c,
-  bg,
-  br,
-  fs,
-  fw,
-  ta,
-  d,
-  fd,
-  j,
-  a,
-  gap,
-  z,
-  o,
-  bs,
-  style,
-  className,
-  ref,
-  onClick,
-  onMouseEnter,
-  onMouseLeave,
-  onFocus,
-  onBlur,
-  onKeyDown,
-}) => {
-  const baseCssProps = {
-    m,
-    mt,
-    mb,
-    ml,
-    mr,
-    p,
-    pt,
-    pb,
-    pl,
-    pr,
-    w,
-    minw,
-    maxw,
-    h,
-    minh,
-    maxh,
-    c,
-    bg,
-    br,
-    fs,
-    fw,
-    ta,
-    d,
-    fd,
-    j,
-    a,
-    gap,
-    z,
-    o,
-    bs,
-  };
+// add an "as" prop to set a different internal component, such as th or span instead of div
+// cursor prop
 
-  const handleKeyDown = (event: React.KeyboardEvent) => {
-    if (onKeyDown) {
-      onKeyDown(event);
-    }
-  };
+export const Base = forwardRef<HTMLDivElement, BaseProps>(
+  (
+    {
+      children,
+      m,
+      mt,
+      mb,
+      ml,
+      mr,
+      p,
+      pt,
+      pb,
+      pl,
+      pr,
+      w,
+      minw,
+      maxw,
+      h,
+      minh,
+      maxh,
+      c,
+      bg,
+      br,
+      fs,
+      fw,
+      ta,
+      d,
+      fd,
+      j,
+      a,
+      gap,
+      z,
+      o,
+      bs,
+      cur,
+      style,
+      className,
+      onClick,
+      onMouseEnter,
+      onMouseLeave,
+      onFocus,
+      onBlur,
+      onKeyDown,
+    },
+    ref
+  ) => {
+    const baseCssProps = {
+      m,
+      mt,
+      mb,
+      ml,
+      mr,
+      p,
+      pt,
+      pb,
+      pl,
+      pr,
+      w,
+      minw,
+      maxw,
+      h,
+      minh,
+      maxh,
+      c,
+      bg,
+      br,
+      fs,
+      fw,
+      ta,
+      d,
+      fd,
+      j,
+      a,
+      gap,
+      z,
+      o,
+      bs,
+      cur,
+    };
 
-  // console.log(classify(baseCssProps));
+    const handleKeyDown = (event: React.KeyboardEvent) => {
+      if (onKeyDown) {
+        onKeyDown(event);
+      }
+    };
 
-  return (
-    <div
-      className={className}
-      css={classify(baseCssProps)}
-      style={style}
-      onClick={onClick}
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      onFocus={onFocus}
-      onBlur={onBlur}
-      onKeyDown={handleKeyDown}
-      ref={ref}
-    >
-      {children}
-    </div>
-  );
-};
+    return (
+      <div
+        className={className}
+        css={classify(baseCssProps)}
+        style={style}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onKeyDown={handleKeyDown}
+        ref={ref}
+      >
+        {children}
+      </div>
+    );
+  }
+);

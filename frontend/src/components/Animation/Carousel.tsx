@@ -36,7 +36,7 @@ export const cx = {
   activeSlide: css({
     zIndex: 2,
   }),
-  prevButton: css({
+  ctrlButton: css({
     position: 'absolute',
     top: '50%',
     transform: 'translateY(-50%)',
@@ -49,30 +49,6 @@ export const cx = {
     fontSize: 24,
     zIndex: 3,
     left: 0,
-    '&:focus': {
-      outline: 'none',
-    },
-    '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.3)',
-      transition: 'background-color 0.3s ease',
-    },
-    '& i': {
-      pointerEvents: 'none',
-    },
-  }),
-  nextButton: css({
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    width: 40,
-    height: 40,
-    backgroundColor: 'transparent',
-    border: 'none',
-    cursor: 'pointer',
-    color: '#fff',
-    fontSize: 24,
-    zIndex: 3,
-    right: 0,
     '&:focus': {
       outline: 'none',
     },
@@ -185,10 +161,10 @@ export const Carousel: FC<CarouselProps> = ({
             </div>
           ))}
         </div>
-        <button css={cx.prevButton} onClick={handlePreviousSlide}>
+        <button css={cx.ctrlButton} onClick={handlePreviousSlide}>
           <Icon icon="chevron_left" color={iconColor} />
         </button>
-        <button css={cx.nextButton} onClick={handleNextSlide}>
+        <button css={cx.ctrlButton} onClick={handleNextSlide}>
           <Icon icon="chevron_right" color={iconColor} />
         </button>
         <div css={cx.indicators}>

@@ -1,8 +1,8 @@
 import React from 'react';
-import './TableSortCell.css';
 
-import { Icon } from '../../Media';
-import Text from '../Text/Text';
+import { Text } from '@/components/Elements';
+import { Icon } from '@/components/Media';
+import { Base } from '@/theme/base';
 
 interface TableSortCellProps {
   active: boolean;
@@ -20,12 +20,12 @@ const TableSortCell: React.FC<TableSortCellProps> = ({ active, direction, onClic
   };
 
   return (
-    <div className="sort-cell-root" onClick={onClick}>
+    <Base d="flex" a="c" j="c" cur="pointer" onClick={onClick}>
       <Text w="auto" fw="bold">
         {label}
       </Text>
       <Icon color="#222" size="18px" ml={4} icon={getIconName()} />
-    </div>
+    </Base>
   );
 };
 

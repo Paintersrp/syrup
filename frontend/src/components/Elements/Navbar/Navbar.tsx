@@ -1,14 +1,32 @@
 import { ReactNode, CSSProperties, FC } from 'react';
-import classNames from 'classnames';
-import './Navbar.css';
+import { css, useTheme } from '@emotion/react';
+import clsx from 'clsx';
+
+import { PaletteOptions } from '@/theme/palettes';
+
+const styles = {
+  navbar: (theme: any, position: CSSProperties['position'], side: any, color: string) =>
+    css({
+      [side]: -1,
+      position: position,
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      width: '100%',
+      height: 54,
+      backgroundColor: theme[color],
+      boxShadow: theme.shadows[1],
+      zIndex: 1000,
+    }),
+};
 
 interface NavbarProps {
   children: ReactNode;
   position?: 'fixed' | 'absolute';
   side?: 'top' | 'bottom';
-  color?: 'primary' | 'secondary' | 'error' | 'success';
+  color?: PaletteOptions;
   className?: string;
-  style?: CSSProperties | null;
+  style?: CSSProperties;
 }
 
 const Navbar: FC<NavbarProps> = ({
@@ -17,18 +35,16 @@ const Navbar: FC<NavbarProps> = ({
   side = 'top',
   color = 'primary',
   className = '',
-  style = null,
+  style,
 }) => {
-  const navbarStyles: CSSProperties = {
-    position,
-    [side]: -1,
-    ...style,
-  };
-
-  const classes = classNames('nav-top', `bg-${color}-m`, className);
+  const theme = useTheme();
 
   return (
-    <nav className={classes} style={navbarStyles}>
+    <nav
+      style={style}
+      className={clsx(className)}
+      css={styles.navbar(theme, position, side, color)}
+    >
       {children}
     </nav>
   );

@@ -28,8 +28,11 @@ export const defaultColors: any = {
   accent: '#0366d6',
   yellow: '#EDBA07',
   textHighlight: '#FDEA9B',
+  minVisible: 'rgba(34, 34, 34, 0.1)',
+  disabled: 'rgba(34, 34, 34, 0.38)',
   grey: 'rgba(0, 0, 0, 0.50)',
   charcoal: 'rgba(0,0,0,0.75)',
+  background: '#f5f5f5',
 };
 
 const buildBaseTheme = (): BaseTheme => {
@@ -64,12 +67,25 @@ const buildBaseTheme = (): BaseTheme => {
     noticeSuccessText: defaultColors.dark,
   };
 
+  const menu = {
+    menuBackground: defaultColors.light,
+    menuBorder: `1px solid ${defaultColors.lightDark}`,
+  };
+
   const errorNotice = {
     errorNoticeBackground: lighten(0.3, defaultColors.errorLight),
     errorNoticeBorder: `1px solid ${lighten(0.15, defaultColors.errorLight)}`,
   };
 
   const table = { tableSelectedBackground: transparentize(0.8, defaultColors.accent) };
+
+  const flex = {
+    CC: {
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+  };
 
   return {
     ...general,
@@ -79,6 +95,7 @@ const buildBaseTheme = (): BaseTheme => {
     ...errorNotice,
     ...table,
     ...defaultColors,
+    flex,
     anim: animations,
     breakpoints,
     shadows,

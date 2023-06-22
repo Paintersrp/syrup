@@ -26,6 +26,14 @@ export const keyframeCx = {
       transform: translateX(0);
     }
   `,
+  fadeIn: keyframes`
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  `,
 };
 
 export const animations: AnimationStyles = Object.entries(keyframeCx).reduce(

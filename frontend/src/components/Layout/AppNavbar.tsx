@@ -32,7 +32,7 @@ export const AppNavbar: FC<AppNavbarProps> = ({
   const isSmallScreen = useBreakpoint('sm');
 
   return (
-    <Navbar>
+    <Navbar color="primary">
       {menuButton && (
         <IconButton
           variant="float"

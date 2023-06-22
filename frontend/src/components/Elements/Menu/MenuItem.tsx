@@ -1,10 +1,23 @@
-import React, { ReactNode } from 'react';
-import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import './MenuItem.css';
+import { FC, ReactNode } from 'react';
 
 import { Base, BaseProps } from '@/theme/base';
 import { Flexer } from '../../Containers';
 import { Icon } from '../../Media';
+import { css } from '@emotion/react';
+import Text from '../Text/Text';
+
+const styles = {
+  root: (isActive: boolean) =>
+    css({
+      cursor: 'pointers',
+      transition: 'background-color 0.3s ease',
+      backgroundColor: isActive ? '#d7d7d7' : undefined,
+      color: isActive ? '#333333' : undefined,
+      '&:hover': {
+        backgroundColor: '#e8e8e8',
+      },
+    }),
+};
 
 interface MenuItemProps extends BaseProps {
   children: ReactNode;
@@ -15,7 +28,7 @@ interface MenuItemProps extends BaseProps {
   iconColor?: string;
 }
 
-const MenuItem: React.FC<MenuItemProps> = ({
+const MenuItem: FC<MenuItemProps> = ({
   children,
   onClick,
   icon,
@@ -24,21 +37,20 @@ const MenuItem: React.FC<MenuItemProps> = ({
   iconColor = 'primary',
   ...rest
 }) => {
-  const menuItemClassName = `menu-item ${isActive ? 'active' : ''}`;
-
   return (
-    <Base className={menuItemClassName} onClick={onClick} {...rest}>
+    <Base d="flex" a="c" p="8px" css={styles.root(isActive)} onClick={onClick} {...rest}>
       {icon ? (
         <Flexer j="sb">
-          <span
-            className="menu-item-text"
-            style={{
+          <Text
+            a={textAlign}
+            fw="500"
+            s="14px"
+            css={{
               order: textAlign === 'right' ? 2 : 1,
-              textAlign: textAlign,
             }}
           >
             {children}
-          </span>
+          </Text>
           <Icon
             size="1rem"
             color={iconColor || 'primary'}
@@ -49,9 +61,9 @@ const MenuItem: React.FC<MenuItemProps> = ({
           />
         </Flexer>
       ) : (
-        <span className="menu-item-text" style={{ textAlign: textAlign }}>
+        <Text a={textAlign} fw="500" s="14px">
           {children}
-        </span>
+        </Text>
       )}
     </Base>
   );
