@@ -30,7 +30,7 @@ interface ListProps extends BaseProps {
   innerStyle?: CSSProperties;
 }
 
-const List: React.FC<ListProps> = ({
+export const List: React.FC<ListProps> = ({
   children,
   spacing = 2,
   dividers = true,
@@ -111,5 +111,3 @@ const List: React.FC<ListProps> = ({
     </Surface>
   );
 };
-
-export default List;

@@ -14,7 +14,7 @@ interface TooltipProps extends BaseProps {
   disabled?: boolean;
 }
 
-const Tooltip: FC<TooltipProps> = ({
+export const Tooltip: FC<TooltipProps> = ({
   children,
   text,
   position = 'bottom',
@@ -55,5 +55,3 @@ const Tooltip: FC<TooltipProps> = ({
     </Base>
   );
 };
-
-export default Tooltip;

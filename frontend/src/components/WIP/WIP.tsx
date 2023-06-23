@@ -15,6 +15,10 @@ import { Editable } from '../../features/editable/components/Editable';
 import { PalettePreview } from './PalettePreview';
 import { defaultColors } from '@/theme';
 import { Link } from '../Elements/Link/Link';
+import { Base } from '@/theme/base';
+import PopoverTooltip from '../Elements/Popover/PopoverTooltip';
+import PopoverMenu from '../Elements/Popover/PopoverMenu';
+import Popover from '../Elements/Popover/Popover';
 
 interface WIPProps {}
 
@@ -85,10 +89,41 @@ const WIP: React.FC<WIPProps> = ({}) => {
     }));
   };
 
+  // Popovers
+  const handlePopoverOpen = () => {
+    console.log('Popover opened');
+    // Perform additional actions when the popover opens
+  };
+
+  const handlePopoverClose = () => {
+    console.log('Popover closed');
+    // Perform additional actions when the popover closes
+  };
+
+  const handleMenuItemClick = () => {
+    console.log('Menu item clicked');
+    // Perform additional actions when a menu item is clicked
+  };
+
+  const menuItems = [
+    { label: 'Item 1', onClick: handleMenuItemClick },
+    { label: 'Item 2', onClick: handleMenuItemClick },
+    { label: 'Item 3', onClick: handleMenuItemClick },
+  ];
+  // Popovers end
+
   const { editMode, editModeToggle } = useEditModeStore();
 
   return (
     <Page>
+      <Base mt={96}>
+        <Popover content="Tests">
+          <button>Open Menu</button>
+        </Popover>
+        <Popover content="Tests">
+          <span>Hover Me</span>
+        </Popover>
+      </Base>
       <PalettePreview />
       <div>
         <Link to="/taco" mt={96} pt={96}>

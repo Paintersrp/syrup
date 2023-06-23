@@ -10,7 +10,7 @@ interface LoadingProps {
   load: boolean;
 }
 
-const Loading: React.FC<LoadingProps> = ({ load }) => {
+export const Loading: React.FC<LoadingProps> = ({ load }) => {
   useEffect(() => {
     const rootElement = document.documentElement;
     if (load) {
@@ -36,5 +36,3 @@ const Loading: React.FC<LoadingProps> = ({ load }) => {
     </div>
   );
 };
-
-export default Loading;

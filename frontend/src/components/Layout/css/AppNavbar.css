@@ -1,7 +1,7 @@
-.nav-top .link-container {
+.link-container {
   transition: margin-left 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
-.nav-top .menu-button {
+.menu-button {
   transition: margin-left 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 

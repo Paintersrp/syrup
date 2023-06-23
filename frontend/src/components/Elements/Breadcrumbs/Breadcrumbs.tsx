@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 
 import { Icon } from '../../Media';
 
-const cx = {
+const styles = {
   breadcrumbs: css({
     listStyleType: 'none',
     display: 'flex',
@@ -13,7 +13,7 @@ const cx = {
     display: 'flex',
     alignItems: 'center',
   }),
-  separator: css({
+  separators: css({
     margin: '0 0.5rem',
   }),
 };
@@ -32,11 +32,13 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   const items = React.Children.toArray(children);
 
   return (
-    <ul css={cx.breadcrumbs} style={style}>
+    <ul css={styles.breadcrumbs} style={style}>
       {items.map((item, index) => (
-        <li key={index} css={cx.breadcrumb}>
+        <li key={index} css={styles.breadcrumb}>
           {item}
-          {index !== items.length - 1 && <Icon size="18px" icon={separator} css={cx.separator} />}
+          {index !== items.length - 1 && (
+            <Icon size="18px" icon={separator} css={styles.separators} />
+          )}
         </li>
       ))}
     </ul>

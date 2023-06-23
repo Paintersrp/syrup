@@ -1,16 +1,11 @@
 import { useState, useEffect, FC, ReactNode, CSSProperties } from 'react';
 import ReactDOM from 'react-dom';
 import { Base, BaseProps } from '@/theme/base';
-import { css, useTheme } from '@emotion/react';
+import { css } from '@emotion/react';
 import clsx from 'clsx';
+import { inject } from '@/theme/utils';
 
-type ModalStyleProps = {
-  theme: any;
-  width: CSSProperties['width'];
-  maxWidth: CSSProperties['maxWidth'];
-};
-
-const styles = {
+const styles = (theme: any) => ({
   root: css({
     position: 'fixed',
     top: 0,
@@ -18,7 +13,7 @@ const styles = {
     width: '100%',
     height: '100%',
   }),
-  overlay: (theme: any) =>
+  overlay: () =>
     css({
       position: 'absolute',
       top: 0,
@@ -27,7 +22,7 @@ const styles = {
       height: '100%',
       backgroundColor: theme.backdrop,
     }),
-  modal: (theme: any, width: CSSProperties['width'], maxWidth: CSSProperties['maxWidth']) =>
+  modal: (width: CSSProperties['width'], maxWidth: CSSProperties['maxWidth']) =>
     css({
       position: 'relative',
       backgroundColor: theme.background,
@@ -38,7 +33,7 @@ const styles = {
       margin: '0 auto',
       maxWidth: maxWidth,
     }),
-};
+});
 
 interface ModalProps extends BaseProps {
   children: ReactNode;
@@ -52,7 +47,7 @@ interface ModalProps extends BaseProps {
   width?: CSSProperties['width'];
 }
 
-const Modal: FC<ModalProps> = ({
+export const Modal: FC<ModalProps> = ({
   children,
   isOpen = false,
   onClose = () => {},
@@ -64,7 +59,8 @@ const Modal: FC<ModalProps> = ({
   width = undefined,
   ...rest
 }) => {
-  const theme = useTheme();
+  const css = inject(styles);
+
   const [modalOpen, setModalOpen] = useState<boolean>(isOpen);
 
   useEffect(() => {
@@ -81,13 +77,9 @@ const Modal: FC<ModalProps> = ({
   }
 
   return ReactDOM.createPortal(
-    <Base d="flex" a="c" j="c" css={styles.root} {...rest}>
-      <div css={styles.overlay(theme)} onClick={closeModal} />
-      <div
-        css={styles.modal(theme, width, maxWidth)}
-        className={clsx(outerClass)}
-        style={outerStyle}
-      >
+    <Base d="flex" a="c" j="c" css={css.root} {...rest}>
+      <div css={css.overlay} onClick={closeModal} />
+      <div css={css.modal(width, maxWidth)} className={clsx(outerClass)} style={outerStyle}>
         <div style={innerStyle} className={clsx(innerClass)}>
           {children}
         </div>
@@ -96,5 +88,3 @@ const Modal: FC<ModalProps> = ({
     document.body
   );
 };
-
-export default Modal;

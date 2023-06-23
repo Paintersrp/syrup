@@ -1,10 +1,10 @@
 import { FC } from 'react';
 
-import ListItem, { ListItemDataType } from '../List/ListItem';
+import { ListItem, ListItemDataType } from '../List/ListItem';
 
 import { Divider } from '../Divider/Divider';
 import { BaseProps } from '@/theme/base';
-import List from '../List/List';
+import { List } from '../List/List';
 import { Flexer } from '@/components/Containers';
 import { colors } from '@/theme/common';
 

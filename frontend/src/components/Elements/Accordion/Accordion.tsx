@@ -2,16 +2,17 @@ import { useState, useRef, useEffect, FC, ReactNode } from 'react';
 
 import { Base, BaseProps } from '@/theme/base';
 import { css } from '@emotion/react';
-import Text from '../Text/Text';
+import { Text } from '../Text/Text';
 import { Icon } from '@/components/Media';
+import { inject } from '@/theme/utils';
 
-const cx = {
+const styles = (theme: any) => ({
   accordion: (isOpen: boolean) =>
     css({
-      backgroundColor: '#f5f5f5',
+      backgroundColor: theme.light,
       borderRadius: '6px',
       marginBottom: isOpen ? '24px' : '8px',
-      boxShadow: 'var(--shadow-1)',
+      boxShadow: theme.shadows[1],
       transition: 'margin-bottom 0.3s ease',
       width: '100%',
     }),
@@ -49,7 +50,7 @@ const cx = {
   contentInner: css({
     padding: '16px',
   }),
-};
+});
 
 interface Props extends BaseProps {
   title: string;
@@ -57,6 +58,8 @@ interface Props extends BaseProps {
 }
 
 const Accordion: FC<Props> = ({ title, content, ...rest }) => {
+  const css = inject(styles);
+
   const [isOpen, setIsOpen] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -70,13 +73,13 @@ const Accordion: FC<Props> = ({ title, content, ...rest }) => {
   };
 
   return (
-    <Base css={cx.accordion(isOpen)} {...rest}>
-      <div css={cx.header(isOpen)} onClick={toggleAccordion}>
+    <Base css={css.accordion(isOpen)} {...rest}>
+      <div css={css.header(isOpen)} onClick={toggleAccordion}>
         <Text t="h4">{title}</Text>
-        <Icon icon="expand_more" css={cx.icon(isOpen)} />
+        <Icon icon="expand_more" css={css.icon(isOpen)} />
       </div>
-      <div css={cx.content(contentHeight, isOpen)}>
-        <div css={cx.contentInner} ref={contentRef}>
+      <div css={css.content(contentHeight, isOpen)}>
+        <div css={css.contentInner} ref={contentRef}>
           {content}
         </div>
       </div>

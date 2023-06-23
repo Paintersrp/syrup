@@ -1,17 +1,26 @@
+import React from 'react';
+import { css } from '@emotion/react';
+
 import { Flexer } from '@/components/Containers';
 import { Base } from '@/theme/base';
+import { inject } from '@/theme/utils';
 import { CapitalizeFirst } from '@/utils';
-import { css, useTheme } from '@emotion/react';
-import React from 'react';
-import Text from '../Text/Text';
 
-const styles = {
-  step: (theme: any, index: number, activeStep: number) => {
+import {Text} from '../Text/Text';
+
+const styles = (theme: any) => ({
+  step: (index: number, activeStep: number) => {
     const active = index <= activeStep;
     const current = index === activeStep;
 
     const color = active ? theme.light : theme.dark;
     const background = current ? theme.secondaryLight : active ? theme.primary : theme.smokeDark;
+    const hoverColor = current ? theme.light : active ? theme.smoke : theme.primaryLight;
+    const hoverBackground = current
+      ? theme.secondaryLight
+      : active
+      ? theme.primaryLight
+      : theme.smoke;
 
     return css({
       color: color,
@@ -24,12 +33,12 @@ const styles = {
       flex: 1,
       ...theme.flex.CC,
       '&:hover': {
-        backgroundColor: active ? theme.primaryLight : theme.smoke,
-        color: active ? theme.smoke : theme.primaryLight,
+        backgroundColor: hoverBackground,
+        color: hoverColor,
       },
     });
   },
-  progress: (theme: any, index: number, activeStep: number) => {
+  progress: (index: number, activeStep: number) => {
     const active = index <= activeStep;
     const current = index === activeStep;
 
@@ -39,11 +48,10 @@ const styles = {
       flex: 1,
       height: 6,
       background: background,
-      transition: 'background-color 0.3s ease',
       boxShadow: theme.shadows[1],
     });
   },
-};
+});
 
 interface StepperProps {
   steps: any;
@@ -51,8 +59,8 @@ interface StepperProps {
   onStepChange: (step: number) => void;
 }
 
-const Stepper: React.FC<StepperProps> = ({ steps, activeStep, onStepChange }) => {
-  const theme = useTheme();
+export const Stepper: React.FC<StepperProps> = ({ steps, activeStep, onStepChange }) => {
+  const css = inject(styles);
 
   const handleStepClick = (step: number) => {
     onStepChange(step);
@@ -63,7 +71,7 @@ const Stepper: React.FC<StepperProps> = ({ steps, activeStep, onStepChange }) =>
       <Flexer j="sb" w="75%">
         {steps.map((_: any, index: number) => (
           <Flexer key={index} j="c">
-            <div css={styles.step(theme, index, activeStep)} onClick={() => handleStepClick(index)}>
+            <div css={css.step(index, activeStep)} onClick={() => handleStepClick(index)}>
               {index + 1}
             </div>
           </Flexer>
@@ -71,7 +79,7 @@ const Stepper: React.FC<StepperProps> = ({ steps, activeStep, onStepChange }) =>
       </Flexer>
       <Flexer w="75%" mt={4} j="sb">
         {steps.map((_: any, index: number) => (
-          <div key={index} css={styles.progress(theme, index, activeStep)}>
+          <div key={index} css={css.progress(index, activeStep)}>
             <Text t="body1" s="1rem" mt={12} a="c">
               {CapitalizeFirst(_.slug)}
             </Text>
@@ -81,5 +89,3 @@ const Stepper: React.FC<StepperProps> = ({ steps, activeStep, onStepChange }) =>
     </Base>
   );
 };
-
-export default Stepper;

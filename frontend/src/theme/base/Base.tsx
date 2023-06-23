@@ -1,9 +1,10 @@
-import React, { CSSProperties, forwardRef } from 'react';
+import React, { CSSProperties, ElementType, forwardRef } from 'react';
 
 import { classify } from './classify';
 import { AlignmentValue, JustificationValue } from './types';
 
 export interface BaseProps {
+  as?: ElementType;
   children?: any;
   m?: CSSProperties['margin'];
   mt?: CSSProperties['marginTop'];
@@ -47,12 +48,10 @@ export interface BaseProps {
   onKeyDown?: (event: React.KeyboardEvent) => void;
 }
 
-// add an "as" prop to set a different internal component, such as th or span instead of div
-// cursor prop
-
-export const Base = forwardRef<HTMLDivElement, BaseProps>(
+export const Base = forwardRef<HTMLElement, BaseProps>(
   (
     {
+      as: Component = 'div',
       children,
       m,
       mt,
@@ -137,7 +136,7 @@ export const Base = forwardRef<HTMLDivElement, BaseProps>(
     };
 
     return (
-      <div
+      <Component
         className={className}
         css={classify(baseCssProps)}
         style={style}
@@ -150,7 +149,7 @@ export const Base = forwardRef<HTMLDivElement, BaseProps>(
         ref={ref}
       >
         {children}
-      </div>
+      </Component>
     );
   }
 );

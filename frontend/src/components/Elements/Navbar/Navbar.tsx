@@ -29,7 +29,7 @@ interface NavbarProps {
   style?: CSSProperties;
 }
 
-const Navbar: FC<NavbarProps> = ({
+export const Navbar: FC<NavbarProps> = ({
   children,
   position = 'fixed',
   side = 'top',
@@ -49,5 +49,3 @@ const Navbar: FC<NavbarProps> = ({
     </nav>
   );
 };
-
-export default Navbar;

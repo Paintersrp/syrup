@@ -3,7 +3,7 @@ import './Alert.css';
 
 import { Base, BaseProps } from '@/theme/base';
 import { Icon } from '../../Media';
-import Text from '../Text/Text';
+import {Text} from '../Text/Text';
 import { AlertState } from '@/stores/alert';
 
 type AlertFromDirection = 'left' | 'right' | 'bottom' | 'top';

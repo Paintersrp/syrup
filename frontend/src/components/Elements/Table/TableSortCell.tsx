@@ -11,7 +11,12 @@ interface TableSortCellProps {
   label: string;
 }
 
-const TableSortCell: React.FC<TableSortCellProps> = ({ active, direction, onClick, label }) => {
+export const TableSortCell: React.FC<TableSortCellProps> = ({
+  active,
+  direction,
+  onClick,
+  label,
+}) => {
   const getIconName = () => {
     if (active) {
       return direction === 'asc' ? 'arrow_upward' : 'arrow_downward';
@@ -28,5 +33,3 @@ const TableSortCell: React.FC<TableSortCellProps> = ({ active, direction, onClic
     </Base>
   );
 };
-
-export default TableSortCell;

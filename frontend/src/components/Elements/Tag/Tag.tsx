@@ -3,7 +3,7 @@ import './Tag.css';
 
 import { Base, BaseProps } from '@/theme/base';
 import { Icon } from '../../Media';
-import Text from '../Text/Text';
+import {Text} from '../Text/Text';
 
 interface TagProps extends BaseProps {
   label: string;
@@ -13,7 +13,14 @@ interface TagProps extends BaseProps {
   style?: CSSProperties;
 }
 
-const Tag: React.FC<TagProps> = ({ label, onDelete, onClick, className, style, ...rest }) => {
+export const Tag: React.FC<TagProps> = ({
+  label,
+  onDelete,
+  onClick,
+  className,
+  style,
+  ...rest
+}) => {
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -49,5 +56,3 @@ const Tag: React.FC<TagProps> = ({ label, onDelete, onClick, className, style, .
     </Base>
   );
 };
-
-export default Tag;

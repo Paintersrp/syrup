@@ -11,7 +11,12 @@ interface TreeNodeProps extends BaseProps {
   startOpen?: boolean;
 }
 
-const TreeNode: React.FC<TreeNodeProps> = ({ label, children, startOpen = false, ...rest }) => {
+export const TreeNode: React.FC<TreeNodeProps> = ({
+  label,
+  children,
+  startOpen = false,
+  ...rest
+}) => {
   const [expanded, setExpanded] = useState(startOpen);
   const [animate, setAnimate] = useState(false);
 
@@ -54,5 +59,3 @@ const TreeNode: React.FC<TreeNodeProps> = ({ label, children, startOpen = false,
     </Base>
   );
 };
-
-export default TreeNode;

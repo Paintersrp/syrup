@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { Flexer } from '../../Containers';
 import { Icon } from '../../Media';
 import { Link } from '../Link/Link';
-import Text from '../Text/Text';
+import {Text} from '../Text/Text';
 
 interface ListItemWithIconProps {
   text?: string;

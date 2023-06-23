@@ -1,13 +1,14 @@
 import { FC, useState, useEffect, CSSProperties, ReactNode, Fragment } from 'react';
-import { css, useTheme } from '@emotion/react';
+import { css } from '@emotion/react';
 import clsx from 'clsx';
+import { inject } from '@/theme/utils';
 
 // Will need to set the sidedrawer transform based on the side prop of the component in order
 // to build the animation correctly
 // keyframes
 // essentially only usable on the left atm
-const cx = {
-  sidedrawer: (theme: any, isOpen: boolean, variant: string) =>
+const cx = (theme: any) => ({
+  sidedrawer: (isOpen: boolean, variant: string) =>
     css({
       display: 'flex',
       position: 'fixed',
@@ -20,7 +21,7 @@ const cx = {
       transition: 'all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
       visibility: isOpen || variant === 'permanent' ? 'visible' : 'hidden',
     }),
-  left: (theme: any, isOpen: boolean) =>
+  left: (isOpen: boolean) =>
     css({
       bottom: 0,
       top: 0,
@@ -52,7 +53,7 @@ const cx = {
       transform: isOpen ? 'translateY(0%)' : 'translateY(100%)',
       opacity: isOpen ? 1 : undefined,
     }),
-  overlay: (theme: any, isOpen: boolean) =>
+  overlay: (isOpen: boolean) =>
     css({
       position: 'fixed',
       top: 0,
@@ -64,7 +65,7 @@ const cx = {
       transition: 'all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
       visibility: isOpen ? 'visible' : 'hidden',
     }),
-};
+});
 
 interface DrawerProps {
   open?: boolean;
@@ -85,7 +86,8 @@ const Drawer: FC<DrawerProps> = ({
   style = {},
   children = null,
 }) => {
-  const theme = useTheme();
+  const css = inject(cx);
+  // const theme = useTheme();
   const [isOpen, setIsOpen] = useState<boolean>(open);
 
   useEffect(() => {
@@ -105,13 +107,13 @@ const Drawer: FC<DrawerProps> = ({
   const hasOverlay = variant !== 'permanent';
 
   const sidebarCx = [
-    cx.sidedrawer(theme, isOpen, variant),
-    side === 'bottom' || side === 'left' ? cx[side](theme, isOpen) : cx[side],
+    css.sidedrawer(isOpen, variant),
+    side === 'bottom' || side === 'left' ? css[side](isOpen) : css[side],
   ];
 
   return (
     <Fragment>
-      {hasOverlay && <div css={cx.overlay(theme, isOpen)} onClick={handleClose} />}
+      {hasOverlay && <div css={css.overlay(isOpen)} onClick={handleClose} />}
       <div css={sidebarCx} style={style} className={clsx(className)}>
         {children}
       </div>

@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import clsx from 'clsx';
 
 import { Base, BaseProps } from '@/theme/base';
-import Text from '../Text/Text';
+import {Text} from '../Text/Text';
 
 interface ListHeaderProps extends BaseProps {
   header?: string;
@@ -12,7 +12,7 @@ interface ListHeaderProps extends BaseProps {
   u?: boolean;
 }
 
-const ListHeader: FC<ListHeaderProps> = ({
+export const ListHeader: FC<ListHeaderProps> = ({
   header,
   style,
   className,
@@ -36,5 +36,3 @@ const ListHeader: FC<ListHeaderProps> = ({
     </Base>
   );
 };
-
-export default ListHeader;

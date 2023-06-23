@@ -26,7 +26,7 @@ interface ListItemProps extends BaseProps {
   noGutters?: boolean;
 }
 
-const ListItem: FC<ListItemProps> = ({
+export const ListItem: FC<ListItemProps> = ({
   text,
   subtext,
   icon,
@@ -72,4 +72,3 @@ const ListItem: FC<ListItemProps> = ({
   );
 };
 
-export default ListItem;

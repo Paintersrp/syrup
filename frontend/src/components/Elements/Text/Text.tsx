@@ -77,7 +77,7 @@ const typeSwitch = (type: TextType): keyof JSX.IntrinsicElements => {
   }
 };
 
-const Text: React.FC<TextProps> = ({
+export const Text: React.FC<TextProps> = ({
   t: type = 'body1',
   mt: marginTop,
   mb: marginBottom,
@@ -124,5 +124,3 @@ const Text: React.FC<TextProps> = ({
     </Component>
   );
 };
-
-export default Text;

@@ -9,18 +9,19 @@ import {
   ReactElement,
   Children,
 } from 'react';
+import { css } from '@emotion/react';
 
 import { Base, BaseProps } from '@/theme/base';
+import { inject } from '@/theme/utils';
 import { Divider } from '../Divider/Divider';
 import { Button } from '../../Buttons';
-import { css, useTheme } from '@emotion/react';
 
-const styles = {
+const styles = (theme: any) => ({
   root: css({
     position: 'relative',
     display: 'inline-block',
   }),
-  container: (theme: any, isOpen: boolean) =>
+  container: (isOpen: boolean) =>
     css({
       position: 'absolute',
       background: theme.menuBackground,
@@ -31,7 +32,7 @@ const styles = {
       borderRadius: 4,
       animation: isOpen ? theme.anim.fadeIn300 : undefined,
     }),
-};
+});
 
 interface MenuProps extends BaseProps {
   children: ReactNode;
@@ -42,7 +43,7 @@ interface MenuProps extends BaseProps {
   style?: CSSProperties;
 }
 
-const Menu: FC<MenuProps> = ({
+export const Menu: FC<MenuProps> = ({
   children,
   position = 'bottom',
   manualButton,
@@ -51,7 +52,8 @@ const Menu: FC<MenuProps> = ({
   style,
   ...rest
 }) => {
-  const theme = useTheme();
+  const css = inject(styles);
+
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -119,7 +121,7 @@ const Menu: FC<MenuProps> = ({
   const menuStyle = getMenuStyle();
 
   return (
-    <Base css={styles.root} ref={dropdownRef} {...rest}>
+    <Base css={css.root} ref={dropdownRef} {...rest}>
       {manualButton ? (
         cloneElement(manualButton as ReactElement, {
           onClick: toggleDropdown,
@@ -129,9 +131,8 @@ const Menu: FC<MenuProps> = ({
           {buttonText}
         </Button>
       )}
-      <div css={[styles.container(theme, isOpen), [menuStyle]]}>{renderChildren}</div>
+      <div css={[css.container(isOpen), [menuStyle]]}>{renderChildren}</div>
     </Base>
   );
 };
 
-export default Menu;

@@ -15,7 +15,7 @@ interface TransferListProps extends BaseProps {
   rightItems: TransferListItem[];
 }
 
-const TransferList: React.FC<TransferListProps> = ({ leftItems, rightItems, ...rest }) => {
+export const TransferList: React.FC<TransferListProps> = ({ leftItems, rightItems, ...rest }) => {
   const [selectedLeftItems, setSelectedLeftItems] = useState<string[]>([]);
   const [selectedRightItems, setSelectedRightItems] = useState<string[]>([]);
 
@@ -110,5 +110,3 @@ const TransferList: React.FC<TransferListProps> = ({ leftItems, rightItems, ...r
     </Base>
   );
 };
-
-export default TransferList;

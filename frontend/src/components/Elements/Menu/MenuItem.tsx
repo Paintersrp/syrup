@@ -4,7 +4,7 @@ import { Base, BaseProps } from '@/theme/base';
 import { Flexer } from '../../Containers';
 import { Icon } from '../../Media';
 import { css } from '@emotion/react';
-import Text from '../Text/Text';
+import {Text} from '../Text/Text';
 
 const styles = {
   root: (isActive: boolean) =>
@@ -28,7 +28,7 @@ interface MenuItemProps extends BaseProps {
   iconColor?: string;
 }
 
-const MenuItem: FC<MenuItemProps> = ({
+export const MenuItem: FC<MenuItemProps> = ({
   children,
   onClick,
   icon,
@@ -68,5 +68,3 @@ const MenuItem: FC<MenuItemProps> = ({
     </Base>
   );
 };
-
-export default MenuItem;

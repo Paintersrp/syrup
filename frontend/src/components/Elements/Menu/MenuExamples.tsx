@@ -10,9 +10,9 @@ import {
 
 import { Flexer } from '../../Containers';
 import { Divider } from '../Divider/Divider';
-import MenuItem from './MenuItem';
-import Text from '../Text/Text';
-import Menu from './Menu';
+import { MenuItem } from './MenuItem';
+import { Text } from '../Text/Text';
+import { Menu } from './Menu';
 
 const MenuExamples = (): ReactElement => {
   const items = [
