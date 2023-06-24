@@ -61,9 +61,7 @@ export const ParagraphEdit: React.FC<ParagraphEditProps> = ({
 
   return (
     <Flexer fd="column" j="c" className="fade-in" {...rest}>
-      <div style={{ marginTop: 8 }}>
-        <RichTextInput value={body} onChange={handleBody} />
-      </div>
+      <RichTextInput value={body} onChange={handleBody} size="medium" mt={16} />
       <ConfirmCancelBar
         handleConfirm={handleSubmit}
         handleCancel={handleCancel}

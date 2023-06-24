@@ -5,8 +5,9 @@ import { Icon } from '../Media';
 import clsx from 'clsx';
 import { css } from '@emotion/react';
 import { mediaQueries } from '@/theme/common/breakpoints';
+import { inject } from '@/theme/utils';
 
-export const cx = {
+const styles = (theme: any) => ({
   carousel: css({
     position: 'relative',
     overflow: 'hidden',
@@ -36,52 +37,50 @@ export const cx = {
   activeSlide: css({
     zIndex: 2,
   }),
-  ctrlButton: css({
-    position: 'absolute',
-    top: '50%',
-    transform: 'translateY(-50%)',
-    width: 40,
-    height: 40,
-    backgroundColor: 'transparent',
-    border: 'none',
-    cursor: 'pointer',
-    color: '#fff',
-    fontSize: 24,
-    zIndex: 3,
-    left: 0,
-    '&:focus': {
-      outline: 'none',
-    },
-    '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.3)',
-      transition: 'background-color 0.3s ease',
-    },
-    '& i': {
-      pointerEvents: 'none',
-    },
-  }),
+  ctrlButton: (side: string) =>
+    css({
+      position: 'absolute',
+      top: '50%',
+      transform: 'translateY(-50%)',
+      width: 40,
+      height: 40,
+      backgroundColor: 'transparent',
+      border: 'none',
+      cursor: 'pointer',
+      color: '#fff',
+      fontSize: 24,
+      zIndex: 3,
+      left: side === 'left' ? 0 : undefined,
+      right: side === 'right' ? 0 : undefined,
+      '&:focus': {
+        outline: 'none',
+      },
+      '&:hover': {
+        backgroundColor: theme.backdrop,
+        transition: 'background-color 0.3s ease',
+      },
+      '& i': {
+        pointerEvents: 'none',
+      },
+    }),
   indicators: css({
     position: 'absolute',
     bottom: 10,
     left: '50%',
     transform: 'translateX(-50%)',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     zIndex: 3,
+    ...theme.flex.cc,
   }),
-  indicator: css({
-    width: 10,
-    height: 10,
-    borderRadius: '50%',
-    backgroundColor: '#fff',
-    margin: '0 5px',
-    cursor: 'pointer',
-    transition: 'background-color 0.3s ease',
-    '&.activeSlide': {
-      backgroundColor: 'var(--color-secondary-main)',
-    },
-  }),
+  indicator: (active: boolean) =>
+    css({
+      width: 10,
+      height: 10,
+      borderRadius: '50%',
+      backgroundColor: active ? theme.secondary : '#fff',
+      margin: '0 5px',
+      cursor: 'pointer',
+      transition: 'background-color 0.3s ease',
+    }),
   autoplayToggle: css({
     position: 'absolute',
     bottom: 0,
@@ -98,7 +97,7 @@ export const cx = {
       pointerEvents: 'none',
     },
   }),
-};
+});
 
 interface CarouselProps extends BaseProps {
   children: ReactNode[];
@@ -118,6 +117,7 @@ export const Carousel: FC<CarouselProps> = ({
   iconColor = '#fff',
   ...rest
 }) => {
+  const css = inject(styles);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [autoplayEnabled, setAutoplayEnabled] = useState<boolean>(autoplay);
 
@@ -153,32 +153,30 @@ export const Carousel: FC<CarouselProps> = ({
 
   return (
     <Base d="flex" j="c" className={clsx(className)} {...rest}>
-      <div css={cx.carousel} style={style}>
-        <div css={cx.slides} style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
+      <div css={css.carousel} style={style}>
+        <div css={css.slides} style={{ transform: `translateX(-${currentSlide * 100}%)` }}>
           {children.map((child, index) => (
-            <div key={index} css={cx.slide}>
+            <div key={index} css={css.slide}>
               {child}
             </div>
           ))}
         </div>
-        <button css={cx.ctrlButton} onClick={handlePreviousSlide}>
+        <button css={css.ctrlButton('left')} onClick={handlePreviousSlide}>
           <Icon icon="chevron_left" color={iconColor} />
         </button>
-        <button css={cx.ctrlButton} onClick={handleNextSlide}>
+        <button css={css.ctrlButton('right')} onClick={handleNextSlide}>
           <Icon icon="chevron_right" color={iconColor} />
         </button>
-        <div css={cx.indicators}>
+        <div css={css.indicators}>
           {children.map((_, index) => (
             <div
               key={index}
-              css={css`
-                ${cx.indicator} ${index === currentSlide ? cx.activeSlide : ''}
-              `}
+              css={css.indicator(index === currentSlide)}
               onClick={() => handleIndicatorClick(index)}
             ></div>
           ))}
         </div>
-        <button css={cx.autoplayToggle} onClick={handleAutoplayToggle}>
+        <button css={css.autoplayToggle} onClick={handleAutoplayToggle}>
           {autoplayEnabled ? (
             <Icon icon="pause" color={iconColor} />
           ) : (

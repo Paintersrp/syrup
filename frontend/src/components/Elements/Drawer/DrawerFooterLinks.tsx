@@ -14,7 +14,7 @@ interface DrawerFooterLinksProps extends BaseProps {
   items: ListItemDataType[];
 }
 
-const DrawerFooterLinks: FC<DrawerFooterLinksProps> = ({ items, itemClass, ...rest }) => {
+export const DrawerFooterLinks: FC<DrawerFooterLinksProps> = ({ items, itemClass, ...rest }) => {
   return (
     <Flexer fd="column" {...rest}>
       <div style={{ width: '100%' }}>
@@ -40,5 +40,3 @@ const DrawerFooterLinks: FC<DrawerFooterLinksProps> = ({ items, itemClass, ...re
     </Flexer>
   );
 };
-
-export default DrawerFooterLinks;

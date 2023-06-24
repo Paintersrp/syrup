@@ -24,6 +24,7 @@ export const IconMixin: React.FC<IconMixinType> = ({
         Select an Icon
       </HelpText>
       <Select
+        dense
         value={fieldName ? formData[fieldName] || formData.icon : formData.icon}
         onChange={handleChange}
         name={fieldName}
@@ -35,7 +36,7 @@ export const IconMixin: React.FC<IconMixinType> = ({
         }}
       >
         {ICON_OPTIONS.map((icon) => (
-          <Option key={`icon-${icon.id}`} value={icon.name}>
+          <Option key={`icon-${icon.id}`} value={icon.name} dense>
             <Flexer>
               <Icon size="20px" icon={icon.name} mr={12} />
               <Text a="l">{icon.name}</Text>

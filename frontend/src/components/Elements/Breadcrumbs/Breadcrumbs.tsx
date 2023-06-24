@@ -6,8 +6,6 @@ import { Icon } from '../../Media';
 const styles = {
   breadcrumbs: css({
     listStyleType: 'none',
-    display: 'flex',
-    fontSize: '1rem',
   }),
   breadcrumb: css({
     display: 'flex',
@@ -24,7 +22,7 @@ interface BreadcrumbsProps {
   style?: React.CSSProperties;
 }
 
-const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
+export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   separator = 'chevron_right',
   children,
   style,
@@ -44,5 +42,3 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
     </ul>
   );
 };
-
-export default Breadcrumbs;

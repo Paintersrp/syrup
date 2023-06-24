@@ -3,7 +3,7 @@ import './Alert.css';
 
 import { Base, BaseProps } from '@/theme/base';
 import { Icon } from '../../Media';
-import {Text} from '../Text/Text';
+import { Text } from '../Text/Text';
 import { AlertState } from '@/stores/alert';
 
 type AlertFromDirection = 'left' | 'right' | 'bottom' | 'top';
@@ -23,7 +23,7 @@ interface AlertProps extends BaseProps {
   duration?: number;
 }
 
-const Alert: React.FC<AlertProps> = ({
+export const Alert: React.FC<AlertProps> = ({
   alert,
   onClose,
   position = 'top-right',
@@ -89,5 +89,3 @@ const Alert: React.FC<AlertProps> = ({
     </Base>
   );
 };
-
-export default Alert;

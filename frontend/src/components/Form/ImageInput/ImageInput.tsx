@@ -1,10 +1,20 @@
 import React, { ChangeEvent } from 'react';
-import './ImageInput.css';
+import { css } from '@emotion/react';
 
 import { Button } from '@/components/Buttons';
-import { Text } from '../../Elements';
+import { Flexer } from '@/components/Containers';
+import { Text } from '@/components/Elements';
 import { BaseProps } from '@/theme/base';
-import { Flexer } from '../../Containers';
+
+const styles = {
+  button: (dense: boolean) =>
+    css({
+      cursor: 'pointer',
+      backgroundColor: 'none',
+      padding: dense ? 4 : 8,
+      marginBottom: 12,
+    }),
+};
 
 interface ImageInputProps extends BaseProps {
   handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -14,7 +24,7 @@ interface ImageInputProps extends BaseProps {
   dense?: boolean;
 }
 
-const ImageInput: React.FC<ImageInputProps> = ({
+export const ImageInput: React.FC<ImageInputProps> = ({
   handleChange,
   newImage,
   newImageName,
@@ -32,7 +42,7 @@ const ImageInput: React.FC<ImageInputProps> = ({
     <Flexer j="c" {...rest}>
       <Button
         onClick={(e: any) => handleSelectFile(e)}
-        className={`input-button${dense ? '-dense' : ''}`}
+        css={styles.button(dense)}
         startIcon="upload"
       >
         <Text t="subtitle1" a="c" s={dense ? '0.85rem' : '0.95rem'}>
@@ -41,7 +51,7 @@ const ImageInput: React.FC<ImageInputProps> = ({
       </Button>
       <input
         accept="image/*"
-        style={{ display: 'none' }}
+        css={{ display: 'none' }}
         id="file-input"
         name="image"
         type="file"
@@ -50,5 +60,3 @@ const ImageInput: React.FC<ImageInputProps> = ({
     </Flexer>
   );
 };
-
-export default ImageInput;

@@ -1,9 +1,24 @@
 import React, { CSSProperties, useState } from 'react';
-import './Tag.css';
+import { css } from '@emotion/react';
+import clsx from 'clsx';
 
+import { Text } from '@/components/Elements';
+import { Icon } from '@/components/Media';
 import { Base, BaseProps } from '@/theme/base';
-import { Icon } from '../../Media';
-import {Text} from '../Text/Text';
+import { inject } from '@/theme/utils';
+
+const styles = (theme: any) => ({
+  tag: css({
+    display: 'flex',
+    alignItems: 'center',
+    padding: '4px 8px',
+    backgroundColor: '#e0e0e0',
+    color: theme.dark,
+    borderRadius: 16,
+    lineHeight: 1,
+    transition: 'background-color 0.3s ease',
+  }),
+});
 
 interface TagProps extends BaseProps {
   label: string;
@@ -21,6 +36,7 @@ export const Tag: React.FC<TagProps> = ({
   style,
   ...rest
 }) => {
+  const css = inject(styles);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -42,17 +58,18 @@ export const Tag: React.FC<TagProps> = ({
 
   return (
     <Base
-      className={`tag ${isHovered ? 'tag-hover' : ''} ${className}`}
+      className={clsx(className)}
+      css={css.tag}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onClick={handleClick}
       style={style}
       {...rest}
     >
-      <Text t="subtitle2" s="0.85rem" a="c" className="tag-label">
+      <Text t="subtitle2" s="0.85rem" a="c">
         {label}
       </Text>
-      {onDelete && <Icon size="15px" color="#fff" className="tag-delete-icon" icon="close" />}
+      {onDelete && <Icon size="15px" color="#fff" icon="close" ml={2} />}
     </Base>
   );
 };

@@ -13,7 +13,7 @@ interface DrawerContentProps extends BaseProps {
   items: ListItemDataType[];
 }
 
-const DrawerContent: FC<DrawerContentProps> = ({ items, itemClass, ...rest }) => {
+export const DrawerContent: FC<DrawerContentProps> = ({ items, itemClass, ...rest }) => {
   return (
     <Flexer fd="column" {...rest}>
       <List j="c" a="c" maxWidth={400} boxShadow={0} px={0}>
@@ -38,5 +38,3 @@ const DrawerContent: FC<DrawerContentProps> = ({ items, itemClass, ...rest }) =>
     </Flexer>
   );
 };
-
-export default DrawerContent;

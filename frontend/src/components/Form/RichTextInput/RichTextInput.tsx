@@ -1,8 +1,36 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { css } from '@emotion/react';
 
 import { Base, BaseProps } from '@/theme/base';
+import { inject } from '@/theme/utils';
+
+const sizeMapping: any = {
+  small: 200,
+  medium: 400,
+  large: 600,
+};
+
+const styles = (theme: any) => ({
+  quill: (size: string) =>
+    css({
+      marginBottom: 0,
+      padding: 0,
+      '& .ql-editor': {
+        width: '100%',
+        margin: '0 0 10px 0',
+        background: theme.light,
+      },
+      '& .ql-toolbar': {
+        background: theme.light,
+      },
+      '& .ql-container': {
+        position: 'static',
+        height: sizeMapping[size],
+      },
+    }),
+});
 
 interface RichTextInputProps extends BaseProps {
   fieldName?: string;
@@ -13,7 +41,7 @@ interface RichTextInputProps extends BaseProps {
   size?: 'small' | 'medium' | 'large';
 }
 
-const RichTextInput: React.FC<RichTextInputProps> = ({
+export const RichTextInput: React.FC<RichTextInputProps> = ({
   fieldName,
   value,
   onChange,
@@ -22,44 +50,30 @@ const RichTextInput: React.FC<RichTextInputProps> = ({
   size = 'small',
   ...rest
 }) => {
-  const [content, setContent] = useState<string>(value);
+  const css = inject(styles);
   const quillRef = useRef<ReactQuill>(null);
 
-  useEffect(() => {
-    setContent(value);
-  }, [value]);
-
   const handleChange = (value: string) => {
-    setContent(value);
     if (typeof onChange === 'function') {
       onChange(value);
     }
   };
 
   const handleAdminChange = (fieldValue: string) => {
-    setContent(fieldValue);
     if (typeof onChange === 'function' && fieldName) {
       onChange({ fieldName, fieldValue });
     }
   };
 
   return (
-    <Base className="rte-root" {...rest}>
+    <Base w="100%" {...rest}>
       <ReactQuill
         ref={quillRef}
         value={value}
         onChange={fieldName ? handleAdminChange : handleChange}
         modules={modules}
         formats={formats}
-        className={
-          size === 'small'
-            ? 'rte-size-small'
-            : size === 'medium'
-            ? 'rte-size-medium'
-            : size === 'large'
-            ? 'rte-size-large'
-            : 'rte-size-default'
-        }
+        css={css.quill(size)}
       />
     </Base>
   );
@@ -100,5 +114,3 @@ RichTextInput.defaultProps = {
     'clean',
   ],
 };
-
-export default RichTextInput;

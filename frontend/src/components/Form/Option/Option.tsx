@@ -1,8 +1,26 @@
 import React, { CSSProperties, ReactNode } from 'react';
-import './Option.css';
+import { css } from '@emotion/react';
 
-import { Text } from '../../Elements';
+import { Text } from '@/components/Elements';
 import { Base, BaseProps } from '@/theme/base';
+import { inject } from '@/theme/utils';
+
+const styles = (theme: any) => ({
+  option: (dense: boolean, selected: boolean, disabled: boolean) =>
+    css({
+      padding: dense ? 4 : 8,
+      cursor: 'pointer',
+      textAlign: 'left',
+      transition: 'background-color 0.3s ease',
+      zIndex: 9999,
+      backgroundColor: selected ? theme.light : undefined,
+      opacity: disabled ? 0.5 : 1,
+
+      '&:hover, &:focus': {
+        backgroundColor: theme.light,
+      },
+    }),
+});
 
 export interface OptionProps extends BaseProps {
   children?: ReactNode;
@@ -15,7 +33,7 @@ export interface OptionProps extends BaseProps {
   disabled?: boolean;
 }
 
-const Option: React.FC<OptionProps> = ({
+export const Option: React.FC<OptionProps> = ({
   children,
   value,
   isSelected,
@@ -26,24 +44,19 @@ const Option: React.FC<OptionProps> = ({
   disabled = false,
   ...rest
 }) => {
+  const css = inject(styles);
+
   const handleClick = () => {
     if (!disabled && onClick) {
       onClick();
     }
   };
 
+  const rootClass = css.option(dense, isSelected, disabled);
+
   return (
-    <Base
-      className={`${dense ? 'option-dense' : 'option'} ${isSelected ? 'selected' : ''} ${
-        disabled ? 'option-disabled' : ''
-      }`}
-      onClick={handleClick}
-      style={style}
-      {...rest}
-    >
+    <Base css={rootClass} onClick={handleClick} style={style} {...rest}>
       <Text style={textStyle}>{children}</Text>
     </Base>
   );
 };
-
-export default Option;

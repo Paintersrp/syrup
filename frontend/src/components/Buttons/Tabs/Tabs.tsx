@@ -16,7 +16,7 @@ export const Tabs: FC<TabsProps> = ({ children, ...rest }) => {
   };
 
   return (
-    <Base d="flex" {...rest}>
+    <Base d="flex" mb={1} {...rest}>
       <Base d="flex">
         {Children.map(
           children,

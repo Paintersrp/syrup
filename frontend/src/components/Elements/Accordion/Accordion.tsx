@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect, FC, ReactNode } from 'react';
-
 import { Base, BaseProps } from '@/theme/base';
 import { css } from '@emotion/react';
+
 import { Text } from '../Text/Text';
 import { Icon } from '@/components/Media';
 import { inject } from '@/theme/utils';
@@ -10,8 +10,8 @@ const styles = (theme: any) => ({
   accordion: (isOpen: boolean) =>
     css({
       backgroundColor: theme.light,
-      borderRadius: '6px',
-      marginBottom: isOpen ? '24px' : '8px',
+      borderRadius: 6,
+      marginBottom: isOpen ? 24 : 8,
       boxShadow: theme.shadows[1],
       transition: 'margin-bottom 0.3s ease',
       width: '100%',
@@ -21,13 +21,13 @@ const styles = (theme: any) => ({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
-      padding: '16px',
+      padding: 16,
       backgroundColor: isOpen ? '#ebebeb' : '#dcdcdc',
       cursor: 'pointer',
       transition: 'background-color 0.3s ease, border-radius 1s ease',
-      borderRadius: '6px',
-      borderBottomRightRadius: isOpen ? '0px' : '6px',
-      borderBottomLeftRadius: isOpen ? '0px' : '6px',
+      borderRadius: 6,
+      borderBottomRightRadius: isOpen ? 0 : 6,
+      borderBottomLeftRadius: isOpen ? 0 : 6,
       '&:hover': {
         backgroundColor: '#dcdcdc',
       },
@@ -40,15 +40,15 @@ const styles = (theme: any) => ({
   content: (contentHeight: number, isOpen: boolean) =>
     css({
       overflow: isOpen ? 'visible' : 'hidden',
-      opacity: isOpen ? '1' : '0',
+      opacity: isOpen ? 1 : 0,
       transition:
         'max-height 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.4s cubic-bezier(0.645, 0.045, 0.355, 1)',
       maxHeight: `${contentHeight}px`,
-      borderBottomLeftRadius: isOpen ? '6px' : '0px',
-      borderBottomRightRadius: isOpen ? '6px' : '0px',
+      borderBottomLeftRadius: isOpen ? 6 : 0,
+      borderBottomRightRadius: isOpen ? 6 : 0,
     }),
   contentInner: css({
-    padding: '16px',
+    padding: 16,
   }),
 });
 
@@ -57,9 +57,8 @@ interface Props extends BaseProps {
   content: ReactNode;
 }
 
-const Accordion: FC<Props> = ({ title, content, ...rest }) => {
+export const Accordion: FC<Props> = ({ title, content, ...rest }) => {
   const css = inject(styles);
-
   const [isOpen, setIsOpen] = useState(false);
   const [contentHeight, setContentHeight] = useState(0);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -86,5 +85,3 @@ const Accordion: FC<Props> = ({ title, content, ...rest }) => {
     </Base>
   );
 };
-
-export default Accordion;

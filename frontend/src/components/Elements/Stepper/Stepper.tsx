@@ -6,7 +6,7 @@ import { Base } from '@/theme/base';
 import { inject } from '@/theme/utils';
 import { CapitalizeFirst } from '@/utils';
 
-import {Text} from '../Text/Text';
+import { Text } from '../Text/Text';
 
 const styles = (theme: any) => ({
   step: (index: number, activeStep: number) => {
@@ -31,7 +31,7 @@ const styles = (theme: any) => ({
       maxWidth: 36,
       height: 36,
       flex: 1,
-      ...theme.flex.CC,
+      ...theme.flex.cc,
       '&:hover': {
         backgroundColor: hoverBackground,
         color: hoverColor,

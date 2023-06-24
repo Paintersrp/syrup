@@ -14,6 +14,8 @@ interface TooltipProps extends BaseProps {
   disabled?: boolean;
 }
 
+// Replace with Popover
+
 export const Tooltip: FC<TooltipProps> = ({
   children,
   text,

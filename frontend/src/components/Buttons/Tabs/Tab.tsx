@@ -7,18 +7,16 @@ export const cx = (active: boolean, theme: any) =>
     display: 'inline-block',
     padding: '10px 20px',
     backgroundColor: '#ebebeb',
-    color: '#333333',
+    color: active ? '#333333' : theme.primaryLight,
     fontSize: '16px',
     fontWeight: 'bold',
     border: 'none',
     borderBottom: `3px solid ${active ? theme.primaryLight : theme.transparent}`,
     cursor: 'pointer',
     transition: 'border-bottom-color 0.3s ease',
+    borderTopLeftRadius: 4,
+    borderTopRightRadius: 4,
     '&:hover': {
-      borderBottomColor: theme.primaryLight,
-    },
-    '&.active': {
-      color: theme.primaryLight,
       borderBottomColor: theme.primaryLight,
     },
     '&:first-child': {

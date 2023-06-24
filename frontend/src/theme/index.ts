@@ -77,10 +77,12 @@ const buildBaseTheme = (): BaseTheme => {
     errorNoticeBorder: `1px solid ${lighten(0.15, defaultColors.errorLight)}`,
   };
 
-  const table = { tableSelectedBackground: transparentize(0.8, defaultColors.accent) };
+  const table = {
+    tableSelectedBackground: transparentize(0.8, defaultColors.accent),
+  };
 
   const flex = {
-    CC: {
+    cc: {
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center',
@@ -95,6 +97,7 @@ const buildBaseTheme = (): BaseTheme => {
     ...errorNotice,
     ...table,
     ...defaultColors,
+    ...menu,
     flex,
     anim: animations,
     breakpoints,

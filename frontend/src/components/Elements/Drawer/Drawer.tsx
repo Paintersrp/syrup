@@ -77,7 +77,7 @@ interface DrawerProps {
   children?: ReactNode;
 }
 
-const Drawer: FC<DrawerProps> = ({
+export const Drawer: FC<DrawerProps> = ({
   open = false,
   onClose = () => {},
   side = 'left',
@@ -120,5 +120,3 @@ const Drawer: FC<DrawerProps> = ({
     </Fragment>
   );
 };
-
-export default Drawer;

@@ -14,7 +14,7 @@ interface DrawerHeaderProps extends BaseProps {
   color?: keyof typeof colors;
 }
 
-const DrawerHeader: React.FC<DrawerHeaderProps> = ({
+export const DrawerHeader: React.FC<DrawerHeaderProps> = ({
   j: justifyContent = 'center',
   a: alignItems = 'center',
   title,
@@ -49,5 +49,3 @@ const DrawerHeader: React.FC<DrawerHeaderProps> = ({
     </React.Fragment>
   );
 };
-
-export default DrawerHeader;

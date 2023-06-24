@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Text, TreeNode } from '../Elements';
+import { Text, Tree } from '../Elements';
 import { IconButton, SpeedDial, SpeedDialItem, ToggleButton, ToggleButtonGroup } from '../Buttons';
 
 import { Carousel, Stagger } from '../Animation';
@@ -16,9 +16,10 @@ import { PalettePreview } from './PalettePreview';
 import { defaultColors } from '@/theme';
 import { Link } from '../Elements/Link/Link';
 import { Base } from '@/theme/base';
-import PopoverTooltip from '../Elements/Popover/PopoverTooltip';
+import Tooltip2 from '../Elements/Popover/Tooltip2';
 import PopoverMenu from '../Elements/Popover/PopoverMenu';
 import Popover from '../Elements/Popover/Popover';
+import { Checkbox } from '../Form';
 
 interface WIPProps {}
 
@@ -113,17 +114,18 @@ const WIP: React.FC<WIPProps> = ({}) => {
   // Popovers end
 
   const { editMode, editModeToggle } = useEditModeStore();
+  const [checked, setChecked] = useState(false);
 
   return (
     <Page>
-      <Base mt={96}>
-        <Popover content="Tests">
-          <button>Open Menu</button>
-        </Popover>
-        <Popover content="Tests">
-          <span>Hover Me</span>
-        </Popover>
-      </Base>
+      <Flexer j="c">
+        <Base mt={96} w="auto">
+          <Checkbox checked={checked} onChange={() => setChecked(!checked)} mb={24} />
+          <Tooltip2 text="yeet" position="bottom">
+            <span>Test</span>
+          </Tooltip2>
+        </Base>{' '}
+      </Flexer>
       <PalettePreview />
       <div>
         <Link to="/taco" mt={96} pt={96}>
@@ -250,33 +252,33 @@ const WIP: React.FC<WIPProps> = ({}) => {
             mt={1}
             mb={2}
           >
-            <TreeNode label="Parent" startOpen>
+            <Tree label="Parent" startOpen>
               <Text a="l" t="h6" style={{ fontWeight: 400 }}>
                 Text Node Parent 1-1
               </Text>
-              <TreeNode label="Child 1">
+              <Tree label="Child 1">
                 <Text a="l" t="h6" style={{ fontWeight: 400 }}>
                   Text Node Child 1-1
                 </Text>
-                <TreeNode label="Grandchild 1">
+                <Tree label="Grandchild 1">
                   <Text a="l" t="h6" style={{ fontWeight: 400 }}>
                     Text Node Grandchild 1-1
                   </Text>
                   <Text a="l" t="h6" style={{ fontWeight: 400 }}>
                     Text Node Grandchild 1-2
                   </Text>
-                </TreeNode>
-                <TreeNode label="Grandchild 2">
+                </Tree>
+                <Tree label="Grandchild 2">
                   <Text a="l" t="h6" style={{ fontWeight: 400 }}>
                     Text Node Grandchild 2-1
                   </Text>
-                </TreeNode>
-              </TreeNode>
-              <TreeNode label="Child 2">
+                </Tree>
+              </Tree>
+              <Tree label="Child 2">
                 <Text a="l" t="h6" style={{ fontWeight: 400 }}>
                   Text Node Child 2-1
                 </Text>
-                <TreeNode label="Grandchild 3">
+                <Tree label="Grandchild 3">
                   <Text a="l" t="h6" style={{ fontWeight: 400 }}>
                     Text Node Grandchild 3-1
                   </Text>
@@ -286,9 +288,9 @@ const WIP: React.FC<WIPProps> = ({}) => {
                   <Text a="l" t="h6" style={{ fontWeight: 400 }}>
                     Text Node Grandchild 3-3
                   </Text>
-                </TreeNode>
-              </TreeNode>
-            </TreeNode>
+                </Tree>
+              </Tree>
+            </Tree>
           </Surface>
           <h1>Stock Image Gallery</h1>
           <Gallery images={stockImages} layout="masonry" />

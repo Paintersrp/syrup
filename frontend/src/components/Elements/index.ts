@@ -1,16 +1,10 @@
-import Accordion from './Accordion/Accordion';
-import Alert from './Alert/Alert';
-import Breadcrumbs from './Breadcrumbs/Breadcrumbs';
+import { Accordion } from './Accordion/Accordion';
+import { Alert } from './Alert/Alert';
+import { Breadcrumbs } from './Breadcrumbs/Breadcrumbs';
 import { Divider } from './Divider/Divider';
-import Drawer from './Drawer/Drawer';
-import DrawerHeader from './Drawer/DrawerHeader';
-import DrawerFooter from './Drawer/DrawerFooter';
-import DrawerFooterLinks from './Drawer/DrawerFooterLinks';
-import DrawerContent from './Drawer/DrawerContent';
+import { Drawer, DrawerContent, DrawerFooter, DrawerFooterLinks, DrawerHeader } from './Drawer';
 import { Link } from './Link/Link';
-import { List } from './List/List';
-import { ListItem } from './List/ListItem';
-import { ListHeader } from './List/ListHeader';
+import { List, ListHeader, ListItem } from './List';
 import { Loading } from './Loading/Loading';
 import { Menu } from './Menu/Menu';
 import { MenuItem } from './Menu/MenuItem';
@@ -21,9 +15,9 @@ import { TableSortCell } from './Table/TableSortCell';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from './Table/Table';
 import { Tag } from './Tag/Tag';
 import { Tooltip } from './Tooltip/Tooltip';
-import { TreeNode } from './Tree/TreeNode';
-import {HelpText} from './Text/HelpText';
-import {Text} from './Text/Text';
+import { Tree } from './Tree/Tree';
+import { HelpText } from './Text/HelpText';
+import { Text } from './Text/Text';
 
 export {
   Accordion,
@@ -38,8 +32,8 @@ export {
   Link,
   HelpText,
   List,
-  ListItem,
   ListHeader,
+  ListItem,
   Loading,
   Menu,
   MenuItem,
@@ -56,7 +50,7 @@ export {
   Tag,
   Text,
   Tooltip,
-  TreeNode,
+  Tree,
 };
 
 import type { ListItemDataType } from './List/ListItem';
