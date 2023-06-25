@@ -4,6 +4,7 @@ import ListItemWithIcon from './ListItemWithIcon';
 import ListItemTextOnly from './ListItemTextOnly';
 import { Base, BaseProps } from '@/theme/base';
 import clsx from 'clsx';
+import { CSSProperties } from '@emotion/serialize';
 
 export interface ListItemDataType {
   text: string;
@@ -19,6 +20,7 @@ interface ListItemProps extends BaseProps {
   button?: boolean;
   onClick?: (event: MouseEvent<HTMLDivElement>) => void;
   style?: React.CSSProperties;
+  css?: any;
   className?: string;
   iconColor?: string;
   textAlign?: 'left' | 'right' | 'center';
@@ -34,6 +36,7 @@ export const ListItem: FC<ListItemProps> = ({
   onClick = () => {},
   style,
   className,
+  css,
   iconColor = 'primary',
   textAlign = 'left',
   to,
@@ -44,6 +47,7 @@ export const ListItem: FC<ListItemProps> = ({
     <Base
       d="flex"
       a="c"
+      css={css}
       className={clsx(className)}
       onClick={onClick}
       style={{ ...style, cursor: button || to ? 'pointer' : undefined }}
@@ -71,4 +75,3 @@ export const ListItem: FC<ListItemProps> = ({
     </Base>
   );
 };
-

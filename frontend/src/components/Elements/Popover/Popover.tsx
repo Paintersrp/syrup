@@ -2,6 +2,21 @@ import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { css } from '@emotion/react';
 
+const triggerStyles = css`
+  cursor: pointer;
+`;
+
+const popoverStyles = (theme: any) => css`
+  position: absolute;
+  z-index: 5000;
+  color: ${theme.light};
+  background-color: ${theme.darkLight};
+  box-shadow: ${theme.shadows[1]};
+  padding: 6px 12px;
+  border-radius: 4px;
+  min-width: 60px;
+`;
+
 // Convert into just a Base to be used
 // Trigger and handling should happen outside with a ref passed
 
@@ -10,8 +25,8 @@ interface PopoverProps {
   content: React.ReactNode;
   onOpen?: () => void;
   onClose?: () => void;
-  trigger: 'hover' | 'click'; 
-  position: 'top' | 'bottom' | 'left' | 'right'; 
+  trigger: 'hover' | 'click';
+  position: 'top' | 'bottom' | 'left' | 'right';
 }
 
 const Popover: React.FC<PopoverProps> = ({
@@ -168,20 +183,5 @@ const Popover: React.FC<PopoverProps> = ({
     </>
   );
 };
-
-const triggerStyles = css`
-  cursor: pointer;
-`;
-
-const popoverStyles = (theme: any) => css`
-  position: absolute;
-  z-index: 5000;
-  color: ${theme.light};
-  background-color: ${theme.darkLight};
-  box-shadow: ${theme.shadows[1]};
-  padding: 6px 12px;
-  border-radius: 4px;
-  min-width: 60px;
-`;
 
 export default Popover;

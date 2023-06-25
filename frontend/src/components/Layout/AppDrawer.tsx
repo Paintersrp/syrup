@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import './css/AppDrawer.css';
+import { css } from '@emotion/react';
 
 import { Flexer } from '@/components/Containers';
 import {
@@ -10,9 +10,19 @@ import {
   DrawerHeader,
   ListItemDataType,
 } from '@/components/Elements';
-import { useEditModeStore } from '@/stores/editmode';
 import { useAuthStore } from '@/stores/auth';
+import { useEditModeStore } from '@/stores/editmode';
+import { inject } from '@/theme/utils';
 import { LogoutUser } from '@/utils';
+
+const styles = (theme: any) => ({
+  item: css({
+    color: theme.light,
+    '&:hover': {
+      background: '#a1a1a133',
+    },
+  }),
+});
 
 type AppDrawerProps = {
   open?: boolean;
@@ -33,6 +43,7 @@ export const AppDrawer: FC<AppDrawerProps> = ({
   companyIcon = undefined,
   companyTitle = undefined,
 }) => {
+  const css = inject(styles);
   const { authState } = useAuthStore();
   const { editModeToggle } = useEditModeStore();
 
@@ -99,13 +110,13 @@ export const AppDrawer: FC<AppDrawerProps> = ({
       <Flexer fd="column" grow style={{ color }}>
         <DrawerHeader title={companyTitle} icon={companyIcon} />
         <Flexer j="space-between" fd="column" grow>
-          <DrawerContent items={linkListItemData} itemClass="drawer-list-item" />
+          <DrawerContent items={linkListItemData} itemCss={css.item} />
           <Flexer fd="column">
             <DrawerFooterLinks
               items={
                 authState.is_authenticated ? authedBottomListItemData : unauthedBottomListItemData
               }
-              itemClass="drawer-list-item"
+              itemCss={css.item}
             />
             <DrawerFooter title={companyTitle} />
           </Flexer>

@@ -1,4 +1,5 @@
 import { colors } from '@/theme/common';
+import { useTheme } from '@emotion/react';
 import { FC, CSSProperties } from 'react';
 
 interface MaterialIconProps {
@@ -30,6 +31,7 @@ const Icon: FC<MaterialIconProps> = ({
   style,
   icon,
 }) => {
+  const theme: any = useTheme();
   return (
     <span
       className={`material-icons ${className}`}
@@ -42,7 +44,7 @@ const Icon: FC<MaterialIconProps> = ({
         paddingLeft: paddingLeft && paddingLeft,
         paddingRight: paddingRight && paddingRight,
         fontSize: size,
-        color: color ? color : 'inherit',
+        color: color ? theme[color] : 'inherit',
       }}
     >
       {icon}

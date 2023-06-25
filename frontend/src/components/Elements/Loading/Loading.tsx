@@ -1,37 +1,114 @@
-import React, { useEffect } from 'react';
-import './Loading.css';
+import { FC, useEffect } from 'react';
+import { css, keyframes } from '@emotion/react';
 
-import { Icon } from '../../Media';
-
-import { Flexer } from '../../Containers';
+import { Flexer } from '@/components/Containers';
+import { Icon } from '@/components/Media';
 import { colors } from '@/theme/common';
+import { inject } from '@/theme/utils';
+
+const kf = {
+  spinnerRotate: keyframes({
+    '100%': {
+      transform: 'rotate(360deg)',
+    },
+  }),
+  spinnerProgress: keyframes({
+    '0%': {
+      transform: 'rotate(0deg)',
+    },
+    '50%': {
+      transform: 'rotate(180deg)',
+    },
+    '100%': {
+      transform: 'rotate(360deg)',
+    },
+  }),
+  pulseDots: keyframes({
+    '0%': {
+      transform: 'scale(0.8)',
+    },
+    '50%': {
+      transform: 'scale(1)',
+    },
+    '100%': {
+      transform: 'scale(0.8)',
+    },
+  }),
+};
+
+const styles = (theme: any) => ({
+  overlay: (active: boolean) =>
+    css({
+      position: 'fixed',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      display: active ? 'flex' : 'none',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: 'rgba(0, 0, 0, 1)',
+      zIndex: 99999,
+    }),
+  spinner: css({
+    position: 'absolute',
+    width: 90,
+    height: 90,
+    ...theme.flex.cc,
+    animation: `${kf.spinnerRotate} 2s infinite linear`,
+  }),
+  progress: css({
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    borderRadius: '50%',
+    border: `4px solid ${theme.secondary}`,
+    borderTopColor: 'transparent',
+    width: 90,
+    height: 90,
+    ...theme.flex.cc,
+    animation: `${kf.spinnerProgress} 2s infinite linear`,
+  }),
+  dotIcon: (index: number) =>
+    css({
+      animation: `${kf.pulseDots} 2s infinite linear`,
+      animationDelay: `${index * 0.4}s`,
+    }),
+});
 
 interface LoadingProps {
   load: boolean;
 }
 
-export const Loading: React.FC<LoadingProps> = ({ load }) => {
+export const Loading: FC<LoadingProps> = ({ load }) => {
+  const css = inject(styles);
+
   useEffect(() => {
     const rootElement = document.documentElement;
     if (load) {
-      rootElement.classList.add('no-scroll');
+      rootElement.style.overflow = 'hidden';
     } else {
-      rootElement.classList.remove('no-scroll');
+      rootElement.style.overflow = '';
     }
     return () => {
-      rootElement.classList.remove('no-scroll');
+      rootElement.style.overflow = '';
     };
   }, [load]);
 
   return (
-    <div className={`overlay ${load ? 'overlay--active' : ''}`}>
-      <div className="spinner">
-        <div className="progress"></div>
+    <div css={css.overlay(load)}>
+      <div css={css.spinner}>
+        <div css={css.progress}></div>
       </div>
       <Flexer j="c" a="c">
-        <Icon icon="circle" className="dot-icon dot-1" color={colors.secondary.main} />
-        <Icon icon="circle" className="dot-icon dot-2" color={colors.secondary.main} />
-        <Icon icon="circle" className="dot-icon dot-3" color={colors.secondary.main} />
+        {[1, 2, 3].map((index) => (
+          <Icon
+            key={`dot-${index}`}
+            icon="circle"
+            css={css.dotIcon(index)}
+            color={colors.secondary.main}
+          />
+        ))}
       </Flexer>
     </div>
   );

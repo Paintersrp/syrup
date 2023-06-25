@@ -6,18 +6,6 @@ import { defaultColors } from '@/theme';
 import { Base } from '@/theme/base';
 import { CapitalizeFirst } from '@/utils';
 
-const PaletteItem: FC<{ color: CSSProperties['color']; name: string }> = ({ color, name }) => {
-  return (
-    <Flexer fd="column" j="c" a="c">
-      <Base bg={color} w={120} h={80} bs={1} br={6} />
-      <Text a="c" mt={2}>
-        {name}
-      </Text>
-      <Text a="c">{color}</Text>
-    </Flexer>
-  );
-};
-
 export const PalettePreview = () => {
   const colors = Object.entries(defaultColors);
 
@@ -72,6 +60,18 @@ export const PalettePreview = () => {
           </Fragment>
         ))}
       </Container>
+    </Flexer>
+  );
+};
+
+const PaletteItem: FC<{ color: CSSProperties['color']; name: string }> = ({ color, name }) => {
+  return (
+    <Flexer fd="column" j="c" a="c">
+      <Base bg={color} w={120} h={80} bs={1} br={6} />
+      <Text a="c" mt={2}>
+        {name}
+      </Text>
+      <Text a="c">{color}</Text>
     </Flexer>
   );
 };

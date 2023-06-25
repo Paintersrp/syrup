@@ -1,5 +1,5 @@
 import React from 'react';
-import './css/Error.css';
+import { css } from '@emotion/react';
 
 import { Page } from '@/components/Layout';
 import { Flexer, Surface } from '@/components/Containers';
@@ -7,13 +7,29 @@ import { Text } from '@/components/Elements';
 import { Button } from '@/components/Buttons';
 import { colors } from '@/theme/common';
 import { ErrorResponse } from '@/types';
+import { inject } from '@/theme/utils';
+
+const styles = (theme: any) => ({
+  icon: css({
+    ...theme.flex.cc,
+    backgroundColor: theme.error,
+    color: theme.light,
+    borderRadius: '50%',
+    height: 64,
+    width: 64,
+    marginBottom: 16,
+    fontSize: 36,
+  }),
+});
 
 export const Error: React.FC<ErrorResponse> = ({ message, description, instructions, thanks }) => {
+  const css = inject(styles);
+
   return (
     <Page>
       <Surface fillHeight j="c" a="c">
         <Flexer j="c" fd="column" a="c">
-          <div className="error-icon">!</div>
+          <div css={css.icon}>!</div>
           <Text t="h4" fw="700" c={colors.error.main} a="c">
             {message || 'Oops, something went wrong!'}
           </Text>

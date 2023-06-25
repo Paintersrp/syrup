@@ -1,10 +1,92 @@
-import React, { useState, useEffect, useRef } from 'react';
-import './Alert.css';
+import { useState, useEffect, useRef, FC } from 'react';
+import { css, keyframes } from '@emotion/react';
 
-import { Base, BaseProps } from '@/theme/base';
-import { Icon } from '../../Media';
-import { Text } from '../Text/Text';
+import { Icon } from '@/components/Media';
+import { Text } from '@/components/Elements/';
 import { AlertState } from '@/stores/alert';
+import { Base, BaseProps } from '@/theme/base';
+import { inject } from '@/theme/utils';
+import { makeCamelCase } from '@/theme/utils/format';
+import { GenericMapping } from '@/types';
+
+const transformMapping: GenericMapping = {
+  left: { start: 'translateX(-100%)', finish: 'translateX(0)' },
+  right: { start: 'translateX(100%)', finish: 'translateX(0)' },
+  top: { start: 'translateY(-100%)', finish: 'translateY(0)' },
+  bottom: { start: 'translateY(100%)', finish: 'translateY(0)' },
+};
+
+export const kf = {
+  slide: (position: string) => {
+    const transform = transformMapping[position];
+
+    return keyframes({
+      '0%': {
+        opacity: 0,
+        transform: transform.start,
+      },
+      '100%': {
+        opacity: 1,
+        transform: transform.finish,
+      },
+    });
+  },
+};
+
+const positionMapping: GenericMapping = {
+  topLeft: {
+    top: 56,
+    left: 15,
+    transform: 'translateX(0)',
+  },
+  topCenter: {
+    top: 56,
+    left: '45%',
+  },
+  topRight: {
+    top: 56,
+    right: 15,
+    transform: 'translateX(0)',
+  },
+  bottomLeft: {
+    bottom: 20,
+    left: 15,
+    transform: 'translateX(0)',
+  },
+  bottomCenter: {
+    bottom: 20,
+    left: '45%',
+  },
+  bottomRight: {
+    bottom: 20,
+    right: 15,
+    transform: 'translateX(0)',
+  },
+};
+
+const styles = (theme: any) => ({
+  alert: (type: string, position: string, from: string) =>
+    css({
+      position: 'fixed',
+      display: 'flex',
+      alignItems: 'center',
+      padding: theme.sp(3, 3, 3, 1.5),
+      borderRadius: 4,
+      color: theme.light,
+      opacity: 1,
+      zIndex: 9999,
+      boxShadow: theme.shadows[2],
+      minWidth: 200,
+      backgroundColor: theme[type],
+      animation: `${kf.slide(from)} 0.3s ease forwards`,
+
+      top: positionMapping[makeCamelCase(position)].top,
+      bottom: positionMapping[makeCamelCase(position)].bottom,
+      left: positionMapping[makeCamelCase(position)].left,
+      right: positionMapping[makeCamelCase(position)].right,
+      transform: positionMapping[makeCamelCase(position)].transform,
+    }),
+});
 
 type AlertFromDirection = 'left' | 'right' | 'bottom' | 'top';
 type AlertPosition =
@@ -23,7 +105,7 @@ interface AlertProps extends BaseProps {
   duration?: number;
 }
 
-export const Alert: React.FC<AlertProps> = ({
+export const Alert: FC<AlertProps> = ({
   alert,
   onClose,
   position = 'top-right',
@@ -31,6 +113,8 @@ export const Alert: React.FC<AlertProps> = ({
   duration = 5000,
   ...rest
 }) => {
+  const css = inject(styles);
+
   const [visible, setVisible] = useState<boolean>(false);
   const timerRef = useRef<any>(null);
 
@@ -72,7 +156,7 @@ export const Alert: React.FC<AlertProps> = ({
 
   return (
     <Base
-      className={`alert-snackbar alert-${alert?.type} ${position} dir-${from}`}
+      css={css.alert(alert?.type, position, from)}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       {...rest}

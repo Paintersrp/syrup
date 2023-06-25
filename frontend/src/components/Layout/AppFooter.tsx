@@ -1,16 +1,43 @@
 import { useState, FC } from 'react';
-
-import './css/AppFooter.css';
+import { css } from '@emotion/react';
 
 import { Button } from '@/components/Buttons';
-import { Flexer } from '@/components/Containers';
+import { Container, Flexer, Item } from '@/components/Containers';
 import { Divider, Link, Text, Tooltip } from '@/components/Elements';
 import { Input } from '@/components/Form';
 import { Icon } from '@/components/Media';
 import { SiteLinkType } from '@/providers/LayoutProvider';
 import { LOGO, SOCIALS, TITLE } from '@/settings';
+import { inject } from '@/theme/utils';
 import { handleDataChange } from '@/utils';
+
 import { BrandButton } from '../Buttons/BrandButton/BrandButton';
+
+const styles = (theme: any) => ({
+  root: css({
+    color: theme.light,
+    backgroundColor: theme.primary,
+    padding: theme.sp(4, 0, 1.5, 0),
+    width: '100vw',
+  }),
+  container: css({
+    width: '100%',
+    maxWidth: 1280,
+    margin: '0 auto',
+    textAlign: 'center',
+  }),
+  link: css({
+    color: theme.light,
+    marginTop: 2,
+    fontWeight: 300,
+    display: 'flex',
+  }),
+  item: css({
+    width: '33%',
+    padding: theme.sp(2),
+    marginBottom: 16,
+  }),
+});
 
 type SubscribeDTO = {
   email: string;
@@ -21,24 +48,25 @@ type AppFooterProps = {
 };
 
 export const AppFooter: FC<AppFooterProps> = ({ links }) => {
+  const css = inject(styles);
   const [state, setState] = useState('initial');
   const [data, setData] = useState<SubscribeDTO>({ email: '' });
 
   return (
-    <footer className="footer-root">
-      <div className="footer-container">
+    <footer css={css.root}>
+      <div css={css.container}>
         <Flexer mb={0} j="c">
           <Tooltip text="View Home Page" position="right">
-            <Link to="/" className="footer-link" style={{ display: 'flex' }}>
+            <Link to="/" css={css.link}>
               {LOGO}
-              <Text c="light" t="h4" className="footer-app-title">
+              <Text t="h4" ml={8}>
                 {TITLE}
               </Text>
             </Link>
           </Tooltip>
         </Flexer>
-        <Flexer key="item-container">
-          <Flexer className="footer-item" key="sub-form">
+        <Container mb={16}>
+          <Item xs={12} lg={4} p="8px">
             <Flexer j="c" a="c" fd="column">
               <Text t="h6" a="l" style={{ width: '90%' }}>
                 Email Address
@@ -74,8 +102,8 @@ export const AppFooter: FC<AppFooterProps> = ({ links }) => {
                 </Button>
               </Flexer>
             </Flexer>
-          </Flexer>
-          <Flexer className="footer-item" key="footer-links">
+          </Item>
+          <Item xs={12} lg={4} p="8px">
             <Flexer fd="column" j="c" a="c">
               {links.map((link) => {
                 if (!link.footer) {
@@ -87,17 +115,15 @@ export const AppFooter: FC<AppFooterProps> = ({ links }) => {
                     text={`View ${link.key} Page`}
                     position="right"
                   >
-                    <Link key={link.key} to={link.to} className="footer-link">
-                      <Text t="body1" className="footer-link-text">
-                        {link.key}
-                      </Text>
+                    <Link key={link.key} to={link.to} css={css.link}>
+                      <Text t="body1">{link.key}</Text>
                     </Link>
                   </Tooltip>
                 );
               })}
             </Flexer>
-          </Flexer>
-          <Flexer className="footer-item" fd="column">
+          </Item>
+          <Item xs={12} lg={4} fd="column" p="8px">
             <Text t="h5" a="c" style={{ marginBottom: 2 }}>
               Connect with Us
             </Text>
@@ -124,8 +150,8 @@ export const AppFooter: FC<AppFooterProps> = ({ links }) => {
                 }
               })}
             </Flexer>
-          </Flexer>
-        </Flexer>
+          </Item>
+        </Container>
         <Divider color="#a6a6a6" />
         <Text t="subtitle2" a="c" style={{ marginTop: 6 }}>
           © 2023 {TITLE}. All rights reserved.

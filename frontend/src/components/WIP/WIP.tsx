@@ -1,126 +1,35 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import { Text, Tree } from '../Elements';
-import { IconButton, SpeedDial, SpeedDialItem, ToggleButton, ToggleButtonGroup } from '../Buttons';
-
-import { Carousel, Stagger } from '../Animation';
-import { Flexer, Surface } from '../Containers';
-import Gallery from '../Media/Gallery';
-import Switch from '../Form/Switch/Switch';
+import { IconButton } from '../Buttons';
+import { Flexer } from '../Containers';
 import { Page } from '../Layout';
 import { Button } from '../Buttons/Button/Button';
-import { useBreakpoint } from '@/hooks';
-import { useEditModeStore } from '@/stores/editmode';
-import { Editable } from '../../features/editable/components/Editable';
 import { PalettePreview } from './PalettePreview';
-import { defaultColors } from '@/theme';
 import { Link } from '../Elements/Link/Link';
 import { Base } from '@/theme/base';
 import Tooltip2 from '../Elements/Popover/Tooltip2';
-import PopoverMenu from '../Elements/Popover/PopoverMenu';
-import Popover from '../Elements/Popover/Popover';
-import { Checkbox } from '../Form';
+import { Radio, RadioGroup } from '../Form';
+import { useAlertStore } from '@/stores/alert';
 
 interface WIPProps {}
 
 const WIP: React.FC<WIPProps> = ({}) => {
-  const stockImages = [
-    {
-      url: 'images/seo/about.jpeg',
-      caption: 'Mountain Landscape',
-      tags: ['landscape', 'mountain'],
-    },
-    {
-      url: 'https://source.unsplash.com/1400x900/?sunset',
-      caption: 'Colorful Sunset',
-      tags: ['landscape', 'sunset'],
-    },
-    {
-      url: 'https://source.unsplash.com/1400x900/?flower',
-      caption: 'Flower Blossom',
-      tags: ['nature', 'flower'],
-    },
-    {
-      url: 'https://source.unsplash.com/1400x900/?lake',
-      caption: 'Calm Lake',
-      tags: ['landscape', 'lake'],
-    },
-    {
-      url: 'https://source.unsplash.com/1400x900/?city',
-      caption: 'Urban City',
-      tags: ['landscape', 'city'],
-    },
-    {
-      url: 'https://source.unsplash.com/1400x900/?beach',
-      caption: 'Sandy Beach',
-      tags: ['landscape', 'beach'],
-    },
-  ];
-
-  const [selectedValueToggle, setSelectedValueToggle] = useState<string | null>(null);
-
-  const handleValueChange = (value: string | null) => {
-    setSelectedValueToggle(value);
-  };
-
-  const [innerWidth, setInnerWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setInnerWidth(window.innerWidth);
-    };
-    window.addEventListener('resize', handleResize);
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
-
-  const isSmallScreen = useBreakpoint('sm');
-
-  const [switches, setSwitches] = useState({
-    field1: false,
-    field2: false,
-  });
-
-  const handleToggle = (name: string, value: boolean) => {
-    setSwitches((prevSwitches) => ({
-      ...prevSwitches,
-      [name]: value,
-    }));
-  };
-
-  // Popovers
-  const handlePopoverOpen = () => {
-    console.log('Popover opened');
-    // Perform additional actions when the popover opens
-  };
-
-  const handlePopoverClose = () => {
-    console.log('Popover closed');
-    // Perform additional actions when the popover closes
-  };
-
-  const handleMenuItemClick = () => {
-    console.log('Menu item clicked');
-    // Perform additional actions when a menu item is clicked
-  };
-
-  const menuItems = [
-    { label: 'Item 1', onClick: handleMenuItemClick },
-    { label: 'Item 2', onClick: handleMenuItemClick },
-    { label: 'Item 3', onClick: handleMenuItemClick },
-  ];
-  // Popovers end
-
-  const { editMode, editModeToggle } = useEditModeStore();
   const [checked, setChecked] = useState(false);
+  const { showAlert } = useAlertStore();
+
+  const handleShowAlert = () => {
+    showAlert('success', `Test`, 3000);
+  };
 
   return (
     <Page>
       <Flexer j="c">
         <Base mt={96} w="auto">
-          <Checkbox checked={checked} onChange={() => setChecked(!checked)} mb={24} />
+          <Button onClick={handleShowAlert}>Alert</Button>
+          <RadioGroup value={checked} onChange={(value: any) => setChecked(value)}>
+            <Radio value="test1" label="Test1" />
+            <Radio value="test2" label="Test2" />
+          </RadioGroup>
           <Tooltip2 text="yeet" position="bottom">
             <span>Test</span>
           </Tooltip2>
@@ -205,116 +114,6 @@ const WIP: React.FC<WIPProps> = ({}) => {
           Test
         </Button>
       </Flexer>
-      <Editable
-        name="test"
-        data={{ name: 'hello', icon: null, image: null }}
-        onUpdate={() => console.log('Updated')}
-        endpoint="/"
-        mt={96}
-      >
-        <Text t="h1" mt={40} a="c">
-          Test
-        </Text>
-      </Editable>
-      <Flexer j="c" a="c" fd="column" mt={40}>
-        <h1>Edit Mode: {editMode ? 'On' : 'Off'}</h1>
-        <button onClick={editModeToggle}>Toggle Mode</button>
-
-        <div>
-          <Switch
-            name="field1"
-            label="Toggle Field 1"
-            value={switches.field1}
-            onChange={handleToggle}
-          />
-          <Switch
-            name="field2"
-            label="Toggle Field 2"
-            value={switches.field2}
-            onChange={handleToggle}
-          />
-          <form>
-            <input type="text" disabled={!switches.field1} placeholder="Field 1" />
-            <input type="text" disabled={!switches.field2} placeholder="Field 2" />
-            {/* Additional form fields */}
-          </form>
-        </div>
-
-        <Stagger direction="left" orientation="vertical" mt={90}>
-          <Surface
-            j="c"
-            a="c"
-            maxWidth={400}
-            minHeight={100}
-            boxShadow={1}
-            px={1.5}
-            py={1.5}
-            mt={1}
-            mb={2}
-          >
-            <Tree label="Parent" startOpen>
-              <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                Text Node Parent 1-1
-              </Text>
-              <Tree label="Child 1">
-                <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                  Text Node Child 1-1
-                </Text>
-                <Tree label="Grandchild 1">
-                  <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                    Text Node Grandchild 1-1
-                  </Text>
-                  <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                    Text Node Grandchild 1-2
-                  </Text>
-                </Tree>
-                <Tree label="Grandchild 2">
-                  <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                    Text Node Grandchild 2-1
-                  </Text>
-                </Tree>
-              </Tree>
-              <Tree label="Child 2">
-                <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                  Text Node Child 2-1
-                </Text>
-                <Tree label="Grandchild 3">
-                  <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                    Text Node Grandchild 3-1
-                  </Text>
-                  <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                    Text Node Grandchild 3-2
-                  </Text>
-                  <Text a="l" t="h6" style={{ fontWeight: 400 }}>
-                    Text Node Grandchild 3-3
-                  </Text>
-                </Tree>
-              </Tree>
-            </Tree>
-          </Surface>
-          <h1>Stock Image Gallery</h1>
-          <Gallery images={stockImages} layout="masonry" />
-        </Stagger>
-        <Carousel autoplay style={{ marginBottom: 96 }}>
-          <img src="https://source.unsplash.com/1400x901/?service" alt="Image 1" />
-          <img src="https://source.unsplash.com/1400x902/?service" alt="Image 2" />
-          <img src="https://source.unsplash.com/1400x903/?service" alt="Image 3" />
-          <img src="https://source.unsplash.com/1400x900/?service" alt="Image 4" />
-        </Carousel>
-
-        <ToggleButtonGroup value={selectedValueToggle} onChange={handleValueChange}>
-          <ToggleButton value="option1">Option 1</ToggleButton>
-          <ToggleButton value="option2">Option 2</ToggleButton>
-          <ToggleButton value="option3">Option 3</ToggleButton>
-        </ToggleButtonGroup>
-        <p className="p-l-60 p-r-60">Selected Value: {selectedValueToggle}</p>
-        <div>{isSmallScreen ? <p>Small Screen</p> : <p>Large Screen</p>}</div>
-        <div>{innerWidth}</div>
-      </Flexer>
-      <SpeedDial position="bottom-left" direction="up">
-        <SpeedDialItem icon="check" onClick={() => console.log('Click1')} label="1" />
-        <SpeedDialItem icon="check" onClick={() => console.log('Click2')} label="2" />
-      </SpeedDial>
     </Page>
   );
 };

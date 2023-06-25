@@ -10,11 +10,11 @@ import { colors } from '@/theme/common';
 
 interface DrawerFooterLinksProps extends BaseProps {
   handleClose?: () => void;
-  itemClass?: string;
+  itemCss?: string;
   items: ListItemDataType[];
 }
 
-export const DrawerFooterLinks: FC<DrawerFooterLinksProps> = ({ items, itemClass, ...rest }) => {
+export const DrawerFooterLinks: FC<DrawerFooterLinksProps> = ({ items, itemCss, ...rest }) => {
   return (
     <Flexer fd="column" {...rest}>
       <div style={{ width: '100%' }}>
@@ -24,7 +24,7 @@ export const DrawerFooterLinks: FC<DrawerFooterLinksProps> = ({ items, itemClass
         {items.map((item, index) => (
           <ListItem
             key={index}
-            className={itemClass}
+            css={[itemCss, { cursor: 'pointer' }]}
             text={item.text}
             icon={item.icon}
             iconColor={item.icon ? 'secondary' : ''}
@@ -33,7 +33,6 @@ export const DrawerFooterLinks: FC<DrawerFooterLinksProps> = ({ items, itemClass
             to={item.to}
             pt={8}
             pb={8}
-            css={{ cursor: 'pointer' }}
           />
         ))}
       </List>

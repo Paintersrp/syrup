@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import { Flexer } from '../../Containers';
 import { Icon } from '../../Media';
 import { Link } from '../Link/Link';
-import {Text} from '../Text/Text';
+import { Text } from '../Text/Text';
 
 interface ListItemWithIconProps {
   text?: string;
@@ -19,7 +19,7 @@ const ListItemWithIcon: FC<ListItemWithIconProps> = ({
   text,
   subtext,
   icon,
-  iconColor = 'primary',
+  iconColor = 'secondary',
   textAlign = 'left',
   to,
   noGutters,
@@ -31,7 +31,7 @@ const ListItemWithIcon: FC<ListItemWithIconProps> = ({
           <Flexer j="sb">
             <Icon
               size="1.25rem"
-              color={iconColor || 'primary'}
+              color={iconColor}
               icon={icon}
               style={{
                 order: textAlign === 'right' || textAlign === 'center' ? 0 : 2,
@@ -53,11 +53,11 @@ const ListItemWithIcon: FC<ListItemWithIconProps> = ({
                 marginLeft: noGutters ? 0 : textAlign === 'left' ? 16 : 0,
               }}
             >
-              <Text t="h5" a={textAlign}>
+              <Text t="h5" a={textAlign} c="#f5f5f5">
                 {text}
               </Text>
               {subtext && (
-                <Text mt={0} a={textAlign}>
+                <Text mt={0} a={textAlign} c="#f5f5f5">
                   {subtext}
                 </Text>
               )}
@@ -68,7 +68,7 @@ const ListItemWithIcon: FC<ListItemWithIconProps> = ({
         <Flexer j="sb">
           <Icon
             size="1.25rem"
-            color={iconColor || 'primary'}
+            color={iconColor}
             icon={icon}
             style={{
               order: textAlign === 'right' || textAlign === 'center' ? 0 : 2,
@@ -90,11 +90,11 @@ const ListItemWithIcon: FC<ListItemWithIconProps> = ({
               marginLeft: noGutters ? 0 : textAlign === 'left' ? 16 : 0,
             }}
           >
-            <Text t="h5" a={textAlign}>
+            <Text t="h5" a={textAlign} c="#f5f5f5">
               {text}
             </Text>
             {subtext && (
-              <Text mt={0} a={textAlign}>
+              <Text mt={0} a={textAlign} c="#f5f5f5">
                 {subtext}
               </Text>
             )}

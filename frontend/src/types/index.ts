@@ -1,5 +1,7 @@
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 
+export type GenericMapping = { [key: string]: any };
+
 export type ErrorResponse = {
   message: string;
   description: string;
