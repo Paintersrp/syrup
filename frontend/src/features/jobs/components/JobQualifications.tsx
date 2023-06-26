@@ -48,7 +48,7 @@ export const JobQualification: FC<JobQualificationProps> = ({
                 key={index}
                 icon="check_circle"
                 text={item.detail}
-                iconColor={index % 2 === 0 ? colors.primary.main : colors.secondary.main}
+                iconColor={index % 2 === 0 ? 'primary' : 'secondary'}
                 iconSize="21px"
               />
             ))}

@@ -90,7 +90,7 @@ export const JobApplicationForm: FC<JobApplicationFormProps> = ({ job, formRef, 
               </Button>
             </Flexer>
             {errors.resume && (
-              <Text c={colors.error.main} a="c">
+              <Text c="error" a="c">
                 {errors.resume}
               </Text>
             )}

@@ -177,7 +177,7 @@ const Application: FC<ApplicationProps> = ({ application, job, metadata }) => {
           key === 'looking_for' ||
           key === 'tagline' ? null : (
             <Item xs={12} sm={6} md={4} lg={3} key={key} fd="column" mt={4}>
-              <Text t="subtitle2" fw="600" c={colors.secondary.main}>
+              <Text t="subtitle2" fw="600" c="secondary">
                 {key === 'created_at'
                   ? 'Created At'
                   : key.charAt(0).toUpperCase() + key.slice(1).replace(/_/g, ' ')}
@@ -220,7 +220,7 @@ const Application: FC<ApplicationProps> = ({ application, job, metadata }) => {
         {Object.keys(formData).map((key) =>
           key === 'id' || key === 'message' || key === 'job' ? null : (
             <Item xs={12} sm={6} md={4} lg={3} key={key} fd="column" mt={4}>
-              <Text t="subtitle2" fw="600" c={colors.secondary.main}>
+              <Text t="subtitle2" fw="600" c="secondary">
                 {metadata[key].verbose_name}:
               </Text>
               <Text t="body1" fw="500" style={{ wordBreak: 'break-word' }} c="#718096">

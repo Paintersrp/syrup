@@ -10,6 +10,7 @@ import { ButtonBar } from './ButtonBar';
 import { ConfirmationModal } from './ConfirmationModal';
 import { defaultColors } from '@/theme';
 import { Flexer } from '@/components/Containers';
+import { FormSettings } from '../types';
 
 // Variants?
 const defaultFormSettings = {
@@ -19,15 +20,6 @@ const defaultFormSettings = {
   bg: defaultColors.light,
   width: '90%',
   boxShadow: true,
-};
-
-type FormSettings = {
-  px?: number;
-  py?: number;
-  br?: CSSProperties['borderRadius'];
-  bg?: any;
-  width?: CSSProperties['width'];
-  boxShadow?: boolean;
 };
 
 interface EditableProps extends BaseProps {

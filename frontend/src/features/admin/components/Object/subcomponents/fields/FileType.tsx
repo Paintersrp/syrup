@@ -72,7 +72,7 @@ const FileType: React.FC<FileTypeProps> = ({
                 </Text>
               </a>
             ) : (
-              <Text t="body1" c={colors.error.main} a="c" mt={2}>
+              <Text t="body1" c="error" a="c" mt={2}>
                 No Resume Uploaded
               </Text>
             )}

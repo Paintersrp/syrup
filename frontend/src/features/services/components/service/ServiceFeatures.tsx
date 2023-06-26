@@ -4,7 +4,6 @@ import { Container, Flexer, Item } from '@/components/Containers';
 import { Divider, Text } from '@/components/Elements';
 import { IconTextItem } from '@/components/Media';
 import { ButtonBar } from '@/features/editable';
-import { colors } from '@/theme/common';
 import { useEditModeStore } from '@/stores/editmode';
 
 import { useServiceData } from './ServiceProvider';
@@ -42,7 +41,7 @@ const ServiceFeature: FC<ServiceFeatureProps> = ({ data, editMode, title, fieldN
                 obj={featureData.id}
               />
             )}
-            <Text t="h5" a="c" c={colors.primary.main}>
+            <Text t="h5" a="c" c="primaryLight">
               {title}
             </Text>
             <Divider mb={2} mt={2} />
@@ -52,7 +51,7 @@ const ServiceFeature: FC<ServiceFeatureProps> = ({ data, editMode, title, fieldN
                   key={`${fieldName}-${index}`}
                   icon="check"
                   text={item.detail}
-                  iconColor={index % 2 === 0 ? colors.secondary.main : colors.primary.main}
+                  iconColor={index % 2 === 0 ? 'secondary' : 'primaryLight'}
                   fontSize="1rem"
                   iconSize="24px"
                   fw="400"

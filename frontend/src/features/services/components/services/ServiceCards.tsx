@@ -112,6 +112,7 @@ const servicesDemo: ServiceType[] = [
       { id: 2, detail: 'Feature 2' },
       { id: 3, detail: 'Feature 3' },
     ],
+    supported_sites: [{ id: 1, detail: 'Site 1' }],
     image: 'https://source.unsplash.com/1400x900/?service',
   },
   {
@@ -125,6 +126,7 @@ const servicesDemo: ServiceType[] = [
       { id: 4, detail: 'Feature 4' },
       { id: 5, detail: 'Feature 5' },
     ],
+    supported_sites: [{ id: 1, detail: 'Site 1' }],
     image: 'https://source.unsplash.com/1400x901/?service',
   },
   {
@@ -140,6 +142,7 @@ const servicesDemo: ServiceType[] = [
       { id: 6, detail: 'Feature 6' },
       { id: 7, detail: 'Feature 7' },
     ],
+    supported_sites: [{ id: 1, detail: 'Site 1' }],
     image: 'https://source.unsplash.com/1400x902/?service',
   },
 ];

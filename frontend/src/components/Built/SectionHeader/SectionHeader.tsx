@@ -1,9 +1,9 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 
 import { FadeOnScroll } from '@/components/Animation';
 import { Flexer } from '@/components/Containers';
 import { Divider, Text } from '@/components/Elements';
-import { Editable } from '@/features/editable';
+import { Editable, useEditable } from '@/features/editable';
 import { useBreakpoint } from '@/hooks';
 import { colors } from '@/theme/common';
 
@@ -14,7 +14,7 @@ export interface SectionHeaderContent {
   title?: string;
   description?: string;
   alignment: AlignmentType;
-  showDivider?: boolean;
+  show_divider?: boolean;
   name: string;
   id: number;
 }
@@ -24,39 +24,16 @@ interface SectionHeaderProps {
   formTitle: string;
 }
 
-export const SectionHeader: FC<SectionHeaderProps> = ({ headerData, formTitle }) => {
-  const getAlignClass = (alignment: AlignmentType) => {
-    switch (alignment) {
-      case 'Left':
-      case 'left':
-        return 'left';
-      case 'Right':
-      case 'right':
-        return 'right';
-      case 'Center':
-      case 'center':
-        return 'center';
-      default:
-        return 'left';
-    }
-  };
-
-  const isLargeScreen = useBreakpoint('lg');
-  const [header, setHeader] = useState<SectionHeaderContent>(headerData);
+export const SectionHeader: FC<SectionHeaderProps> = ({ headerData }) => {
   const alignClass = getAlignClass(headerData.alignment);
+  const isLargeScreen = useBreakpoint('lg');
 
-  const updateSectionHeader = (updatedHeader: SectionHeaderContent) => {
-    setHeader(updatedHeader);
-  };
-
-  const editConfig = {
+  const [editableData, editConfig] = useEditable({
     name: 'header',
-    data: header,
-    id: header.id,
-    endpoint: `sectionheader/${header.name}/`,
-    onUpdate: updateSectionHeader,
+    data: headerData,
+    endpoint: `sectionheader/${headerData.name}/`,
     editMenuAlign: 'center',
-    excludeKeys: header.description
+    excludeKeys: headerData.description
       ? ['name', 'id', 'alignment', 'show_divider']
       : ['name', 'id', 'alignment', 'show_divider', 'description'],
     formSettings: {
@@ -64,41 +41,57 @@ export const SectionHeader: FC<SectionHeaderProps> = ({ headerData, formTitle })
       px: 3,
       py: 1.5,
     },
-  };
+  });
 
   return (
     <Editable {...editConfig}>
       <Flexer fd="column">
-        {header.subtitle && (
+        {editableData.subtitle && (
           <FadeOnScroll onScreenPercentage={0.1} animationDuration={0.5}>
-            <Text t="subtitle1" a="c" s="0.95rem" fw="600" c={colors.secondary.main}>
-              {header.subtitle}
+            <Text t="subtitle1" a="c" s="0.95rem" fw="600" c="secondary">
+              {editableData.subtitle}
             </Text>
           </FadeOnScroll>
         )}
 
-        {header.title && (
+        {editableData.title && (
           <FadeOnScroll onScreenPercentage={0.1} animationDuration={1.5}>
             <Text t="h2" a={alignClass} s="2rem" fw="600" mb={8}>
-              {header.title}
+              {editableData.title}
             </Text>
           </FadeOnScroll>
         )}
       </Flexer>
-      {header.description && (
+      {editableData.description && (
         <Flexer fd="column" a="c">
           <FadeOnScroll onScreenPercentage={0.1} animationDuration={2.5}>
             <Text t="h5" a={alignClass} s="0.95rem" fw="500" mb={16} w={isLargeScreen ? 325 : 500}>
-              {header.description}
+              {editableData.description}
             </Text>
           </FadeOnScroll>
         </Flexer>
       )}
-      {header.showDivider && (
+      {editableData.show_divider && (
         <div style={{ width: '90%' }}>
           <Divider color={colors.text.min} />
         </div>
       )}
     </Editable>
   );
+};
+
+const getAlignClass = (alignment: AlignmentType) => {
+  switch (alignment) {
+    case 'Left':
+    case 'left':
+      return 'left';
+    case 'Right':
+    case 'right':
+      return 'right';
+    case 'Center':
+    case 'center':
+      return 'center';
+    default:
+      return 'left';
+  }
 };

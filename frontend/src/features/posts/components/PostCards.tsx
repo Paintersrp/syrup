@@ -27,7 +27,7 @@ export const PostCards: FC<PostCardsProps> = ({ posts, header, carousel = false,
         <SectionHeader headerData={header} formTitle="Edit Latest Posts Header" />
         <Container style={{ marginTop: 32, marginBottom: 32 }} {...rest}>
           {carousel ? (
-            <Carousel autoplay={false} iconColor={colors.secondary.main} w={345} h={335}>
+            <Carousel autoplay={false} iconColor="secondary" w={345} h={335}>
               {posts.map((post) => (
                 <PostCard
                   key={post.id}

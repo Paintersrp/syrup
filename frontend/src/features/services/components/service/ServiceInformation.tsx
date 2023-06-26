@@ -8,7 +8,6 @@ import { Media } from '@/components/Media';
 
 import { useServiceData } from './ServiceProvider';
 import { ServiceFeatures } from './ServiceFeatures';
-import { defaultColors } from '@/theme';
 
 type ServiceAboutProps = {};
 
@@ -44,7 +43,7 @@ export const ServiceInformation: FC<ServiceAboutProps> = ({}) => {
           {data.paragraph_three}
         </Text>
 
-        <Text t="h2" mb={8} fw="bold" a="c" u uo={6} c={defaultColors.primary}>
+        <Text t="h2" mb={8} fw="bold" a="c" u uo={6} c="primaryLight">
           ${data.price}/mo
         </Text>
       </Flexer>

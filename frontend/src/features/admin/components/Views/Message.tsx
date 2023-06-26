@@ -165,7 +165,7 @@ const Message: React.FC<MessageProps> = ({ message, metadata }) => {
           {Object.keys(formData).map((key) =>
             key === 'id' || key === 'message' || key === 'is_replied' ? null : (
               <Item xs={12} sm={6} md={4} lg={3} key={key} fd="column">
-                <Text t="subtitle2" fw="600" c={colors.secondary.main}>
+                <Text t="subtitle2" fw="600" c="secondary">
                   {metadata[key].verbose_name}:
                 </Text>
                 <Text
@@ -176,7 +176,7 @@ const Message: React.FC<MessageProps> = ({ message, metadata }) => {
                   c={
                     typeof formData[key] === 'boolean'
                       ? formData[key]
-                        ? colors.success.light
+                        ? 'successLight'
                         : '#718096'
                       : '#718096'
                   }

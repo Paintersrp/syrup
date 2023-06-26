@@ -102,12 +102,7 @@ export const Loading: FC<LoadingProps> = ({ load }) => {
       </div>
       <Flexer j="c" a="c">
         {[1, 2, 3].map((index) => (
-          <Icon
-            key={`dot-${index}`}
-            icon="circle"
-            css={css.dotIcon(index)}
-            color={colors.secondary.main}
-          />
+          <Icon key={`dot-${index}`} icon="circle" css={css.dotIcon(index)} color="secondary" />
         ))}
       </Flexer>
     </div>

@@ -1,6 +1,6 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 
-import { Editable } from '@/features/editable';
+import { Editable, useEditable } from '@/features/editable';
 import { SectionHeader, SectionHeaderContent } from '@/components/Built';
 import { IconButton } from '@/components/Buttons';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
@@ -15,43 +15,32 @@ type BenefitProps = {
 };
 
 export const Benefit: FC<BenefitProps> = ({ benefit }) => {
-  const [data, setData] = useState(benefit);
-
-  useEffect(() => {
-    setData(benefit);
-  }, [benefit]);
-
-  const updateBenefit = (updateBenefit: BenefitType) => {
-    setData(updateBenefit);
-  };
-
-  const editConfig = {
-    name: 'process',
-    data: data,
-    endpoint: `benefits/${data.id}/`,
+  const [editableData, editConfig]: any = useEditable({
+    name: 'benefits',
+    endpoint: `benefits/`,
+    data: benefit,
+    id: benefit.id,
     editMenuPosition: 'bottom',
-    onUpdate: updateBenefit,
-    id: data.id,
     formSettings: {
       width: 325,
     },
-  };
+  });
 
   return (
     <Editable {...editConfig}>
       <Surface boxShadow={1} maxWidth={325} minw={325} j="c" a="c" br={8} px={1.5} py={1.5}>
         <Flexer j="c">
-          <Icon icon={data.icon} size="28px" mb={4} />
+          <Icon icon={editableData.icon} size="28px" mb={4} />
         </Flexer>
         <Text t="h4" a="c" mt={8} s="1.5rem" fw={700}>
-          {data.title}
+          {editableData.title}
         </Text>
         <Text t="body1" mt={4} a="c" s="0.95rem" c="#6B6B6B" style={{ minHeight: 75 }}>
-          {data.description}
+          {editableData.description}
         </Text>
         {benefit.buttonText && (
           <Flexer j="fe" a="c">
-            <Tooltip text={`View ${data.buttonText}`} position="bottom">
+            <Tooltip text={`View ${editableData.buttonText}`} position="bottom">
               <Link to={`/${benefit.page_link}`}>
                 <IconButton size="tiny" icon="link" palette="secondary" variant="hover" />
               </Link>

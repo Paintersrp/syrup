@@ -9,3 +9,5 @@ export { ImageMixin } from './components/ImageMixin';
 export { ManyToManyEdit } from './components/ManyToManyEdit';
 export { ManyToManyField } from './components/ManyToManyField';
 export { TransferList } from './components/TransferList';
+
+export { useEditable } from './api/useEditable';

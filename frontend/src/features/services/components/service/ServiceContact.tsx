@@ -136,10 +136,8 @@ export const ServiceContact: FC<ServiceContactProps> = ({}) => {
                 borderRadius={4}
               />
               <SocialButtons
-                invertColors={false}
                 socialsData={fullData.socials}
                 showTitle={false}
-                editMode={editMode}
                 buttonClass="primary-button"
                 buttonSize="md"
               />

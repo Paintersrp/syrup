@@ -1,9 +1,9 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 
 import { ContactButtons } from '@/components/Built';
 import { Surface } from '@/components/Containers';
 import { IconTextItem } from '@/components/Media';
-import { Editable } from '@/features/editable';
+import { Editable, useEditable } from '@/features/editable';
 import { BaseProps } from '@/theme/base';
 import { colors } from '@/theme/common';
 
@@ -14,58 +14,42 @@ interface InformationProps extends BaseProps {
 }
 
 export const Information: FC<InformationProps> = ({ contactData, ...rest }) => {
-  const [data, setData] = useState<ContactInformationContent>(contactData);
-
-  useEffect(() => {
-    setData(contactData);
-  }, [contactData]);
-
-  const updateContactData = (updateContactData: ContactInformationContent) => {
-    setData(updateContactData);
-  };
-
-  const editConfig = {
+  const [editableData, editConfig] = useEditable({
     name: 'contacts',
-    data: data,
+    data: contactData,
     endpoint: `contactinformation/1/`,
-    onUpdate: updateContactData,
+    editMenuPosition: 'bottom',
     formSettings: {
       width: 325,
     },
-    ...rest,
-  };
+  });
 
   return (
-    <Editable {...editConfig}>
-      <Surface
-        boxShadow={0}
-        a="c"
-        j="c"
-        px={3}
-        py={2}
-        br={1}
-        mt={0}
-        mb={0}
-        maxWidth={300}
-        className="fade-in"
-      >
-        <IconTextItem textAlign="center" icon="email" text={data.email} subtext="Email" divider />
+    <Editable {...editConfig} {...rest}>
+      <Surface a="c" j="c" px={3} py={2} maxWidth={300} className="fade-in">
+        <IconTextItem
+          textAlign="center"
+          icon="email"
+          text={editableData.email}
+          subtext="Email"
+          divider
+        />
         <IconTextItem
           textAlign="center"
           icon="phone"
-          text={data.phone}
+          text={editableData.phone}
           subtext="Phone"
-          iconColor={colors.secondary.main}
+          iconColor="secondary"
           divider
         />
         <IconTextItem
           textAlign="center"
           icon="location_on"
-          text={data.address}
+          text={editableData.address}
           subtext="Address"
           divider
         />
-        <ContactButtons contactData={data} size="sm" mt={12} mb={6} borderRadius={4} />
+        <ContactButtons contactData={editableData} size="sm" mt={12} mb={6} borderRadius={4} />
       </Surface>
     </Editable>
   );

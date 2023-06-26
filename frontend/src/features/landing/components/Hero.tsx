@@ -1,11 +1,11 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { css } from '@emotion/react';
 
 import { ContactButtons, SocialButtons } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Link, Text } from '@/components/Elements';
-import { Editable } from '@/features/editable';
+import { Editable, useEditable } from '@/features/editable';
 import { useBreakpoint } from '@/hooks';
 import { BaseProps } from '@/theme/base';
 import { inject } from '@/theme/utils';
@@ -47,17 +47,11 @@ interface HeroProps extends BaseProps {
 export const Hero: FC<HeroProps> = ({ data, contactData, socialsData, ...rest }) => {
   const css = inject(styles);
   const isLargeScreen = useBreakpoint('lg');
-  const [heroData, setHeroData] = useState(data);
 
-  const updateHeroBlock = (updatedHeroBlock: any) => {
-    setHeroData(updatedHeroBlock);
-  };
-
-  const editConfig = {
+  const [editableData, editConfig] = useEditable({
     name: 'hero',
-    data: heroData,
     endpoint: 'heroheader/main/',
-    onUpdate: updateHeroBlock,
+    data: data,
     editMenuAlign: 'center',
     multilineKeys: ['subtitle'],
     excludeKeys: ['name'],
@@ -66,8 +60,7 @@ export const Hero: FC<HeroProps> = ({ data, contactData, socialsData, ...rest })
       px: 3,
       py: 1.5,
     },
-    ...rest,
-  };
+  });
 
   return (
     <Flexer j="c" a="fs" css={css.root} {...rest}>
@@ -75,18 +68,18 @@ export const Hero: FC<HeroProps> = ({ data, contactData, socialsData, ...rest })
         <Editable {...editConfig}>
           <Flexer fd="column" a="c" className="fade-in">
             <Text t="h1" a="c" css={css.title} mb={8}>
-              {heroData.title}
+              {editableData.title}
             </Text>
             <Text t="h4" a="c" c="light" s="1.4rem">
-              {heroData.subtitle}
+              {editableData.subtitle}
             </Text>
             <Text fw="600" a="c" s="1rem" css={css.description}>
-              {heroData.description}
+              {editableData.description}
             </Text>
             <Flexer j="c" a="c">
               <Link to="/services">
                 <Button size="md" startIcon="launch" w={125}>
-                  {heroData.buttonText}
+                  {editableData.buttonText}
                 </Button>
               </Link>
             </Flexer>
@@ -94,7 +87,7 @@ export const Hero: FC<HeroProps> = ({ data, contactData, socialsData, ...rest })
           </Flexer>
         </Editable>
         <Flexer j="c">
-          <SocialButtons socialsData={socialsData} color="light" />
+          <SocialButtons socialsData={socialsData} />
         </Flexer>
       </Flexer>
     </Flexer>

@@ -1,7 +1,7 @@
-import { FC, ReactNode, useEffect, useState, createContext, useContext } from 'react';
+import { FC, ReactNode, createContext, useContext } from 'react';
 
 import { Container, Surface } from '@/components/Containers';
-import { Editable } from '@/features/editable';
+import { Editable, useEditable } from '@/features/editable';
 import { BaseProps } from '@/theme/base';
 
 import { ServiceContent, ServiceType } from '../../types';
@@ -25,23 +25,12 @@ export const ServiceProvider: FC<ServiceProviderProps> = ({
   children,
   ...rest
 }) => {
-  const [serviceData, setServiceData] = useState(data);
-
-  useEffect(() => {
-    setServiceData(data);
-  }, [data]);
-
-  const updateServiceProvider = (updatedData: ServiceType) => {
-    setServiceData(updatedData);
-  };
-
-  const editConfig = {
+  const [editableData, editConfig] = useEditable({
     name: 'process',
-    data: serviceData,
-    endpoint: `servicetier/${serviceData.id}/`,
+    endpoint: `servicetier/`,
+    data: data,
+    id: data.id,
     editMenuAlign: 'flex-start',
-    onUpdate: updateServiceProvider,
-    id: serviceData.id,
     excludeKeys: ['id', 'image', 'features', 'supported_sites', 'price', 'service_title'],
     multilineKeys: ['paragraph_one', 'paragraph_two', 'paragraph_three'],
     formSettings: {
@@ -49,11 +38,10 @@ export const ServiceProvider: FC<ServiceProviderProps> = ({
       px: 3,
       py: 3,
     },
-    ...rest,
-  };
+  });
 
   return (
-    <ServiceContext.Provider value={{ data: serviceData, fullData }}>
+    <ServiceContext.Provider value={{ data: editableData, fullData }}>
       <Surface
         maxWidth={1200}
         px={4}

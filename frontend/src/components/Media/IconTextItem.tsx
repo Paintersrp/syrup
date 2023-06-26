@@ -25,7 +25,7 @@ export const IconTextItem: React.FC<IconTextItemProps> = ({
   subtext,
   iconColor,
   iconSize = '20px',
-  subtextColor = defaultColors.secondary,
+  subtextColor = 'secondary',
   divider,
   textAlign,
   fontSize,

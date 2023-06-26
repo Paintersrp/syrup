@@ -63,6 +63,7 @@ export type ServiceType = {
   service_title: string;
   price: string;
   features: ServiceFeature[];
+  supported_sites: ServiceFeature[];
   image: string;
   paragraph_one?: string;
   paragraph_two?: string;

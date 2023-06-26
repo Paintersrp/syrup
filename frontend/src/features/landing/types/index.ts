@@ -5,6 +5,7 @@ import { PostContent } from '@/features/posts';
 import { SocialContent } from '@/types';
 
 export type HeroContent = {
+  name: string;
   title: string;
   subtitle: string;
   description: string;

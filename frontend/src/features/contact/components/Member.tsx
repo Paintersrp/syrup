@@ -1,9 +1,9 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 
 import { Flexer, Item, Surface } from '@/components/Containers';
 import { Divider, Text, Tooltip } from '@/components/Elements';
 import { Media } from '@/components/Media';
-import { Editable } from '@/features/editable';
+import { Editable, useEditable } from '@/features/editable';
 import { useBreakpoint } from '@/hooks';
 import { SOCIALS } from '@/settings';
 import { BaseProps } from '@/theme/base';
@@ -18,34 +18,20 @@ interface MemberProps extends BaseProps {
 }
 
 export const Member: FC<MemberProps> = ({ member, editMode = false, newImage, ...rest }) => {
-  const [editing, setEditing] = useState(false);
-  const [memberData, setMemberData] = useState(member);
   const isLargeScreen = useBreakpoint('lg');
-
-  useEffect(() => {
-    setMemberData(member);
-  }, [member]);
-
-  const updateMember = (updateMember: typeof memberData) => {
-    setMemberData(updateMember);
-    setEditing(false);
-  };
-
-  const editConfig = {
+  const [editableData, editConfig] = useEditable({
     name: 'member',
-    data: memberData,
-    endpoint: `teammember/${memberData.id}/`,
+    endpoint: `teammember/`,
+    data: member,
+    id: member.id,
     editMenuPosition: 'bottom',
-    onUpdate: updateMember,
-    id: memberData.id,
     formSettings: {
       width: !isLargeScreen ? 350 : 350,
     },
-    ...rest,
-  };
+  });
 
   return (
-    <Item xs={12} md={6} key={memberData.name} {...rest}>
+    <Item xs={12} md={6} {...rest}>
       <Editable {...editConfig}>
         <Surface
           br={1}
@@ -59,17 +45,17 @@ export const Member: FC<MemberProps> = ({ member, editMode = false, newImage, ..
           <Flexer j="fs" a="fs">
             <div style={{ width: '60%' }}>
               <Media
-                src={newImage ? newImage : memberData.image}
+                src={newImage ? newImage : editableData.image}
                 boxShadow={0}
                 altText="member-image"
               />
             </div>
             <Flexer fd="column" w="auto">
               <Text t="h6" fw="bold" s="1.3rem" pl={8}>
-                {memberData.name}
+                {editableData.name}
               </Text>
               <Text t="body1" fw="bold" s="0.9rem" pl={8}>
-                {memberData.role}
+                {editableData.role}
               </Text>
             </Flexer>
           </Flexer>
@@ -84,10 +70,10 @@ export const Member: FC<MemberProps> = ({ member, editMode = false, newImage, ..
           </Flexer>
           <Flexer j="c" gap={4} mt={4}>
             {SOCIALS.map((platform) => {
-              if (memberData[platform.name]) {
+              if (editableData[platform.name]) {
                 return (
                   <Tooltip
-                    text={`@${memberData[platform.name]}`}
+                    text={`@${editableData[platform.name]}`}
                     position="bottom"
                     key={platform.name}
                   >
@@ -97,7 +83,7 @@ export const Member: FC<MemberProps> = ({ member, editMode = false, newImage, ..
                       fontSize="1.25rem"
                       aria-label={platform.name}
                       icon={platform.icon}
-                      href={`https://www.${platform.name}.com/${memberData[platform.name]}`}
+                      href={`https://www.${platform.name}.com/${editableData[platform.name]}`}
                     />
                   </Tooltip>
                 );

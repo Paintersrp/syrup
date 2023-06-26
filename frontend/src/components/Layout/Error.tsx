@@ -30,15 +30,15 @@ export const Error: React.FC<ErrorResponse> = ({ message, description, instructi
       <Surface fillHeight j="c" a="c">
         <Flexer j="c" fd="column" a="c">
           <div css={css.icon}>!</div>
-          <Text t="h4" fw="700" c={colors.error.main} a="c">
+          <Text t="h4" fw="700" c="error" a="c">
             {message || 'Oops, something went wrong!'}
           </Text>
           {description && (
-            <Text t="body1" c={colors.text.secondary} mb={12} a="c">
+            <Text t="body1" c="secondary" mb={12} a="c">
               {description}
             </Text>
           )}
-          <Text t="body1" fw="400" c={colors.text.secondary} a="c" w={400}>
+          <Text t="body1" fw="400" c="secondary" a="c" w={400}>
             {instructions ||
               "We couldn't retrieve the data you were looking for. Please try again later."}
           </Text>
@@ -52,7 +52,7 @@ export const Error: React.FC<ErrorResponse> = ({ message, description, instructi
           >
             Go Back
           </Button>
-          <Text t="body1" fw="400" mt={8} a="c" c={colors.text.secondary}>
+          <Text t="body1" fw="400" mt={8} a="c" c="secondary">
             {thanks}
           </Text>
         </Flexer>

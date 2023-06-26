@@ -1,9 +1,9 @@
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 
 import { Button } from '@/components/Buttons';
 import { Container, Item } from '@/components/Containers';
 import { Text } from '@/components/Elements';
-import { Editable } from '@/features/editable';
+import { Editable, useEditable } from '@/features/editable';
 import { useBreakpoint } from '@/hooks';
 import { BaseProps } from '@/theme/base';
 import { colors } from '@/theme/common';
@@ -17,23 +17,12 @@ interface JobDetailsProps extends BaseProps {
 
 export const JobDetails: FC<JobDetailsProps> = ({ job, handleApplyNowClick, ...rest }) => {
   const isSmallScreen = useBreakpoint('xs');
-  const [jobData, setJobData] = useState(job);
-
-  useEffect(() => {
-    setJobData(job);
-  }, [job]);
-
-  const updateJobData = (updatedJobData: typeof jobData) => {
-    setJobData(updatedJobData);
-  };
-
-  const editConfig = {
-    name: `job - ${jobData.position}`,
-    data: jobData,
-    endpoint: `jobposting/${jobData.id}/`,
+  const [editableData, editConfig] = useEditable({
+    name: `job - ${job.position}`,
+    endpoint: `jobposting/`,
+    data: job,
+    id: job.id,
     editMenuPosition: 'bottom',
-    onUpdate: updateJobData,
-    id: jobData.id,
     excludeKeys: ['id', 'created_at', 'requirements', 'responsibilities', 'filled'],
     multilineKeys: ['who_we_are', 'looking_for', 'why_apply'],
     formSettings: {
@@ -41,8 +30,7 @@ export const JobDetails: FC<JobDetailsProps> = ({ job, handleApplyNowClick, ...r
       px: 3,
       py: 3,
     },
-    ...rest,
-  };
+  });
 
   return (
     <Editable {...editConfig}>
@@ -71,33 +59,33 @@ export const JobDetails: FC<JobDetailsProps> = ({ job, handleApplyNowClick, ...r
             }}
           >
             <Text t="h2" fw="bold">
-              {jobData.position}
+              {editableData.position}
             </Text>
           </Item>
         </Container>
-        <Text t="body1" c={colors.text.secondary}>
-          {jobData.location}
+        <Text t="body1" c="secondary">
+          {editableData.location}
         </Text>
-        <Text t="body1" c={colors.text.secondary}>
-          {jobData.type}
+        <Text t="body1" c="secondary">
+          {editableData.type}
         </Text>
         <Text t="h3" fw="bold" mt={32} mb={2}>
           Who We Are
         </Text>
         <Text t="body1" s="1rem" fw={400}>
-          {jobData.who_we_are}
+          {editableData.who_we_are}
         </Text>
         <Text t="h3" mt={32} mb={2}>
           What We're Looking For
         </Text>
         <Text t="body1" s="1rem" fw={400}>
-          {jobData.looking_for}
+          {editableData.looking_for}
         </Text>
         <Text t="h3" mt={32} mb={2}>
           Why Apply?
         </Text>
         <Text t="body1" s="1rem" fw={400}>
-          {jobData.why_apply}
+          {editableData.why_apply}
         </Text>
       </div>
     </Editable>

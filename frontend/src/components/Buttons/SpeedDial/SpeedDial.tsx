@@ -107,7 +107,7 @@ interface SpeedDialItemProps {
 
 const SpeedDialItem: FC<SpeedDialItemProps> = ({ label, icon, onClick }) => (
   <button css={cx.speedDialItem} onClick={onClick}>
-    <Icon size="24px" color={colors.secondary.main} icon={icon} />
+    <Icon size="24px" color="secondary" icon={icon} />
   </button>
 );
 

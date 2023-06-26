@@ -53,7 +53,7 @@ export const ServiceProcess: FC<ServiceProcessType> = ({ processImage }) => {
           {
             !editing ? (
               <Fragment>
-                <Text t="h5" a="c" c={colors.primary.main}>
+                <Text t="h5" a="c" c="primary">
                   {contentTextData.title}
                 </Text>
                 {/* <Text t="body1" a="c">
