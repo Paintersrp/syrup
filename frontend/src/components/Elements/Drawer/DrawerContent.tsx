@@ -5,7 +5,6 @@ import { BaseProps } from '@/theme/base';
 import { List } from '../List/List';
 import { ListItem, ListItemDataType } from '../List/ListItem';
 import { Divider } from '../Divider/Divider';
-import { colors } from '@/theme/common';
 
 interface DrawerContentProps extends BaseProps {
   handleClose?: () => void;
@@ -33,7 +32,7 @@ export const DrawerContent: FC<DrawerContentProps> = ({ items, itemCss, ...rest 
         ))}
       </List>
       <div style={{ width: '100%' }}>
-        <Divider mt={0} color={colors.primary.hover} />
+        <Divider mt={0} color="drawerLight" />
       </div>
     </Flexer>
   );

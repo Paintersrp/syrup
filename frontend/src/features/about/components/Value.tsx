@@ -3,7 +3,6 @@ import { FC } from 'react';
 import { Text } from '@/components/Elements';
 import { Icon } from '@/components/Media';
 import { Editable, useEditable } from '@/features/editable';
-import { defaultColors } from '@/theme';
 import { Base, BaseProps } from '@/theme/base';
 
 import { ValueType } from '../types';

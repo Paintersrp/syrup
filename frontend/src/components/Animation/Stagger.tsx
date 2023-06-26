@@ -1,35 +1,26 @@
 import { FC, ReactNode } from 'react';
-import { Base, BaseProps } from '@/theme/base';
-import { css, useTheme } from '@emotion/react';
+import { css } from '@emotion/react';
 
-export const cx = {
-  stagger: css({
-    display: 'flex',
-    flexDirection: 'column',
-  }),
-  staggerItem: (index: number, theme: any) =>
+import { Base, BaseProps } from '@/theme/base';
+import { ExtendedTheme } from '@/theme/types';
+import { inject } from '@/theme/utils';
+
+const styles = (theme: ExtendedTheme) => ({
+  stagger: (orientation: string) =>
+    css({
+      display: 'flex',
+      flexDirection: orientation === 'horizontal' ? 'row' : 'column',
+      alignItems: orientation === 'horizontal' ? 'flex-start' : undefined,
+      justifyContent: orientation === 'horizontal' ? 'center' : undefined,
+    }),
+  staggerItem: (index: number, direction: string) =>
     css({
       opacity: 0,
-      animation: theme.anim.enterLeft1000,
+      animation: direction === 'right' ? theme.anim.enterRight1000 : theme.anim.enterLeft1000,
       animationFillMode: 'forwards',
       animationDelay: `${index * 300}ms`,
     }),
-  staggerHorizontal: css({
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'center',
-  }),
-  staggerRightHorizontal: css({
-    flexDirection: 'row',
-  }),
-  StaggerItemRight: (index: number, theme: any) =>
-    css({
-      opacity: 0,
-      animation: theme.anim.enterRight1000,
-      animationFillMode: 'forwards',
-      animationDelay: `${index * 300}ms`,
-    }),
-};
+});
 
 interface StaggerProps extends BaseProps {
   direction?: 'left' | 'right';
@@ -43,23 +34,11 @@ export const Stagger: FC<StaggerProps> = ({
   children,
   ...rest
 }) => {
-  const th = useTheme();
-
-  const rootCx = [
-    cx.stagger,
-    orientation === 'horizontal' && cx.staggerHorizontal,
-    direction === 'right' && orientation === 'horizontal' && cx.staggerRightHorizontal,
-  ];
-
-  const innerCx = (index: number) => [
-    cx.staggerItem(index, th),
-    direction === 'right' && cx.StaggerItemRight(index, th),
-  ];
-
+  const css = inject(styles);
   return (
-    <Base css={rootCx} w="100%" {...rest}>
+    <Base css={css.stagger(orientation)} w="100%" {...rest}>
       {children.map((child, index) => (
-        <div css={innerCx(index)} key={index}>
+        <div css={css.staggerItem(index, direction)} key={index}>
           {child}
         </div>
       ))}

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { axios } from '@/lib/api';
 
 export const useConfirm = (endpoint: string) => {
-  const [selectedId, setSelectedId] = useState<number>();
+  const [selectedId, setSelectedId] = useState<number | string | undefined>();
   const [open, setOpen] = useState<boolean>(false);
 
   const handleClose = () => {
@@ -21,13 +21,13 @@ export const useConfirm = (endpoint: string) => {
     }
   };
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: number | string | undefined) => {
     handleOpen();
     setSelectedId(id);
   };
 
-  const confirmedDelete = async (id: number) => {
-    await axios.delete(`${endpoint}/${id}/`);
+  const confirmedDelete = async (id: number | string | undefined) => {
+    await axios.delete(endpoint);
   };
 
   return {

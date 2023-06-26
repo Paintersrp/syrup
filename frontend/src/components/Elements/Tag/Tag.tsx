@@ -5,15 +5,14 @@ import clsx from 'clsx';
 import { Text } from '@/components/Elements';
 import { Icon } from '@/components/Media';
 import { Base, BaseProps } from '@/theme/base';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   tag: css({
     display: 'flex',
     alignItems: 'center',
     padding: '4px 8px',
-    // backgroundColor: '#e0e0e0',
-    // color: theme.dark,
     borderRadius: 16,
     lineHeight: 1,
     transition: 'background-color 0.3s ease',

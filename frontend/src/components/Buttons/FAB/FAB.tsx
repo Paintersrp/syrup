@@ -5,8 +5,7 @@ import { css } from '@emotion/react';
 import { Tooltip } from '../../Elements';
 import { Base, BaseProps } from '@/theme/base';
 import { Icon } from '../../Media';
-import { defaultColors } from '@/theme';
-import { shadows } from '@/theme/common';
+import { colors, shadows } from '@/theme/common';
 
 const cx = {
   fabButton: css({
@@ -17,7 +16,7 @@ const cx = {
     width: 40,
     height: 40,
     borderRadius: '50%',
-    backgroundColor: defaultColors.secondary,
+    backgroundColor: colors.secondary,
     color: '#ffffff',
     boxShadow: shadows[1],
     border: 'none',

@@ -8,7 +8,6 @@ import { Button, IconButton } from '@/components/Buttons';
 import { Switch } from '@/components/Form';
 import { ConfirmationModal } from '@/features/editable';
 import { useBreakpoint } from '@/hooks';
-import { colors } from '@/theme/common';
 import { useAlertStore } from '@/stores/alert';
 
 interface MessageProps {
@@ -161,7 +160,7 @@ const Message: React.FC<MessageProps> = ({ message, metadata }) => {
             View the details of the message below
           </Text>
         </Flexer>
-        <Container justify="flex-start" spacing={2}>
+        <Container j="flex-start" spacing={2}>
           {Object.keys(formData).map((key) =>
             key === 'id' || key === 'message' || key === 'is_replied' ? null : (
               <Item xs={12} sm={6} md={4} lg={3} key={key} fd="column">

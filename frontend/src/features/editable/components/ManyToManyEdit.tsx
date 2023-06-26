@@ -15,7 +15,7 @@ interface MTMEditProps extends BaseProps {
   handleCancel: any;
   title?: string;
   endpoint?: string;
-  id: number;
+  id: number | string;
   fieldName: string;
 }
 

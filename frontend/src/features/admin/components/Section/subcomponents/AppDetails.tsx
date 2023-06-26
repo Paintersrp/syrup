@@ -5,11 +5,12 @@ import PanelHeader from './PanelHeader';
 import { Collapser } from '@/components/Animation';
 import { List } from '@/components/Elements';
 import { Surface } from '@/components/Containers';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
 import { RenderModels } from '../../Main/subcomponents/RenderModels';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   list: css({
     borderTopRightRadius: '0px !important',
     borderTopLeftRadius: '0px !important',

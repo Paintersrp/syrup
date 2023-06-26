@@ -4,6 +4,7 @@ import 'react-quill/dist/quill.snow.css';
 import { css } from '@emotion/react';
 
 import { Base, BaseProps } from '@/theme/base';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
 const sizeMapping: any = {
@@ -12,7 +13,7 @@ const sizeMapping: any = {
   large: 600,
 };
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   quill: (size: string) =>
     css({
       marginBottom: 0,

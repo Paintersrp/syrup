@@ -2,9 +2,10 @@ import { FC } from 'react';
 import { css } from '@emotion/react';
 
 import { Text } from '@/components/Elements';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   root: css({
     display: 'flex',
     alignItems: 'center',

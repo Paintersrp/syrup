@@ -1,24 +1,25 @@
-import { Base } from '@/theme/base';
-import React from 'react';
-import Popover from '../Popover/Popover';
+import { FC, ReactNode } from 'react';
+
+import { Popover } from '../Popover/Popover';
 import { Text } from '../Text/Text';
 
 interface TooltipProps {
-  text: React.ReactNode;
-  children: React.ReactElement;
+  text: ReactNode;
+  children: any;
   onOpen?: () => void;
   onClose?: () => void;
   position?: 'top' | 'bottom' | 'left' | 'right';
   css?: any;
 }
 
-export const Tooltip: React.FC<TooltipProps> = ({
+// Disabled Prop
+
+export const Tooltip: FC<TooltipProps> = ({
   text,
   children,
   onOpen,
   onClose,
   position = 'bottom',
-  css,
 }) => {
   const ToolTipTextContent = (
     <Text t="body2" a="c" w="auto">
@@ -32,6 +33,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
       onOpen={onOpen}
       onClose={onClose}
       position={position}
+      css={{ width: '100%', display: 'flex', justifyContent: 'center' }}
     >
       {children}
     </Popover>

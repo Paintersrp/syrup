@@ -15,7 +15,7 @@ const styles = {
     }),
 };
 
-interface SidebarProps extends BaseProps {
+export interface SidebarProps extends BaseProps {
   side: 'left' | 'right';
   children: ReactNode;
   outerClass?: string;

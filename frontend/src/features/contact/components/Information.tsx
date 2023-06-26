@@ -5,7 +5,6 @@ import { Surface } from '@/components/Containers';
 import { IconTextItem } from '@/components/Media';
 import { Editable, useEditable } from '@/features/editable';
 import { BaseProps } from '@/theme/base';
-import { colors } from '@/theme/common';
 
 import { ContactInformationContent } from '../types';
 

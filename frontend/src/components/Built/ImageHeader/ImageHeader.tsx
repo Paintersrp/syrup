@@ -5,7 +5,8 @@ import { TITLE } from '@/settings';
 import { Flexer } from '@/components/Containers';
 import { Media } from '@/components/Media';
 import { BaseProps } from '@/theme/base';
-import { useTheme } from '@emotion/react';
+
+// use Editable
 
 interface ImageHeaderProps extends BaseProps {
   header?: string;
@@ -25,7 +26,6 @@ export const ImageHeader: FC<ImageHeaderProps> = ({
   boxShadow = false,
   ...rest
 }) => {
-  const theme: any = useTheme();
   return (
     <Flexer
       j="c"

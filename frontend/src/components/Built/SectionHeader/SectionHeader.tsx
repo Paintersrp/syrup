@@ -73,7 +73,7 @@ export const SectionHeader: FC<SectionHeaderProps> = ({ headerData }) => {
       )}
       {editableData.show_divider && (
         <div style={{ width: '90%' }}>
-          <Divider color={colors.text.min} />
+          <Divider color="minVisible" />
         </div>
       )}
     </Editable>

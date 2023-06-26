@@ -5,11 +5,11 @@ import { Page } from '@/components/Layout';
 import { Flexer, Surface } from '@/components/Containers';
 import { Text } from '@/components/Elements';
 import { Button } from '@/components/Buttons';
-import { colors } from '@/theme/common';
-import { ErrorResponse } from '@/types';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
+import { ErrorResponse } from '@/types';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   icon: css({
     ...theme.flex.cc,
     backgroundColor: theme.error,

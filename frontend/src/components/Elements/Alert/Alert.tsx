@@ -5,6 +5,7 @@ import { Icon } from '@/components/Media';
 import { Text } from '@/components/Elements/';
 import { AlertState } from '@/stores/alert';
 import { Base, BaseProps } from '@/theme/base';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 import { makeCamelCase } from '@/theme/utils/format';
 import { GenericMapping } from '@/types';
@@ -14,23 +15,6 @@ const transformMapping: GenericMapping = {
   right: { start: 'translateX(100%)', finish: 'translateX(0)' },
   top: { start: 'translateY(-100%)', finish: 'translateY(0)' },
   bottom: { start: 'translateY(100%)', finish: 'translateY(0)' },
-};
-
-export const kf = {
-  slide: (position: string) => {
-    const transform = transformMapping[position];
-
-    return keyframes({
-      '0%': {
-        opacity: 0,
-        transform: transform.start,
-      },
-      '100%': {
-        opacity: 1,
-        transform: transform.finish,
-      },
-    });
-  },
 };
 
 const positionMapping: GenericMapping = {
@@ -64,9 +48,27 @@ const positionMapping: GenericMapping = {
   },
 };
 
-const styles = (theme: any) => ({
-  alert: (type: string, position: string, from: string) =>
-    css({
+export const kf = {
+  slide: (position: string) => {
+    const transform = transformMapping[position];
+
+    return keyframes({
+      '0%': {
+        opacity: 0,
+        transform: transform.start,
+      },
+      '100%': {
+        opacity: 1,
+        transform: transform.finish,
+      },
+    });
+  },
+};
+
+const styles = (theme: ExtendedTheme) => ({
+  alert: (type: string, position: string, from: string) => {
+    const formattedPosition = makeCamelCase(position);
+    return css({
       position: 'fixed',
       display: 'flex',
       alignItems: 'center',
@@ -79,13 +81,9 @@ const styles = (theme: any) => ({
       minWidth: 200,
       backgroundColor: theme[type],
       animation: `${kf.slide(from)} 0.3s ease forwards`,
-
-      top: positionMapping[makeCamelCase(position)].top,
-      bottom: positionMapping[makeCamelCase(position)].bottom,
-      left: positionMapping[makeCamelCase(position)].left,
-      right: positionMapping[makeCamelCase(position)].right,
-      transform: positionMapping[makeCamelCase(position)].transform,
-    }),
+      ...positionMapping[formattedPosition],
+    });
+  },
 });
 
 type AlertFromDirection = 'left' | 'right' | 'bottom' | 'top';
@@ -115,8 +113,9 @@ export const Alert: FC<AlertProps> = ({
 }) => {
   const css = inject(styles);
 
-  const [visible, setVisible] = useState<boolean>(false);
   const timerRef = useRef<any>(null);
+  const [visible, setVisible] = useState<boolean>(false);
+  const finalIcon = alert ? (alert?.type === 'success' ? 'check_circle' : alert?.type) : null;
 
   useEffect(() => {
     if (alert) {
@@ -161,12 +160,7 @@ export const Alert: FC<AlertProps> = ({
       onMouseLeave={handleMouseLeave}
       {...rest}
     >
-      <Icon
-        mr={8}
-        icon={alert ? (alert?.type === 'success' ? 'check_circle' : alert?.type) : null}
-        color="#fff"
-        size="22px"
-      />
+      <Icon mr={8} icon={finalIcon} color="light" size="22px" />
       <Text t="body1" s="1rem" className="message" mt={1}>
         {alert?.message}
       </Text>

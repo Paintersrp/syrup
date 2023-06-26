@@ -11,6 +11,7 @@ import { Menu } from './Menu/Menu';
 import { MenuItem } from './Menu/MenuItem';
 import { Modal } from './Modal/Modal';
 import { Navbar } from './Navbar/Navbar';
+import { Popover } from './Popover/Popover';
 import { Stepper } from './Stepper/Stepper';
 import { TableSortCell } from './Table/TableSortCell';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from './Table/Table';
@@ -41,6 +42,7 @@ export {
   MenuItem,
   Modal,
   Navbar,
+  Popover,
   Stepper,
   Table,
   TableBody,

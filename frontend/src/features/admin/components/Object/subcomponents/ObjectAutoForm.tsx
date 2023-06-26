@@ -6,7 +6,6 @@ import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { Divider, Link, Text, Tooltip } from '@/components/Elements';
 import { useBreakpoint } from '@/hooks';
 import { axios } from '@/lib/api';
-import { colors } from '@/theme/common';
 import { useAlertStore } from '@/stores/alert';
 
 import InfoMenu from '@/features/admin/components/Model/subcomponents/InfoMenu';
@@ -286,7 +285,7 @@ const ObjectAutoForm: FC<ObjectAutoFormProps> = ({
 
       <Divider mt={24} mb={32} />
 
-      <Container justify={modelMetadata.preview ? 'flex-start' : 'center'}>
+      <Container j={modelMetadata.preview ? 'flex-start' : 'center'}>
         <Item
           xs={12}
           sm={12}
@@ -300,7 +299,7 @@ const ObjectAutoForm: FC<ObjectAutoFormProps> = ({
               : 10
           }
         >
-          <Container justify="center">
+          <Container j="center">
             {fieldMetadata &&
               metadata &&
               Object.keys(fieldMetadata).map((fieldName) => {

@@ -11,7 +11,7 @@ import {
 } from '@fortawesome/free-brands-svg-icons';
 
 import { SocialContent } from '@/types';
-import { colors } from '@/theme/common/colors';
+import { colors } from '@/theme/common';
 
 export const SOCIALS: SocialContent[] = [
   { name: 'facebook', icon: faFacebookSquare, handle: 'Test' },
@@ -25,5 +25,5 @@ export const SOCIALS: SocialContent[] = [
 export const TITLE: string = 'DEBLUR';
 
 export const LOGO: React.ReactNode = (
-  <FontAwesomeIcon icon={faCoins} style={{ fontSize: '1.5rem', color: colors.secondary.main }} />
+  <FontAwesomeIcon icon={faCoins} style={{ fontSize: '1.5rem', color: colors.secondary }} />
 );

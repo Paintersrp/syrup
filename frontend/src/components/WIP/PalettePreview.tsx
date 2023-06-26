@@ -2,14 +2,15 @@ import { CSSProperties, FC, Fragment } from 'react';
 
 import { Container, Flexer, Item } from '../Containers';
 import { Text } from '../Elements';
-import { defaultColors } from '@/theme';
+
 import { Base } from '@/theme/base';
+import { colors } from '@/theme/common';
 import { CapitalizeFirst } from '@/utils';
 
 export const PalettePreview = () => {
-  const colors = Object.entries(defaultColors);
+  const colorSet = Object.entries(colors);
 
-  const groupedColors: any = colors.reduce((groups: any, [name, color]) => {
+  const groupedColors: any = colorSet.reduce((groups: any, [name, color]) => {
     const titleNames = [
       'slate',
       'smoke',

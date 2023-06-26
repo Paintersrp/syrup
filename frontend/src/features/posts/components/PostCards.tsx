@@ -9,7 +9,6 @@ import { BaseProps } from '@/theme/base';
 import { PostCard } from './PostCard';
 import { PostContent } from '@/features/posts/types';
 import { useConfirm } from '@/hooks/useConfirm';
-import { colors } from '@/theme/common';
 import { useEditModeStore } from '@/stores/editmode';
 interface PostCardsProps extends BaseProps {
   posts: PostContent[];

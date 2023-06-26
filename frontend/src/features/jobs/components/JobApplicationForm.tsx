@@ -8,7 +8,6 @@ import { BaseProps } from '@/theme/base';
 import { Input } from '@/components/Form';
 import { useFormValidation } from '@/hooks';
 import { validateForm } from '@/lib/api';
-import { colors } from '@/theme/common';
 import { useEditModeStore } from '@/stores/editmode';
 import { useAlertStore } from '@/stores/alert';
 

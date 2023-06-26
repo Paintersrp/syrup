@@ -12,7 +12,6 @@ import { ServiceContent } from '../types';
 import { ServiceContact } from '../components/service/ServiceContact';
 import { ServiceProvider } from '../components/service/ServiceProvider';
 import { ServiceInformation } from '../components/service/ServiceInformation';
-import { defaultColors } from '@/theme';
 
 export const Service: FC = () => {
   const { id }: any = useParams();

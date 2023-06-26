@@ -1,17 +1,20 @@
 import { useState, useEffect, FC, ReactNode, CSSProperties } from 'react';
-import ReactDOM from 'react-dom';
-import { Base, BaseProps } from '@/theme/base';
 import { css } from '@emotion/react';
+import ReactDOM from 'react-dom';
 import clsx from 'clsx';
+
+import { Base, BaseProps } from '@/theme/base';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   root: css({
     position: 'fixed',
     top: 0,
     left: 0,
     width: '100%',
     height: '100%',
+    zIndex: theme.zIndex.modal,
   }),
   overlay: () =>
     css({
@@ -20,7 +23,7 @@ const styles = (theme: any) => ({
       left: 0,
       width: '100%',
       height: '100%',
-      backgroundColor: theme.backdrop,
+      backgroundColor: theme.modalBackdrop,
     }),
   modal: (width: CSSProperties['width'], maxWidth: CSSProperties['maxWidth']) =>
     css({

@@ -1,9 +1,9 @@
 import React, { ReactNode } from 'react';
 
 import { Flexer } from '@/components/Containers';
-import { Divider } from '@/components/Elements';
-import { colors } from '@/theme/common';
+import { Divider, Text } from '@/components/Elements';
 import { BaseProps, JustificationValue } from '@/theme/base';
+import { PaletteOptions } from '@/theme/palettes';
 
 interface DrawerHeaderProps extends BaseProps {
   j?: JustificationValue;
@@ -11,7 +11,7 @@ interface DrawerHeaderProps extends BaseProps {
   title?: string;
   icon?: ReactNode;
   children?: ReactNode;
-  color?: keyof typeof colors;
+  color?: PaletteOptions;
 }
 
 export const DrawerHeader: React.FC<DrawerHeaderProps> = ({
@@ -20,16 +20,16 @@ export const DrawerHeader: React.FC<DrawerHeaderProps> = ({
   title,
   icon,
   children,
-  color = 'primary',
+  color = 'drawerLight',
   ...rest
 }) => {
   return (
     <React.Fragment>
-      <Flexer j={justifyContent} a={alignItems} style={{ height: 53 }} {...rest}>
+      <Flexer j={justifyContent} a={alignItems} css={{ height: 53 }} {...rest}>
         <Flexer j="c">
           {icon && (
             <span
-              style={{
+              css={{
                 position: 'absolute',
                 display: 'flex',
                 left: 0,
@@ -39,12 +39,16 @@ export const DrawerHeader: React.FC<DrawerHeaderProps> = ({
               {icon && icon}
             </span>
           )}
-          {title && <h3>{title}</h3>}
+          {title && (
+            <Text w="auto" t="h3">
+              {title}
+            </Text>
+          )}
         </Flexer>
         {children}
       </Flexer>
-      <div style={{ width: '100%' }}>
-        <Divider color={colors[color].hover} thickness={1} />
+      <div css={{ width: '100%' }}>
+        <Divider color={color} thickness={1} />
       </div>
     </React.Fragment>
   );

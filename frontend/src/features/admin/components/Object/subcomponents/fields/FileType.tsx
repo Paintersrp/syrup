@@ -1,7 +1,6 @@
 import { Button } from '@/components/Buttons';
 import { Flexer, Item } from '@/components/Containers';
 import { Text } from '@/components/Elements';
-import { colors } from '@/theme/common';
 
 import React, { useState, ChangeEvent } from 'react';
 

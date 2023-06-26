@@ -10,9 +10,10 @@ import { Tag, Text } from '@/components/Elements';
 import { BaseProps } from '@/theme/base';
 import { Media } from '@/components/Media';
 import { PostContent } from '@/features/posts/types';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   media: css({
     borderBottomLeftRadius: '0px !important',
     borderBottomRightRadius: '0px !important',

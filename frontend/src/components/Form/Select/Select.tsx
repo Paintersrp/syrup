@@ -6,9 +6,10 @@ import { Divider, HelpText, Text } from '@/components/Elements';
 import { Base, BaseProps } from '@/theme/base';
 import { OptionProps } from '../Option/Option';
 import { Icon } from '@/components/Media';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   root: css({
     position: 'relative',
     display: 'inline-block',
@@ -16,7 +17,7 @@ const styles = (theme: any) => ({
   }),
   selected: (dense: boolean) => ({
     padding: dense ? 4 : 8,
-    border: '1px solid #ccc', // add to theme
+    border: '1px solid #ccc', // add to theme?
     borderRadius: 4,
     cursor: 'pointer',
     textAlign: 'left',

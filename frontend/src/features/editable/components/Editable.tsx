@@ -1,4 +1,4 @@
-import { CSSProperties, FC, ReactNode, useState } from 'react';
+import { FC, ReactNode, useState } from 'react';
 
 import { Base, BaseProps } from '@/theme/base';
 import { axios } from '@/lib/api';
@@ -8,16 +8,17 @@ import { CapitalizeFirst } from '@/utils';
 import { FormGenerator } from './FormGenerator';
 import { ButtonBar } from './ButtonBar';
 import { ConfirmationModal } from './ConfirmationModal';
-import { defaultColors } from '@/theme';
+import { colors } from '@/theme/common';
 import { Flexer } from '@/components/Containers';
 import { FormSettings } from '../types';
+import { useConfirm } from '@/hooks';
 
 // Variants?
 const defaultFormSettings = {
   px: 2,
   py: 2,
   br: 8,
-  bg: defaultColors.light,
+  bg: colors.light,
   width: '90%',
   boxShadow: true,
 };
@@ -25,7 +26,7 @@ const defaultFormSettings = {
 interface EditableProps extends BaseProps {
   children: ReactNode;
   name: string;
-  id?: number;
+  id?: number | string;
   data: any;
   endpoint: string;
   admin?: string | undefined;
@@ -38,6 +39,8 @@ interface EditableProps extends BaseProps {
   multilineKeys?: any;
   excludeKeys?: any;
 }
+
+// Update data on delete ?
 
 export const Editable: FC<EditableProps> = ({
   children,
@@ -58,28 +61,12 @@ export const Editable: FC<EditableProps> = ({
 }) => {
   const { editMode } = useEditModeStore();
   const [editing, setEditing] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [selectedId, setSelectedId] = useState<number | undefined>();
+
+  const { open, handleClose, handleConfirm, handleDelete } = useConfirm(endpoint);
 
   const handleUpdate = (data: any) => {
     onUpdate(data);
     setEditing(false);
-  };
-
-  const handleDelete = (id: number | undefined) => {
-    setOpen(true);
-    setSelectedId(id);
-  };
-
-  const handleConfirmDelete = () => {
-    confirmedDelete(selectedId);
-    setOpen(false);
-  };
-
-  const confirmedDelete = async (id: number | undefined) => {
-    if (id) {
-      await axios.delete(endpoint);
-    }
   };
 
   const generateConfig = () => {
@@ -149,8 +136,8 @@ export const Editable: FC<EditableProps> = ({
       {enableDelete && (
         <ConfirmationModal
           open={open}
-          handleClose={() => setOpen(false)}
-          handleConfirm={handleConfirmDelete}
+          handleClose={handleClose}
+          handleConfirm={handleConfirm}
           message="Are you sure you want to delete this?"
           warning="Warning: This cannot be undone."
         />

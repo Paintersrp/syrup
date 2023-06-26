@@ -6,7 +6,6 @@ import { Text } from '@/components/Elements';
 import { Editable, useEditable } from '@/features/editable';
 import { useBreakpoint } from '@/hooks';
 import { BaseProps } from '@/theme/base';
-import { colors } from '@/theme/common';
 
 import { JobContent } from '../types';
 
@@ -35,7 +34,7 @@ export const JobDetails: FC<JobDetailsProps> = ({ job, handleApplyNowClick, ...r
   return (
     <Editable {...editConfig}>
       <div className="fade-in">
-        <Container justify="center">
+        <Container j="center">
           <Item
             xs={12}
             sm={4}

@@ -5,7 +5,6 @@ import { Divider, Text, TextAlign } from '../Elements';
 import { BaseProps } from '@/theme/base';
 
 import { Icon } from './Icon';
-import { defaultColors } from '@/theme';
 interface IconTextItemProps extends BaseProps {
   icon?: string;
   text?: string;

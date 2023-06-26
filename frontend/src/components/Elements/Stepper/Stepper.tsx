@@ -1,14 +1,14 @@
-import React from 'react';
+import { FC } from 'react';
 import { css } from '@emotion/react';
 
 import { Flexer } from '@/components/Containers';
+import { Text } from '@/components/Elements';
 import { Base } from '@/theme/base';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 import { CapitalizeFirst } from '@/utils';
 
-import { Text } from '../Text/Text';
-
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   step: (index: number, activeStep: number) => {
     const active = index <= activeStep;
     const current = index === activeStep;
@@ -59,7 +59,7 @@ interface StepperProps {
   onStepChange: (step: number) => void;
 }
 
-export const Stepper: React.FC<StepperProps> = ({ steps, activeStep, onStepChange }) => {
+export const Stepper: FC<StepperProps> = ({ steps, activeStep, onStepChange }) => {
   const css = inject(styles);
 
   const handleStepClick = (step: number) => {

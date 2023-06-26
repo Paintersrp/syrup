@@ -7,11 +7,12 @@ import { Container, Flexer, Item } from '@/components/Containers';
 import { Link, Text } from '@/components/Elements';
 import { Icon, Media } from '@/components/Media';
 import { Base } from '@/theme/base';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
 import { ServiceType } from '../../types';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   root: css({
     transition: 'transform 0.3s ease-in-out',
     cursor: 'pointer',
@@ -21,7 +22,8 @@ const styles = (theme: any) => ({
     },
   }),
   media: css({
-    ...theme.image.header,
+    borderBottomLeftRadius: theme.imageBorderBottomLeftRadius,
+    borderBottomRightRadius: theme.imageBorderBottomRightRadius,
   }),
   icon: css({
     left: 45,

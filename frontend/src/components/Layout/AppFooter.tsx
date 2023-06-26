@@ -8,12 +8,13 @@ import { Input } from '@/components/Form';
 import { Icon } from '@/components/Media';
 import { SiteLinkType } from '@/providers/LayoutProvider';
 import { LOGO, SOCIALS, TITLE } from '@/settings';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 import { handleDataChange } from '@/utils';
 
 import { BrandButton } from '../Buttons/BrandButton/BrandButton';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   root: css({
     color: theme.light,
     backgroundColor: theme.primary,
@@ -79,24 +80,21 @@ export const AppFooter: FC<AppFooterProps> = ({ links }) => {
                 name="email"
                 style={{
                   width: '90%',
-                  color: '#fff',
-                  background: '#fff',
-                  height: 30,
                 }}
               />
               <Flexer j="c">
                 {/* Add Icons / State Checkmark */}
                 <Button
                   disabled={state === 'success'}
-                  color="secondary"
+                  palette="secondary"
                   size="md"
-                  mt={16}
+                  mt={8}
                   w={105}
                   style={{ fontSize: '1rem' }}
                   onClick={() => setState(state === 'success' ? 'initial' : 'success')}
                 >
                   {state === 'success' && (
-                    <Icon icon="check" color="#f5f5f5" mr={4} ml={0} size="1.2rem" />
+                    <Icon icon="check" color="light" mr={4} ml={0} size="1.2rem" />
                   )}
                   {state === 'success' ? 'Subscribed' : 'Subscribe'}
                 </Button>

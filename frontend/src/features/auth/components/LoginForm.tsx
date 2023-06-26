@@ -9,6 +9,7 @@ import { Checkbox, Input } from '@/components/Form';
 import { Icon } from '@/components/Media';
 import { useAlertStore } from '@/stores/alert';
 import { useAuthStore } from '@/stores/auth';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 import { ErrorResponse } from '@/types';
 import { handleDataChange } from '@/utils';
@@ -16,7 +17,7 @@ import { handleDataChange } from '@/utils';
 import { useLogin, useSalt } from '../api/useLogin';
 import { LoginFormDTO } from '../types';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   header: css({
     borderBottom: `1px solid ${theme.dark}`,
     paddingBottom: 5,

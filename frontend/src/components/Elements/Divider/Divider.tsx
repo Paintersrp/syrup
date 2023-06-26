@@ -4,8 +4,10 @@ import { css } from '@emotion/react';
 import { Flexer } from '@/components/Containers';
 import { Text } from '@/components/Elements';
 import { classify } from '@/theme/base/classify';
+import { inject } from '@/theme/utils';
+import { ExtendedTheme } from '@/theme/types';
 
-const cx = {
+const styles = (theme: ExtendedTheme) => ({
   root: css({
     width: '100%',
   }),
@@ -17,7 +19,7 @@ const cx = {
     }),
   divider: (props: DividerProps) => {
     const thickness = props.thickness ?? 1;
-    const color = props.color ?? 'rgba(0, 0, 0, 0.1)';
+    const color = props.color ? theme[props.color] : 'rgba(0, 0, 0, 0.1)';
     const borderTop = `${thickness}px ${props.dashed ? 'dashed' : 'solid'} ${color}`;
 
     const dividerStyle = {
@@ -28,7 +30,7 @@ const cx = {
 
     return [classify(props), dividerStyle];
   },
-};
+});
 
 interface DividerProps {
   mb?: number;
@@ -59,19 +61,20 @@ export const Divider: FC<DividerProps> = ({
   style,
   className,
 }) => {
+  const css = inject(styles);
   const dividerProps = { mb, mt, mr, ml, color, thickness, dashed };
   const textProps = { textColor, textSize };
 
   return (
-    <div css={cx.root} style={style} className={className ?? ''}>
-      {!text && <hr css={cx.divider(dividerProps)} />}
+    <div css={css.root} style={style} className={className ?? ''}>
+      {!text && <hr css={css.divider(dividerProps)} />}
       {text && (
         <Flexer a="c">
-          <hr css={cx.divider(dividerProps)} />
-          <Text fw="400" w="auto" css={cx.text(textProps)}>
+          <hr css={css.divider(dividerProps)} />
+          <Text fw="400" w="auto" css={css.text(textProps)}>
             {text}
           </Text>
-          <hr css={cx.divider(dividerProps)} />
+          <hr css={css.divider(dividerProps)} />
         </Flexer>
       )}
     </div>

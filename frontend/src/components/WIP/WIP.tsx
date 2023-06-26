@@ -52,7 +52,7 @@ const WIP: React.FC<WIPProps> = ({}) => {
   const { showAlert } = useAlertStore();
 
   const handleShowAlert = () => {
-    showAlert('success', `Test`, 3000);
+    showAlert('info', `Test`, 3000);
   };
 
   return (

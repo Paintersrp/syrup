@@ -18,9 +18,10 @@ import { PostSidebar } from '../components/PostSidebar';
 import { PostContent } from '../types';
 import { useAuthStore } from '@/stores/auth';
 import { useEditModeStore } from '@/stores/editmode';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   body: css({
     fontWeight: 400,
     fontSize: '0.95rem',

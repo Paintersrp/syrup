@@ -1,13 +1,14 @@
 import { FC, useState, useEffect, ReactNode, CSSProperties } from 'react';
-
-import { Base, BaseProps } from '@/theme/base';
-import { Icon } from '../Media';
-import clsx from 'clsx';
 import { css } from '@emotion/react';
+import clsx from 'clsx';
+
+import { Icon } from '@/components/Media';
+import { Base, BaseProps } from '@/theme/base';
 import { mediaQueries } from '@/theme/common/breakpoints';
 import { inject } from '@/theme/utils';
+import { ExtendedTheme } from '@/theme/types';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   carousel: css({
     position: 'relative',
     overflow: 'hidden',

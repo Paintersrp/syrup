@@ -8,7 +8,6 @@ import { Button, IconButton } from '@/components/Buttons';
 import { Switch } from '@/components/Form';
 import { useBreakpoint } from '@/hooks';
 import { axios } from '@/lib/api';
-import { colors } from '@/theme/common';
 import { useAlertStore } from '@/stores/alert';
 
 interface ApplicationProps {
@@ -167,7 +166,7 @@ const Application: FC<ApplicationProps> = ({ application, job, metadata }) => {
         <ButtonBar adminLink={`jobposting`} text="Job" />
       </Flexer>
 
-      <Container justify="flex-start">
+      <Container j="flex-start">
         {Object.keys(jobData).map((key) =>
           key === 'id' ||
           key === 'requirements' ||

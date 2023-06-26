@@ -1,13 +1,15 @@
 import { FC, useState, useEffect, CSSProperties, ReactNode, Fragment } from 'react';
 import { css } from '@emotion/react';
 import clsx from 'clsx';
+
 import { inject } from '@/theme/utils';
+import { ExtendedTheme } from '@/theme/types';
 
 // Will need to set the sidedrawer transform based on the side prop of the component in order
 // to build the animation correctly
 // keyframes
 // essentially only usable on the left atm
-const cx = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   sidedrawer: (isOpen: boolean, variant: string) =>
     css({
       display: 'flex',
@@ -15,7 +17,7 @@ const cx = (theme: any) => ({
       width: 240,
       boxShadow: theme.shadows[1],
       background: theme.primary,
-      zIndex: 2000,
+      zIndex: theme.zIndex.drawer,
       transform: 'translateX(-100%)',
       opacity: 0,
       transition: 'all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
@@ -60,8 +62,8 @@ const cx = (theme: any) => ({
       left: 0,
       bottom: 0,
       right: 0,
-      zIndex: 1001,
-      background: theme.backdrop,
+      zIndex: theme.zIndex.drawer,
+      background: theme.modalBackdrop,
       transition: 'all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
       visibility: isOpen ? 'visible' : 'hidden',
     }),
@@ -86,8 +88,7 @@ export const Drawer: FC<DrawerProps> = ({
   style = {},
   children = null,
 }) => {
-  const css = inject(cx);
-  // const theme = useTheme();
+  const css = inject(styles);
   const [isOpen, setIsOpen] = useState<boolean>(open);
 
   useEffect(() => {

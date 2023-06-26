@@ -6,7 +6,6 @@ import { useBreakpoint } from '@/hooks';
 
 import { ServiceProcessImage } from './ServiceProcessImage';
 import { ServiceProcessText } from './ServiceProcessText';
-import { colors } from '@/theme/common';
 import { useEditModeStore } from '@/stores/editmode';
 import { useServiceData } from './ServiceProvider';
 import { ButtonBar } from '@/features/editable';

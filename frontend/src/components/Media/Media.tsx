@@ -4,9 +4,10 @@ import clsx from 'clsx';
 
 import { Text } from '@/components/Elements';
 import { Base, BaseProps } from '@/theme/base';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   media: css({
     position: 'relative',
     maxWidth: '100%',
@@ -20,7 +21,7 @@ const styles = (theme: any) => ({
       width: '100%',
       height: '100%',
       objectFit: 'cover',
-      borderRadius: 8,
+      borderRadius: theme.imageBorderRadius,
       boxShadow: theme.shadows[boxShadow],
     }),
   caption: css({

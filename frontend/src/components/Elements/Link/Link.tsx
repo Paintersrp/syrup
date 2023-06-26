@@ -1,8 +1,7 @@
+import { FC } from 'react';
 import { Link as RouterLink, LinkProps } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
 import clsx from 'clsx';
-
-import { FC } from 'react';
 
 export const Link: FC<LinkProps> = ({ className, children, ...props }) => {
   const theme: any = useTheme();
@@ -10,6 +9,7 @@ export const Link: FC<LinkProps> = ({ className, children, ...props }) => {
   return (
     <RouterLink
       css={{
+        zIndex: '1 !important',
         color: theme.info,
         width: 'auto',
         '&:hover': {

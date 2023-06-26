@@ -4,9 +4,10 @@ import { css } from '@emotion/react';
 
 import { Text } from '../Text/Text';
 import { Icon } from '@/components/Media';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   accordion: (isOpen: boolean) =>
     css({
       backgroundColor: theme.light,

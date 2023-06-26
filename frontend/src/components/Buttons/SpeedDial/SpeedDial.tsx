@@ -3,7 +3,6 @@ import { cloneElement, FC, ReactElement, useState } from 'react';
 import { Base, BaseProps } from '@/theme/base';
 import { Icon } from '../../Media';
 import { FAB } from '../FAB/FAB';
-import { colors } from '@/theme/common';
 import { css } from '@emotion/react';
 
 // move

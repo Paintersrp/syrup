@@ -3,9 +3,10 @@ import { css } from '@emotion/react';
 
 import { HelpText } from '@/components/Elements';
 import { Icon } from '@/components/Media';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   checkbox: css({
     display: 'flex',
     fontSize: 14,

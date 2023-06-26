@@ -31,14 +31,16 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
 
   return (
     <ul css={styles.breadcrumbs} style={style}>
-      {items.map((item, index) => (
-        <li key={index} css={styles.breadcrumb}>
-          {item}
-          {index !== items.length - 1 && (
-            <Icon size="18px" icon={separator} css={styles.separators} />
-          )}
-        </li>
-      ))}
+      {items.map((item, index) => {
+        const needsSeparator = index !== items.length - 1;
+
+        return (
+          <li key={index} css={styles.breadcrumb}>
+            {item}
+            {needsSeparator && <Icon size="18px" icon={separator} css={styles.separators} />}
+          </li>
+        );
+      })}
     </ul>
   );
 };

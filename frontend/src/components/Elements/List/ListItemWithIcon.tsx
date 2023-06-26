@@ -27,7 +27,7 @@ const ListItemWithIcon: FC<ListItemWithIconProps> = ({
   return (
     <React.Fragment>
       {to ? (
-        <Link to={to} style={{ width: '100%' }}>
+        <Link to={to} style={{ width: '100%', color: '#f5f5f5' }}>
           <Flexer j="sb">
             <Icon
               size="1.25rem"
@@ -51,7 +51,6 @@ const ListItemWithIcon: FC<ListItemWithIconProps> = ({
                   ? 62
                   : 0,
                 marginLeft: noGutters ? 0 : textAlign === 'left' ? 16 : 0,
-                color: '#222',
               }}
             >
               <Text t="h5" a={textAlign} c="inherit">

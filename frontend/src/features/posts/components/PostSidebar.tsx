@@ -7,14 +7,15 @@ import { Avatar, Divider, Link, Tag, Text, Tooltip } from '@/components/Elements
 import { Media } from '@/components/Media';
 import { getReadTime } from '@/lib/api';
 import { mediaQueries } from '@/theme/common/breakpoints';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
 import { PostContent } from '../types';
-import { defaultColors } from '@/theme';
+import { colors } from '@/theme/common';
 
 // Responsiveness ordering needed
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   root: css({
     minWidth: 200,
     maxWidth: 200,
@@ -88,8 +89,8 @@ export const PostSidebar: FC<PostSidebarProps> = ({
             mr={8}
             mb={8}
             minw={50}
-            bg={defaultColors.smoke}
-            c={defaultColors.dark}
+            bg={colors.smoke}
+            c={colors.dark}
           />
         ))}
       </Flexer>

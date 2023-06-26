@@ -67,7 +67,8 @@ export const Pagination: FC<PaginationProps> = ({
         </Text>
       </Flexer>
       <Flexer w="auto" pr={16}>
-        <Tooltip text="Prev" position="bottom" disabled={page === 0}>
+        <Tooltip text="Prev" position="bottom">
+          {/* <Tooltip text="Prev" position="bottom" disabled={page === 0}> */}
           <IconButton
             size="tiny"
             icon="chevron_left"
@@ -76,7 +77,8 @@ export const Pagination: FC<PaginationProps> = ({
             style={{ marginRight: 8 }}
           />
         </Tooltip>
-        <Tooltip text="Next" position="bottom" disabled={page === totalPages - 1}>
+        <Tooltip text="Next" position="bottom">
+          {/* <Tooltip text="Next" position="bottom" disabled={page === totalPages - 1}> */}
           <IconButton
             size="tiny"
             icon="chevron_right"

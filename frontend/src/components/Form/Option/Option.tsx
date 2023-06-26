@@ -1,11 +1,12 @@
-import React, { CSSProperties, ReactNode } from 'react';
+import { CSSProperties, FC, ReactNode } from 'react';
 import { css } from '@emotion/react';
 
 import { Text } from '@/components/Elements';
 import { Base, BaseProps } from '@/theme/base';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   option: (dense: boolean, selected: boolean, disabled: boolean) =>
     css({
       padding: dense ? 4 : 8,
@@ -33,7 +34,7 @@ export interface OptionProps extends BaseProps {
   disabled?: boolean;
 }
 
-export const Option: React.FC<OptionProps> = ({
+export const Option: FC<OptionProps> = ({
   children,
   value,
   isSelected,

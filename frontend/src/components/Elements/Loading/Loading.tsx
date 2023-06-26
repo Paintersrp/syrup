@@ -3,7 +3,7 @@ import { css, keyframes } from '@emotion/react';
 
 import { Flexer } from '@/components/Containers';
 import { Icon } from '@/components/Media';
-import { colors } from '@/theme/common';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
 const kf = {
@@ -36,7 +36,7 @@ const kf = {
   }),
 };
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   overlay: (active: boolean) =>
     css({
       position: 'fixed',

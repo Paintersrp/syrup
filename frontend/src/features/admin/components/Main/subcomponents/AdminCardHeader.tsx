@@ -1,9 +1,10 @@
 import { FC, ReactNode } from 'react';
 import { css } from '@emotion/react';
 
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   root: (open: boolean) =>
     css({
       color: theme.light,

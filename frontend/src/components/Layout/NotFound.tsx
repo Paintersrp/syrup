@@ -4,9 +4,10 @@ import { css } from '@emotion/react';
 import { Flexer, Surface } from '@/components/Containers';
 import { Link, Text } from '@/components/Elements';
 import { Page } from '@/components/Layout';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   illustration: css({
     width: 325,
     marginBottom: 16,

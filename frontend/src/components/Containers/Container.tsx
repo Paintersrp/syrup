@@ -3,8 +3,6 @@ import { Base, BaseProps } from '@/theme/base';
 
 interface ContainerProps extends BaseProps {
   children: ReactNode;
-  align?: CSSProperties['alignContent'];
-  justify?: CSSProperties['justifyContent'];
   direction?: CSSProperties['flexDirection'];
   textAlign?: CSSProperties['textAlign'];
   style?: CSSProperties;
@@ -19,8 +17,6 @@ interface ChildProps {
 
 export const Container: FC<ContainerProps> = ({
   children,
-  align = 'center',
-  justify = 'center',
   direction = 'row',
   textAlign = 'left',
   style,
@@ -51,8 +47,6 @@ export const Container: FC<ContainerProps> = ({
         width: '100%',
         display: 'flex',
         flexWrap: 'wrap',
-        // alignContent: align,
-        // justifyContent: justify,
         flexDirection: direction,
         textAlign,
         ...style,
@@ -63,4 +57,3 @@ export const Container: FC<ContainerProps> = ({
     </Base>
   );
 };
-

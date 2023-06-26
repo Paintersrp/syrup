@@ -1,9 +1,11 @@
 import React, { CSSProperties, ReactNode } from 'react';
 import { css } from '@emotion/react';
-import { defaultColors } from '@/theme';
+import clsx from 'clsx';
+
+import { colors } from '@/theme/common';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 import { GenericMapping } from '@/types';
-import clsx from 'clsx';
 
 const typeMapping: GenericMapping = {
   h1: {
@@ -82,7 +84,7 @@ const typeMapping: GenericMapping = {
   },
 };
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   text: (type: string) =>
     css({
       ...typeMapping[type],
@@ -208,7 +210,7 @@ export const Text: React.FC<TextProps> = ({
         fontWeight: fontWeight,
         textAlign: alignSwitch(align),
         width: width,
-        color: color && defaultColors[color],
+        color: color && colors[color],
         textDecoration: underline ? 'underline' : '',
         textUnderlineOffset: textUnderlineOffset,
         ...style,

@@ -4,11 +4,11 @@ import { darken, lighten } from 'polished';
 // Creates a light, dark, and regular class for the passed in color.
 // The lightenValue is used with lighten to control how much to lighten
 // The darkenValue is used with darken to control how much to darken
-type GeneratedThemeColors = {
+export type GeneratedThemeColors = {
   [key: string]: string;
 };
 
-type GenColorSetFn = (
+export type GenColorSetFn = (
   baseName: string,
   baseColor: string,
   lightenValue: number,

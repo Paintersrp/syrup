@@ -8,7 +8,6 @@ import { BaseProps } from '@/theme/base';
 
 import { SetJobsDataFn } from '../api/useJobs';
 import { JobContent } from '../types';
-import { colors } from '@/theme/common';
 import { useEditModeStore } from '@/stores/editmode';
 
 interface JobQualificationProps {
@@ -17,7 +16,7 @@ interface JobQualificationProps {
   editMode: boolean;
   updateData: SetJobsDataFn;
   fieldName: 'requirements' | 'responsibilities';
-  id: number;
+  id: number | string;
 }
 
 export const JobQualification: FC<JobQualificationProps> = ({

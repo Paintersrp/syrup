@@ -12,10 +12,11 @@ import {
 } from '@/components/Elements';
 import { useAuthStore } from '@/stores/auth';
 import { useEditModeStore } from '@/stores/editmode';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 import { LogoutUser } from '@/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   item: css({
     color: theme.light,
     '&:hover': {
@@ -105,6 +106,10 @@ export const AppDrawer: FC<AppDrawerProps> = ({
     },
   ];
 
+  const footerItems = authState.is_authenticated
+    ? authedBottomListItemData
+    : unauthedBottomListItemData;
+
   return (
     <Drawer variant={variant} open={open} onClose={handleClose} side={side}>
       <Flexer fd="column" grow style={{ color }}>
@@ -112,12 +117,7 @@ export const AppDrawer: FC<AppDrawerProps> = ({
         <Flexer j="space-between" fd="column" grow>
           <DrawerContent items={linkListItemData} itemCss={css.item} />
           <Flexer fd="column">
-            <DrawerFooterLinks
-              items={
-                authState.is_authenticated ? authedBottomListItemData : unauthedBottomListItemData
-              }
-              itemCss={css.item}
-            />
+            <DrawerFooterLinks items={footerItems} itemCss={css.item} />
             <DrawerFooter title={companyTitle} />
           </Flexer>
         </Flexer>

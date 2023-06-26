@@ -8,11 +8,12 @@ import { Link, Text } from '@/components/Elements';
 import { Editable, useEditable } from '@/features/editable';
 import { useBreakpoint } from '@/hooks';
 import { BaseProps } from '@/theme/base';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
 import { HeroContent } from '../types';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   root: css({
     height: '100%',
     background: 'url(https://source.unsplash.com/1400x900/?service) no-repeat center center fixed',

@@ -2,7 +2,6 @@ import React, { ReactNode, CSSProperties } from 'react';
 
 import { Surface } from '../../Containers';
 import { Divider } from '../Divider/Divider';
-import { colors } from '@/theme/common';
 import { BaseProps, JustificationValue } from '@/theme/base';
 
 interface ListProps extends BaseProps {
@@ -77,7 +76,7 @@ export const List: React.FC<ListProps> = ({
           })}
           {renderDivider && (
             <span>
-              <Divider color={colors.primary.hover} />
+              <Divider color="drawerLight" />
             </span>
           )}
         </React.Fragment>

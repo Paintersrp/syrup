@@ -8,14 +8,13 @@ import { BaseProps } from '@/theme/base';
 import { useBreakpoint } from '@/hooks';
 
 import { JobContent } from '../types';
-import { colors } from '@/theme/common';
 import { useEditModeStore } from '@/stores/editmode';
 
 interface JobListingsProps extends BaseProps {
   jobsData: JobContent[];
   header?: string;
   subheader?: string;
-  currentId?: number | null;
+  currentId?: number | string | null;
 }
 
 export const JobListings: FC<JobListingsProps> = ({
@@ -88,14 +87,7 @@ export const JobListings: FC<JobListingsProps> = ({
                 </Item>
               </Container>
 
-              <Divider
-                style={{
-                  backgroundColor: index % 2 === 0 ? colors.primary.light : colors.secondary.dark,
-                  width: '100%',
-                  marginTop: 4,
-                  marginBottom: 4,
-                }}
-              />
+              <Divider color={index % 2 === 0 ? 'primaryLight' : 'secondaryDark'} mt={4} mb={4} />
             </Flexer>
           ))}
         </Surface>

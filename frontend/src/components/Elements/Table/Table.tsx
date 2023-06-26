@@ -1,10 +1,11 @@
 import { ReactNode, CSSProperties, FC } from 'react';
-import { css, useTheme } from '@emotion/react';
-import { lighten } from 'polished';
+import { css } from '@emotion/react';
 import clsx from 'clsx';
 
 import { Text } from '@/components/Elements';
 import { Base, BaseProps } from '@/theme/base';
+import { ExtendedTheme } from '@/theme/types';
+import { inject } from '@/theme/utils';
 
 const tablePadding: any = {
   small: '2px',
@@ -13,8 +14,8 @@ const tablePadding: any = {
   xlarge: '12px',
 };
 
-const styles = {
-  table: (theme: any, size: string) =>
+const styles = (theme: ExtendedTheme) => ({
+  table: (size: string) =>
     css({
       width: '100%',
       borderCollapse: 'collapse',
@@ -25,29 +26,28 @@ const styles = {
         backgroundColor: theme.light,
       },
     }),
-  cell: (theme: any) =>
-    css({
-      backgroundColor: theme.light,
-      borderBottom: `1px solid ${theme.minVisible}`,
-      borderRight: `1px solid ${theme.minVisible}`,
-      color: '#333333',
-      transition: 'background-color 0.1s ease',
-      '&:first-of-type': {
-        borderLeft: 'none',
+  cell: css({
+    backgroundColor: theme.light,
+    borderBottom: `1px solid ${theme.minVisible}`,
+    borderRight: `1px solid ${theme.minVisible}`,
+    color: '#333333',
+    transition: 'background-color 0.1s ease',
+    '&:first-of-type': {
+      borderLeft: 'none',
+    },
+    '&:last-of-type': {
+      borderRight: 'none',
+    },
+    '&:hover': {
+      backgroundColor: theme.tableHover,
+    },
+    '@media (max-width: 768px)': {
+      td: {
+        padding: tablePadding.medium,
       },
-      '&:last-of-type': {
-        borderRight: 'none',
-      },
-      '&:hover': {
-        backgroundColor: lighten(0.015, theme.light),
-      },
-      '@media (max-width: 768px)': {
-        td: {
-          padding: tablePadding.medium,
-        },
-      },
-    }),
-};
+    },
+  }),
+});
 
 type SharedTableProps = {
   children: ReactNode;
@@ -72,9 +72,9 @@ type TableProps = SharedTableProps & {
 };
 
 const Table: FC<TableProps> = ({ children, className, style, size = 'medium' }) => {
-  const theme = useTheme();
+  const css = inject(styles);
   return (
-    <table css={styles.table(theme, size)} className={clsx(className)} style={style}>
+    <table css={css.table(size)} className={clsx(className)} style={style}>
       {children}
     </table>
   );
@@ -118,13 +118,13 @@ const TableCell: FC<TableCellProps> = ({
   fw: fontWeight = 'normal',
   s: fontSize,
 }) => {
-  const theme = useTheme();
+  const css = inject(styles);
   const cellStyle: CSSProperties = {
     ...style,
   };
 
   return (
-    <td css={styles.cell(theme)} className={clsx(className)} style={cellStyle}>
+    <td css={css.cell} className={clsx(className)} style={cellStyle}>
       <Text a={align} fw={fontWeight} s={fontSize}>
         {children}
       </Text>

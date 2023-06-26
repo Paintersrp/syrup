@@ -9,7 +9,6 @@ import { useAuthStore } from '@/stores/auth';
 
 export const AppRoutes = () => {
   const { authState } = useAuthStore();
-
   const commonRoutes = [{ path: '/WIP', element: <WIP /> }];
 
   const routes = authState.is_superuser

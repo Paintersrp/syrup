@@ -16,6 +16,7 @@ type PageProps = {
   headerAlign?: HeaderAlign;
   className?: string;
   style?: CSSProperties;
+  seo?: boolean;
 };
 
 export const Page: React.FC<PageProps> = ({
@@ -26,6 +27,7 @@ export const Page: React.FC<PageProps> = ({
   backgroundColor = '#F5F5F5',
   className,
   style,
+  seo = true,
 }) => {
   return (
     <Base a="c" fd="column" mt={30} w="100%" minh="80vh" bg={backgroundColor}>
@@ -46,7 +48,7 @@ export const Page: React.FC<PageProps> = ({
               {header}
             </Text>
           ) : null}
-          <SEO />
+          {seo && <SEO />}
           {children}
         </Suspense>
       </main>

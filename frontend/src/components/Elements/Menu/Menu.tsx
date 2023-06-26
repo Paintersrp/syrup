@@ -12,11 +12,12 @@ import {
 import { css } from '@emotion/react';
 
 import { Base, BaseProps } from '@/theme/base';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 import { Divider } from '../Divider/Divider';
 import { Button } from '../../Buttons';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   root: css({
     position: 'relative',
     display: 'inline-block',
@@ -135,4 +136,3 @@ export const Menu: FC<MenuProps> = ({
     </Base>
   );
 };
-

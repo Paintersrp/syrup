@@ -5,6 +5,7 @@ import { BrandButton } from '@/components/Buttons';
 import { Link } from '@/components/Elements';
 import { SOCIALS } from '@/settings';
 import { Base, BaseProps } from '@/theme/base';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 import { SocialContent } from '@/types';
 
@@ -28,7 +29,7 @@ export const anim = {
   }),
 };
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   container: css({
     overflow: 'hidden',
   }),

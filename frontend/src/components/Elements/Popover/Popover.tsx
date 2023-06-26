@@ -4,6 +4,10 @@ import { css } from '@emotion/react';
 
 const triggerStyles = css`
   cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 6;
 `;
 
 const popoverStyles = (theme: any) => css`
@@ -19,6 +23,7 @@ const popoverStyles = (theme: any) => css`
 
 // Convert into just a Base to be used
 // Trigger and handling should happen outside with a ref passed
+// Disabled Prop
 
 interface PopoverProps {
   children: React.ReactElement;
@@ -27,15 +32,17 @@ interface PopoverProps {
   onClose?: () => void;
   trigger: 'hover' | 'click';
   position: 'top' | 'bottom' | 'left' | 'right';
+  css?: any;
 }
 
-const Popover: React.FC<PopoverProps> = ({
+export const Popover: React.FC<PopoverProps> = ({
   children,
   content,
   onOpen,
   onClose,
   trigger,
   position,
+  css,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -162,14 +169,18 @@ const Popover: React.FC<PopoverProps> = ({
     throw new Error("Couldn't find portal container with id 'popover-root'");
   }
 
+  const onClick = trigger === 'click' ? togglePopover : undefined;
+  const onMouseEnter = trigger === 'hover' ? togglePopover : undefined;
+  const onMouseLeave = trigger === 'hover' ? closePopover : undefined;
+
   return (
     <>
       <div
         css={triggerStyles}
         ref={triggerRef}
-        onClick={trigger === 'click' ? togglePopover : undefined}
-        onMouseEnter={trigger === 'hover' ? togglePopover : undefined}
-        onMouseLeave={trigger === 'hover' ? closePopover : undefined}
+        onClick={onClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
       >
         {children}
       </div>
@@ -183,5 +194,3 @@ const Popover: React.FC<PopoverProps> = ({
     </>
   );
 };
-
-export default Popover;

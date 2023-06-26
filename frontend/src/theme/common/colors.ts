@@ -1,112 +1,65 @@
-type ColorValue = string;
+import { darken, lighten } from 'polished';
 
-export interface ColorPalette {
-  main: ColorValue;
-  light: ColorValue;
-  dark: ColorValue;
-  contrastText: ColorValue;
-  hover: ColorValue;
-}
+import { genColorSet } from '@/theme/utils';
+import { GenericMapping } from '@/types';
 
-export interface Colors {
-  primary: ColorPalette;
-  secondary: ColorPalette;
-  success: ColorPalette;
-  warning: ColorPalette;
-  error: ColorPalette;
-  info: ColorPalette;
-  text: {
-    dark: ColorValue;
-    light: ColorValue;
-    primary: ColorValue;
-    secondary: ColorValue;
-    disabled: ColorValue;
-    min: ColorValue;
-    hint: ColorValue;
-    hover: ColorValue;
-  };
-  action: {
-    active: ColorValue;
-    hover: ColorValue;
-    hoverLight: ColorValue;
-    selected: ColorValue;
-    disabled: ColorValue;
-    disabledBackground: ColorValue;
-  };
-  background: {
-    default: ColorValue;
-    paper: ColorValue;
-    light: ColorValue;
-    hover: ColorValue;
-  };
-  [key: string]: ColorPalette | any;
-}
+export type Colors = GenericMapping & {
+  dark: string;
+  darkLight: string;
+  darker: string;
+
+  light: string;
+  lighter: string;
+  lightDark: string;
+
+  transparent: string;
+  accent: string;
+  yellow: string;
+  textHighlight: string;
+
+  minVisible: string;
+  disabled: string;
+  drawerLight: string;
+
+  grey: string;
+  charcoal: string;
+
+  backgroundLight: string;
+  backgroundDark: string;
+};
 
 export const colors: Colors = {
-  primary: {
-    main: '#2e3b55',
-    light: '#6b7c9b',
-    dark: '#00152e',
-    contrastText: '#fff',
-    hover: '#6b7c9b5a',
-  },
-  secondary: {
-    main: '#ff8c00',
-    light: '#ffd04d',
-    dark: '#c75e00',
-    contrastText: '#fff',
-    hover: '#ff8c005a',
-  },
-  success: {
-    light: '#81c784',
-    main: '#4caf50',
-    dark: '#388e3c',
-    contrastText: '#fff',
-    hover: '#4caf505a',
-  },
-  warning: {
-    light: '#ffd54f',
-    main: '#ffeb3b',
-    dark: '#f57f17',
-    contrastText: '#222',
-    hover: '#ffeb3b5a',
-  },
-  error: {
-    light: '#e57373',
-    main: '#f44336',
-    dark: '#d32f2f',
-    contrastText: '#fff',
-    hover: '#f443365a',
-  },
-  info: {
-    light: '#64b5f6',
-    main: '#3f51b5',
-    dark: '#1976d2',
-    contrastText: '#fff',
-    hover: '#3f51b55a',
-  },
-  text: {
-    dark: '#222',
-    light: '#fff',
-    primary: 'rgba(0, 0, 0, 1)',
-    secondary: 'rgba(0, 0, 0, 0.6)',
-    disabled: 'rgba(0, 0, 0, 0.38)',
-    min: 'rgba(0, 0, 0, 0.19)',
-    hint: 'rgba(0, 0, 0, 0.38)',
-    hover: '#2225a',
-  },
-  action: {
-    active: 'rgba(0, 0, 0, 0.54)',
-    hover: 'rgba(121, 134, 203 , 0.75)',
-    hoverLight: 'rgba(121, 134, 203 , 0.10)',
-    selected: 'rgba(255, 255, 255, 0.22)',
-    disabled: 'rgba(0, 0, 0, 0.26)',
-    disabledBackground: 'rgba(0, 0, 0, 0.12)',
-  },
-  background: {
-    default: '#f5f5f5',
-    paper: '#f5f5f5',
-    light: '#f5f5f5',
-    hover: '#f5f5f55a',
-  },
+  ...genColorSet('primary', '#2e3b55', 0.1, 0.1),
+  ...genColorSet('secondary', '#ff8c00', 0.2, 0.05),
+  ...genColorSet('tertiary', '#9E5CF7', 0.2, 0.05),
+  ...genColorSet('quaternary', '#3ad984', 0.2, 0.2),
+  ...genColorSet('error', '#f44336', 0.05, 0.15),
+  ...genColorSet('warning', '#f08a24', 0.1, 0.1),
+  ...genColorSet('success', '#4caf50', 0.1, 0.1),
+  ...genColorSet('info', '#1976d2', 0.2, 0.15),
+  ...genColorSet('slate', '#444f60', 0.1, 0.1),
+  ...genColorSet('smoke', '#dbe5ef', 0.05, 0.1),
+
+  dark: '#222',
+  darkLight: lighten(0.1, '#222'),
+  darker: '#000',
+
+  light: '#f5f5f5',
+  lighter: '#fff',
+  lightDark: darken(0.05, '#f5f5f5'),
+
+  transparent: 'transparent',
+  accent: '#0366d6',
+  yellow: '#EDBA07',
+  textHighlight: '#FDEA9B',
+
+  minVisible: 'rgba(34, 34, 34, 0.1)',
+  disabled: 'rgba(34, 34, 34, 0.38)',
+  drawerLight: 'rgba(34, 34, 34, 0.40)',
+
+  grey: 'rgba(0, 0, 0, 0.50)',
+  charcoal: 'rgba(0, 0, 0, 0.75)',
+
+  backgroundLight: '#f5f5f5',
+  backgroundDark: '#333333',
 };

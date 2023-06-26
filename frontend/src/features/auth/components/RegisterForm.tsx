@@ -14,10 +14,10 @@ import { advancedRegisterFields, registerFields, registerInitialData } from '../
 import { useRegister } from '../api/useRegister';
 import { useAuthStore } from '@/stores/auth';
 import { useAlertStore } from '@/stores/alert';
-
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   header: css({
     borderBottom: `1px solid ${theme.dark}`,
     paddingBottom: 5,

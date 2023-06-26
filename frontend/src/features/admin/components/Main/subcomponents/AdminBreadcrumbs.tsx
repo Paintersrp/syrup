@@ -4,9 +4,10 @@ import { css } from '@emotion/react';
 import { inject } from '@/theme/utils';
 import { Flexer } from '@/components/Containers';
 import { Breadcrumbs, Text } from '@/components/Elements';
+import { ExtendedTheme } from '@/theme/types';
 import { useBreakpoint } from '@/hooks';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   breadcrumb: css({
     borderRight: '1px solid #666666',
     marginRight: 16,

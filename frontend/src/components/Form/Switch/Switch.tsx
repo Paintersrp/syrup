@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 
 import { HelpText } from '@/components/Elements';
 import { Base, BaseProps } from '@/theme/base';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 import { GenericMapping } from '@/types';
 
@@ -24,7 +25,7 @@ const sizeMapping: GenericMapping = {
   },
 };
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   root: (size: string) =>
     css({
       display: 'flex',
@@ -66,7 +67,7 @@ interface SwitchProps extends BaseProps {
   size?: 'small' | 'medium' | 'large';
 }
 
-const Switch: React.FC<SwitchProps> = ({
+export const Switch: React.FC<SwitchProps> = ({
   name,
   label,
   value,
@@ -108,5 +109,3 @@ const Switch: React.FC<SwitchProps> = ({
     </Base>
   );
 };
-
-export default Switch;

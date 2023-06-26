@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 
 import { HelpText } from '@/components/Elements';
 import { Base, BaseProps } from '@/theme/base';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
 const sizeMapping: any = {
@@ -12,7 +13,7 @@ const sizeMapping: any = {
   xlarge: 12,
 };
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   root: css({
     display: 'flex',
     flexDirection: 'column',

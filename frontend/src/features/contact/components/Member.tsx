@@ -37,7 +37,8 @@ export const Member: FC<MemberProps> = ({ member, editMode = false, newImage, ..
           br={1}
           boxShadow={1}
           className="fade-in"
-          style={{ maxWidth: 320 }}
+          maxWidth={320}
+          minw={320}
           mt={0}
           px={2}
           py={2}

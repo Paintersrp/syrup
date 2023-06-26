@@ -16,7 +16,7 @@ const styles = {
       height: 54,
       backgroundColor: theme[color],
       boxShadow: theme.shadows[1],
-      zIndex: 1000,
+      zIndex: theme.zIndex.navbar,
     }),
 };
 

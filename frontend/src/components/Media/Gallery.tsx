@@ -3,9 +3,10 @@ import { css } from '@emotion/react';
 
 import { Text } from '@/components/Elements';
 import { Base, BaseProps } from '@/theme/base';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   root: css({
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
@@ -15,8 +16,8 @@ const styles = (theme: any) => ({
   masonry: css({}),
   image: css({
     width: '100%',
-    borderRadius: theme.image.borderRadius,
-    boxShadow: theme.image.boxShadow,
+    borderRadius: theme.imageBorderRadius,
+    boxShadow: theme.imageBoxShadow,
     cursor: 'pointer',
   }),
   lightboxOverlay: css({
@@ -34,7 +35,7 @@ const styles = (theme: any) => ({
   }),
   lightboxImage: css({
     display: 'block',
-    borderRadius: theme.image.borderRadius,
+    borderRadius: theme.imageBorderRadius,
   }),
   lightboxCaption: css({
     position: 'absolute',

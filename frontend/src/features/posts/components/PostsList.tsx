@@ -9,10 +9,11 @@ import { Media } from '@/components/Media';
 import { PostInfoBar } from './PostInfoBar';
 import { PostContent } from '../types';
 import { useBreakpoint } from '@/hooks';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 import { mediaQueries } from '@/theme/common/breakpoints';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   root: css({
     flexGrow: 1,
     padding: 16,

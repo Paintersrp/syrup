@@ -7,10 +7,11 @@ import { Link, Navbar, Text } from '@/components/Elements';
 import { useBreakpoint } from '@/hooks';
 import { SiteLinkType } from '@/providers/LayoutProvider';
 import { useAuthStore } from '@/stores/auth';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 import { LogoutUser } from '@/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   button: (open: boolean, drawerSize: number) =>
     css({
       position: 'absolute',
@@ -82,7 +83,7 @@ export const AppNavbar: FC<AppNavbarProps> = ({
           </Flexer>
 
           {!authState.is_authenticated ? (
-            <Flexer j="fe" css={css.container(menuOpen, drawerSize)} style={{ marginRight: 24 }}>
+            <Flexer j="fe" css={css.container(menuOpen, drawerSize)} mr={24}>
               <Link key="login" to="auth/login">
                 <Text t="h4">Login</Text>
               </Link>
@@ -91,7 +92,7 @@ export const AppNavbar: FC<AppNavbarProps> = ({
               </Link>
             </Flexer>
           ) : (
-            <Flexer j="fe" css={css.container(menuOpen, drawerSize)} style={{ marginRight: 24 }}>
+            <Flexer j="fe" css={css.container(menuOpen, drawerSize)} mr={24}>
               <Link key="logout" to="/" onClick={LogoutUser}>
                 <Text t="h4">Logout</Text>
               </Link>

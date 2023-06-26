@@ -1,22 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FormSettings } from '../types';
 
 interface EditableConfig<T> {
   name: string;
   data: T;
-  id?: number;
+  id?: number | string;
   endpoint: string;
   onUpdate: (updatedData: T) => void;
-  enableDelete?: boolean;
   fade?: boolean;
+  enableDelete?: boolean;
   editMenuPosition?: 'top' | 'bottom';
   editMenuAlign?: 'flex-start' | 'center' | 'flex-end';
   excludeKeys?: Array<keyof T>;
   multilineKeys?: Array<keyof T>;
   formSettings?: FormSettings;
 }
-
-// enable delete on id
 
 export const useEditable = <T,>({
   name,
@@ -31,18 +29,25 @@ export const useEditable = <T,>({
 }: Omit<EditableConfig<T>, 'onUpdate'>) => {
   const [editableData, setEditableData] = useState(data);
 
+  useEffect(() => {
+    setEditableData(data);
+  }, [data]);
+
   const updateData = (updatedData: T) => {
     setEditableData(updatedData);
   };
+
+  const finalEndpoint = id ? `${endpoint}${id}/` : `${endpoint}`;
+  const enableDelete = id ? true : false;
 
   const editConfig: EditableConfig<T> = {
     name,
     data: editableData,
     id: id ?? id,
-    endpoint: id ? `${endpoint}${id}/` : `${endpoint}`,
+    endpoint: finalEndpoint,
     onUpdate: updateData,
-    enableDelete: id ? true : false,
     fade: true,
+    enableDelete,
     editMenuPosition,
     editMenuAlign,
     excludeKeys,

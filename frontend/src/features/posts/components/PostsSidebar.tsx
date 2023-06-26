@@ -5,11 +5,12 @@ import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Divider, Link, Tag, Text, Tooltip } from '@/components/Elements';
 import { useAuthStore } from '@/stores/auth';
-import { defaultColors } from '@/theme';
+import { colors } from '@/theme/common';
 import { mediaQueries } from '@/theme/common/breakpoints';
+import { ExtendedTheme } from '@/theme/types';
 import { inject } from '@/theme/utils';
 
-const styles = (theme: any) => ({
+const styles = (theme: ExtendedTheme) => ({
   root: css({
     minWidth: 200,
     maxWidth: 200,
@@ -65,9 +66,7 @@ export const PostsSidebar: FC<SidebarProps> = ({
             mr={8}
             mb={8}
             minw={50}
-            bg={
-              selectedTags.includes(tag.detail) ? defaultColors.primaryLight : defaultColors.smoke
-            }
+            bg={selectedTags.includes(tag.detail) ? colors.primaryLight : colors.smoke}
             c={selectedTags.includes(tag.detail) ? 'white' : undefined}
           />
         ))}
@@ -85,9 +84,7 @@ export const PostsSidebar: FC<SidebarProps> = ({
             mr={8}
             mb={8}
             minw={50}
-            bg={
-              selectedDateFilter === filter.value ? defaultColors.primaryLight : defaultColors.smoke
-            }
+            bg={selectedDateFilter === filter.value ? colors.primaryLight : colors.smoke}
             c={selectedDateFilter === filter.value ? 'white' : undefined}
           />
         ))}
