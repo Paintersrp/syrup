@@ -4,32 +4,31 @@ import { Icon } from '@/components/Media';
 
 interface RenderIconProps {
   appName: string;
-  className: string;
 }
 
-export function RenderIcon({ appName, className }: RenderIconProps): React.ReactElement | null {
+export function RenderIcon({ appName }: RenderIconProps): React.ReactElement | null {
   switch (appName) {
     case 'authorization':
-      return <Icon className={className} icon="terminal" size="1.5rem" color="#f5f5f5" />;
+      return <Icon icon="terminal" size="1.5rem" color="secondary" mr={16} />;
     case 'posts':
-      return <Icon className={className} icon="terminal" size="1.5rem" color="#f5f5f5" />;
+      return <Icon icon="terminal" size="1.5rem" color="secondary" mr={16} />;
     case 'InfoIcon':
-      return <Icon className={className} icon="terminal" size="1.5rem" color="#f5f5f5" />;
+      return <Icon icon="terminal" size="1.5rem" color="secondary" mr={16} />;
     case 'about':
-      return <Icon className={className} icon="terminal" size="1.5rem" color="#f5f5f5" />;
+      return <Icon icon="terminal" size="1.5rem" color="secondary" mr={16} />;
     case 'support':
-      return <Icon className={className} icon="terminal" size="1.5rem" color="#f5f5f5" />;
+      return <Icon icon="terminal" size="1.5rem" color="secondary" mr={16} />;
     case 'jobs':
-      return <Icon className={className} color="#f5f5f5" icon="terminal" size="1.5rem" />;
+      return <Icon icon="terminal" size="1.5rem" color="secondary" mr={16} />;
     case 'tables':
-      return <Icon className={className} icon="terminal" size="1.5rem" color="#f5f5f5" />;
+      return <Icon icon="terminal" size="1.5rem" color="secondary" mr={16} />;
     case 'contact':
-      return <Icon className={className} icon="terminal" size="1.5rem" color="#f5f5f5" />;
+      return <Icon icon="terminal" size="1.5rem" color="secondary" mr={16} />;
     case 'faqs':
-      return <Icon className={className} icon="terminal" size="1.5rem" color="#f5f5f5" />;
+      return <Icon icon="terminal" size="1.5rem" color="secondary" mr={16} />;
     case 'tasks':
-      return <Icon className={className} icon="terminal" size="1.5rem" color="#f5f5f5" />;
+      return <Icon icon="terminal" size="1.5rem" color="secondary" mr={16} />;
     default:
-      return <Icon className={className} icon="terminal" size="1.5rem" color="#f5f5f5" />;
+      return <Icon icon="terminal" size="1.5rem" color="secondary" mr={16} />;
   }
 }

@@ -1,10 +1,9 @@
-import React, { FC, MouseEvent } from 'react';
+import { CSSProperties, FC, MouseEvent } from 'react';
 
 import ListItemWithIcon from './ListItemWithIcon';
 import ListItemTextOnly from './ListItemTextOnly';
 import { Base, BaseProps } from '@/theme/base';
 import clsx from 'clsx';
-import { CSSProperties } from '@emotion/serialize';
 
 export interface ListItemDataType {
   text: string;
@@ -19,7 +18,7 @@ interface ListItemProps extends BaseProps {
   icon?: string;
   button?: boolean;
   onClick?: (event: MouseEvent<HTMLDivElement>) => void;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   css?: any;
   className?: string;
   iconColor?: string;

@@ -7,7 +7,7 @@ import { iconPalette, PaletteOptions } from '@/theme/palettes';
 import { classify } from '@/theme/base';
 
 const iconButtonSizes = {
-  tiny: { width: 26, height: 26, iconSize: '21px' },
+  tiny: { width: 26, height: 26, iconSize: '19px' },
   sm: { width: 32, height: 32, iconSize: '24px' },
   md: { width: 36, height: 36, iconSize: '24px' },
   lg: { width: 40, height: 40, iconSize: '26px' },

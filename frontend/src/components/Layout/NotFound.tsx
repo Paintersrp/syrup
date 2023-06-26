@@ -1,10 +1,9 @@
-import React from 'react';
+import { FC } from 'react';
 import { css } from '@emotion/react';
 
 import { Flexer, Surface } from '@/components/Containers';
 import { Link, Text } from '@/components/Elements';
 import { Page } from '@/components/Layout';
-import { colors } from '@/theme/common/colors';
 import { inject } from '@/theme/utils';
 
 const styles = (theme: any) => ({
@@ -30,18 +29,13 @@ const styles = (theme: any) => ({
   }),
 });
 
-export const NotFound: React.FC = () => {
+export const NotFound: FC = () => {
   const css = inject(styles);
 
   return (
     <Page>
       <Surface fillHeight j="c" a="c">
-        <img
-          src="/images/not_found.svg"
-          alt="Page Not Found Illustration"
-          className="not-found-illustration"
-          css={css.illustration}
-        />
+        <img src="/images/not_found.svg" alt="Page Not Found Illustration" css={css.illustration} />
         <Text t="h2" a="c" mb={2}>
           Oops! Page Not Found
         </Text>

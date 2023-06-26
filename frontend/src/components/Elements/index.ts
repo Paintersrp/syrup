@@ -1,5 +1,6 @@
 import { Accordion } from './Accordion/Accordion';
 import { Alert } from './Alert/Alert';
+import { Avatar } from './Avatar/Avatar';
 import { Breadcrumbs } from './Breadcrumbs/Breadcrumbs';
 import { Divider } from './Divider/Divider';
 import { Drawer, DrawerContent, DrawerFooter, DrawerFooterLinks, DrawerHeader } from './Drawer';
@@ -22,6 +23,7 @@ import { Text } from './Text/Text';
 export {
   Accordion,
   Alert,
+  Avatar,
   Breadcrumbs,
   Divider,
   Drawer,
@@ -55,7 +57,6 @@ export {
 
 import type { ListItemDataType } from './List/ListItem';
 import type { TextAlign, TextProps, TextType } from './Text/Text';
-import type { TooltipPosition } from './Tooltip/Tooltip';
 import type { TableSizes } from './Table/Table';
 
-export type { ListItemDataType, TableSizes, TextAlign, TextProps, TextType, TooltipPosition };
+export type { ListItemDataType, TableSizes, TextAlign, TextProps, TextType };

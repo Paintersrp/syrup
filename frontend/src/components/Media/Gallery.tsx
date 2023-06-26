@@ -1,53 +1,95 @@
 import React, { useState } from 'react';
-import './css/Gallery.css';
+import { css } from '@emotion/react';
 
+import { Text } from '@/components/Elements';
 import { Base, BaseProps } from '@/theme/base';
+import { inject } from '@/theme/utils';
+
+const styles = (theme: any) => ({
+  root: css({
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
+    gridGap: 10,
+  }),
+  grid: css({}),
+  masonry: css({}),
+  image: css({
+    width: '100%',
+    borderRadius: theme.image.borderRadius,
+    boxShadow: theme.image.boxShadow,
+    cursor: 'pointer',
+  }),
+  lightboxOverlay: css({
+    position: 'fixed',
+    top: 0,
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(11, 11, 11, 0.95)',
+    zIndex: 9999,
+    cursor: 'pointer',
+    ...theme.flex.cc,
+  }),
+  lightboxContent: css({
+    position: 'relative',
+  }),
+  lightboxImage: css({
+    display: 'block',
+    borderRadius: theme.image.borderRadius,
+  }),
+  lightboxCaption: css({
+    position: 'absolute',
+    bottom: 20,
+    left: 0,
+    right: 0,
+    padding: 10,
+    color: theme.textHighlight,
+  }),
+});
 
 interface GalleryProps extends BaseProps {
   images: { url: string; caption?: string }[];
   layout: 'grid' | 'masonry';
 }
 
-const Gallery: React.FC<GalleryProps> = ({ images, layout }) => {
-  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+export const Gallery: React.FC<GalleryProps> = ({ images, layout }) => {
+  const css = inject(styles);
+  const [selected, setSelected] = useState<number | null>(null);
 
   const openLightbox = (index: number) => {
-    setSelectedImageIndex(index);
+    setSelected(index);
   };
 
   const closeLightbox = () => {
-    setSelectedImageIndex(null);
+    setSelected(null);
   };
 
-  const getGalleryClassName = () => {
+  const getRootClass = () => {
     switch (layout) {
       case 'grid':
-        return 'gallery-container grid-layout';
+        return [css.root, css.grid];
       case 'masonry':
-        return 'gallery-container masonry-layout';
+        return [css.root, css.masonry];
       default:
-        return 'gallery-container';
+        return css.root;
     }
   };
 
   return (
-    <Base className={getGalleryClassName()}>
+    <Base css={getRootClass()}>
       {images.map((image, index) => (
-        <div key={index} className="image-container" onClick={() => openLightbox(index)}>
-          <img src={image.url} alt={`Image ${index}`} className="gallery-image" />
-          {image.caption && <div className="image-caption">{image.caption}</div>}
+        <div key={index} onClick={() => openLightbox(index)}>
+          <img src={image.url} alt={`Image ${index}`} css={css.image} />
+          {image.caption && <Text a="c">{image.caption}</Text>}
         </div>
       ))}
-      {selectedImageIndex !== null && (
-        <div className="lightbox-overlay" onClick={closeLightbox}>
-          <div className="lightbox-content">
-            <img
-              src={images[selectedImageIndex].url}
-              alt={`Image ${selectedImageIndex}`}
-              className="lightbox-image"
-            />
-            {images[selectedImageIndex].caption && (
-              <div className="lightbox-caption">{images[selectedImageIndex].caption}</div>
+      {selected !== null && (
+        <div css={css.lightboxOverlay} onClick={closeLightbox}>
+          <div css={css.lightboxContent}>
+            <img src={images[selected].url} alt={`Image ${selected}`} css={css.lightboxImage} />
+            {images[selected].caption && (
+              <Text t="h1" a="c" css={css.lightboxCaption}>
+                {images[selected].caption}
+              </Text>
             )}
           </div>
         </div>
@@ -55,5 +97,3 @@ const Gallery: React.FC<GalleryProps> = ({ images, layout }) => {
     </Base>
   );
 };
-
-export default Gallery;

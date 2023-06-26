@@ -190,7 +190,7 @@ const Application: FC<ApplicationProps> = ({ application, job, metadata }) => {
                   <Flexer h={20} a="c">
                     <Switch value={jobData.filled} name={key} onChange={handleJobChange} />
                     {key === 'filled' && jobData.filled !== originalFilled && (
-                      <Button ml={8} onClick={handleJobSubmit} className="success-button">
+                      <Button ml={8} onClick={handleJobSubmit} palette="success">
                         SAVE
                       </Button>
                     )}
@@ -233,14 +233,14 @@ const Application: FC<ApplicationProps> = ({ application, job, metadata }) => {
                 ) : key === 'created_at' ? (
                   `${new Date(formData.created_at).toLocaleString()}`
                 ) : key === 'resume' ? (
-                  <a href={formData[key]} download className="link-text">
+                  <a href={formData[key]} download>
                     Download Resume
                   </a>
                 ) : key === 'status' ? (
                   <Flexer h={20} a="c">
                     <Switch value={formData.status} name={key} onChange={handleChange} />
                     {key === 'status' && formData[key] !== originalStatus && (
-                      <Button ml={8} onClick={handleSubmit} className="success-button">
+                      <Button ml={8} onClick={handleSubmit} palette="success">
                         SAVE
                       </Button>
                     )}

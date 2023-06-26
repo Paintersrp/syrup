@@ -357,13 +357,7 @@ const ObjectAutoForm: FC<ObjectAutoFormProps> = ({
                 text={`${Object.keys(data).length === 0 ? 'Create' : 'Update'} Object`}
                 position="bottom"
               >
-                <Button
-                  w={80}
-                  onClick={handleSubmit}
-                  endIcon="check"
-                  color={colors.success.main}
-                  className="success-button"
-                >
+                <Button w={80} onClick={handleSubmit} endIcon="check" palette="success">
                   {Object.keys(data).length === 0 ? 'Create' : 'Update'}
                 </Button>
               </Tooltip>
@@ -372,8 +366,7 @@ const ObjectAutoForm: FC<ObjectAutoFormProps> = ({
                   onClick={variant === 'full' ? routeBackToModel : handleClose}
                   w={80}
                   endIcon="close"
-                  color={colors.error.main}
-                  className="error-button"
+                  palette="error"
                 >
                   Cancel
                 </Button>

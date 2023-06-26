@@ -1,12 +1,28 @@
 import { FC } from 'react';
-import './css/PostsSidebar.css';
+import { css } from '@emotion/react';
 
 import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Divider, Link, Tag, Text, Tooltip } from '@/components/Elements';
-
-import { colors } from '@/theme/common';
 import { useAuthStore } from '@/stores/auth';
+import { defaultColors } from '@/theme';
+import { mediaQueries } from '@/theme/common/breakpoints';
+import { inject } from '@/theme/utils';
+
+const styles = (theme: any) => ({
+  root: css({
+    minWidth: 200,
+    maxWidth: 200,
+    position: 'sticky',
+    top: 62,
+    padding: '0 16px',
+    [mediaQueries.lg]: {
+      maxWidth: 1000,
+      minWidth: 1000,
+      position: 'static',
+    },
+  }),
+});
 
 interface SidebarProps {
   tags: any;
@@ -25,6 +41,7 @@ export const PostsSidebar: FC<SidebarProps> = ({
   handleDateClick,
   selectedDateFilter,
 }) => {
+  const css = inject(styles);
   const { authState } = useAuthStore();
 
   const dateFilters = [
@@ -35,7 +52,7 @@ export const PostsSidebar: FC<SidebarProps> = ({
   ];
 
   return (
-    <div className="chipContainer sidebarContainer">
+    <div css={css.root}>
       <Text t="h4" fw="600" mb={16}>
         Categories
       </Text>
@@ -48,7 +65,9 @@ export const PostsSidebar: FC<SidebarProps> = ({
             mr={8}
             mb={8}
             minw={50}
-            bg={selectedTags.includes(tag.detail) ? colors.primary.main : undefined}
+            bg={
+              selectedTags.includes(tag.detail) ? defaultColors.primaryLight : defaultColors.smoke
+            }
             c={selectedTags.includes(tag.detail) ? 'white' : undefined}
           />
         ))}
@@ -66,7 +85,9 @@ export const PostsSidebar: FC<SidebarProps> = ({
             mr={8}
             mb={8}
             minw={50}
-            bg={selectedDateFilter === filter.value ? colors.primary.main : undefined}
+            bg={
+              selectedDateFilter === filter.value ? defaultColors.primaryLight : defaultColors.smoke
+            }
             c={selectedDateFilter === filter.value ? 'white' : undefined}
           />
         ))}

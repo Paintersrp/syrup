@@ -1,17 +1,42 @@
-import React, { useState } from 'react';
-import './css/Hero.css';
+import { FC, useState } from 'react';
+import { css } from '@emotion/react';
 
-import { ButtonBar } from '@/features/editable';
 import { ContactButtons, SocialButtons } from '@/components/Built';
 import { Button } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
-
 import { Link, Text } from '@/components/Elements';
+import { Editable } from '@/features/editable';
+import { useBreakpoint } from '@/hooks';
 import { BaseProps } from '@/theme/base';
+import { inject } from '@/theme/utils';
 
 import { HeroContent } from '../types';
-import { useEditModeStore } from '@/stores/editmode';
-import { FormGenerator } from '@/features/editable/components/FormGenerator';
+
+const styles = (theme: any) => ({
+  root: css({
+    height: '100%',
+    background: 'url(https://source.unsplash.com/1400x900/?service) no-repeat center center fixed',
+    backgroundSize: 'cover',
+    maxWidth: '100%',
+    minHeight: 700,
+  }),
+  overlay: css({
+    padding: '16px 0 8px 0',
+    backgroundColor: 'rgba(22, 22, 22, 0.6)',
+    marginTop: 60,
+  }),
+  title: css({
+    textTransform: 'uppercase',
+    color: theme.secondary,
+    fontWeight: 700,
+  }),
+  description: css({
+    color: '#cccccc',
+    maxWidth: 500,
+    fontSize: '0.9rem',
+    marginBottom: 16,
+  }),
+});
 
 interface HeroProps extends BaseProps {
   data: HeroContent;
@@ -19,28 +44,43 @@ interface HeroProps extends BaseProps {
   socialsData: any;
 }
 
-export const Hero: React.FC<HeroProps> = ({ data, contactData, socialsData, ...rest }) => {
-  const { editMode } = useEditModeStore();
+export const Hero: FC<HeroProps> = ({ data, contactData, socialsData, ...rest }) => {
+  const css = inject(styles);
+  const isLargeScreen = useBreakpoint('lg');
   const [heroData, setHeroData] = useState(data);
-  const [editing, setEditing] = useState(false);
 
   const updateHeroBlock = (updatedHeroBlock: any) => {
     setHeroData(updatedHeroBlock);
-    setEditing(false);
+  };
+
+  const editConfig = {
+    name: 'hero',
+    data: heroData,
+    endpoint: 'heroheader/main/',
+    onUpdate: updateHeroBlock,
+    editMenuAlign: 'center',
+    multilineKeys: ['subtitle'],
+    excludeKeys: ['name'],
+    formSettings: {
+      width: isLargeScreen ? '85%' : '40%',
+      px: 3,
+      py: 1.5,
+    },
+    ...rest,
   };
 
   return (
-    <Flexer j="c" a="fs" className="hero-container" {...rest}>
-      <Flexer fd="column" className="hero-overlay">
-        {!editing ? (
-          <Flexer fd="column" a="c" className="hero-header-root fade-in">
-            <Text t="h1" a="c" className="hero-header-title">
+    <Flexer j="c" a="fs" css={css.root} {...rest}>
+      <Flexer fd="column" css={css.overlay}>
+        <Editable {...editConfig}>
+          <Flexer fd="column" a="c" className="fade-in">
+            <Text t="h1" a="c" css={css.title} mb={8}>
               {heroData.title}
             </Text>
-            <Text t="body1" a="c" className="hero-header-subtitle">
+            <Text t="h4" a="c" c="light" s="1.4rem">
               {heroData.subtitle}
             </Text>
-            <Text t="body1" fw="600" a="c" className="hero-header-description">
+            <Text fw="600" a="c" s="1rem" css={css.description}>
               {heroData.description}
             </Text>
             <Flexer j="c" a="c">
@@ -51,33 +91,10 @@ export const Hero: React.FC<HeroProps> = ({ data, contactData, socialsData, ...r
               </Link>
             </Flexer>
             <ContactButtons contactData={contactData} borderRadius={4} />
-            {editMode && (
-              <ButtonBar
-                justifyContent="center"
-                editClick={() => setEditing(!editing)}
-                adminLink="heroheader"
-                text="Hero"
-                tooltipPosition="bottom"
-                mt={8}
-              />
-            )}
           </Flexer>
-        ) : (
-          <FormGenerator
-            title="Edit Hero Header"
-            endpoint="heroheader/main/"
-            data={heroData}
-            onUpdate={updateHeroBlock}
-            handleCancel={() => setEditing(!editing)}
-            width={325}
-            excludeKeys={['name', 'id']}
-            multilineKeys={['subtitle', 'description']}
-            px={3}
-            placement="bottom"
-          />
-        )}
+        </Editable>
         <Flexer j="c">
-          <SocialButtons socialsData={socialsData} color="light" editMode={editMode} />
+          <SocialButtons socialsData={socialsData} color="light" />
         </Flexer>
       </Flexer>
     </Flexer>

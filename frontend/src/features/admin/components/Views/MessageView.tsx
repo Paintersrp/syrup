@@ -8,6 +8,7 @@ import { axios } from '@/lib/api';
 
 import Message from './Message';
 import { useBreakpoint } from '@/hooks';
+import { AdminBreadcrumbs } from '../Main/subcomponents/AdminBreadcrumbs';
 
 const MessageView: React.FC<{}> = ({}) => {
   const { pk } = useParams<{ pk: string }>();
@@ -83,38 +84,28 @@ const MessageView: React.FC<{}> = ({}) => {
     <Page>
       {metadata && data && (
         <Surface maxWidth={1200} pt={32} pb={32} px={3} py={3} boxShadow={1} br={8} j="c">
-          <Flexer>
-            {!isSmallScreen && (
-              <Text w="auto" t="h3" mr={16} className="breadcrumb-title">
+          <AdminBreadcrumbs title={model?.verbose_name}>
+            <Tooltip text="View Dashboard" position="bottom">
+              <Link to="/admin">Home</Link>
+            </Tooltip>
+            <Tooltip text={`View ${model?.verbose_name} Model`} position="bottom">
+              <Link
+                to={`/admin${url}`}
+                state={{
+                  url: url,
+                  keys: keys,
+                  appName: appName,
+                  model: model,
+                  metadata: metadata,
+                  id: id,
+                }}
+                key={appName}
+              >
                 {model?.verbose_name}
-              </Text>
-            )}
-            <Breadcrumbs aria-label="breadcrumb">
-              <Tooltip text="View Dashboard" position="bottom">
-                <Link className="link-text" to="/admin">
-                  Home
-                </Link>
-              </Tooltip>
-              <Tooltip text={`View ${model?.verbose_name} Model`} position="bottom">
-                <Link
-                  to={`/admin${url}`}
-                  state={{
-                    url: url,
-                    keys: keys,
-                    appName: appName,
-                    model: model,
-                    metadata: metadata,
-                    id: id,
-                  }}
-                  key={appName}
-                  className="link-text"
-                >
-                  {model?.verbose_name}
-                </Link>
-              </Tooltip>
-              <Text s={isSmallScreen ? '0.8rem' : '0.95rem'}>Read</Text>
-            </Breadcrumbs>
-          </Flexer>
+              </Link>
+            </Tooltip>
+            <Text s={isSmallScreen ? '0.8rem' : '0.95rem'}>Read</Text>
+          </AdminBreadcrumbs>
           <Message message={data} metadata={metadata} />
         </Surface>
       )}

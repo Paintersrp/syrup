@@ -16,7 +16,7 @@ const InfoMenu: React.FC<InfoMenuProps> = ({ textItem }) => {
   return (
     <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
       <Menu
-        manualButton={<IconButton palette="info" size="sm" icon="info" className="info-button" />}
+        manualButton={<IconButton palette="info" size="sm" icon="info" />}
         position="bottom-left"
         style={{ width: 300, borderRadius: 8 }}
       >
@@ -46,7 +46,7 @@ const InfoMenu: React.FC<InfoMenuProps> = ({ textItem }) => {
               <List px={0} spacing={0} boxShadow={0} dividers={false}>
                 {Object.entries(textItem.model_links).map(([key, value]) => (
                   <div key={key}>
-                    <Link to={value} target="_blank" rel="noopener" className="link-text">
+                    <Link to={value} target="_blank" rel="noopener">
                       <Text t="body1" a="c" mt={2}>
                         {key}
                       </Text>

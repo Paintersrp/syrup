@@ -40,6 +40,16 @@ const buildBaseTheme = (): BaseTheme => {
 
   const general = {
     backgroundTransition: 'background 100ms ease-in-out',
+    imageBorderRadius: 5,
+  };
+
+  const image = {
+    borderRadius: 5,
+    boxShadow: shadows[1],
+    header: {
+      borderBottomLeftRadius: '0px !important',
+      borderBottomRightRadius: '0px !important',
+    },
   };
 
   const font = {
@@ -89,8 +99,6 @@ const buildBaseTheme = (): BaseTheme => {
     },
   };
 
-
-
   return {
     ...general,
     ...font,
@@ -100,6 +108,7 @@ const buildBaseTheme = (): BaseTheme => {
     ...table,
     ...defaultColors,
     ...menu,
+    image,
     flex,
     anim: animations,
     breakpoints,

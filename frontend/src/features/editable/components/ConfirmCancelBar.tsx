@@ -2,12 +2,12 @@ import { CSSProperties, FC, ReactElement, ReactEventHandler } from 'react';
 
 import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
-import { Tooltip, TooltipPosition } from '@/components/Elements';
+import { Tooltip } from '@/components/Elements';
 
 interface ConfirmCancelBarProps {
   handleConfirm: ReactEventHandler;
   handleCancel: ReactEventHandler;
-  position?: TooltipPosition;
+  position?: any;
   justifyContent?: string;
   mt?: CSSProperties['marginTop'];
   mb?: CSSProperties['marginBottom'];

@@ -50,7 +50,7 @@ export const Services: FC = () => {
             />
           )}
           <DisplayTable size="xlarge" data={data.servicesTable[0]} mt={60} links />
-          <Benefits benefits={data.benefits} headerData={data.benefitsHeader} editMode={editMode} />
+          <Benefits benefits={data.benefits} headerData={data.benefitsHeader} />
         </Surface>
       )}
     </Page>

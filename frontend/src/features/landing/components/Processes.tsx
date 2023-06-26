@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 
 import { SectionHeader, SectionHeaderContent } from '@/components/Built';
 import { Container, Flexer, Item } from '@/components/Containers';
@@ -14,7 +14,7 @@ interface ProcessesProps extends BaseProps {
   processData: ProcessContent[];
 }
 
-export const Processes: React.FC<ProcessesProps> = ({ headerData, processData, ...rest }) => {
+export const Processes: FC<ProcessesProps> = ({ headerData, processData, ...rest }) => {
   const { editMode }: any = useEditModeStore();
   return (
     <Flexer j="c" a="c" mb={24} style={{ minWidth: 325 }} {...rest}>

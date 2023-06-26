@@ -1,13 +1,32 @@
-import { FC } from 'react';
-import './css/PostSidebar.css';
+import { FC, Fragment } from 'react';
+import { css } from '@emotion/react';
 
 import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
-import { Divider, Link, Tag, Text, Tooltip } from '@/components/Elements';
+import { Avatar, Divider, Link, Tag, Text, Tooltip } from '@/components/Elements';
 import { Media } from '@/components/Media';
+import { getReadTime } from '@/lib/api';
+import { mediaQueries } from '@/theme/common/breakpoints';
+import { inject } from '@/theme/utils';
 
 import { PostContent } from '../types';
-import { getReadTime } from '@/lib/api';
+import { defaultColors } from '@/theme';
+
+// Responsiveness ordering needed
+
+const styles = (theme: any) => ({
+  root: css({
+    minWidth: 200,
+    maxWidth: 200,
+    position: 'sticky',
+    top: 62,
+    [mediaQueries.lg]: {
+      maxWidth: 1000,
+      minWidth: 1000,
+      position: 'static',
+    },
+  }),
+});
 
 interface PostSidebarProps {
   post: PostContent;
@@ -31,30 +50,31 @@ export const PostSidebar: FC<PostSidebarProps> = ({
   handleCreate,
   auth,
 }) => {
+  const css = inject(styles);
   const { wordCount, readTime } = getReadTime(post.content);
 
   return (
-    <div className="post-sidebar-container post-sidebar-container-chip">
-      {post.image && <Media src={post.image} altText="Post Thumbnail" />}
-      <Divider mt={8} mb={12} />
-      <Flexer a="c" mb={16}>
+    <div css={css.root}>
+      {post.image && (
+        <Fragment>
+          <Media src={post.image} altText="Post Thumbnail" />
+          <Divider mt={16} mb={12} />
+        </Fragment>
+      )}
+      <Flexer a="c">
         {/* Link? */}
-        <Tooltip text={`${author_details.first_name} ${author_details.last_name}`}>
-          <div className="avatar-p-s">
-            <Text c="white" a="c">
-              {author_details.first_name.charAt(0).toUpperCase() ||
-                author_details.username.charAt(0).toUpperCase()}
-            </Text>
-          </div>
-        </Tooltip>
-
+        <Avatar
+          size="sm"
+          text={author_details.username}
+          tooltipText={`${author_details.first_name} ${author_details.last_name}`}
+        />
         <Text t="body1" fw="600" ml={6}>
-          {`${author_details.first_name} ${author_details.last_name}`}
+          {author_details.username}
         </Text>
       </Flexer>
-      {/* <Text t="body1">{author_details.username}</Text> */}
-      {/* <Text t="subtitle1">{author_details.email}</Text> */}
-      {/* <Divider mt={8} mb={12} /> */}
+      <Text t="body2" mt={4}>{`${author_details.first_name} ${author_details.last_name}`}</Text>
+      <Text t="body2">{author_details.email}</Text>
+      <Divider mt={8} mb={12} />
       <Text s="0.85rem">{`${wordCount} words • ${readTime} min read`}</Text>
       <Divider mt={8} mb={12} />
       <Text t="h4" fw="600" mb={16}>
@@ -62,7 +82,15 @@ export const PostSidebar: FC<PostSidebarProps> = ({
       </Text>
       <Flexer wrap>
         {tags.map((tag) => (
-          <Tag key={tag.id} label={tag.detail} mr={8} mb={8} minw={50} />
+          <Tag
+            key={tag.id}
+            label={tag.detail}
+            mr={8}
+            mb={8}
+            minw={50}
+            bg={defaultColors.smoke}
+            c={defaultColors.dark}
+          />
         ))}
       </Flexer>
 

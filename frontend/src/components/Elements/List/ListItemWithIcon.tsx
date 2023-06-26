@@ -51,13 +51,14 @@ const ListItemWithIcon: FC<ListItemWithIconProps> = ({
                   ? 62
                   : 0,
                 marginLeft: noGutters ? 0 : textAlign === 'left' ? 16 : 0,
+                color: '#222',
               }}
             >
-              <Text t="h5" a={textAlign} c="#f5f5f5">
+              <Text t="h5" a={textAlign} c="inherit">
                 {text}
               </Text>
               {subtext && (
-                <Text mt={0} a={textAlign} c="#f5f5f5">
+                <Text mt={0} a={textAlign} c="inherit">
                   {subtext}
                 </Text>
               )}
@@ -90,11 +91,11 @@ const ListItemWithIcon: FC<ListItemWithIconProps> = ({
               marginLeft: noGutters ? 0 : textAlign === 'left' ? 16 : 0,
             }}
           >
-            <Text t="h5" a={textAlign} c="#f5f5f5">
+            <Text t="h5" a={textAlign} c="inherit">
               {text}
             </Text>
             {subtext && (
-              <Text mt={0} a={textAlign} c="#f5f5f5">
+              <Text mt={0} a={textAlign} c="inherit">
                 {subtext}
               </Text>
             )}

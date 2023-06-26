@@ -1,4 +1,93 @@
 import React, { CSSProperties, ReactNode } from 'react';
+import { css } from '@emotion/react';
+import { defaultColors } from '@/theme';
+import { inject } from '@/theme/utils';
+import { GenericMapping } from '@/types';
+import clsx from 'clsx';
+
+const typeMapping: GenericMapping = {
+  h1: {
+    fontWeight: 600,
+    fontSize: '2.25rem',
+    lineHeight: 1.167,
+    letterSpacing: '0.02em',
+  },
+  h2: {
+    fontWeight: 600,
+    fontSize: '2rem',
+    lineHeight: 1.2,
+    letterSpacing: '-0.00833em',
+  },
+  h3: {
+    fontWeight: 600,
+    fontSize: '1.5rem',
+    lineHeight: 1.167,
+    letterSpacing: '0em',
+  },
+  h4: {
+    fontWeight: 600,
+    fontSize: '1.25rem',
+    lineHeight: 1.235,
+    letterSpacing: '0.00735em',
+  },
+  h5: {
+    fontWeight: 600,
+    fontSize: '1.1rem',
+    lineHeight: 1.334,
+    letterSpacing: '0em',
+  },
+  h6: {
+    fontWeight: 500,
+    fontSize: '0.9rem',
+    lineHeight: 1.6,
+    letterSpacing: '0.0075em',
+  },
+  subtitle1: {
+    fontWeight: 500,
+    fontSize: '0.95rem',
+  },
+  subtitle2: {
+    fontWeight: 500,
+    fontSize: '0.9rem',
+  },
+  body1: {
+    fontWeight: 500,
+    fontSize: '1rem',
+    lineHeight: 1.167,
+    letterSpacing: '-0.00833em',
+  },
+  body2: {
+    fontWeight: 500,
+    fontSize: '0.95rem',
+    lineHeight: 1.334,
+    letterSpacing: '-0.00833em',
+  },
+  button: {
+    fontWeight: 600,
+    fontSize: '0.9rem',
+    textTransform: 'uppercase',
+  },
+  caption: {
+    fontWeight: 700,
+    fontSize: '0.85rem',
+    lineHeight: 1.66,
+    letterSpacing: '0.03333em',
+  },
+  overline: {
+    fontWeight: 600,
+    fontSize: '0.85rem',
+    lineHeight: 2.66,
+    letterSpacing: '0.083333em',
+    textTransform: 'uppercase',
+  },
+};
+
+const styles = (theme: any) => ({
+  text: (type: string) =>
+    css({
+      ...typeMapping[type],
+    }),
+});
 
 export type TextType =
   | 'h1'
@@ -11,7 +100,8 @@ export type TextType =
   | 'subtitle2'
   | 'body1'
   | 'body2'
-  | 'button';
+  | 'button'
+  | 'overline';
 
 export type AlignmentValue = 'l' | 'left' | 'r' | 'right' | 'c' | 'center';
 export type TextAlign = 'left' | 'right' | 'center';
@@ -71,6 +161,7 @@ const typeSwitch = (type: TextType): keyof JSX.IntrinsicElements => {
     case 'body1':
     case 'body2':
     case 'button':
+    case 'overline':
       return 'p';
     default:
       return 'p';
@@ -97,12 +188,15 @@ export const Text: React.FC<TextProps> = ({
   c: color,
   dangerouslySetInnerHTML,
 }) => {
+  const css = inject(styles);
+
   let Component: keyof JSX.IntrinsicElements = typeSwitch(type);
 
   return (
     <Component
       dangerouslySetInnerHTML={dangerouslySetInnerHTML}
-      className={`${type} ${className || ''}`}
+      css={css.text(type)}
+      className={clsx(className)}
       style={{
         marginBottom: marginBottom && marginBottom,
         marginTop: marginTop && marginTop,
@@ -114,7 +208,7 @@ export const Text: React.FC<TextProps> = ({
         fontWeight: fontWeight,
         textAlign: alignSwitch(align),
         width: width,
-        color: color && color,
+        color: color && defaultColors[color],
         textDecoration: underline ? 'underline' : '',
         textUnderlineOffset: textUnderlineOffset,
         ...style,

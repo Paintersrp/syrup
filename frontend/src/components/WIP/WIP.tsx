@@ -7,13 +7,47 @@ import { Button } from '../Buttons/Button/Button';
 import { PalettePreview } from './PalettePreview';
 import { Link } from '../Elements/Link/Link';
 import { Base } from '@/theme/base';
-import Tooltip2 from '../Elements/Popover/Tooltip2';
+import { Tooltip } from '../Elements/Tooltip/Tooltip';
 import { Radio, RadioGroup } from '../Form';
 import { useAlertStore } from '@/stores/alert';
+import { Gallery } from '../Media/Gallery';
 
 interface WIPProps {}
 
 const WIP: React.FC<WIPProps> = ({}) => {
+  const stockImages = [
+    {
+      url: 'images/seo/about.jpeg',
+      caption: 'Mountain Landscape',
+      tags: ['landscape', 'mountain'],
+    },
+    {
+      url: 'https://source.unsplash.com/1400x900/?sunset',
+      caption: 'Colorful Sunset',
+      tags: ['landscape', 'sunset'],
+    },
+    {
+      url: 'https://source.unsplash.com/1400x900/?flower',
+      caption: 'Flower Blossom',
+      tags: ['nature', 'flower'],
+    },
+    {
+      url: 'https://source.unsplash.com/1400x900/?lake',
+      caption: 'Calm Lake',
+      tags: ['landscape', 'lake'],
+    },
+    {
+      url: 'https://source.unsplash.com/1400x900/?city',
+      caption: 'Urban City',
+      tags: ['landscape', 'city'],
+    },
+    {
+      url: 'https://source.unsplash.com/1400x900/?beach',
+      caption: 'Sandy Beach',
+      tags: ['landscape', 'beach'],
+    },
+  ];
+
   const [checked, setChecked] = useState(false);
   const { showAlert } = useAlertStore();
 
@@ -23,6 +57,7 @@ const WIP: React.FC<WIPProps> = ({}) => {
 
   return (
     <Page>
+      <Gallery images={stockImages} layout="grid" />
       <Flexer j="c">
         <Base mt={96} w="auto">
           <Button onClick={handleShowAlert}>Alert</Button>
@@ -30,16 +65,14 @@ const WIP: React.FC<WIPProps> = ({}) => {
             <Radio value="test1" label="Test1" />
             <Radio value="test2" label="Test2" />
           </RadioGroup>
-          <Tooltip2 text="yeet" position="bottom">
+          <Tooltip text="yeet" position="bottom">
             <span>Test</span>
-          </Tooltip2>
+          </Tooltip>
         </Base>{' '}
       </Flexer>
       <PalettePreview />
       <div>
-        <Link to="/taco" mt={96} pt={96}>
-          Test
-        </Link>
+        <Link to="/taco">Test</Link>
       </div>
       <Flexer wrap a="c" j="c" mt={24} gap={12}>
         <IconButton variant="hover" icon="check" />

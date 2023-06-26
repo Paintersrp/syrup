@@ -1,4 +1,4 @@
-import { CSSProperties, FC, Fragment, ReactNode, useState } from 'react';
+import { CSSProperties, FC, ReactNode, useState } from 'react';
 
 import { Base, BaseProps } from '@/theme/base';
 import { axios } from '@/lib/api';
@@ -8,24 +8,26 @@ import { CapitalizeFirst } from '@/utils';
 import { FormGenerator } from './FormGenerator';
 import { ButtonBar } from './ButtonBar';
 import { ConfirmationModal } from './ConfirmationModal';
+import { defaultColors } from '@/theme';
+import { Flexer } from '@/components/Containers';
 
 // Variants?
 const defaultFormSettings = {
-  px: 1.5,
-  py: 1.5,
-  br: 6,
+  px: 2,
+  py: 2,
+  br: 8,
+  bg: defaultColors.light,
   width: '90%',
-  title: 'Edit Content',
   boxShadow: true,
 };
 
 type FormSettings = {
-  px: number;
-  py: number;
-  br: CSSProperties['borderRadius'];
-  width: CSSProperties['width'];
-  title: string;
-  boxShadow: boolean;
+  px?: number;
+  py?: number;
+  br?: CSSProperties['borderRadius'];
+  bg?: any;
+  width?: CSSProperties['width'];
+  boxShadow?: boolean;
 };
 
 interface EditableProps extends BaseProps {
@@ -37,22 +39,28 @@ interface EditableProps extends BaseProps {
   admin?: string | undefined;
   onUpdate: any;
   enableDelete?: boolean;
-  editMenuPos?: 'flex-end';
+  editMenuPosition?: string;
+  editMenuAlign?: any;
   fade?: boolean;
   formSettings?: FormSettings;
+  multilineKeys?: any;
+  excludeKeys?: any;
 }
 
 export const Editable: FC<EditableProps> = ({
   children,
   name,
-  id,
+  id = undefined,
   data,
   endpoint,
   admin,
   onUpdate,
   enableDelete = false,
-  editMenuPos = 'flex-end',
-  fade = false,
+  fade = true,
+  editMenuPosition = 'top',
+  editMenuAlign = 'flex-end',
+  multilineKeys = [],
+  excludeKeys = [],
   formSettings = defaultFormSettings,
   ...rest
 }) => {
@@ -83,49 +91,66 @@ export const Editable: FC<EditableProps> = ({
   };
 
   const generateConfig = () => {
-    const presetExcludeKeys = ['id', 'icon', 'image'];
-    const excludeKeys = Object.keys(data).filter((key) => presetExcludeKeys.includes(key));
+    const presetExcludeKeys = ['id', 'icon', 'image', 'set_name', 'page_link'];
+    const presetMultilineKeys = ['description', 'bio'];
+
+    const keys = {
+      exclude: [
+        ...Object.keys(data).filter((key) => presetExcludeKeys.includes(key)),
+        ...excludeKeys,
+      ],
+      multiline: [...presetMultilineKeys, ...multilineKeys],
+    };
+
     const iconMixin = 'icon' in data;
     const imageMixin = 'image' in data;
     const formattedName = CapitalizeFirst(name);
 
-    return { formattedName, excludeKeys, iconMixin, imageMixin };
+    return { formattedName, keys, iconMixin, imageMixin };
   };
 
-  const { formattedName, excludeKeys, iconMixin, imageMixin } = generateConfig();
+  const { formattedName, keys, iconMixin, imageMixin } = generateConfig();
+
+  const editMenuPos = editMenuPosition === 'top' ? 0 : 1;
+  const childrenPos = editMenuPosition === 'top' ? 1 : 0;
 
   return (
-    <Base j="c" a="c" d="flex" fd="column" {...rest}>
+    <Base j="c" a="c" d="flex" fd="column" br={8} {...rest}>
       {!editing ? (
-        <Fragment>
-          {editMode && (
-            <ButtonBar
-              justifyContent={editMenuPos}
-              editClick={() => setEditing(!editing)}
-              deleteClick={enableDelete ? () => handleDelete(id) : undefined}
-              text={id ? formattedName + ` #${id}` : formattedName}
-              adminLink={admin}
-              tooltipPosition="bottom"
-              mt={8}
-            />
-          )}
-          {children}
-        </Fragment>
+        <Flexer fd="column" fade={fade}>
+          <div css={{ order: editMenuPos }}>
+            {editMode && (
+              <ButtonBar
+                justifyContent={editMenuAlign}
+                editClick={() => setEditing(!editing)}
+                deleteClick={enableDelete ? () => handleDelete(id) : undefined}
+                text={formattedName}
+                adminLink={admin}
+                tooltipPosition="bottom"
+                mt={8}
+                obj={id ?? id}
+              />
+            )}
+          </div>
+          <div css={{ order: childrenPos, width: '100%' }}>{children}</div>
+        </Flexer>
       ) : (
         <FormGenerator
-          onUpdate={handleUpdate}
           data={data}
+          onUpdate={handleUpdate}
           handleCancel={() => setEditing(!editing)}
           imageMixin={imageMixin}
           iconMixin={iconMixin}
           endpoint={endpoint}
-          excludeKeys={excludeKeys}
-          title={`Edit ${formattedName} #${id}`}
-          width={formSettings.width}
-          px={formSettings.px}
-          py={formSettings.py}
-          boxShadow={formSettings.boxShadow}
-          br={formSettings.br}
+          excludeKeys={keys.exclude}
+          multilineKeys={keys.multiline}
+          title={`Edit ${id ? formattedName + ` #${id}` : formattedName}`}
+          width={formSettings.width || defaultFormSettings.width}
+          px={formSettings.px || defaultFormSettings.px}
+          py={formSettings.py || defaultFormSettings.py}
+          boxShadow={formSettings.boxShadow || defaultFormSettings.boxShadow}
+          br={formSettings.br || defaultFormSettings.br}
+          bg={formSettings.bg || defaultFormSettings.bg}
           fade={fade}
         />
       )}

@@ -1,12 +1,10 @@
 import { FC, ReactNode, useEffect, useState, createContext, useContext } from 'react';
 
-import { Container, Flexer, Surface } from '@/components/Containers';
+import { Container, Surface } from '@/components/Containers';
+import { Editable } from '@/features/editable';
 import { BaseProps } from '@/theme/base';
 
 import { ServiceContent, ServiceType } from '../../types';
-import { useEditModeStore } from '@/stores/editmode';
-import { FormGenerator } from '@/features/editable/components/FormGenerator';
-import { ButtonBar } from '@/features/editable';
 
 type ServiceProviderProps = BaseProps & {
   data: ServiceType;
@@ -27,9 +25,7 @@ export const ServiceProvider: FC<ServiceProviderProps> = ({
   children,
   ...rest
 }) => {
-  const { editMode }: any = useEditModeStore();
   const [serviceData, setServiceData] = useState(data);
-  const [editing, setEditing] = useState(false);
 
   useEffect(() => {
     setServiceData(data);
@@ -37,7 +33,23 @@ export const ServiceProvider: FC<ServiceProviderProps> = ({
 
   const updateServiceProvider = (updatedData: ServiceType) => {
     setServiceData(updatedData);
-    setEditing(false);
+  };
+
+  const editConfig = {
+    name: 'process',
+    data: serviceData,
+    endpoint: `servicetier/${serviceData.id}/`,
+    editMenuAlign: 'flex-start',
+    onUpdate: updateServiceProvider,
+    id: serviceData.id,
+    excludeKeys: ['id', 'image', 'features', 'supported_sites', 'price', 'service_title'],
+    multilineKeys: ['paragraph_one', 'paragraph_two', 'paragraph_three'],
+    formSettings: {
+      width: '100%',
+      px: 3,
+      py: 3,
+    },
+    ...rest,
   };
 
   return (
@@ -54,40 +66,11 @@ export const ServiceProvider: FC<ServiceProviderProps> = ({
         br={6}
         {...rest}
       >
-        {!editing && editMode && (
-          <ButtonBar
-            justifyContent="flex-end"
-            editClick={() => setEditing(!editing)}
-            adminLink="servicetier"
-            text="Service Provider"
-            obj={serviceData.id}
-            mb={8}
-          />
-        )}
-        {!editing ? (
+        <Editable {...editConfig}>
           <Container j="fs" a="fs" mb={24}>
             {children}
           </Container>
-        ) : (
-          <Flexer j="c" mb={24}>
-            <FormGenerator
-              title="Edit Service Provider Header Item"
-              endpoint={`servicetier/${serviceData.id}/`}
-              data={serviceData}
-              onUpdate={updateServiceProvider}
-              handleCancel={() => setEditing(!editing)}
-              width="50%"
-              excludeKeys={['id', 'image', 'features', 'supported_sites', 'price', 'service_title']}
-              multilineKeys={['paragraph_one', 'paragraph_two', 'paragraph_three']}
-              px={3}
-              py={3}
-              br={8}
-              placement="bottom"
-              imageMixin
-              boxShadow
-            />
-          </Flexer>
-        )}
+        </Editable>
       </Surface>
     </ServiceContext.Provider>
   );

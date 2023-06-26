@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
-import { Text, Tooltip } from '@/components/Elements';
+import { Avatar, Text, Tooltip } from '@/components/Elements';
 import { formatDate, getReadTime } from '@/lib/api';
 
 import { PostContent } from '../types';
@@ -16,13 +16,11 @@ export const PostInfoBar: FC<{ post: PostContent }> = ({ post }) => {
   return (
     <Flexer a="c" j="sb">
       <Tooltip text={`${author_details.first_name} ${author_details.last_name}`}>
-        {/* Avatar Encapsulate */}
-        <div className="avatar-p-s">
-          <Text c="white" a="c">
-            {author_details.first_name.charAt(0).toUpperCase() ||
-              author_details.username.charAt(0).toUpperCase()}
-          </Text>
-        </div>
+        <Avatar
+          size="sm"
+          text={author_details.username}
+          tooltipText={`${author_details.first_name} ${author_details.last_name}`}
+        />
       </Tooltip>
       <Text t={'body1'} s={'0.85rem'} ml={6}>
         {author_details.first_name || author_details.username} {author_details.last_name}

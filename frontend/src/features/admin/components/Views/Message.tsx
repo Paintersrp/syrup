@@ -188,7 +188,7 @@ const Message: React.FC<MessageProps> = ({ message, metadata }) => {
                       <Switch value={formData[key]} name={key} onChange={handleChange} />
                       {((key === 'is_read' && formData[key] !== originalRead) ||
                         (key === 'is_archived' && formData[key] !== originalArchived)) && (
-                        <Button ml={8} onClick={handleSubmit} className="success-button">
+                        <Button ml={8} onClick={handleSubmit} palette="success">
                           SAVE
                         </Button>
                       )}

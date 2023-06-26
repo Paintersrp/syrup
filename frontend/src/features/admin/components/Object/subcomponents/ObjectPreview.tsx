@@ -25,13 +25,13 @@ const ObjectPreview: FC<ObjectPreviewProps> = ({ modelName, formData, newImage }
     case 'HeroHeader':
       return (
         <Flexer fd="column" a="c">
-          <Text t="h1" a="c" className="hero-header-title">
+          <Text t="h1" a="c">
             {formData.title}
           </Text>
           <Text t="body1" a="c" c="#222">
             {formData.subtitle}
           </Text>
-          <Text t="body1" fw="600" a="c" className="hero-header-description">
+          <Text t="body1" fw="600" a="c">
             {formData.description}
           </Text>
         </Flexer>
@@ -50,8 +50,8 @@ const ObjectPreview: FC<ObjectPreviewProps> = ({ modelName, formData, newImage }
     case 'Value':
       return (
         <Flexer fd="column" j="c" a="c" w="auto" mt={18}>
-          <Icon size="28px" icon={formData.icon} className="value-icon" />
-          <Text className="value-title" a="c" mb={8}>
+          <Icon size="28px" icon={formData.icon} />
+          <Text a="c" mb={8}>
             {formData.title}
           </Text>
         </Flexer>

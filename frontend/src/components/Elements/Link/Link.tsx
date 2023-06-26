@@ -2,10 +2,9 @@ import { Link as RouterLink, LinkProps } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
 import clsx from 'clsx';
 
-import { BaseProps } from '@/theme/base';
 import { FC } from 'react';
 
-export const Link: FC<LinkProps & BaseProps> = ({ className, children, ...props }) => {
+export const Link: FC<LinkProps> = ({ className, children, ...props }) => {
   const theme: any = useTheme();
 
   return (

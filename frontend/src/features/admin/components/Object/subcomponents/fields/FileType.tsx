@@ -58,7 +58,6 @@ const FileType: React.FC<FileTypeProps> = ({
             href={URL.createObjectURL(formData[fieldName])}
             target="_blank"
             rel="noopener noreferrer"
-            className="file-downloadable"
           >
             <Text t="body1" mt={2}>
               {fileName}
@@ -67,12 +66,7 @@ const FileType: React.FC<FileTypeProps> = ({
         ) : (
           <React.Fragment>
             {formData[fieldName] ? (
-              <a
-                href={formData[fieldName]}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="file-downloadable"
-              >
+              <a href={formData[fieldName]} target="_blank" rel="noopener noreferrer">
                 <Text t="body1" mt={2}>
                   {formData[fieldName]}
                 </Text>
@@ -86,7 +80,7 @@ const FileType: React.FC<FileTypeProps> = ({
         )}
         <input
           type="file"
-          id={`file-input`}
+          id="file-input"
           name={fieldName}
           onChange={handleFileChange}
           style={{ display: 'none' }}

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Dispatch, FC, Fragment, SetStateAction } from 'react';
 
 import { Collapser } from '@/components/Animation';
 import { IconButton } from '@/components/Buttons';
@@ -28,7 +28,7 @@ interface Action {
 
 interface RecentActionsProps {
   actionsOpen: boolean;
-  setActionsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  setActionsOpen: Dispatch<SetStateAction<boolean>>;
   recentActions: Action[];
   appName?: string | null | undefined;
   modelName?: string | null;
@@ -36,7 +36,7 @@ interface RecentActionsProps {
   py?: number;
 }
 
-function RecentActions({
+export const RecentActions: FC<RecentActionsProps> = ({
   actionsOpen,
   setActionsOpen,
   recentActions,
@@ -44,7 +44,7 @@ function RecentActions({
   modelName,
   px: paddingX = 0,
   py: paddingY = 0,
-}: RecentActionsProps) {
+}) => {
   const handleExpandClick = () => {
     setActionsOpen(!actionsOpen);
   };
@@ -57,13 +57,9 @@ function RecentActions({
     if (header === 'url') {
       const { obj_url } = action;
       if (obj_url === 'Not Applicable' || obj_url === 'Object not found' || obj_url === 'Failed') {
-        return <React.Fragment>{obj_url}</React.Fragment>;
+        return <Fragment>{obj_url}</Fragment>;
       } else {
-        return (
-          <Link className="link-text" to={`${obj_url}`}>
-            {obj_url}
-          </Link>
-        );
+        return <Link to={`${obj_url}`}>{obj_url}</Link>;
       }
     } else if (header === 'action_time') {
       return new Date(action.action_time).toLocaleString();
@@ -130,6 +126,4 @@ function RecentActions({
       </Collapser>
     </Surface>
   );
-}
-
-export default RecentActions;
+};

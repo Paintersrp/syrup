@@ -1,6 +1,6 @@
 import { useState, FC, FormEvent, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './css/LoginForm.css';
+import { css } from '@emotion/react';
 
 import { Button } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
@@ -9,15 +9,25 @@ import { Checkbox, Input } from '@/components/Form';
 import { Icon } from '@/components/Media';
 import { useAlertStore } from '@/stores/alert';
 import { useAuthStore } from '@/stores/auth';
+import { inject } from '@/theme/utils';
 import { ErrorResponse } from '@/types';
 import { handleDataChange } from '@/utils';
 
 import { useLogin, useSalt } from '../api/useLogin';
 import { LoginFormDTO } from '../types';
 
+const styles = (theme: any) => ({
+  header: css({
+    borderBottom: `1px solid ${theme.dark}`,
+    paddingBottom: 5,
+  }),
+});
+
 // Form Validation
 
 const LoginForm: FC = ({}) => {
+  const css = inject(styles);
+
   const [formData, setFormData] = useState<LoginFormDTO>({
     username: '',
     password: '',
@@ -41,10 +51,10 @@ const LoginForm: FC = ({}) => {
   return (
     <Fragment>
       <Icon icon="send_money" color="primary" size="2rem" style={{ margin: '8px 8px 16px 8px' }} />
-      <Text t="h2" a="c" className="login-heading">
+      <Text t="h2" a="c" css={css.header}>
         Sign in
       </Text>
-      <form className="login-form" onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <Input
           id="username"
           name="username"
@@ -65,6 +75,7 @@ const LoginForm: FC = ({}) => {
           style={{ marginTop: 8 }}
           inputStyle={{ marginTop: 2 }}
         />
+
         <Checkbox
           checked={formData.remember}
           onChange={(e) => handleDataChange(e, setFormData, formData)}
@@ -72,16 +83,21 @@ const LoginForm: FC = ({}) => {
           label="Remember Me?"
           mt={8}
           invert={true}
+          style={{
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+          }}
         />
-        <Flexer fd="column" j="c" mt={8}>
+
+        <Flexer fd="column" j="c" a="c" mt={8}>
           <Button type="submit" size="sm" style={{ fontSize: '0.95rem', width: 90 }}>
             Login Now
           </Button>
           <Flexer j="sb" mt={16}>
-            <Link to="#" className="link-text">
+            <Link to="#">
               <Text>Forgot password?</Text>
             </Link>
-            <Link to="/register" className="link-text">
+            <Link to="/register">
               <Text>Don't have an account?</Text>
             </Link>
           </Flexer>

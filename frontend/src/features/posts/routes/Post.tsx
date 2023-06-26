@@ -1,7 +1,7 @@
 import { useState, useEffect, FC, Fragment } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { css } from '@emotion/react';
 import DOMPurify from 'dompurify';
-import './Post.css';
 
 import { ButtonBar } from '@/features/editable';
 import { Flexer, Surface } from '@/components/Containers';
@@ -18,8 +18,41 @@ import { PostSidebar } from '../components/PostSidebar';
 import { PostContent } from '../types';
 import { useAuthStore } from '@/stores/auth';
 import { useEditModeStore } from '@/stores/editmode';
+import { inject } from '@/theme/utils';
+
+const styles = (theme: any) => ({
+  body: css({
+    fontWeight: 400,
+    fontSize: '0.95rem',
+    lineHeight: 1.5,
+
+    '& img': {
+      width: '100%',
+      borderRadius: 8,
+      transform: 'scale(80%)',
+    },
+
+    '& p': {
+      marginTop: 8,
+    },
+
+    '& .ql-align-right': {
+      textAlign: 'right',
+    },
+
+    '& .ql-align-left': {
+      textAlign: 'left',
+    },
+
+    '& .ql-align-center': {
+      textAlign: 'center',
+    },
+  }),
+});
 
 export const Post: FC = () => {
+  const css = inject(styles);
+
   const { id } = useParams<{ id: any }>();
   const navigate = useNavigate();
 
@@ -61,7 +94,7 @@ export const Post: FC = () => {
             pr={16}
             pb={128}
             pt={16}
-            style={{ borderRight: '1px solid rgba(0, 0, 0, 0.09)' }}
+            css={{ borderRight: '1px solid rgba(0, 0, 0, 0.09)' }}
           >
             {!editing && editMode ? (
               <ButtonBar
@@ -81,9 +114,7 @@ export const Post: FC = () => {
                 <Fragment>
                   {post.content && (
                     <Text
-                      t="body1"
-                      fw="400"
-                      className="post-body"
+                      css={css.body}
                       dangerouslySetInnerHTML={{
                         __html: DOMPurify.sanitize(post.content),
                       }}

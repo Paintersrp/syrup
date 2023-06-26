@@ -1,8 +1,37 @@
-import React from 'react';
-import './css/Media.css';
+import { CSSProperties, FC } from 'react';
+import { css } from '@emotion/react';
+import clsx from 'clsx';
 
+import { Text } from '@/components/Elements';
 import { Base, BaseProps } from '@/theme/base';
-import { shadows } from '@/theme/common';
+import { inject } from '@/theme/utils';
+
+const styles = (theme: any) => ({
+  media: css({
+    position: 'relative',
+    maxWidth: '100%',
+    paddingBottom: '56.25%',
+  }),
+  image: (boxShadow: number) =>
+    css({
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover',
+      borderRadius: 8,
+      boxShadow: theme.shadows[boxShadow],
+    }),
+  caption: css({
+    marginTop: 8,
+    fontSize: 14,
+    color: theme.primaryLight,
+    position: 'absolute',
+    bottom: 0,
+    left: '50%',
+  }),
+});
 
 interface MediaProps extends BaseProps {
   src: string;
@@ -10,13 +39,13 @@ interface MediaProps extends BaseProps {
   caption?: string;
   className?: string;
   mediaClass?: string;
-  style?: React.CSSProperties;
-  imageStyle?: React.CSSProperties;
+  style?: CSSProperties;
+  imageStyle?: CSSProperties;
   manualSize?: boolean;
   boxShadow?: number;
 }
 
-const Media: React.FC<MediaProps> = ({
+export const Media: FC<MediaProps> = ({
   src,
   altText,
   caption,
@@ -27,17 +56,18 @@ const Media: React.FC<MediaProps> = ({
   boxShadow = 0,
   ...rest
 }) => {
+  const css = inject(styles);
+
   return (
-    <Base className={`media ${className}`} style={style} {...rest}>
+    <Base className={clsx(className)} css={css.media} style={style} {...rest}>
       <img
-        className={`media-image  ${mediaClass}`}
+        css={[css.image(boxShadow), imageStyle]}
+        className={clsx(mediaClass)}
         src={src}
         alt={altText}
-        style={{ ...imageStyle, boxShadow: shadows[boxShadow] }}
       />
-      {caption && <div className="media-caption">{caption}</div>}
+      {/* Add Caption Overlay */}
+      {caption && <Text css={css.caption}>{caption}</Text>}
     </Base>
   );
 };
-
-export default Media;

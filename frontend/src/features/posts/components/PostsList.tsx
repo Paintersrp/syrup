@@ -1,6 +1,6 @@
 import { FC, Fragment } from 'react';
+import { css } from '@emotion/react';
 import DOMPurify from 'dompurify';
-import './css/PostsList.css';
 
 import { Container, Flexer, Item } from '@/components/Containers';
 import { Divider, Link, Text } from '@/components/Elements';
@@ -9,6 +9,35 @@ import { Media } from '@/components/Media';
 import { PostInfoBar } from './PostInfoBar';
 import { PostContent } from '../types';
 import { useBreakpoint } from '@/hooks';
+import { inject } from '@/theme/utils';
+import { mediaQueries } from '@/theme/common/breakpoints';
+
+const styles = (theme: any) => ({
+  root: css({
+    flexGrow: 1,
+    padding: 16,
+    maxWidth: 700,
+    borderRight: '1px solid rgba(0, 0, 0, 0.05)',
+
+    [mediaQueries.lg]: {
+      order: 2,
+    },
+  }),
+  thumbnail: css({
+    maxWidth: 300,
+    minWidth: 200,
+    marginLeft: 16,
+
+    [mediaQueries.md]: {
+      maxWidth: 175,
+      minWidth: 175,
+    },
+    [mediaQueries.sm]: {
+      maxWidth: 125,
+      minWidth: 125,
+    },
+  }),
+});
 
 interface PostsListProps {
   posts: PostContent[];
@@ -16,10 +45,11 @@ interface PostsListProps {
 }
 
 export const PostsList: FC<PostsListProps> = ({ posts, title = 'Latest News' }) => {
+  const css = inject(styles);
   const isSmallScreen = useBreakpoint('sm');
 
   return (
-    <div className="post-list-root">
+    <div css={css.root}>
       {title && (
         <Fragment>
           <Text t="h2" fw="bold">
@@ -68,7 +98,7 @@ export const PostsList: FC<PostsListProps> = ({ posts, title = 'Latest News' }) 
                     </Link>
                   </Flexer>
                   <Link to={`/posts/${post.id}`}>
-                    <div className="post-list-thumbnail">
+                    <div css={css.thumbnail}>
                       <Media src={post.image} altText={post.title} boxShadow={1} />
                     </div>
                   </Link>

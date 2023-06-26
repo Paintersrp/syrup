@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { Children, CSSProperties, ReactNode } from 'react';
 import { css } from '@emotion/react';
 
 import { Icon } from '../../Media';
@@ -19,7 +19,7 @@ const styles = {
 interface BreadcrumbsProps {
   separator?: string;
   children: ReactNode;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
 }
 
 export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
@@ -27,7 +27,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   children,
   style,
 }) => {
-  const items = React.Children.toArray(children);
+  const items = Children.toArray(children);
 
   return (
     <ul css={styles.breadcrumbs} style={style}>

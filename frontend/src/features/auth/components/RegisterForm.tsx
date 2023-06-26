@@ -1,6 +1,6 @@
 import { MouseEvent, useState, FC, Fragment } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './css/RegisterForm.css';
+import { css } from '@emotion/react';
 
 import { Collapser } from '@/components/Animation';
 import { Button, IconButton } from '@/components/Buttons';
@@ -15,9 +15,19 @@ import { useRegister } from '../api/useRegister';
 import { useAuthStore } from '@/stores/auth';
 import { useAlertStore } from '@/stores/alert';
 
+import { inject } from '@/theme/utils';
+
+const styles = (theme: any) => ({
+  header: css({
+    borderBottom: `1px solid ${theme.dark}`,
+    paddingBottom: 5,
+  }),
+});
+
 // Form Validation
 
 const RegisterForm: FC = ({}) => {
+  const css = inject(styles);
   const authStore = useAuthStore();
   const alertStore = useAlertStore();
 
@@ -40,7 +50,7 @@ const RegisterForm: FC = ({}) => {
   return (
     <Fragment>
       <Icon icon="send_money" size="2rem" style={{ margin: '8px 8px 16px 8px' }} />
-      <Text t="h2" a="c" className="register-heading">
+      <Text t="h2" a="c" css={css.header}>
         Register
       </Text>
       <Container style={{ marginTop: 8 }}>
@@ -72,7 +82,7 @@ const RegisterForm: FC = ({}) => {
           Submit
         </Button>
         <Flexer j="fs" mt={8}>
-          <Link to="/login" className="link-text">
+          <Link to="/login">
             <Text>Already have an account? Login</Text>
           </Link>
         </Flexer>

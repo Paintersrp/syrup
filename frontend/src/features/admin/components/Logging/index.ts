@@ -1,2 +1,2 @@
-import RecentActions from './RecentActions';
+import { RecentActions } from './RecentActions';
 export { RecentActions };

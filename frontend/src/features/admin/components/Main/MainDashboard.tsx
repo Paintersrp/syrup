@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import './MainDashboard.css';
+import { css } from '@emotion/react';
 
 import { Breadcrumbs, Text } from '@/components/Elements';
 import { axios } from '@/lib/api';
 import { Page } from '@/components/Layout';
 import { Container, Flexer, Surface } from '@/components/Containers';
 import { IconButton } from '@/components/Buttons';
-import RecentActions from '../Logging/RecentActions';
-import RenderSections from './subcomponents/RenderSections';
+import { inject } from '@/theme/utils';
+
+import { RecentActions } from '../Logging/RecentActions';
+import { RenderSections } from './subcomponents/RenderSections';
+import { AdminBreadcrumbs } from './subcomponents/AdminBreadcrumbs';
 
 interface MainDashboardProps {}
 
@@ -89,14 +92,9 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
       <Surface maxWidth={1200} pt={32} pb={32} px={3} py={3} boxShadow={1} br={8} j="c">
         {Object.keys(models).length > 0 && (
           <React.Fragment>
-            <Flexer>
-              <Text w="auto" t="h3" className="breadcrumb-title">
-                Dashboard
-              </Text>
-              <Breadcrumbs aria-label="breadcrumb">
-                <Text c="textPrimary">Dashboard</Text>
-              </Breadcrumbs>
-            </Flexer>
+            <AdminBreadcrumbs title="Dashboard">
+              <Text c="textPrimary">Dashboard</Text>
+            </AdminBreadcrumbs>
 
             <Flexer fd="column" j="c">
               <Flexer j="fe" a="c">
@@ -109,7 +107,7 @@ const MainDashboard: React.FC<MainDashboardProps> = () => {
                   onClick={collapsed ? handleOpenAll : handleCollapseAll}
                 />
               </Flexer>
-              <Container j="fs" a="fs" className="dash-inner-container">
+              <Container j="fs" a="fs">
                 <RenderSections
                   models={models}
                   configs={configs}

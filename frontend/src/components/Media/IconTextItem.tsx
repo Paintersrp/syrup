@@ -1,12 +1,11 @@
 import React, { CSSProperties } from 'react';
 
-import Icon from './Icon';
-
 import { Flexer } from '@/components/Containers';
-import { colors } from '@/theme/common';
 import { Divider, Text, TextAlign } from '../Elements';
 import { BaseProps } from '@/theme/base';
 
+import { Icon } from './Icon';
+import { defaultColors } from '@/theme';
 interface IconTextItemProps extends BaseProps {
   icon?: string;
   text?: string;
@@ -20,13 +19,13 @@ interface IconTextItemProps extends BaseProps {
   onClick?: any;
 }
 
-const IconTextItem: React.FC<IconTextItemProps> = ({
+export const IconTextItem: React.FC<IconTextItemProps> = ({
   icon,
   text,
   subtext,
   iconColor,
   iconSize = '20px',
-  subtextColor = colors.text.secondary,
+  subtextColor = defaultColors.secondary,
   divider,
   textAlign,
   fontSize,
@@ -55,5 +54,3 @@ const IconTextItem: React.FC<IconTextItemProps> = ({
     </div>
   );
 };
-
-export default IconTextItem;

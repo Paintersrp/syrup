@@ -1,9 +1,11 @@
+import { FC } from 'react';
+
 import { IconButton } from '@/components/Buttons';
 import { Flexer } from '@/components/Containers';
 import { Text } from '@/components/Elements';
 import { Icon } from '@/components/Media';
-import React from 'react';
-import './css/PanelHeader.css';
+
+import { AdminCardHeader } from '../../Main/subcomponents/AdminCardHeader';
 
 interface PanelHeaderProps {
   header?: string | null;
@@ -13,7 +15,7 @@ interface PanelHeaderProps {
   children?: any;
 }
 
-const PanelHeader: React.FC<PanelHeaderProps> = ({
+const PanelHeader: FC<PanelHeaderProps> = ({
   header,
   icon = 'web_stories',
   open,
@@ -21,9 +23,9 @@ const PanelHeader: React.FC<PanelHeaderProps> = ({
   children,
 }) => {
   return (
-    <div className="panel-header">
+    <AdminCardHeader isOpen={open}>
       <Flexer a="c" mt={2}>
-        {icon && <Icon icon={icon} className="panel-header-icon" size="22px" />}
+        {icon && <Icon icon={icon} color="secondary" mr={16} size="22px" />}
         {header && <Text t="h4">{header}</Text>}
       </Flexer>
       <Flexer j="fe" a="c" grow gap={12} w="auto">
@@ -35,7 +37,7 @@ const PanelHeader: React.FC<PanelHeaderProps> = ({
           onClick={toggleOpen}
         />
       </Flexer>
-    </div>
+    </AdminCardHeader>
   );
 };
 

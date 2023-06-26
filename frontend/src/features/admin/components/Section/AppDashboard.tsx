@@ -6,10 +6,11 @@ import { axios } from '@/lib/api';
 import { Page } from '@/components/Layout';
 import { Container, Flexer, Item, Surface } from '@/components/Containers';
 import { IconButton } from '@/components/Buttons';
-import RecentActions from '@/features/admin/components/Logging/RecentActions';
-import AppStats from './subcomponents/AppStats';
-import AppDetails from './subcomponents/AppDetails';
-import AppLinks from './subcomponents/AppLinks';
+import { RecentActions } from '@/features/admin/components/Logging/RecentActions';
+import { AppStats } from './subcomponents/AppStats';
+import { AppDetails } from './subcomponents/AppDetails';
+import { AppLinks } from './subcomponents/AppLinks';
+import { AdminBreadcrumbs } from '../Main/subcomponents/AdminBreadcrumbs';
 
 interface AppDashboardProps {}
 
@@ -96,19 +97,14 @@ const AppDashboard: React.FC<AppDashboardProps> = ({}) => {
       <Surface maxWidth={1200} pt={32} pb={32} px={3} py={3} boxShadow={1} br={8} j="c">
         {Object.keys(models).length > 0 && (
           <React.Fragment>
-            <Flexer>
-              <Text w="auto" t="h3" className="breadcrumb-title">
-                App Overview
-              </Text>
-              <Breadcrumbs aria-label="breadcrumb" style={{ display: 'flex' }}>
-                <Tooltip text="View Dashboard" position="bottom">
-                  <Link className="link-text" to="/admin">
-                    <Text>Dashboard</Text>
-                  </Link>
-                </Tooltip>
-                <Text>{str ? str.charAt(0).toUpperCase() + str.slice(1) : 'Unavailablle'}</Text>
-              </Breadcrumbs>
-            </Flexer>
+            <AdminBreadcrumbs title="App Overview">
+              <Tooltip text="View Dashboard" position="bottom">
+                <Link to="/admin">
+                  <Text>Dashboard</Text>
+                </Link>
+              </Tooltip>
+              <Text>{str ? str.charAt(0).toUpperCase() + str.slice(1) : 'Unavailablle'}</Text>
+            </AdminBreadcrumbs>
             <Text t="h2" a="center">
               {str && str.charAt(0).toUpperCase() + str.slice(1)} App Overview
             </Text>

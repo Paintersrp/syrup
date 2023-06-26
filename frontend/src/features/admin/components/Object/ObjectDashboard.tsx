@@ -9,6 +9,7 @@ import { axios } from '@/lib/api';
 import { CapitalizeFirst } from '@/utils';
 
 import ObjectAutoForm from './subcomponents/ObjectAutoForm';
+import { AdminBreadcrumbs } from '../Main/subcomponents/AdminBreadcrumbs';
 
 interface ModelData {
   verbose_name: string;
@@ -125,76 +126,62 @@ const ObjectDashboard: React.FC = () => {
       .catch((error) => console.log(error));
   };
 
-  if (!ready) {
+  if (!ready || !metadata || !model) {
     return null;
   }
 
   return (
     <Page>
-      {metadata && (
-        <Surface maxWidth={1200} pt={32} pb={32} px={3} py={3} boxShadow={1} br={8} j="c">
-          <Flexer>
-            {!isSmallScreen && (
-              <Text w="auto" t="h3" mr={16} className="breadcrumb-title">
-                {model?.verbose_name}
-              </Text>
-            )}
-            <Breadcrumbs aria-label="breadcrumb">
-              <Tooltip text="View Dashboard" position="bottom">
-                <Link className="link-text" to="/admin">
-                  Home
-                </Link>
-              </Tooltip>
-              <Tooltip text={`${formattedAppName} Overview`} position="bottom">
-                <Link className="link-text" to={`/admin/model/${appName}`}>
-                  {formattedAppName}
-                </Link>
-              </Tooltip>
-              <Tooltip text={`View ${model?.verbose_name} Model`} position="bottom">
-                <Link
-                  to={`/admin${url}`}
-                  state={{
-                    url: url,
-                    keys: keys,
-                    appName: appName,
-                    model: model,
-                    metadata: metadata,
-                    id: id,
-                  }}
-                  className="link-text"
-                >
-                  {model?.verbose_name}
-                </Link>
-              </Tooltip>
-              <Text s={isSmallScreen ? '0.8rem' : '0.95rem'}>
-                {Array.isArray(id) ? 'Creation' : 'Update'}
-              </Text>
-            </Breadcrumbs>
-          </Flexer>
-          {!Array.isArray(id) &&
-          !data &&
-          model?.verbose_name === 'Articles' ? null : model?.verbose_name ===
-            // <UpdateArticleView manualId={id} />
-            'Articles' ? null : create ? (
-            // <ArticleCreate />
-            <ObjectAutoForm
-              endpointUrl={url}
-              handleUpdate={handleUpdate}
-              refresh={refresh}
-              setRefresh={setRefresh}
-            />
-          ) : (
-            <ObjectAutoForm
-              endpointUrl={url}
-              data={data}
-              handleUpdate={handleUpdate}
-              handleModalUpdate={handleModalUpdate}
-              refresh={refresh}
-              setRefresh={setRefresh}
-            />
-          )}
-        </Surface>
-      )}
+      <Surface maxWidth={1200} pt={32} pb={32} px={3} py={3} boxShadow={1} br={8} j="c">
+        <AdminBreadcrumbs title={model.verbose_name}>
+          <Tooltip text="View Dashboard" position="bottom">
+            <Link to="/admin">Home</Link>
+          </Tooltip>
+          <Tooltip text={`${formattedAppName} Overview`} position="bottom">
+            <Link to={`/admin/model/${appName}`}>{formattedAppName}</Link>
+          </Tooltip>
+          <Tooltip text={`View ${model?.verbose_name} Model`} position="bottom">
+            <Link
+              to={`/admin${url}`}
+              state={{
+                url: url,
+                keys: keys,
+                appName: appName,
+                model: model,
+                metadata: metadata,
+                id: id,
+              }}
+            >
+              {model?.verbose_name}
+            </Link>
+          </Tooltip>
+          <Text s={isSmallScreen ? '0.8rem' : '0.95rem'}>
+            {Array.isArray(id) ? 'Creation' : 'Update'}
+          </Text>
+        </AdminBreadcrumbs>
+        {!Array.isArray(id) &&
+        !data &&
+        model?.verbose_name === 'Articles' ? null : model?.verbose_name ===
+          // <UpdateArticleView manualId={id} />
+          'Articles' ? null : create ? (
+          // <ArticleCreate />
+          <ObjectAutoForm
+            endpointUrl={url}
+            handleUpdate={handleUpdate}
+            refresh={refresh}
+            setRefresh={setRefresh}
+          />
+        ) : (
+          <ObjectAutoForm
+            endpointUrl={url}
+            data={data}
+            handleUpdate={handleUpdate}
+            handleModalUpdate={handleModalUpdate}
+            refresh={refresh}
+            setRefresh={setRefresh}
+          />
+        )}
+      </Surface>
     </Page>
   );
 };

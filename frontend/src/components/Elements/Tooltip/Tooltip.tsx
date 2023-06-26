@@ -1,59 +1,39 @@
-import { useState, ReactNode, FC, CSSProperties } from 'react';
-import './Tooltip.css';
+import { Base } from '@/theme/base';
+import React from 'react';
+import Popover from '../Popover/Popover';
+import { Text } from '../Text/Text';
 
-import { Base, BaseProps } from '@/theme/base';
-
-export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right' | undefined;
-
-interface TooltipProps extends BaseProps {
-  children: ReactNode;
-  text?: string;
-  position?: TooltipPosition;
-  arrow?: boolean;
-  style?: CSSProperties;
-  disabled?: boolean;
+interface TooltipProps {
+  text: React.ReactNode;
+  children: React.ReactElement;
+  onOpen?: () => void;
+  onClose?: () => void;
+  position?: 'top' | 'bottom' | 'left' | 'right';
+  css?: any;
 }
 
-// Replace with Popover
-
-export const Tooltip: FC<TooltipProps> = ({
-  children,
+export const Tooltip: React.FC<TooltipProps> = ({
   text,
+  children,
+  onOpen,
+  onClose,
   position = 'bottom',
-  arrow = false,
-  style,
-  disabled = false,
-  ...rest
+  css,
 }) => {
-  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
-
-  const handleMouseEnter = () => {
-    setIsTooltipVisible(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsTooltipVisible(false);
-  };
-
-  const tooltipPositionClass = `tooltip-content tooltip-content--${position} ${
-    arrow ? `arrow arrow--${position}` : ''
-  }`;
-
+  const ToolTipTextContent = (
+    <Text t="body2" a="c" w="auto">
+      {text}
+    </Text>
+  );
   return (
-    <Base className="tooltip-container" style={style} {...rest}>
-      <span
-        className="tooltip-trigger"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        {children}
-      </span>
-      <div
-        className={tooltipPositionClass}
-        style={{ visibility: isTooltipVisible ? 'visible' : 'hidden' }}
-      >
-        {text}
-      </div>
-    </Base>
+    <Popover
+      trigger="hover"
+      content={ToolTipTextContent}
+      onOpen={onOpen}
+      onClose={onClose}
+      position={position}
+    >
+      {children}
+    </Popover>
   );
 };

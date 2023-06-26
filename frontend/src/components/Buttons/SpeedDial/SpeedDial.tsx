@@ -132,7 +132,6 @@ const SpeedDial: FC<SpeedDialProps> = ({ position, direction, children, ...rest 
         icon={isOpen ? 'close' : 'add'}
         onClick={handleToggle}
         css={[cx.mainFab]}
-        // className="main-fab"
         size="28px"
       />
 

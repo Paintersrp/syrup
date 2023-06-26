@@ -1,5 +1,5 @@
-import React from 'react';
-import './css/Service.css';
+import { FC } from 'react';
+import { css } from '@emotion/react';
 
 import { Carousel } from '@/components/Animation';
 import { Button } from '@/components/Buttons';
@@ -7,21 +7,41 @@ import { Container, Flexer, Item } from '@/components/Containers';
 import { Link, Text } from '@/components/Elements';
 import { Icon, Media } from '@/components/Media';
 import { Base } from '@/theme/base';
-import { colors } from '@/theme/common';
+import { inject } from '@/theme/utils';
 
 import { ServiceType } from '../../types';
+
+const styles = (theme: any) => ({
+  root: css({
+    transition: 'transform 0.3s ease-in-out',
+    cursor: 'pointer',
+
+    '&:hover': {
+      transform: 'translateY(-5px)',
+    },
+  }),
+  media: css({
+    ...theme.image.header,
+  }),
+  icon: css({
+    left: 45,
+    position: 'relative',
+  }),
+});
 
 interface ServiceCardProps {
   service: ServiceType;
 }
 
-export const ServiceCard: React.FC<ServiceCardProps> = ({ service, ...rest }) => {
+export const ServiceCard: FC<ServiceCardProps> = ({ service, ...rest }) => {
+  const css = inject(styles);
+
   return (
-    <Base key={service.id} className="service-card" {...rest}>
+    <Base d="flex" fd="column" w={325} br={8} bs={1} css={css.root} {...rest}>
       <Media
         altText={`service-${service.id}-image`}
         src={service.image}
-        mediaClass="service-card-media"
+        imageStyle={css.media}
         boxShadow={0}
       />
       <Text t="h2" a="c" s="24px" mb={10} mt={10}>
@@ -33,7 +53,7 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service, ...rest }) =>
       <Flexer fd="column" mb={10} gap={2} a="c" j="fs" grow minh={155}>
         {service.features.map((feature, index) => (
           <Flexer j="c" key={index}>
-            <Icon icon="check" size="20px" className="service-card-icon" color={colors.info.dark} />
+            <Icon icon="check" size="20px" css={css.icon} color="primaryLight" />
             <Text t="body1" a="c" fw="400" s="14px" mr={20}>
               {feature.detail}
             </Text>
@@ -48,6 +68,37 @@ export const ServiceCard: React.FC<ServiceCardProps> = ({ service, ...rest }) =>
         </Link>
       </Flexer>
     </Base>
+  );
+};
+
+interface ServiceCardsProps {
+  services: ServiceType[];
+  carousel?: boolean;
+}
+
+export const ServiceCards: FC<ServiceCardsProps> = ({
+  services = servicesDemo,
+  carousel = false,
+  ...rest
+}) => {
+  return (
+    <Flexer j="c" mt={64} mb={64} {...rest}>
+      {carousel ? (
+        <Carousel>
+          {services.map((service) => (
+            <ServiceCard service={service} />
+          ))}
+        </Carousel>
+      ) : (
+        <Container style={{ maxWidth: 1200 }}>
+          {services.map((service) => (
+            <Item xs={12} sm={12} md={6} lg={4} style={{ padding: 8 }}>
+              <ServiceCard service={service} />
+            </Item>
+          ))}
+        </Container>
+      )}
+    </Flexer>
   );
 };
 
@@ -92,34 +143,3 @@ const servicesDemo: ServiceType[] = [
     image: 'https://source.unsplash.com/1400x902/?service',
   },
 ];
-
-interface ServiceCardsProps {
-  services: ServiceType[];
-  carousel?: boolean;
-}
-
-export const ServiceCards: React.FC<ServiceCardsProps> = ({
-  services = servicesDemo,
-  carousel = false,
-  ...rest
-}) => {
-  return (
-    <Flexer j="c" mt={64} mb={64} {...rest}>
-      {carousel ? (
-        <Carousel>
-          {services.map((service) => (
-            <ServiceCard service={service} />
-          ))}
-        </Carousel>
-      ) : (
-        <Container style={{ maxWidth: 1200 }}>
-          {services.map((service) => (
-            <Item xs={12} sm={12} md={6} lg={4} style={{ padding: 8 }}>
-              <ServiceCard service={service} />
-            </Item>
-          ))}
-        </Container>
-      )}
-    </Flexer>
-  );
-};

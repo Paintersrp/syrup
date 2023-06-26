@@ -1,6 +1,4 @@
-import React from 'react';
-
-import './css/AppLinks.css';
+import { FC } from 'react';
 
 import PanelHeader from './PanelHeader';
 import { Flexer, Surface } from '@/components/Containers';
@@ -14,27 +12,24 @@ interface AppLinksProps {
   toggleOpen: () => void;
 }
 
-const AppLinks: React.FC<AppLinksProps> = ({ appName, links, open, toggleOpen }) => {
+export const AppLinks: FC<AppLinksProps> = ({ appName, links, open, toggleOpen }) => {
   return (
-    <Surface
-      className="app-stats-root"
-      j="fs"
-      maxWidth={1200}
-      boxShadow={0}
-      px={0}
-      py={0}
-      mt={8}
-      mb={8}
-      pr={2}
-      pl={2}
-    >
+    <Surface j="fs" maxWidth={325} boxShadow={1} px={0} py={0} pr={2} pl={2} m={24}>
       <PanelHeader header="Links" open={open} toggleOpen={toggleOpen} />
       <Collapser isOpen={open}>
         <div>
-          <List boxShadow={1} px={0} dividers className="list-border-radius">
+          <List boxShadow={0} px={0} dividers>
             {Object.entries(links).map(([linkName, link], index) => {
               return (
-                <Flexer className="hover-link" pl={12} key={linkName}>
+                <Flexer
+                  p="8px 0 8px 12px"
+                  key={linkName}
+                  css={{
+                    '&:hover': {
+                      background: 'rgba(0, 0, 0, 0.15)',
+                    },
+                  }}
+                >
                   <Tooltip text={`View ${linkName}`} position="right" style={{ width: '100%' }}>
                     <Link
                       to={`${link}`}
@@ -45,7 +40,7 @@ const AppLinks: React.FC<AppLinksProps> = ({ appName, links, open, toggleOpen })
                       <Flexer>
                         <ListItem
                           icon="code"
-                          style={{ color: 'black', width: '100%' }}
+                          css={{ color: '#333', width: '100%' }}
                           text={linkName}
                           textAlign="right"
                         />
@@ -61,5 +56,3 @@ const AppLinks: React.FC<AppLinksProps> = ({ appName, links, open, toggleOpen })
     </Surface>
   );
 };
-
-export default AppLinks;

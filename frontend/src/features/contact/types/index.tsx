@@ -18,12 +18,12 @@ export type HoursContent = {
 };
 
 export interface MemberContent {
-  id: string;
+  id: number;
   name: string;
   role: string;
   image: string;
   bio: string;
-  [key: string]: string;
+  [key: string]: string | number;
 }
 
 export type ContactContent = {

@@ -28,6 +28,7 @@ interface ListProps extends BaseProps {
   className?: string;
   style?: CSSProperties;
   innerStyle?: CSSProperties;
+  css?: any;
 }
 
 export const List: React.FC<ListProps> = ({
@@ -53,6 +54,7 @@ export const List: React.FC<ListProps> = ({
   className,
   style,
   innerStyle,
+  css,
   ...rest
 }) => {
   const childCount = React.Children.count(children);
@@ -105,6 +107,7 @@ export const List: React.FC<ListProps> = ({
       innerClass={className}
       outerStyle={style}
       innerStyle={innerStyle}
+      css={css}
       {...rest}
     >
       {spacedChildren}

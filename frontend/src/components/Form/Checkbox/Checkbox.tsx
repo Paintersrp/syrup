@@ -7,7 +7,7 @@ import { inject } from '@/theme/utils';
 
 const styles = (theme: any) => ({
   checkbox: css({
-    ...theme.flex.cc,
+    display: 'flex',
     fontSize: 14,
     color: theme.dark,
     width: '100%',

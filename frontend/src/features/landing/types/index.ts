@@ -11,7 +11,7 @@ export type HeroContent = {
   buttonText: string;
 };
 export type ProcessContent = {
-  id: string;
+  id: number;
   icon: string;
   title: string;
   description: string;

@@ -1,6 +1,5 @@
 import { CSSProperties, FC, FormEvent, useState } from 'react';
 
-
 import { Container, Item, Surface } from '@/components/Containers';
 import { Text } from '@/components/Elements';
 import { Input } from '@/components/Form';
@@ -11,6 +10,7 @@ import { IconMixin } from './IconMixin';
 import { BaseProps } from '@/theme/base';
 import { ConfirmCancelBar } from './ConfirmCancelBar';
 import { ErrorDisplay } from './ErrorDisplay';
+import { useBreakpoint } from '@/hooks';
 
 interface FormGeneratorProps extends BaseProps {
   endpoint: string;
@@ -55,6 +55,7 @@ export const FormGenerator: FC<FormGeneratorProps> = ({
   ...rest
 }) => {
   // add validation
+  const isSmallScreen = useBreakpoint('sm');
   const { showAlert } = useAlertStore();
 
   const [errors, setErrors] = useState<any>([]);
@@ -110,8 +111,7 @@ export const FormGenerator: FC<FormGeneratorProps> = ({
       boxShadow={boxShadow ? 1 : 0}
       px={paddingX}
       py={paddingY}
-      br={1}
-      style={{ margin: '0 auto !important', width: width }}
+      style={{ margin: '0 auto !important', width: width, borderRadius: 8 }}
       className={`${fade ? 'fade-in' : ''}`}
       {...rest}
     >
@@ -159,6 +159,7 @@ export const FormGenerator: FC<FormGeneratorProps> = ({
                         ? 'Last Name'
                         : key.charAt(0).toUpperCase() + key.slice(1)
                     }
+                    rows={isSmallScreen ? 4 : 3}
                   />
                 </Item>
               );

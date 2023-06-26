@@ -1,15 +1,14 @@
 import { FC, useEffect, useState } from 'react';
 
-import { ButtonBar } from '@/features/editable';
 import { Flexer, Item, Surface } from '@/components/Containers';
 import { Divider, Text, Tooltip } from '@/components/Elements';
+import { Media } from '@/components/Media';
+import { Editable } from '@/features/editable';
+import { useBreakpoint } from '@/hooks';
+import { SOCIALS } from '@/settings';
 import { BaseProps } from '@/theme/base';
 
-import { Media } from '@/components/Media';
-import { SOCIALS } from '@/settings';
-
 import { MemberContent } from '../types';
-import { FormGenerator } from '@/features/editable/components/FormGenerator';
 import { BrandButton } from '@/components/Buttons/BrandButton/BrandButton';
 
 interface MemberProps extends BaseProps {
@@ -21,6 +20,7 @@ interface MemberProps extends BaseProps {
 export const Member: FC<MemberProps> = ({ member, editMode = false, newImage, ...rest }) => {
   const [editing, setEditing] = useState(false);
   const [memberData, setMemberData] = useState(member);
+  const isLargeScreen = useBreakpoint('lg');
 
   useEffect(() => {
     setMemberData(member);
@@ -31,9 +31,22 @@ export const Member: FC<MemberProps> = ({ member, editMode = false, newImage, ..
     setEditing(false);
   };
 
+  const editConfig = {
+    name: 'member',
+    data: memberData,
+    endpoint: `teammember/${memberData.id}/`,
+    editMenuPosition: 'bottom',
+    onUpdate: updateMember,
+    id: memberData.id,
+    formSettings: {
+      width: !isLargeScreen ? 350 : 350,
+    },
+    ...rest,
+  };
+
   return (
-    <Item xs={12} sm={6} key={memberData.name} {...rest}>
-      {!editing ? (
+    <Item xs={12} md={6} key={memberData.name} {...rest}>
+      <Editable {...editConfig}>
         <Surface
           br={1}
           boxShadow={1}
@@ -93,35 +106,8 @@ export const Member: FC<MemberProps> = ({ member, editMode = false, newImage, ..
               }
             })}
           </Flexer>
-          {editMode && (
-            <ButtonBar
-              justifyContent="flex-end"
-              editClick={() => setEditing(!editing)}
-              text="Member"
-              tooltipPosition="bottom"
-              mt={8}
-              obj={memberData.id}
-            />
-          )}
         </Surface>
-      ) : (
-        <FormGenerator
-          boxShadow
-          title="Edit Member"
-          endpoint={`teammember/${memberData.id}/`}
-          data={memberData}
-          onUpdate={updateMember}
-          handleCancel={() => setEditing(!editing)}
-          width={320}
-          excludeKeys={['id', 'image']}
-          multilineKeys={['bio']}
-          px={3}
-          py={2}
-          fade
-          placement="bottom"
-          imageMixin
-        />
-      )}
+      </Editable>
     </Item>
   );
 };

@@ -1,11 +1,9 @@
-import { colors } from '@/theme/common';
 import { useTheme } from '@emotion/react';
 import { FC, CSSProperties } from 'react';
 
 interface MaterialIconProps {
   size?: CSSProperties['fontSize'];
   color?: string;
-  // shade?: 'light' | 'dark' | 'main';
   mt?: CSSProperties['marginTop'];
   mb?: CSSProperties['marginBottom'];
   ml?: CSSProperties['marginLeft'];
@@ -17,10 +15,9 @@ interface MaterialIconProps {
   icon: string | null | undefined;
 }
 
-const Icon: FC<MaterialIconProps> = ({
+export const Icon: FC<MaterialIconProps> = ({
   size = '24px',
   color,
-  // shade = 'main',
   mt: marginTop,
   mb: marginBottom,
   ml: marginLeft,
@@ -51,8 +48,6 @@ const Icon: FC<MaterialIconProps> = ({
     </span>
   );
 };
-
-export default Icon;
 
 export const ICON_OPTIONS = [
   { id: 1, name: 'access_alarm' },

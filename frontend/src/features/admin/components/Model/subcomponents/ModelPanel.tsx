@@ -12,6 +12,7 @@ import { CapitalizeFirst } from '@/utils';
 import { RecentActions } from '../../Logging';
 import ModelTable from './ModelTable';
 import InfoMenu from './InfoMenu';
+import { AdminBreadcrumbs } from '../../Main/subcomponents/AdminBreadcrumbs';
 
 interface ModelPanelProps {
   apiData: any;
@@ -202,30 +203,19 @@ const ModelPanel: React.FC<ModelPanelProps> = ({ apiData, recentActions, type })
     <React.Fragment>
       {ready && model && apiData ? (
         <Surface maxWidth={1200} pt={32} pb={32} px={3} py={3} boxShadow={1} br={8} j="c">
-          <Flexer>
-            {!isSmallScreen && (
-              <Text w="auto" t="h3" className="breadcrumb-title">
-                {model.verbose_name}
-              </Text>
-            )}
-            <Breadcrumbs aria-label="breadcrumb">
-              <Tooltip text="Back to Dashboard" position="bottom">
-                <Link to="/admin">
-                  <Text t="body1" className="link-text">
-                    Dashboard
-                  </Text>
-                </Link>
-              </Tooltip>
-              <Tooltip text={`${formattedAppName} Overview`} position="bottom">
-                <Link to={`/admin/model/${appName}`}>
-                  <Text t="body1" className="link-text">
-                    {formattedAppName}
-                  </Text>
-                </Link>
-              </Tooltip>
-              <Text t="body1">{model.verbose_name}</Text>
-            </Breadcrumbs>
-          </Flexer>
+          <AdminBreadcrumbs title={model.verbose_name}>
+            <Tooltip text="Back to Dashboard" position="bottom">
+              <Link to="/admin">
+                <Text t="body1">Dashboard</Text>
+              </Link>
+            </Tooltip>
+            <Tooltip text={`${formattedAppName} Overview`} position="bottom">
+              <Link to={`/admin/model/${appName}`}>
+                <Text t="body1">{formattedAppName}</Text>
+              </Link>
+            </Tooltip>
+            <Text t="body1">{model.verbose_name}</Text>
+          </AdminBreadcrumbs>
           <Flexer j="fe" gap={12}>
             <Tooltip text={`Create ${CapitalizeFirst(model.model_name)}`} position="bottom">
               <Link

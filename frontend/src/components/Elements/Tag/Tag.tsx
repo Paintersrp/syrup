@@ -12,8 +12,8 @@ const styles = (theme: any) => ({
     display: 'flex',
     alignItems: 'center',
     padding: '4px 8px',
-    backgroundColor: '#e0e0e0',
-    color: theme.dark,
+    // backgroundColor: '#e0e0e0',
+    // color: theme.dark,
     borderRadius: 16,
     lineHeight: 1,
     transition: 'background-color 0.3s ease',
@@ -66,7 +66,7 @@ export const Tag: React.FC<TagProps> = ({
       style={style}
       {...rest}
     >
-      <Text t="subtitle2" s="0.85rem" a="c">
+      <Text t="subtitle2" s="0.85rem" a="c" c="inherit">
         {label}
       </Text>
       {onDelete && <Icon size="15px" color="#fff" icon="close" ml={2} />}

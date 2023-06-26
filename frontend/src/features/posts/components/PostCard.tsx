@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { css } from '@emotion/react';
 import DOMPurify from 'dompurify';
-import './css/PostCard.css';
 
 import { SlideOnScroll } from '@/components/Animation';
 import { ButtonBar } from '@/features/editable';
@@ -10,6 +10,27 @@ import { Tag, Text } from '@/components/Elements';
 import { BaseProps } from '@/theme/base';
 import { Media } from '@/components/Media';
 import { PostContent } from '@/features/posts/types';
+import { inject } from '@/theme/utils';
+
+const styles = (theme: any) => ({
+  media: css({
+    borderBottomLeftRadius: '0px !important',
+    borderBottomRightRadius: '0px !important',
+  }),
+  tag: (index: number) =>
+    css({
+      borderRadius: 14,
+      backgroundColor: index % 2 === 0 ? theme.secondary : theme.smokeDark,
+      color: index % 2 === 0 ? theme.light : theme.dark,
+      marginRight: 5,
+      marginTop: 5,
+      fontWeight: 600,
+
+      '&:hover': {
+        backgroundColor: index % 2 === 0 ? theme.secondaryLight : theme.smoke,
+      },
+    }),
+});
 
 interface Tag {
   id: number;
@@ -23,6 +44,7 @@ interface PostCardProps extends BaseProps {
 }
 
 export const PostCard: FC<PostCardProps> = ({ post, handleDelete, editMode, ...rest }) => {
+  const css = inject(styles);
   const navigate = useNavigate();
 
   const renderPostContent = () => {
@@ -45,8 +67,8 @@ export const PostCard: FC<PostCardProps> = ({ post, handleDelete, editMode, ...r
   return (
     <Item sm={12} md={12} lg={4} {...rest}>
       <SlideOnScroll>
-        <Media altText="Post Image" src={post.image} boxShadow={1} mediaClass="post-card-media" />
-        <Surface px={1.5} py={1} br={0} boxShadow={2} maxWidth={325} className="post-card">
+        <Media altText="Post Image" src={post.image} boxShadow={0} imageStyle={css.media} />
+        <Surface px={1.5} py={1} br={8} boxShadow={2} maxWidth={325}>
           <Flexer a="fs">
             <Flexer fd="column">
               <Text t="body1" fw={500} s="1.1rem">
@@ -71,16 +93,11 @@ export const PostCard: FC<PostCardProps> = ({ post, handleDelete, editMode, ...r
             {renderPostContent()}
           </Text>
           <Flexer j="sb" a="c">
-            <div className="post-tag-container">
+            <Flexer wrap a="c" mt={6} pb={4}>
               {post.tags.map((tag: Tag, index: number) => (
-                <Tag
-                  key={tag.id}
-                  label={tag.detail}
-                  className={index % 2 === 0 ? 'post-tag-alt' : 'post-tag'}
-                  style={{ marginRight: 4 }}
-                />
+                <Tag key={tag.id} label={tag.detail} css={css.tag(index)} />
               ))}
-            </div>
+            </Flexer>
           </Flexer>
         </Surface>
       </SlideOnScroll>

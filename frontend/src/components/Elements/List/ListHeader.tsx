@@ -1,12 +1,12 @@
-import React, { FC } from 'react';
+import { CSSProperties, FC } from 'react';
 import clsx from 'clsx';
 
 import { Base, BaseProps } from '@/theme/base';
-import {Text} from '../Text/Text';
+import { Text } from '../Text/Text';
 
 interface ListHeaderProps extends BaseProps {
   header?: string;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   className?: string;
   headerAlign?: 'left' | 'right' | 'center';
   u?: boolean;

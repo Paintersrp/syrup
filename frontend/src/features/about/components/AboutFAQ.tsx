@@ -15,7 +15,7 @@ export const AboutFAQ: FC<AboutFAQProps> = ({ ...rest }) => {
 
   return (
     <Flexer j="fs" a="fs" fd="column" mt={64} mb={64} {...rest}>
-      <Flexer j="sb" className="values-container">
+      <Flexer j="sb">
         <Text t="h3">Frequently Asked Questions</Text>
         {editMode && (
           <ButtonBar
