@@ -3,7 +3,6 @@ import fs from 'fs-extra';
 import inquirer from 'inquirer';
 
 import { Logger } from '../utils/logger.js';
-import { CLIError } from '../utils/errors.js';
 
 const __dirname = path.resolve();
 const featureDirectory = path.join(__dirname, 'src', 'features');
@@ -12,13 +11,13 @@ async function promptFeatureName() {
   // Verify src/features directory exists
   const featuresExists = await fs.pathExists(featureDirectory);
   if (!featuresExists) {
-    Logger.error(new CLIError('The features directory does not exist.'));
+    Logger.error('The features directory does not exist.');
   }
 
   // Verify src/features is not empty
   const featureFolders = await fs.readdir(featureDirectory);
   if (featureFolders.length === 0) {
-    Logger.error(new CLIError('There are no subdirectories in the features directory.'));
+    Logger.error('There are no subdirectories in the features directory.');
   }
 
   // Prompt user with list of feature options

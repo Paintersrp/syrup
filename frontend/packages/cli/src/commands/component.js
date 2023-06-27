@@ -2,7 +2,7 @@ import fs from 'fs-extra';
 import path from 'path';
 
 import { genComponentFiles } from '../generators/genComponentFiles.js';
-import { capFirst } from '../utils/index.js';
+import { capFirst } from '../utils/format.js';
 import { Logger } from '../utils/logger.js';
 
 const __dirname = path.resolve();
@@ -16,14 +16,8 @@ async function buildComponentFiles(componentName, subdirectory) {
   Logger.log(`Generated Folders:`, 'info');
   Logger.log(`✔ ${componentDirectory} \n`, 'success');
 
+  Logger.log(`Generated Files:`, 'info');
   await genComponentFiles(formattedName, generatedFiles, componentDirectory);
-
-  if (generatedFiles.length > 0) {
-    Logger.log('Generated Files:', 'info');
-    for (const file of generatedFiles) {
-      Logger.log(`✔ ${file}`, 'success');
-    }
-  }
 }
 
 export { buildComponentFiles };

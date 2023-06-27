@@ -5,13 +5,15 @@ import { program } from 'commander';
 import { buildComponentFiles } from './src/commands/component.js';
 import { buildFeatureFiles } from './src/commands/feature.js';
 import { buildFeatureComponentFiles } from './src/commands/featureComponents.js';
+import { buildHookFile } from './src/commands/hook.js';
+import { buildStoreFile } from './src/commands/store.js';
 
 import { promptSubdirectory } from './src/prompts/component.js';
 import { promptComponentCount, promptFeatureType } from './src/prompts/feature.js';
 import { promptFeatureName } from './src/prompts/featureComponent.js';
+
+import { handleCommandError } from './src/utils/errors.js';
 import { validateName } from './src/utils/validate.js';
-import { CLIError } from './src/utils/errors.js';
-import { Logger } from './src/utils/logger.js';
 
 program.version('1.0.1').description('Syrup CLI');
 
@@ -20,7 +22,7 @@ program
   .alias('g')
   .description('Generate Non-Feature Component Files')
   .action(async (componentName) => {
-    try {
+    await handleCommandError(async () => {
       // Validate passed in name before continuing
       const validatedName = validateName(componentName);
 
@@ -29,9 +31,7 @@ program
 
       // Build files based to subdirectory
       await buildComponentFiles(validatedName, subdirectory);
-    } catch (error) {
-      Logger.error(new CLIError(error));
-    }
+    });
   });
 
 program
@@ -41,7 +41,7 @@ program
   .option('-t, --type <type>', 'Specify the type of feature (Individual or Suite)')
   .option('-c, --count <count>', 'Specify number of generated components', parseInt)
   .action(async (featureName, cmd) => {
-    try {
+    await handleCommandError(async () => {
       // Validate passed in name before continuing
       const validatedName = validateName(featureName);
 
@@ -54,9 +54,7 @@ program
 
       // Build files based on input
       buildFeatureFiles(validatedName, featureType, componentCount);
-    } catch (error) {
-      Logger.error(new CLIError(error));
-    }
+    });
   });
 
 program
@@ -66,7 +64,7 @@ program
   .option('-n, --name <name>', 'Specify the feature name')
   .option('-c, --count <count>', 'Specify number of generated components', parseInt)
   .action(async (cmd) => {
-    try {
+    await handleCommandError(async () => {
       // Get passed options from CLI
       const { name, count } = cmd;
 
@@ -77,9 +75,31 @@ program
 
       // Build files based on input
       buildFeatureComponentFiles(validatedName, componentCount);
-    } catch (error) {
-      Logger.error(new CLIError(error));
-    }
+    });
+  });
+
+program
+  .command('gen-store <storeName>')
+  .alias('gs')
+  .alias('gen-s')
+  .description('Generate Store File')
+  .action(async (storeName) => {
+    await handleCommandError(async () => {
+      const validatedName = validateName(storeName);
+      buildStoreFile(validatedName);
+    });
+  });
+
+program
+  .command('gen-hook <hookName>')
+  .alias('gh')
+  .alias('gen-h')
+  .description('Generate Store File')
+  .action(async (hookName) => {
+    await handleCommandError(async () => {
+      const validatedName = validateName(hookName);
+      buildHookFile(validatedName);
+    });
   });
 
 program.parse(process.argv);

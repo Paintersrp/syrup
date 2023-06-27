@@ -1,3 +1,5 @@
+import { Logger } from './logger.js';
+
 class CLIError extends Error {
   constructor(message, code) {
     super(message);
@@ -6,4 +8,12 @@ class CLIError extends Error {
   }
 }
 
-export { CLIError };
+async function handleCommandError(fn) {
+  try {
+    await fn();
+  } catch (error) {
+    Logger.error(error);
+  }
+}
+
+export { CLIError, handleCommandError };

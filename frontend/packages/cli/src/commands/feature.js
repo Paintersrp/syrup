@@ -1,8 +1,12 @@
 import fs from 'fs-extra';
 import path from 'path';
 
-import { capFirst, deplural, generateFile } from '../utils/index.js';
-import { genIndividualFiles, genSharedFiles, genSuiteFiles } from '../generators/index.js';
+import { genIndividualFiles } from '../generators/genIndividualFiles.js';
+import { genSharedFiles } from '../generators/genSharedFiles.js';
+import { genSuiteFiles } from '../generators/genSuiteFiles.js';
+
+import { capFirst, deplural } from '../utils/format.js';
+import { generateFile } from '../utils/generateFile.js';
 import { Logger } from '../utils/logger.js';
 
 const __dirname = path.resolve();
@@ -15,7 +19,10 @@ async function buildFeatureFiles(featureName, type, componentCount) {
   const depluraledName = deplural(formattedName);
 
   await fs.ensureDir(featureDirectory);
+  Logger.log(`Generated Folders:`, 'info');
+  Logger.log(`✔ ${featureDirectory} \n`, 'success');
 
+  Logger.log(`Generated Files:`, 'info');
   await Promise.all(
     featureSubdirectories.map(async (subdir) => {
       await fs.ensureDir(path.join(featureDirectory, subdir));
@@ -42,13 +49,6 @@ async function buildFeatureFiles(featureName, type, componentCount) {
     componentCount,
     componentImports
   );
-
-  if (generatedFiles.length > 0) {
-    Logger.log('\nGenerated files:', 'info');
-    for (const file of generatedFiles) {
-      Logger.log(`✔ ${file}`, 'success');
-    }
-  }
 }
 
 export { buildFeatureFiles };
