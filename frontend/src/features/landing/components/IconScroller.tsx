@@ -39,7 +39,7 @@ const styles = (theme: ExtendedTheme) => ({
       minHeight: 60,
       animation: `${anim.scroll} 150s linear infinite`,
       animationPlayState: isScrolling ? 'running' : 'paused',
-      ...theme.flex.cc,
+      ...theme.flex('c', 'c'),
     }),
   icon: css({
     width: '25%',

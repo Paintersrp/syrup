@@ -1,12 +1,15 @@
 import { darken, lighten, transparentize } from 'polished';
 
 import {
+  alignments,
   animations,
   breakpoints,
   colors as defaultColors,
+  justifications,
   shadows as shadowSet,
 } from '@/theme/common';
 import { BaseTheme, ExtendedTheme } from '@/theme/types';
+import { AlignmentValue, JustificationValue } from './base';
 
 const buildBaseTheme = (): BaseTheme => {
   const anim = animations;
@@ -32,12 +35,12 @@ const buildBaseTheme = (): BaseTheme => {
     fontFamilyMono: "'SFMono-Regular',Consolas,'Liberation Mono', Menlo, Courier,monospace",
   };
 
-  const flex = {
-    cc: {
+  const flex = (align: AlignmentValue, justify: JustificationValue) => {
+    return {
       display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
+      justifyContent: justifications[justify] || undefined,
+      alignItems: alignments[align] || undefined,
+    };
   };
 
   const image = {
@@ -58,7 +61,6 @@ const buildBaseTheme = (): BaseTheme => {
   const shadows = shadowSet;
   const sp = (...values: number[]) => values.map((value) => `${value * 4}px`).join(' ');
 
-  // Implement
   const table = {
     tableHover: lighten(0.015, colors.light),
     tableSelectedBackground: transparentize(0.8, colors.accent),
@@ -74,6 +76,7 @@ const buildBaseTheme = (): BaseTheme => {
   const zIndex = {
     modal: 10,
     drawer: 10,
+    alert: 8,
     tooltip: 6,
     navbar: 4,
   };

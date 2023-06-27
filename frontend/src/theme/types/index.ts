@@ -1,12 +1,15 @@
+import { CSSProperties } from 'react';
+import { AlignmentValue, JustificationValue } from '../base';
 import { AnimationStyles, Breakpoints, Colors } from '../common';
 import { shadows, Shadows } from '../common/shadows';
 
-type FlexSets = {
-  cc: {
-    display: string;
-    justifyContent: string;
-    alignItems: string;
-  };
+type FlexFn = (
+  align: AlignmentValue,
+  justify: JustificationValue
+) => {
+  display: string;
+  justifyContent: CSSProperties['justifyContent'];
+  alignItems: CSSProperties['justifyContent'];
 };
 
 export interface BaseTheme extends Colors {
@@ -21,7 +24,7 @@ export interface BaseTheme extends Colors {
   errorNoticeBorder: string;
   fontFamily: string;
   fontFamilyMono: string;
-  flex: FlexSets;
+  flex: FlexFn;
   imageBorderRadius: string | number;
   imageBoxShadow: any;
   imageBorderBottomLeftRadius: string | number;

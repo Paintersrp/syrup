@@ -5,11 +5,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "syrup": "node index.js",
+    "syrup": "node syrup.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "syrup": "./index.js"
+    "syrup": "./syrup.js"
   },
   "keywords": [],
   "author": "",

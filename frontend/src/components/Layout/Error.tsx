@@ -11,7 +11,6 @@ import { ErrorResponse } from '@/types';
 
 const styles = (theme: ExtendedTheme) => ({
   icon: css({
-    ...theme.flex.cc,
     backgroundColor: theme.error,
     color: theme.light,
     borderRadius: '50%',
@@ -19,6 +18,7 @@ const styles = (theme: ExtendedTheme) => ({
     width: 64,
     marginBottom: 16,
     fontSize: 36,
+    ...theme.flex('c', 'c'),
   }),
 });
 

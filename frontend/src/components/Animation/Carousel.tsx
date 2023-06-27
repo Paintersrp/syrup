@@ -70,7 +70,7 @@ const styles = (theme: ExtendedTheme) => ({
     left: '50%',
     transform: 'translateX(-50%)',
     zIndex: 3,
-    ...theme.flex.cc,
+    ...theme.flex('c', 'c'),
   }),
   indicator: (active: boolean) =>
     css({

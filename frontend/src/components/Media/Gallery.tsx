@@ -28,7 +28,7 @@ const styles = (theme: ExtendedTheme) => ({
     backgroundColor: 'rgba(11, 11, 11, 0.95)',
     zIndex: 9999,
     cursor: 'pointer',
-    ...theme.flex.cc,
+    ...theme.flex('c', 'c'),
   }),
   lightboxContent: css({
     position: 'relative',

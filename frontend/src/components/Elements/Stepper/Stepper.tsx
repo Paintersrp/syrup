@@ -31,7 +31,7 @@ const styles = (theme: ExtendedTheme) => ({
       maxWidth: 36,
       height: 36,
       flex: 1,
-      ...theme.flex.cc,
+      ...theme.flex('c', 'c'),
       '&:hover': {
         backgroundColor: hoverBackground,
         color: hoverColor,

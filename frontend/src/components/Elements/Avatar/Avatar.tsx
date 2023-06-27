@@ -25,7 +25,7 @@ const styles = (theme: ExtendedTheme) => ({
       backgroundColor: theme[color],
       width: sizeMapping[size].dim,
       height: sizeMapping[size].dim,
-      ...theme.flex.cc,
+      ...theme.flex('c', 'c'),
     }),
 });
 
