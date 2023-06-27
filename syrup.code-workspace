@@ -7,5 +7,7 @@
       "path": "../base"
     }
   ],
-  "settings": {}
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "syrup"
+  }
 }

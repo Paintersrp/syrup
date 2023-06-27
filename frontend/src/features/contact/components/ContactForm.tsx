@@ -96,11 +96,8 @@ export const ContactForm: FC<ContactFormProps> = ({ socialData, color = 'light',
         <ErrorDisplay errors={errors} setErrors={setErrors} mt={8} />
       </Surface>
       <SocialButtons
-        invertColors={false}
-        color={color}
         socialsData={socialData}
         showTitle={false}
-        editMode={editMode}
         buttonClass="primary-button"
         buttonSize="md"
       />

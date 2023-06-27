@@ -6,6 +6,21 @@ import fs from 'fs-extra';
 import path from 'path';
 import chalk from 'chalk';
 
+import { genIndividualFiles, genSharedFiles, genSuiteFiles } from './src/lib/index.js';
+import {
+  capFirst,
+  deplural,
+  generateFile,
+  componentSubdirectories,
+  featureSubdirectories,
+} from './src/utils/index.js';
+
+import {
+  ComponentFullTemplate,
+  ComponentStoriesTemplate,
+  ComponentTestTemplate,
+} from './src/template/component.js';
+
 const __dirname = path.resolve();
 
 program.version('1.0.0').description('Syrup CLI');
@@ -15,57 +30,67 @@ program
   .alias('g')
   .description('Generate component files')
   .action(async (componentName) => {
-    const componentDirectory = path.join(__dirname, 'src', 'components', componentName);
-
     const answers = await inquirer.prompt([
       {
-        type: 'confirm',
-        name: 'createFolder',
-        message: 'Create a folder for the component?',
-        default: true,
+        type: 'list',
+        name: 'subdirectory',
+        message: 'Choose a subdirectory for the component:',
+        choices: componentSubdirectories,
       },
     ]);
 
-    if (answers.createFolder) {
-      await fs.ensureDir(componentDirectory);
+    const generatedFiles = [];
+    const formattedName = capFirst(componentName);
+
+    const componentDirectory = path.join(
+      __dirname,
+      'src',
+      'components',
+      answers.subdirectory,
+      formattedName
+    );
+
+    await fs.ensureDir(componentDirectory);
+    console.log(chalk.green(`Component folder created: ${componentDirectory}`));
+
+    try {
+      await generateFile(
+        path.join(componentDirectory, `${formattedName}.tsx`),
+        ComponentFullTemplate(formattedName),
+        generatedFiles
+      );
+      console.log(chalk.green(`Component file generated: ${formattedName}.tsx`));
+    } catch (error) {
+      console.error(chalk.red(`Failed to generate component file: ${formattedName}.tsx`));
+      console.error(chalk.red(error));
     }
 
-    await fs.writeFile(
-      path.join(componentDirectory, `${componentName}.tsx`),
-      `
-       import React from 'react';
+    try {
+      await generateFile(
+        path.join(componentDirectory, `${formattedName}.stories.tsx`),
+        ComponentStoriesTemplate(formattedName),
+        generatedFiles
+      );
+      console.log(chalk.green(`Stories file generated: ${formattedName}.stories.tsx`));
+    } catch (error) {
+      console.error(chalk.red(`Failed to generate stories file: ${formattedName}.stories.tsx`));
+      console.error(chalk.red(error));
+    }
 
-       const ${componentName} = () => {
-          return (
-            <div>
-              <h1>${componentName}</h1>
-            </div>
-          );
-        };
+    try {
+      await generateFile(
+        path.join(componentDirectory, `${formattedName}.test.tsx`),
+        ComponentTestTemplate(formattedName),
+        generatedFiles
+      );
+      console.log(chalk.green(`Test file generated: ${formattedName}.test.tsx`));
+    } catch (error) {
+      console.error(chalk.red(`Failed to generate test file: ${formattedName}.test.tsx`));
+      console.error(chalk.red(error));
+    }
 
-        export default ${componentName};
-      `
-    );
-
-    console.log(chalk.green('Component files generated successfully!'));
-
-    // Generate stories file
-    await fs.writeFile(
-      path.join(componentDirectory, `${componentName}.stories.tsx`),
-      `
-       import React from 'react';
-       import ${componentName} from './${componentName}';
-
-       export default {
-         title: 'Components/${componentName}',
-         component: ${componentName},
-       };
-
-       export const Default = () => <${componentName} />;
-      `
-    );
-
-    console.log(chalk.green('Stories file generated successfully!'));
+    console.log(chalk.green('Component files generation completed!'));
+    console.log(chalk.yellow(`\nGenerated Files:\n${generatedFiles.join('\n')}`));
   });
 
 program
@@ -74,35 +99,62 @@ program
   .description('Generate feature files')
   .action(async (featureName) => {
     const featureDirectory = path.join(__dirname, 'src', 'features', featureName);
+    const formattedName = capFirst(featureName);
+    const depluraledName = deplural(formattedName);
 
     await fs.ensureDir(featureDirectory);
 
-    const subdirectories = ['api', 'components', 'routes', 'types'];
+    const { featureType, componentCount } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'featureType',
+        message: 'What type of feature do you want?',
+        choices: ['Individual', 'Suite'],
+        default: 'Individual',
+      },
+      {
+        type: 'number',
+        name: 'componentCount',
+        message: 'How many pre-generated components do you want?',
+        default: 1,
+      },
+    ]);
 
-    for (const subdir of subdirectories) {
-      await fs.ensureDir(path.join(featureDirectory, subdir));
-      await fs.writeFile(path.join(featureDirectory, subdir, 'index.ts'), '');
+    const generatedFiles = [];
+
+    await Promise.all(
+      featureSubdirectories.map(async (subdir) => {
+        await fs.ensureDir(path.join(featureDirectory, subdir));
+        if (subdir !== 'routes') {
+          await generateFile(path.join(featureDirectory, subdir, 'index.ts'), '', generatedFiles);
+        }
+      })
+    );
+
+    if (featureType === 'Individual') {
+      await genIndividualFiles(featureDirectory, formattedName, generatedFiles);
     }
 
-    await fs.writeFile(
-      path.join(featureDirectory, 'routes', `${featureName}.tsx`),
-      `
-        import React from 'react';
+    if (featureType === 'Suite') {
+      await genSuiteFiles(featureDirectory, formattedName, depluraledName, generatedFiles);
+    }
 
-          const ${featureName} = () => {
-          // Route logic goes here
-          };
+    const componentImports = [];
 
-        export default ${featureName};
-      `
+    await genSharedFiles(
+      featureDirectory,
+      formattedName,
+      generatedFiles,
+      componentCount,
+      componentImports
     );
 
-    await fs.writeFile(
-      path.join(featureDirectory, 'index.ts'),
-      `export { default as ${featureName} } from './routes/${featureName}';`
-    );
-
-    console.log(chalk.green('Feature files generated successfully!'));
+    if (generatedFiles.length > 0) {
+      console.log(chalk.yellow('\nGenerated files:'));
+      for (const file of generatedFiles) {
+        console.log(chalk.green(' ✔ '), file);
+      }
+    }
   });
 
 program.parse(process.argv);
