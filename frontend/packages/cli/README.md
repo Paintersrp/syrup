@@ -2,8 +2,6 @@
 
 Syrup CLI is a command-line tool for generating files with boilerplate and managing folder structure for your project. It confirms (loosely) to Bulletproof React structure and best practices. File boilerplate templates can be viewed in the /src/template folder.
 
-Eventually, I'll link or provide boilerplate output in this file.
-
 #
 
 ## Installation
@@ -34,62 +32,114 @@ Below is a list of commands supported by the CLI tool along with their descripti
 
 ---
 
-- **Generate an app component file**
-  - Command: `syrup gen-comp <componentName>`
-  - Aliases: `syrup gen-c <componentName>`, `syrup gc <componentName>`
-  - Description: Generates an app component file.
-  - Usage example: `syrup gen-comp Button`
+**Generate an app component file**
+
+- Command: `syrup gen-comp <componentName>`
+- Description: Generates an app component file.
+- Aliases:
+
+  - `syrup gen-c <componentName>`
+  - `syrup gc <componentName>`
+
+- Usage examples:
+
+  - `syrup gen-comp Button`
+  - `syrup gen-c Button`
+  - `syrup gc Button`
 
 ---
 
-- **Generate an app feature folder structure and files**
+**Generate an app feature folder structure and files**
 
-  - Command: `syrup gen-feat <featureName> --type <Suite or Individual> --count <number>`
-  - Aliases: `syrup gen-f <featureName> --type <Suite or Individual> --count <number>`, `syrup gf <featureName> --type <Suite or Individual> --count <number>`
-  - Description: Generates an app feature folder structure and files.
-  - Usage example: `syrup gen-feat posts --type Suite --count 1`
+- Command: `syrup gen-feat <featureName> --type <Suite or Individual> --count <number>`
+- Description: Generates an app feature folder structure and files.
+- Aliases:
 
----
+  - `syrup gen-f <featureName> --type <Suite or Individual> --count <number>`
+  - `syrup gf <featureName> --type <Suite or Individual> --count <number>`
 
-- **Generate feature components**
+- Usage example:
 
-  - Command: `syrup gen-feat-comp --name <Feature Name> --count <number>`
-  - Aliases: `syrup gen-f-c --name <Feature Name> --count <number>`, `syrup gfc --name <Feature Name> --count <number>`
-  - Description: Generates feature components.
-  - Usage example: `syrup gen-feat-comp --name services --count 5`
-
----
-
-- **Generate an app hook**
-
-  - Command: `syrup gen-hook <hookName>`
-  - Aliases: `syrup gen-h <hookName>`, `syrup gh <hookName>`
-  - Description: Generates an app hook.
-  - Usage example: `syrup gen-hook useBreakpoint`
+  - `syrup gen-feat posts --type Suite --count 1`
+  - `syrup gen-f posts --type Suite --count 1`
+  - `syrup gf posts --type Suite --count 1`
+  - `syrup gf posts (Provides Prompts)`
 
 ---
 
-- **Generate an app store**
+**Generate feature components**
 
-  - Command: `syrup gen-store <storeName>`
-  - Aliases: `syrup gen-s <storeName>`, `syrup gs <storeName>`
-  - Description: Generates an app store.
-  - Usage example: `syrup gen-store auth`
+- Command: `syrup gen-feat-comp --name <Feature Name> --count <number>`
+- Aliases:
+
+  - `syrup gen-f-c --name <Feature Name> --count <number>`
+  - `syrup gfc --name <Feature Name> --count <number>`
+
+- Description: Generates feature components.
+- Usage example:
+
+  - `syrup gen-feat-comp --name services --count 5`
+  - `syrup gen-f-c --name services --count 5`
+  - `syrup gfc --name services --count 5`
+  - `syrup gfc (Provides Prompts)`
 
 ---
 
-- **Display version**
+**Generate an app hook**
 
-  - Command: `syrup -V` or `syrup --version`
-  - Description: Displays the version of the CLI tool.
+- Command: `syrup gen-hook <hookName>`
+- Description: Generates an app hook.
+- Aliases:
+
+  - `syrup gen-h <hookName>`
+  - `syrup gh <hookName>`
+
+- Usage example:
+
+  - `syrup gen-hook useBreakpoint`
+  - `syrup gen-h useBreakpoint`
+  - `syrup gh useBreakpoint`
 
 ---
 
-- **Get a list of commands**
+**Generate an app store**
 
-  - Command: `syrup -h [command]`, `syrup help [command]`, `syrup --help [command]`
-  - Description: Shows a list of available commands. If a specific command is provided, displays detailed help for that command.
-  - Usage example: `syrup -h gen-hook` (specific command help), `syrup help` (full help menu, no command passed), `syrup --help gen-comp` (specific command help)
+- Command: `syrup gen-store <storeName>`
+- Description: Generates an app store.
+- Aliases:
+
+  - `syrup gen-s <storeName>`
+  - `syrup gs <storeName>`
+
+- Usage example:
+
+  - `syrup gen-store auth`
+  - `syrup gen-s auth`
+  - `syrup gs auth`
+
+---
+
+**Display version**
+
+- Command: `syrup -V` or `syrup --version`
+- Description: Displays the version of the CLI tool.
+
+---
+
+**Get a list of commands**
+
+- Commands:
+
+  - `syrup -h [command]`
+  - `syrup help [command]`
+  - `syrup --help [command]`
+
+- Description: Shows a list of available commands. If a specific command is provided, displays detailed help for that command.
+
+- Usage example:
+  - `syrup -h gen-hook (specific command help)`
+  - `syrup help (full help menu, no command passed)`
+  - `syrup --help gen-comp (specific command help)`
 
 ---
 
@@ -131,6 +181,8 @@ After selecting a subdirectory, the component files will be generated. Here's an
 [SUCCESS] ✔ Generated Storybook File: Button.stories.tsx
 [SUCCESS] ✔ Generated Component File: Button.tsx
 [SUCCESS] ✔ Generated Test File: Button.test.tsx
+[INFO] Lines of Code Generated: 61
+[INFO] Files Generated: 3
 ```
 
 ### Boilerplate
@@ -271,6 +323,8 @@ $ syrup gf posts --type Suite --count 5
 [SUCCESS] ✔ Generated Component #4: C:\syrup\web\src\features\posts\components\Posts4.tsx
 [SUCCESS] ✔ Generated Component #5: C:\syrup\web\src\features\posts\components\Posts5.tsx
 [SUCCESS] ✔ Generated Component Index: C:\syrup\web\src\features\posts\components\index.ts
+[INFO] Lines of Code Generated: 187
+[INFO] Files Generated: 15
 ```
 
 ##### With Prompts
@@ -309,6 +363,8 @@ $ syrup gf posts
 [SUCCESS] ✔ Generated Component #4: C:\syrup\web\src\features\posts\components\Posts4.tsx
 [SUCCESS] ✔ Generated Component #5: C:\syrup\web\src\features\posts\components\Posts5.tsx
 [SUCCESS] ✔ Generated Component Index: C:\syrup\web\src\features\posts\components\index.ts
+[INFO] Lines of Code Generated: 187
+[INFO] Files Generated: 15
 ```
 
 ### Boilerplate
@@ -457,12 +513,14 @@ $ syrup gfc --name posts --count 5
 [SUCCESS] ✔ C:\syrup\web\src\features\posts\components
 
 [INFO] Generated Files:
-[SUCCESS] ✔ Generated Component #1: PostsGen1
-[SUCCESS] ✔ Generated Component #2: PostsGen2
-[SUCCESS] ✔ Generated Component #3: PostsGen3
-[SUCCESS] ✔ Generated Component #4: PostsGen4
-[SUCCESS] ✔ Generated Component #5: PostsGen5
-[SUCCESS] ✔ Generated Component Index: C:\syrup\web\src\features\posts\components\index.ts
+[SUCCESS] ✔ Generated Component Basic File: PostsGen1.tsx
+[SUCCESS] ✔ Generated Component Basic File: PostsGen2.tsx
+[SUCCESS] ✔ Generated Component Basic File: PostsGen3.tsx
+[SUCCESS] ✔ Generated Component Basic File: PostsGen4.tsx
+[SUCCESS] ✔ Generated Component Basic File: PostsGen5.tsx
+[SUCCESS] ✔ Generated Component Index: index.ts
+[INFO] Lines of Code Generated: 64
+[INFO] Files Generated: 6
 ```
 
 #### Without Prompts
@@ -547,6 +605,8 @@ $ syrup gh useBreakpoint
 
 [INFO] Generated Files:
 [SUCCESS] ✔ Generated Hook File: useBreakpoint.tsx
+[INFO] Lines of Code Generated: 12
+[INFO] Files Generated: 1
 ```
 
 ### Boilerplate
@@ -601,6 +661,8 @@ $ syrup gs auth
 
 [INFO] Generated Files:
 [SUCCESS] ✔ Generated Store File: auth.tsx
+[INFO] Lines of Code Generated: 28
+[INFO] Files Generated: 1
 ```
 
 ### Boilerplate

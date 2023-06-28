@@ -15,7 +15,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "chalk": "^5.2.0",
     "commander": "^11.0.0",
     "fs-extra": "^11.1.1",
     "inquirer": "^9.2.7",

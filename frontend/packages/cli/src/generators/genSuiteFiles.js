@@ -1,9 +1,11 @@
 import path from 'path';
 
-import { HookTemplate, PageTemplate } from '../template/shared.js';
-import { IndexHookSuiteTemplate, IndexSuiteTemplate, RouteTemplate } from '../template/suite.js';
-import { generateFile } from '../utils/generateFile.js';
-import { Logger } from '../utils/logger.js';
+import { FeatureHookTemplate } from '../templates/featureHook.js';
+import { IndexHookSuiteTemplate } from '../templates/indexHookSuite.js';
+import { IndexSuiteTemplate } from '../templates/indexSuite.js';
+import { FeatureRoutesSuiteTemplate } from '../templates/featureRoutesSuite.js';
+import { FeaturePageTemplate } from '../templates/featurePage.js';
+import { SyLogger } from '../utils/SyLogger.js';
 
 /**
  * Generates suite-related files for the feature directory.
@@ -11,14 +13,14 @@ import { Logger } from '../utils/logger.js';
  * @param {string} featureDirectory - The feature directory where the files will be generated.
  * @param {string} formattedName - The formatted name used for file generation.
  * @param {string} depluraledName - The pluralized name used for file generation.
- * @param {string[]} generatedFiles - An array to store the paths of the generated files.
+ * @param {string[]} templatesUsed - An array to store the paths of the generated files.
  * @returns {Promise<void>} A promise that resolves when the suite file generation is complete.
  */
 export async function genSuiteFiles(
   featureDirectory,
   formattedName,
   depluraledName,
-  generatedFiles
+  templatesUsed
 ) {
   /**
    * Array of file templates to be generated.
@@ -37,23 +39,23 @@ export async function genSuiteFiles(
    */
   const fileTemplates = [
     {
-      template: (isPlural) => PageTemplate(isPlural ? depluraledName : formattedName),
+      template: (isPlural) => FeaturePageTemplate(isPlural ? depluraledName : formattedName),
       fileName: (isPlural) =>
         path.join(featureDirectory, 'routes', `${isPlural ? depluraledName : formattedName}.tsx`),
-      displayName: 'Page File #1',
+      displayName: 'Page File',
       isPlural: false,
     },
     {
-      template: (isPlural) => PageTemplate(isPlural ? depluraledName : formattedName),
+      template: (isPlural) => FeaturePageTemplate(isPlural ? depluraledName : formattedName),
       fileName: (isPlural) =>
         path.join(featureDirectory, 'routes', `${isPlural ? depluraledName : formattedName}.tsx`),
-      displayName: 'Page File #2',
+      displayName: 'Page File',
       isPlural: true,
     },
     {
-      template: RouteTemplate,
+      template: FeatureRoutesSuiteTemplate,
       fileName: path.join(featureDirectory, 'routes', 'index.tsx'),
-      displayName: 'Route Index',
+      displayName: 'Suite Route Index',
     },
     {
       template: IndexSuiteTemplate,
@@ -66,31 +68,28 @@ export async function genSuiteFiles(
       displayName: 'API Index',
     },
     {
-      template: HookTemplate,
+      template: FeatureHookTemplate,
       fileName: path.join(featureDirectory, 'api', `use${depluraledName}.ts`),
-      displayName: 'Hook File #2',
+      displayName: 'Feature Hook File',
     },
   ];
 
-  /**
-   * Generate files and log success or fail.
-   */
   await Promise.all(
     fileTemplates.map(async ({ template, fileName, displayName, isPlural = true }) => {
-      try {
-        const generatedFileName = typeof fileName === 'function' ? fileName(isPlural) : fileName;
-        const generatedTemplate = displayName.includes('Page')
-          ? template(isPlural)
-          : displayName.includes('Hook')
-          ? template(depluraledName)
-          : template(formattedName);
+      const generatedFileName = typeof fileName === 'function' ? fileName(isPlural) : fileName;
+      const generatedTemplate = displayName.includes('Page')
+        ? template(isPlural)
+        : displayName.includes('Hook')
+        ? template(depluraledName)
+        : template(formattedName);
 
-        await generateFile(generatedFileName, generatedTemplate, generatedFiles);
-        Logger.log(`✔ Generated ${displayName}: ${generatedFileName}`, 'success');
-      } catch (error) {
-        Logger.error(`Failed to generate ${displayName}: ${path.basename(fileName)}`);
-        Logger.error(error);
-      }
+      await SyLogger.generateAndLogFile(
+        generatedFileName,
+        generatedTemplate,
+        templatesUsed,
+        displayName,
+        generatedFileName
+      );
     })
   );
 }

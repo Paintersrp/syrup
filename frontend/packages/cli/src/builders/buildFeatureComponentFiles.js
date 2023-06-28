@@ -1,14 +1,9 @@
-import fs from 'fs-extra';
 import path from 'path';
 
 import { genFeatureComponentFiles } from '../generators/genFeatureComponentFiles.js';
-import { capFirst } from '../utils/format.js';
-import { Logger } from '../utils/logger.js';
-
-/**
- * The current directory path.
- */
-const __dirname = path.resolve();
+import { FEATURES_DIR } from '../../config.js';
+import { SyLogger } from '../utils/SyLogger.js';
+import { SyFormatter } from '../utils/SyFormater.js';
 
 /**
  * Builds feature component files for the specified feature name and component count.
@@ -18,23 +13,21 @@ const __dirname = path.resolve();
  * @returns {Promise<void>} A promise that resolves when the feature component files are built.
  */
 async function buildFeatureComponentFiles(featureName, componentCount) {
-  const generatedFiles = [];
+  const templatesUsed = [];
   const componentImports = [];
-  const featureDirectory = path.join(__dirname, 'src', 'features', featureName);
-  const formattedName = capFirst(featureName);
+  const featureDirectory = path.join(FEATURES_DIR, featureName);
+  const formattedName = SyFormatter.capFirst(featureName);
 
-  await fs.ensureDir(featureDirectory);
-  Logger.log(`Folder Used:`, 'info');
-  Logger.log(`✔ ${featureDirectory}\\components \n`, 'success');
-
-  Logger.log(`Generated Files:`, 'info');
+  await SyLogger.ensureAndLogDir(featureDirectory);
   await genFeatureComponentFiles(
     featureDirectory,
     formattedName,
-    generatedFiles,
+    templatesUsed,
     componentCount,
     componentImports
   );
+
+  SyLogger.logStats(templatesUsed);
 }
 
 export { buildFeatureComponentFiles };

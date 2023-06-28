@@ -1,15 +1,16 @@
 import path from 'path';
 
-import { ComponentBasicTemplate, HookTemplate, IndexTypesTemplate } from '../template/shared.js';
-import { generateFile } from '../utils/generateFile.js';
-import { Logger } from '../utils/logger.js';
+import { ComponentBasicTemplate } from '../templates/componentBasic.js';
+import { FeatureHookTemplate } from '../templates/featureHook.js';
+import { IndexTypesTemplate } from '../templates/indexTypes.js';
+import { SyLogger } from '../utils/SyLogger.js';
 
 /**
  * Generates shared files for a feature directory with components, hooks, and types.
  *
  * @param {string} featureDirectory - The directory where the feature files will be generated.
  * @param {string} formattedName - The formatted name used for the feature files.
- * @param {string[]} generatedFiles - An array to store the paths of the generated files.
+ * @param {string[]} templatesUsed - An array to store the paths of the generated files.
  * @param {number} componentCount - The number of components to generate.
  * @param {string[]} componentImports - An array to store the component imports for the index file.
  * @returns {Promise<void>} A promise that resolves when the shared file generation is complete.
@@ -17,7 +18,7 @@ import { Logger } from '../utils/logger.js';
 export async function genSharedFiles(
   featureDirectory,
   formattedName,
-  generatedFiles,
+  templatesUsed,
   componentCount,
   componentImports
 ) {
@@ -34,12 +35,12 @@ export async function genSharedFiles(
     {
       template: ComponentBasicTemplate,
       fileName: (i) => path.join(featureDirectory, 'components', `${formattedName}${i}.tsx`),
-      displayName: 'Component File',
+      displayName: 'Component Basic File',
     },
     {
-      template: HookTemplate,
+      template: FeatureHookTemplate,
       fileName: path.join(featureDirectory, 'api', `use${formattedName}.tsx`),
-      displayName: 'Hook File',
+      displayName: 'Feature Hook File',
     },
     {
       template: IndexTypesTemplate,
@@ -50,61 +51,48 @@ export async function genSharedFiles(
 
   const componentPromises = Array.from({ length: componentCount }, (_, i) => i + 1).map(
     async (i) => {
-      /**
-       * Iterates the number of components, creating imports in the index.
-       */
       const componentName = `${formattedName}${i}`;
       componentImports.push(`export { ${componentName} } from './${componentName}';`);
 
-      /**
-       * Finds the component template and sets the generated component name using the index.
-       */
       const fileTemplate = fileTemplates.find(
-        ({ displayName }) => displayName === 'Component File'
+        ({ displayName }) => displayName === 'Component Basic File'
       );
       const template = fileTemplate.template(componentName);
       const fileName = fileTemplate.fileName(i);
 
-      /**
-       * Generate component and log success or fail.
-       */
-      try {
-        await generateFile(fileName, template, generatedFiles);
-        Logger.log(`✔ Generated Component #${i}: ${fileName}`, 'success');
-      } catch (error) {
-        Logger.error(`Failed to Generate Component: ${path.basename(fileName)}`);
-        Logger.error(error);
-      }
-
-      /**
-       * Generate the index.ts file with component imports.
-       */
-      const indexFilePath = path.join(featureDirectory, 'components', 'index.ts');
-      const componentImportsContent = componentImports.join('\n');
-      await generateFile(indexFilePath, componentImportsContent, generatedFiles);
-      Logger.log(`✔ Generated Component Index: ${indexFilePath}`, 'success');
+      await SyLogger.generateAndLogFile(
+        fileName,
+        template,
+        templatesUsed,
+        fileTemplate.displayName,
+        fileName
+      );
     }
   );
 
+  const indexFilePath = path.join(featureDirectory, 'components', 'index.ts');
+  const componentImportsContent = componentImports.join('\n');
+
+  await SyLogger.generateAndLogFile(
+    indexFilePath,
+    componentImportsContent,
+    templatesUsed,
+    'Component Index',
+    indexFilePath
+  );
+
   const remainingFilePromises = fileTemplates
-    .filter(({ displayName }) => displayName !== 'Component File')
+    .filter(({ displayName }) => displayName !== 'Component Basic File')
     .map(async ({ template, fileName, displayName }) => {
-      /**
-       * Checks if fileName requires a function (for Component) and provides an empty index.
-       */
-      const generatedFileName = fileName;
       const generatedTemplate = template(formattedName);
 
-      /**
-       * Generate files and log success or fail.
-       */
-      try {
-        await generateFile(generatedFileName, generatedTemplate, generatedFiles);
-        Logger.log(`✔ Generated ${displayName}: ${generatedFileName}`, 'success');
-      } catch (error) {
-        Logger.error(`Failed to generate ${displayName}: ${path.basename(fileName)}`);
-        Logger.error(error);
-      }
+      await SyLogger.generateAndLogFile(
+        fileName,
+        generatedTemplate,
+        templatesUsed,
+        displayName,
+        fileName
+      );
     });
 
   await Promise.all([...componentPromises, ...remainingFilePromises]);

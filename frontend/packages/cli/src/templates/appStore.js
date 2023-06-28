@@ -5,7 +5,7 @@
  * @param {string} lowercaseName - The lowercase name of the store.
  * @returns {string} - The store template.
  */
-const StoreTemplate = (storeName, lowercaseName) =>
+export const AppStoreTemplate = (storeName, lowercaseName) =>
   `
 import { create } from 'zustand';
 
@@ -35,5 +35,3 @@ export const use${storeName}Store = create<${storeName}Store>((set) => ({
     },
 }));
 `;
-
-export { StoreTemplate };

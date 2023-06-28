@@ -4,7 +4,7 @@
  * @param {string} hookName - The name of the hook.
  * @returns {string} - The application hook template.
  */
-const AppHookTemplate = (hookName) =>
+export const AppHookTemplate = (hookName) =>
   `
 import { useState, useEffect } from 'react';
 
@@ -18,5 +18,3 @@ export const ${hookName} = (prop: any): any => {
   return state;
 };
 `;
-
-export { AppHookTemplate };

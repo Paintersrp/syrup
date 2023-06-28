@@ -2,18 +2,19 @@
 
 import { program } from 'commander';
 
-import { buildComponentFiles } from './src/commands/component.js';
-import { buildFeatureFiles } from './src/commands/feature.js';
-import { buildFeatureComponentFiles } from './src/commands/featureComponents.js';
-import { buildHookFile } from './src/commands/hook.js';
-import { buildStoreFile } from './src/commands/store.js';
+import { buildComponentFiles } from './src/builders/buildComponentFiles.js';
+import { buildFeatureFiles } from './src/builders/buildFeatureFiles.js';
+import { buildFeatureComponentFiles } from './src/builders/buildFeatureComponentFiles.js';
+import { buildHookFile } from './src/builders/buildHookFile.js';
+import { buildStoreFile } from './src/builders/buildStoreFile.js';
 
-import { promptSubdirectory } from './src/prompts/component.js';
-import { promptComponentCount, promptFeatureType } from './src/prompts/feature.js';
-import { promptFeatureName } from './src/prompts/featureComponent.js';
+import { promptSubdirectory } from './src/prompts/promptSubdirectory.js';
+import { promptComponentCount } from './src/prompts/promptComponentCount.js';
+import { promptFeatureName } from './src/prompts/promptFeatureName.js';
+import { promptFeatureType } from './src/prompts/promptFeatureType.js';
 
-import { handleCommandError } from './src/utils/errors.js';
-import { validateName } from './src/utils/validate.js';
+import { SyError } from './src/utils/SyError.js';
+import { SyValidator } from './src/utils/SyValidator.js';
 
 /**
  * Syrup CLI
@@ -29,20 +30,10 @@ program
   .alias('gc')
   .description('Generate App Component Files')
   .action(async (componentName) => {
-    await handleCommandError(async () => {
-      /**
-       * Validate passed in name before continuing
-       */
-      const validatedName = validateName(componentName);
-
-      /**
-       * Prompt for Subdirectory of src/components
-       */
+    await SyError.handleCommand(async () => {
+      const validatedName = SyValidator.validateName(componentName);
       const subdirectory = await promptSubdirectory();
 
-      /**
-       * Build files based to subdirectory.
-       */
       await buildComponentFiles(validatedName, subdirectory);
     });
   });
@@ -58,26 +49,12 @@ program
   .option('-t, --type <type>', 'Specify the type of feature (Individual or Suite)')
   .option('-c, --count <count>', 'Specify number of generated components', parseInt)
   .action(async (featureName, cmd) => {
-    await handleCommandError(async () => {
-      /**
-       * Validate passed in name before continuing
-       */
-      const validatedName = validateName(featureName);
-
-      /**
-       * Get passed options from CLI
-       */
+    await SyError.handleCommand(async () => {
+      const validatedName = SyValidator.validateName(featureName);
       const { type, count } = cmd;
-
-      /**
-       * Prompt for type and count if options were not passed.
-       */
       const featureType = type || (await promptFeatureType());
       const componentCount = count || (await promptComponentCount());
 
-      /**
-       * Build files based on input.
-       */
       buildFeatureFiles(validatedName, featureType, componentCount);
     });
   });
@@ -93,22 +70,12 @@ program
   .option('-n, --name <name>', 'Specify the feature name')
   .option('-c, --count <count>', 'Specify number of generated components', parseInt)
   .action(async (cmd) => {
-    await handleCommandError(async () => {
-      /**
-       * Get passed options from CLI.
-       */
+    await SyError.handleCommand(async () => {
       const { name, count } = cmd;
-
-      /**
-       * Prompt if options not passed, validate name before continuing
-       */
       const featureName = name || (await promptFeatureName());
-      const validatedName = validateName(featureName);
+      const validatedName = SyValidator.validateName(featureName);
       const componentCount = count || (await promptComponentCount());
 
-      /**
-       * Build files based on input
-       */
       buildFeatureComponentFiles(validatedName, componentCount);
     });
   });
@@ -122,15 +89,8 @@ program
   .alias('gen-h')
   .description('Generate Store File')
   .action(async (hookName) => {
-    await handleCommandError(async () => {
-      /**
-       * Validate passed in name before continuing
-       */
-      const validatedName = validateName(hookName);
-
-      /**
-       * Build files based on input
-       */
+    await SyError.handleCommand(async () => {
+      const validatedName = SyValidator.validateName(hookName);
       buildHookFile(validatedName);
     });
   });
@@ -144,15 +104,9 @@ program
   .alias('gen-s')
   .description('Generate Store File')
   .action(async (storeName) => {
-    await handleCommandError(async () => {
-      /**
-       * Validate passed in name before continuing
-       */
-      const validatedName = validateName(storeName);
+    await SyError.handleCommand(async () => {
+      const validatedName = SyValidator.validateName(storeName);
 
-      /**
-       * Build files based on input
-       */
       buildStoreFile(validatedName);
     });
   });

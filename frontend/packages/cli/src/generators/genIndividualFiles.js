@@ -1,23 +1,20 @@
 import path from 'path';
 
-import {
-  IndexBasicTemplate,
-  IndexHookIndividualTemplate,
-  IndexIndividualTemplate,
-} from '../template/individual.js';
-import { PageTemplate } from '../template/shared.js';
-import { generateFile } from '../utils/generateFile.js';
-import { Logger } from '../utils/logger.js';
+import { IndexBasicTemplate } from '../templates/indexBasic.js';
+import { IndexHookIndividualTemplate } from '../templates/indexHook.js';
+import { FeatureRoutesIndividualTemplate } from '../templates/featureRoutesIndividual.js';
+import { FeaturePageTemplate } from '../templates/featurePage.js';
+import { SyLogger } from '../utils/SyLogger.js';
 
 /**
  * Generates individual feature files for a given feature directory and formatted name.
  *
  * @param {string} featureDirectory - The directory where the feature files will be generated.
  * @param {string} formattedName - The formatted name used for the feature files.
- * @param {string[]} generatedFiles - An array to store the paths of the generated files.
+ * @param {string[]} templatesUsed - An array to store the paths of the generated files.
  * @returns {Promise<void>} A promise that resolves when the individual feature file generation is complete.
  */
-export async function genIndividualFiles(featureDirectory, formattedName, generatedFiles) {
+export async function genIndividualFiles(featureDirectory, formattedName, templatesUsed) {
   /**
    * Array of file templates to be generated.
    * Each object in the array contains the following properties:
@@ -29,14 +26,14 @@ export async function genIndividualFiles(featureDirectory, formattedName, genera
    */
   const fileTemplates = [
     {
-      template: PageTemplate(formattedName),
+      template: FeaturePageTemplate(formattedName),
       fileName: path.join(featureDirectory, 'routes', `${formattedName}.tsx`),
       displayName: 'Page File',
     },
     {
-      template: IndexIndividualTemplate(formattedName),
+      template: FeatureRoutesIndividualTemplate(formattedName),
       fileName: path.join(featureDirectory, 'routes', 'index.ts'),
-      displayName: 'Route Index',
+      displayName: 'Individual Route Index',
     },
     {
       template: IndexBasicTemplate(formattedName),
@@ -50,18 +47,9 @@ export async function genIndividualFiles(featureDirectory, formattedName, genera
     },
   ];
 
-  /**
-   * Generate files and log success or fail.
-   */
   await Promise.all(
     fileTemplates.map(async ({ template, fileName, displayName }) => {
-      try {
-        await generateFile(fileName, template, generatedFiles);
-        Logger.log(`✔ Generated ${displayName}: ${fileName}`, 'success');
-      } catch (error) {
-        Logger.error(`Failed to generate ${displayName}: ${path.basename(fileName)}`);
-        Logger.error(error);
-      }
+      await SyLogger.generateAndLogFile(fileName, template, templatesUsed, displayName, fileName);
     })
   );
 }

@@ -1,21 +1,18 @@
 import path from 'path';
-import {
-  ComponentFullTemplate,
-  ComponentStoriesTemplate,
-  ComponentTestTemplate,
-} from '../template/component.js';
 
-import { generateFile } from '../utils/generateFile.js';
-import { Logger } from '../utils/logger.js';
+import { ComponentFullTemplate } from '../templates/componentFull.js';
+import { ComponentStorybookTemplate } from '../templates/componentStorybook.js';
+import { ComponentTestTemplate } from '../templates/componentTest.js';
+import { SyLogger } from '../utils/SyLogger.js';
 
 /**
  * Generates component files based on the provided template and file names.
  * @param {string} formattedName - The formatted name of the component.
- * @param {Array} generatedFiles - An array to store the generated file paths.
+ * @param {Array} templatesUsed - An array to store the generated file paths.
  * @param {string} componentDirectory - The directory path where the files will be generated.
  * @returns {Promise<void>}
  */
-export async function genComponentFiles(formattedName, generatedFiles, componentDirectory) {
+export async function genComponentFiles(formattedName, templatesUsed, componentDirectory) {
   /**
    * Array of file templates to be generated.
    * Each object in the array contains the following properties:
@@ -32,7 +29,7 @@ export async function genComponentFiles(formattedName, generatedFiles, component
       displayName: 'Component File',
     },
     {
-      template: ComponentStoriesTemplate(formattedName),
+      template: ComponentStorybookTemplate(formattedName),
       fileName: `${formattedName}.stories.tsx`,
       displayName: 'Storybook File',
     },
@@ -43,18 +40,15 @@ export async function genComponentFiles(formattedName, generatedFiles, component
     },
   ];
 
-  /**
-   * Generate files and log success or fail.
-   */
   await Promise.all(
     fileTemplates.map(async ({ template, fileName, displayName }) => {
-      try {
-        await generateFile(path.join(componentDirectory, fileName), template, generatedFiles);
-        Logger.log(`✔ Generated ${displayName}: ${fileName}`, 'success');
-      } catch (error) {
-        Logger.error(`Failed to generate ${displayName}: ${path.basename(fileName)}`);
-        Logger.error(error);
-      }
+      await SyLogger.generateAndLogFile(
+        path.join(componentDirectory, fileName),
+        template,
+        templatesUsed,
+        displayName,
+        fileName
+      );
     })
   );
 }
