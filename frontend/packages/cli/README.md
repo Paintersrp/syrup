@@ -32,10 +32,27 @@ Below is a list of commands supported by the CLI tool along with their descripti
 
 ---
 
+**Generate directories in Components Directory**
+
+- Command: `syrup gen-dirs <directoryNames...>`
+- Description: `Generates an app component file.`
+- Aliases:
+
+  - `syrup gen-d <directoryNames...>`
+  - `syrup gd <directoryNames...>`
+
+- Usage examples:
+
+  - `syrup gen-dir Subdirectory1 Subdirectory2 Subdirectory3`
+  - `syrup gen-d Subdirectory1 Subdirectory2 Subdirectory3`
+  - `syrup gd Subdirectory1 Subdirectory2 Subdirectory3`
+
+---
+
 **Generate an app component file**
 
 - Command: `syrup gen-comp <componentName>`
-- Description: Generates an app component file.
+- Description: `Generates an app component file.`
 - Aliases:
 
   - `syrup gen-c <componentName>`
@@ -49,10 +66,27 @@ Below is a list of commands supported by the CLI tool along with their descripti
 
 ---
 
+**Generate Multiple App Components**
+
+- Command: `syrup gen-comps <componentNames...>`
+- Description: `Generates multiple app component files.`
+- Aliases:
+
+  - `syrup gen-cs <componentNames...>`
+  - `syrup gcs <componentNames...>`
+
+- Usage examples:
+
+  - `syrup gen-comps Button Popover Avatar`
+  - `syrup gen-cs Button Popover Avatar`
+  - `syrup gcs Button Popover Avatar`
+
+---
+
 **Generate an app feature folder structure and files**
 
 - Command: `syrup gen-feat <featureName> --type <Suite or Individual> --count <number>`
-- Description: Generates an app feature folder structure and files.
+- Description: `Generates an app feature folder structure and files.`
 - Aliases:
 
   - `syrup gen-f <featureName> --type <Suite or Individual> --count <number>`
@@ -70,12 +104,12 @@ Below is a list of commands supported by the CLI tool along with their descripti
 **Generate feature components**
 
 - Command: `syrup gen-feat-comp --name <Feature Name> --count <number>`
+- Description: `Generates feature components.`
 - Aliases:
 
   - `syrup gen-f-c --name <Feature Name> --count <number>`
   - `syrup gfc --name <Feature Name> --count <number>`
 
-- Description: Generates feature components.
 - Usage example:
 
   - `syrup gen-feat-comp --name services --count 5`
@@ -88,7 +122,7 @@ Below is a list of commands supported by the CLI tool along with their descripti
 **Generate an app hook**
 
 - Command: `syrup gen-hook <hookName>`
-- Description: Generates an app hook.
+- Description: `Generates an app hook.`
 - Aliases:
 
   - `syrup gen-h <hookName>`
@@ -105,7 +139,7 @@ Below is a list of commands supported by the CLI tool along with their descripti
 **Generate an app store**
 
 - Command: `syrup gen-store <storeName>`
-- Description: Generates an app store.
+- Description: `Generates an app store.`
 - Aliases:
 
   - `syrup gen-s <storeName>`
@@ -122,7 +156,7 @@ Below is a list of commands supported by the CLI tool along with their descripti
 **Display version**
 
 - Command: `syrup -V` or `syrup --version`
-- Description: Displays the version of the CLI tool.
+- Description: `Displays the version of the CLI tool.`
 
 ---
 
@@ -134,7 +168,7 @@ Below is a list of commands supported by the CLI tool along with their descripti
   - `syrup help [command]`
   - `syrup --help [command]`
 
-- Description: Shows a list of available commands. If a specific command is provided, displays detailed help for that command.
+- Description: `Shows a list of available commands. If a specific command is provided, displays detailed help for that command.`
 
 - Usage example:
   - `syrup -h gen-hook (specific command help)`
@@ -142,6 +176,48 @@ Below is a list of commands supported by the CLI tool along with their descripti
   - `syrup --help gen-comp (specific command help)`
 
 ---
+
+## Generate Subdirectories in Components Directory
+
+The `syrup gen-dirs` command allows you to generate multiple directories within the Components directory.
+
+### Input
+
+#
+
+To generate directories, execute the following command:
+
+```bash
+syrup gen-dirs <directoryNames...>
+```
+
+Replace <directoryNames...> with one or more directory names you want to create. For example:
+
+```bash
+syrup gen-dirs Layout Form Elements Buttons
+```
+
+### Output
+
+#
+
+Upon running the command, the specified directories will be generated within the Components directory. For example, executing the above command will create the following directory structure:
+
+```bash
+components/
+  ├── Buttons/
+  ├── Elements/
+  ├── Form/
+  └── Layout/
+```
+
+### Boilerplate
+
+#
+
+The gen-dirs command does not generate any specific files or boilerplate code. It simply creates empty directories within the Components directory.
+
+#
 
 ## Generate App Component Files
 
@@ -186,6 +262,8 @@ After selecting a subdirectory, the component files will be generated. Here's an
 ```
 
 ### Boilerplate
+
+<a id="boilerplate"></a>
 
 #
 
@@ -266,6 +344,95 @@ describe('${componentName}', () => {
     // Add your assertions here
   });
 });
+```
+
+#
+
+## Generate Multiple App Components
+
+The "syrup gcs" command allows you to generate multiple app components with associated files.
+
+### Input
+
+#
+
+To generate multiple components, execute the following command:
+
+```bash
+syrup gcs <componentNames...>
+```
+
+Replace <componentNames...> with a list of component names separated by spaces. For example:
+
+```bash
+syrup gen-comps Button Popover Avatar
+```
+
+### Output
+
+#
+
+Upon running the command, you will be prompted to choose a subdirectory for each component. The prompt will be repeated for each component name provided. Select a subdirectory from the options presented.
+
+```bash
+$ syrup gen-comps Button Popover Avatar
+? Choose a subdirectory for the component Button: (Use arrow keys)
+❯ Category1
+  Category2
+  Category3
+? Choose a subdirectory for the component Popover: (Use arrow keys)
+❯ Category1
+  Category2
+  Category3
+? Choose a subdirectory for the component Avatar: (Use arrow keys)
+❯ Category1
+  Category2
+  Category3
+
+```
+
+After selecting a subdirectory for each component, the corresponding component files will be generated. The output will indicate the generated folders and files for each component:
+
+```bash
+[INFO] Generated Folders:
+[SUCCESS] ✔ C:\***\***\src\components\Category1\Button
+
+[INFO] Generated Files:
+[SUCCESS] ✔ Generated Storybook File: Button.stories.tsx
+[SUCCESS] ✔ Generated Component File: Button.tsx
+[SUCCESS] ✔ Generated Test File: Button.test.tsx
+[INFO] Lines of Code Generated: 61
+[INFO] Files Generated: 3
+
+[INFO] Generated Folders:
+[SUCCESS] ✔ C:\***\***\src\components\Category1\Popover
+
+[INFO] Generated Files:
+[SUCCESS] ✔ Generated Storybook File: Popover.stories.tsx
+[SUCCESS] ✔ Generated Component File: Popover.tsx
+[SUCCESS] ✔ Generated Test File: Popover.test.tsx
+[INFO] Lines of Code Generated: 61
+[INFO] Files Generated: 3
+
+[INFO] Generated Folders:
+[SUCCESS] ✔ C:\***\***\src\components\Category1\Avatar
+
+[INFO] Generated Files:
+[SUCCESS] ✔ Generated Storybook File: Avatar.stories.tsx
+[SUCCESS] ✔ Generated Component File: Avatar.tsx
+[SUCCESS] ✔ Generated Test File: Avatar.test.tsx
+[INFO] Lines of Code Generated: 61
+[INFO] Files Generated: 3
+```
+
+### Boilerplate
+
+#
+
+[See Generate App Component Files Boilerplate section](#boilerplate), which contains the templates used for each generated component from:
+
+```bash
+syrup gcs Button Popover Avatar
 ```
 
 #

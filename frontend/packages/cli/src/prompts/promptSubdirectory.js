@@ -26,6 +26,12 @@ export async function promptSubdirectory() {
       message: 'Choose a subdirectory for the component:',
       choices: componentFolders,
       default: componentFolders[0],
+      validate: (input) => {
+        if (!input.trim()) {
+          return 'Subdirectory name cannot be empty';
+        }
+        return true;
+      },
     },
   ]);
 

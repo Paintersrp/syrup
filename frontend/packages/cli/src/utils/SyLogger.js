@@ -74,10 +74,12 @@ export class SyLogger {
 
   static async ensureAndLogDir(dir) {
     try {
-      await fs.ensureDir(dir);
-      SyLogger.log(`Generated Folders:`, 'info');
-      SyLogger.log(`✔ ${dir} \n`, 'success');
-      SyLogger.log(`Generated Files:`, 'info');
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir);
+        SyLogger.log(`Generated Directory: ✔ ${dir}`, 'success');
+      } else {
+        SyLogger.log(`Used existing Directory: ✔ ${dir}`, 'success');
+      }
     } catch (error) {
       SyLogger.error(`Failed to ensure folder at path: ${dir}`);
       SyError.throw(error.message, error.code);
