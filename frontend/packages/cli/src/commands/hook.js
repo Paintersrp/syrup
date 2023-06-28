@@ -4,8 +4,17 @@ import path from 'path';
 import { genHookFile } from '../generators/genHookFile.js';
 import { Logger } from '../utils/logger.js';
 
+/**
+ * The current directory path.
+ */
 const __dirname = path.resolve();
 
+/**
+ * Builds a hook file for the specified store name.
+ *
+ * @param {string} storeName - The name of the store to build the hook file for.
+ * @returns {Promise<void>} A promise that resolves when the hook file is built.
+ */
 async function buildHookFile(storeName) {
   const hooksDirectory = path.join(__dirname, 'src', 'hooks');
 

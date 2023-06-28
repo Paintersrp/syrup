@@ -1,7 +1,11 @@
 import { deplural } from '../utils/format.js';
 
-//*****************************************************************************************/
-
+/**
+ * Returns the template for generating a basic component.
+ *
+ * @param {string} componentName - The name of the component.
+ * @returns {string} - The component basic template.
+ */
 const ComponentBasicTemplate = (componentName) =>
   `
 import { FC } from 'react';
@@ -17,8 +21,12 @@ export const ${componentName}: FC<Props> = ({ ...rest }) => {
 };
 `;
 
-//*****************************************************************************************/
-
+/**
+ * Returns the template for generating a hook.
+ *
+ * @param {string} featureName - The name of the feature.
+ * @returns {string} - The hook template.
+ */
 const HookTemplate = (featureName) =>
   `
 import { useQuery } from 'react-query';
@@ -49,8 +57,12 @@ export const use${featureName} = ({ config }: Use${featureName}Options = {}) => 
 };
 `;
 
-//*****************************************************************************************/
-
+/**
+ * Returns the template for generating types for a feature.
+ *
+ * @param {string} featureName - The name of the feature.
+ * @returns {string} - The index types template.
+ */
 const IndexTypesTemplate = (featureName) =>
   `
 export type ${featureName}Content = {
@@ -59,8 +71,13 @@ export type ${featureName}Content = {
 };
 `;
 
-//*****************************************************************************************/
-
+/**
+ * Returns the template for generating a page component.
+ *
+ * @param {string} featureName - The name of the feature.
+ * @param {boolean} [unplural=false] - Whether to depluralize the feature name.
+ * @returns {string} - The page template.
+ */
 const PageTemplate = (featureName, unplural = false) =>
   `
 import { FC } from 'react';
@@ -86,7 +103,5 @@ export const ${unplural ? deplural(featureName) : featureName}: FC = () => {
   );
 };
 `;
-
-//*****************************************************************************************/
 
 export { ComponentBasicTemplate, HookTemplate, IndexTypesTemplate, PageTemplate };

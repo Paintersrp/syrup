@@ -8,12 +8,23 @@ import {
 import { generateFile } from '../utils/generateFile.js';
 import { Logger } from '../utils/logger.js';
 
+/**
+ * Generates component files based on the provided template and file names.
+ * @param {string} formattedName - The formatted name of the component.
+ * @param {Array} generatedFiles - An array to store the generated file paths.
+ * @param {string} componentDirectory - The directory path where the files will be generated.
+ * @returns {Promise<void>}
+ */
 export async function genComponentFiles(formattedName, generatedFiles, componentDirectory) {
-  // Array of files to be made
-  // Each Returns:
-  //     template: Template file to be used
-  //     fileName: Sets the file path/file name
-  //     displayName: Display name for Logger feedback
+  /**
+   * Array of file templates to be generated.
+   * Each object in the array contains the following properties:
+   * - template: The template file to be used.
+   * - fileName: The file path and name for the generated file.
+   * - displayName: The display name for logging feedback.
+   *
+   * @type {Array<{ template: string, fileName: string, displayName: string }>}
+   */
   const fileTemplates = [
     {
       template: ComponentFullTemplate(formattedName),
@@ -32,7 +43,9 @@ export async function genComponentFiles(formattedName, generatedFiles, component
     },
   ];
 
-  // Generate files and log success or fail
+  /**
+   * Generate files and log success or fail.
+   */
   await Promise.all(
     fileTemplates.map(async ({ template, fileName, displayName }) => {
       try {

@@ -9,12 +9,24 @@ import { PageTemplate } from '../template/shared.js';
 import { generateFile } from '../utils/generateFile.js';
 import { Logger } from '../utils/logger.js';
 
+/**
+ * Generates individual feature files for a given feature directory and formatted name.
+ *
+ * @param {string} featureDirectory - The directory where the feature files will be generated.
+ * @param {string} formattedName - The formatted name used for the feature files.
+ * @param {string[]} generatedFiles - An array to store the paths of the generated files.
+ * @returns {Promise<void>} A promise that resolves when the individual feature file generation is complete.
+ */
 export async function genIndividualFiles(featureDirectory, formattedName, generatedFiles) {
-  // Array of files to be made
-  // Each Returns:
-  //     template: Template file to be used
-  //     fileName: Sets the file path/file name
-  //     displayName: Display name for Logger feedback
+  /**
+   * Array of file templates to be generated.
+   * Each object in the array contains the following properties:
+   * - template: The template file to be used.
+   * - fileName: The file path and name for the generated file.
+   * - displayName: The display name for logging feedback.
+   *
+   * @type {Array<{ template: string, fileName: string, displayName: string }>}
+   */
   const fileTemplates = [
     {
       template: PageTemplate(formattedName),
@@ -38,7 +50,9 @@ export async function genIndividualFiles(featureDirectory, formattedName, genera
     },
   ];
 
-  // Generate files and log success or fail
+  /**
+   * Generate files and log success or fail.
+   */
   await Promise.all(
     fileTemplates.map(async ({ template, fileName, displayName }) => {
       try {

@@ -5,8 +5,18 @@ import { genFeatureComponentFiles } from '../generators/genFeatureComponentFiles
 import { capFirst } from '../utils/format.js';
 import { Logger } from '../utils/logger.js';
 
+/**
+ * The current directory path.
+ */
 const __dirname = path.resolve();
 
+/**
+ * Builds feature component files for the specified feature name and component count.
+ *
+ * @param {string} featureName - The name of the feature to build component files for.
+ * @param {number} componentCount - The number of components to generate for the feature.
+ * @returns {Promise<void>} A promise that resolves when the feature component files are built.
+ */
 async function buildFeatureComponentFiles(featureName, componentCount) {
   const generatedFiles = [];
   const componentImports = [];

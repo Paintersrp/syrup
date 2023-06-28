@@ -5,19 +5,36 @@ import { IndexHookSuiteTemplate, IndexSuiteTemplate, RouteTemplate } from '../te
 import { generateFile } from '../utils/generateFile.js';
 import { Logger } from '../utils/logger.js';
 
+/**
+ * Generates suite-related files for the feature directory.
+ *
+ * @param {string} featureDirectory - The feature directory where the files will be generated.
+ * @param {string} formattedName - The formatted name used for file generation.
+ * @param {string} depluraledName - The pluralized name used for file generation.
+ * @param {string[]} generatedFiles - An array to store the paths of the generated files.
+ * @returns {Promise<void>} A promise that resolves when the suite file generation is complete.
+ */
 export async function genSuiteFiles(
   featureDirectory,
   formattedName,
   depluraledName,
   generatedFiles
 ) {
-  // Array of files to be made
-  // Each Returns:
-  //     template: Template file to be used
-  //     fileName: Sets the file path/file name
-  //         isPlural prop helps create two different Pages
-  //
-  //     displayName: Display name for Logger feedback
+  /**
+   * Array of file templates to be generated.
+   * Each object in the array contains the following properties:
+   * - template: The template file to be used.
+   * - fileName: The file path and name for the generated file. It can be a string or a function.
+   * - displayName: The display name for logging feedback.
+   * - isPlural: A flag indicating whether the file name should be based on the pluralized name.
+   *
+   * @type {Array<{
+   *   template: (isPlural: boolean) => string,
+   *   fileName: string | ((isPlural: boolean) => string),
+   *   displayName: string,
+   *   isPlural?: boolean
+   * }>}
+   */
   const fileTemplates = [
     {
       template: (isPlural) => PageTemplate(isPlural ? depluraledName : formattedName),
@@ -55,7 +72,9 @@ export async function genSuiteFiles(
     },
   ];
 
-  // Generate files and log success or fail
+  /**
+   * Generate files and log success or fail.
+   */
   await Promise.all(
     fileTemplates.map(async ({ template, fileName, displayName, isPlural = true }) => {
       try {

@@ -1,5 +1,9 @@
-//*****************************************************************************************/
-
+/**
+ * Returns the template for generating component stories in Storybook.
+ *
+ * @param {string} componentName - The name of the component.
+ * @returns {string} - The component stories template.
+ */
 const ComponentStoriesTemplate = (componentName) =>
   `
 import { Meta, StoryFn } from '@storybook/react';
@@ -17,8 +21,12 @@ const Template: StoryFn<${componentName}Props> = (args) => (
 export const Dynamic = Template.bind({});
 `;
 
-//*****************************************************************************************/
-
+/**
+ * Returns the template for generating component tests.
+ *
+ * @param {string} componentName - The name of the component.
+ * @returns {string} - The component test template.
+ */
 const ComponentTestTemplate = (componentName) =>
   `
 import React from 'react';
@@ -33,8 +41,12 @@ describe('${componentName}', () => {
 });
 `;
 
-//*****************************************************************************************/
-
+/**
+ * Returns the template for generating a full component file.
+ *
+ * @param {string} componentName - The name of the component.
+ * @returns {string} - The full component template.
+ */
 const ComponentFullTemplate = (componentName) =>
   `
 import { FC } from 'react';
@@ -73,7 +85,5 @@ export const ${componentName}: FC<${componentName}Props> = ({ prop, ...rest }) =
   );
 };
 `;
-
-//*****************************************************************************************/
 
 export { ComponentStoriesTemplate, ComponentTestTemplate, ComponentFullTemplate };

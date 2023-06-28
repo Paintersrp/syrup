@@ -1,6 +1,10 @@
 import inquirer from 'inquirer';
 import { validateNumber } from '../utils/validate.js';
 
+/**
+ * Prompts the user to choose a feature type.
+ * @returns {Promise<string>} - The selected feature type ('Individual' or 'Suite').
+ */
 async function promptFeatureType() {
   const { featureType } = await inquirer.prompt([
     {
@@ -15,6 +19,10 @@ async function promptFeatureType() {
   return featureType;
 }
 
+/**
+ * Prompts the user to enter the count of pre-generated components.
+ * @returns {Promise<number>} - The selected component count.
+ */
 async function promptComponentCount() {
   const { componentCount } = await inquirer.prompt([
     {

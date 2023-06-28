@@ -4,6 +4,16 @@ import { ComponentBasicTemplate, HookTemplate, IndexTypesTemplate } from '../tem
 import { generateFile } from '../utils/generateFile.js';
 import { Logger } from '../utils/logger.js';
 
+/**
+ * Generates shared files for a feature directory with components, hooks, and types.
+ *
+ * @param {string} featureDirectory - The directory where the feature files will be generated.
+ * @param {string} formattedName - The formatted name used for the feature files.
+ * @param {string[]} generatedFiles - An array to store the paths of the generated files.
+ * @param {number} componentCount - The number of components to generate.
+ * @param {string[]} componentImports - An array to store the component imports for the index file.
+ * @returns {Promise<void>} A promise that resolves when the shared file generation is complete.
+ */
 export async function genSharedFiles(
   featureDirectory,
   formattedName,
@@ -11,11 +21,15 @@ export async function genSharedFiles(
   componentCount,
   componentImports
 ) {
-  // Array of files to be made
-  // Each Returns:
-  //     template: Template file to be used
-  //     fileName: Sets the file path/file name
-  //     displayName: Display name for Logger feedback
+  /**
+   * Array of file templates to be generated.
+   * Each object in the array contains the following properties:
+   * - template: The template file to be used.
+   * - fileName: The file path and name for the generated file.
+   * - displayName: The display name for logging feedback.
+   *
+   * @type {Array<{ template: string, fileName: string, displayName: string }>}
+   */
   const fileTemplates = [
     {
       template: ComponentBasicTemplate,
@@ -36,18 +50,24 @@ export async function genSharedFiles(
 
   const componentPromises = Array.from({ length: componentCount }, (_, i) => i + 1).map(
     async (i) => {
-      // Iterates the number of components, creating imports in the index
+      /**
+       * Iterates the number of components, creating imports in the index.
+       */
       const componentName = `${formattedName}${i}`;
       componentImports.push(`export { ${componentName} } from './${componentName}';`);
 
-      // Finds the component template and sets the generated component name using the index
+      /**
+       * Finds the component template and sets the generated component name using the index.
+       */
       const fileTemplate = fileTemplates.find(
         ({ displayName }) => displayName === 'Component File'
       );
       const template = fileTemplate.template(componentName);
       const fileName = fileTemplate.fileName(i);
 
-      // Generate component and log success or fail
+      /**
+       * Generate component and log success or fail.
+       */
       try {
         await generateFile(fileName, template, generatedFiles);
         Logger.log(`✔ Generated Component #${i}: ${fileName}`, 'success');
@@ -56,7 +76,9 @@ export async function genSharedFiles(
         Logger.error(error);
       }
 
-      // Generate the index.ts file with component imports
+      /**
+       * Generate the index.ts file with component imports.
+       */
       const indexFilePath = path.join(featureDirectory, 'components', 'index.ts');
       const componentImportsContent = componentImports.join('\n');
       await generateFile(indexFilePath, componentImportsContent, generatedFiles);
@@ -67,11 +89,15 @@ export async function genSharedFiles(
   const remainingFilePromises = fileTemplates
     .filter(({ displayName }) => displayName !== 'Component File')
     .map(async ({ template, fileName, displayName }) => {
-      // Checks if fileName requires a function (for Component) and provides an empty index
+      /**
+       * Checks if fileName requires a function (for Component) and provides an empty index.
+       */
       const generatedFileName = fileName;
       const generatedTemplate = template(formattedName);
 
-      // Generate file and log success or fail
+      /**
+       * Generate files and log success or fail.
+       */
       try {
         await generateFile(generatedFileName, generatedTemplate, generatedFiles);
         Logger.log(`✔ Generated ${displayName}: ${generatedFileName}`, 'success');

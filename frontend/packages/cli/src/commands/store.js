@@ -5,8 +5,17 @@ import { genStoreFile } from '../generators/genStoreFile.js';
 import { capFirst } from '../utils/format.js';
 import { Logger } from '../utils/logger.js';
 
+/**
+ * The current directory path.
+ */
 const __dirname = path.resolve();
 
+/**
+ * Builds a store file for the specified store name.
+ *
+ * @param {string} storeName - The name of the store to build the file for.
+ * @returns {Promise<void>} A promise that resolves when the store file is built.
+ */
 async function buildStoreFile(storeName) {
   const lowercaseName = storeName.toLowerCase();
   const formattedName = capFirst(storeName);
