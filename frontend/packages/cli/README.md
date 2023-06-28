@@ -28,137 +28,90 @@ syrup [command] [options]
 
 #
 
-## Full Command List
+## CLI Command List
 
-```bash
-# Generate an app component file
-#
-# <componentName>: string to be used for component name
-#   Good Examples:  Button,
-#                   Popover
-#
-#   Bad Examples:   btn,
-#                   popOver,
-syrup gen-comp <componentName>
-syrup gen-comp Button
+Below is a list of commands supported by the CLI tool along with their descriptions and usage examples:
 
-syrup gen-c <componentName>
-syrup gen-c Button
+---
 
-syrup gc <componentName>
-syrup gc Button
+- **Generate an app component file**
+  - Command: `syrup gen-comp <componentName>`
+  - Aliases: `syrup gen-c <componentName>`, `syrup gc <componentName>`
+  - Description: Generates an app component file.
+  - Usage example: `syrup gen-comp Button`
 
-# Generate an app feature folder structure and files
-#
-# <featureName>: string to be used for feature name
-#   Good Examples:  posts,
-#   (Suite)         services,
-#                   comments,
-#
-#   Bad Examples:   post,
-#                   ServiceFeature,
-#                   Comments,
-#
-#   Good Examples:  post,
-#   (Individual)    service,
-#                   comment,
-#
-#   Bad Examples:   posts,
-#                   Comment,
-#                   service-feature,
-#
-# --type: Type of Feature to generate (Suite or Individual)
-#   Suite: Generates 2 Pages and 2 Hooks
-#   Individual: Generates 1 Page and 1 Hook
-# --count: Number of components to include when generating, defaults 1
-syrup gen-feat <featureName> --type <Suite or Individual> --count <number>
-syrup gen-feat posts --type Suite --count 1
+---
 
-syrup gen-f <featureName> --type <Suite or Individual> --count <number>
-syrup gen-f posts --type Individual --count 3
+- **Generate an app feature folder structure and files**
 
-syrup gf <featureName> --type <Suite or Individual> --count <number>
-syrup gf posts --type Suite --count 8
+  - Command: `syrup gen-feat <featureName> --type <Suite or Individual> --count <number>`
+  - Aliases: `syrup gen-f <featureName> --type <Suite or Individual> --count <number>`, `syrup gf <featureName> --type <Suite or Individual> --count <number>`
+  - Description: Generates an app feature folder structure and files.
+  - Usage example: `syrup gen-feat posts --type Suite --count 1`
 
-or pass with no options (i.e => no --type and --count) for prompt input
+---
 
-# Generate feature components
-#
-# --name: Name of feature to generate components in
-# --count: Number of components to generate
-syrup gen-feat-comp --name <Feature Name> --count <number>
-syrup gen-feat-comp --name services --count 5
+- **Generate feature components**
 
-syrup gen-f-c --name <Feature Name> --count <number>
-syrup gen-f-c --name services --count 3
+  - Command: `syrup gen-feat-comp --name <Feature Name> --count <number>`
+  - Aliases: `syrup gen-f-c --name <Feature Name> --count <number>`, `syrup gfc --name <Feature Name> --count <number>`
+  - Description: Generates feature components.
+  - Usage example: `syrup gen-feat-comp --name services --count 5`
 
-syrup gfc --name <Feature Name> --count <number>
-syrup gfc --name services --count 1
+---
 
-or pass with no options (i.e => no --name and --count) for prompt input
+- **Generate an app hook**
 
-# Generate an app hook
-#
-# <hookName>: string to be used for hook name
-#   Good Examples:  useBreakpoint,
-#                   useModal
-#
-#   Bad Examples:   breakpointHook,
-#                   modals
-syrup gen-hook <hookName>
-syrup gen-hook useBreakpoint
+  - Command: `syrup gen-hook <hookName>`
+  - Aliases: `syrup gen-h <hookName>`, `syrup gh <hookName>`
+  - Description: Generates an app hook.
+  - Usage example: `syrup gen-hook useBreakpoint`
 
-syrup gen-h <hookName>
-syrup gen-h useBreakpoint
+---
 
-syrup gh <hookName>
-syrup gh useBreakpoint
+- **Generate an app store**
 
-# Generate an app store
-#
-# <storeName>: string to be used for hook name
-#   Good Examples:  auth,
-#                   alert,
-#
-#   Bad Examples:   Auth,
-#                   alertStore,
-syrup gen-store <storeName>
-syrup gen-store auth
+  - Command: `syrup gen-store <storeName>`
+  - Aliases: `syrup gen-s <storeName>`, `syrup gs <storeName>`
+  - Description: Generates an app store.
+  - Usage example: `syrup gen-store auth`
 
-syrup gen-s <storeName>
-syrup gen-s auth
+---
 
-syrup gs <storeName>
-syrup gs auth
+- **Display version**
 
-# Display version
-syrup -V
-syrup --version
+  - Command: `syrup -V` or `syrup --version`
+  - Description: Displays the version of the CLI tool.
 
-# Get a list of commands
-# Pass a [command] for more help
-syrup -h [command]
-syrup help [command]
-syrup --help [command]
+---
 
-syrup -h gen-hook (specific command help)
-syrup help (full help menu, no command passed)
-syrup --help gen-comp (specific command help)
-```
+- **Get a list of commands**
+
+  - Command: `syrup -h [command]`, `syrup help [command]`, `syrup --help [command]`
+  - Description: Shows a list of available commands. If a specific command is provided, displays detailed help for that command.
+  - Usage example: `syrup -h gen-hook` (specific command help), `syrup help` (full help menu, no command passed), `syrup --help gen-comp` (specific command help)
+
+---
+
+## Generate App Component Files
+
+The "syrup gc" command generates a component file with boilerplate code, along with accompanying .test and .stories files.
+
+### Input
 
 #
 
-### Generate App Component Files
-
-Generates a component file with boilerplate as well as a .test and .stories file
-
-#### Input
+To generate a component named "Button", execute the following command:
 
 ```bash
 syrup gc Button
 ```
 
-#### Output
+### Output
+
+#
+
+Upon running the command, you will be prompted to choose a subdirectory for the component. Select one from the provided options. For example:
 
 ```bash
 $ syrup gc Button
@@ -166,11 +119,11 @@ $ syrup gc Button
 ❯ Category1
   Category2
   Category3
+```
 
-You will be prompted for a subdirectory of src/components
-=>
-$ syrup gc Button
+After selecting a subdirectory, the component files will be generated. Here's an example output:
 
+```bash
 [INFO] Generated Folders:
 [SUCCESS] ✔ C:\***\***\src\components\Category1\Button
 
@@ -180,9 +133,13 @@ $ syrup gc Button
 [SUCCESS] ✔ Generated Test File: Button.test.tsx
 ```
 
-#### Boilerplate
+### Boilerplate
 
-##### Component (Component.tsx)
+#
+
+#### Component (Component.tsx)
+
+The generated component file contains the following boilerplate code:
 
 ```bash
 import { FC } from 'react';
@@ -222,7 +179,9 @@ export const ${componentName}: FC<${componentName}Props> = ({ prop, ...rest }) =
 };
 ```
 
-##### Storybook File (Component.stories.tsx)
+#### Storybook File (Component.stories.tsx)
+
+The generated component file contains the following boilerplate code:
 
 ```bash
 import { Meta, StoryFn } from '@storybook/react';
@@ -240,7 +199,9 @@ const Template: StoryFn<${componentName}Props> = (args) => (
 export const Dynamic = Template.bind({});
 ```
 
-##### Test File (Component.test.tsx)
+#### Test File (Component.test.tsx)
+
+The generated test file contains the following boilerplate code:
 
 ```bash
 import React from 'react';
@@ -257,23 +218,37 @@ describe('${componentName}', () => {
 
 #
 
-### Generate Feature Files
+## Generate Feature Files
 
-A suite generates multiple pages and hooks. An individual generates one page and hook.
+The syrup gf command is used to generate multiple pages and hooks for a feature. You can choose between generating an individual feature or a suite of features. For suites, the feature name should be in plural form, such as "posts" instead of "post" or "services" instead of "service".
 
-Suites generated should have a plural feature name, i.e posts not post or services not service
+### Input
 
-#### Input
+#
+
+You can use the following command with options:
 
 ```bash
 syrup gf posts --type Suite --count 5
-or
-syrup gf posts (uses prompts for options)
 ```
 
-#### Output
+- --type <feature-type> (optional): Specifies the type of feature to be generated. Suite generates 2 Page files and 2 Hook files, while Individual generates 1 Page file and 1 Hook file. If not provided, Syrup will prompt you to enter the type.
+
+- --count <component-count> (optional): Specifies the number of pre-generated components to create. If not provided, Syrup will prompt you to enter the count.
+
+Alternatively, you can use prompts for options by running the command without any arguments:
+
+```bash
+syrup gf posts
+```
+
+### Output
+
+#
 
 ##### Without Prompts
+
+Running the command with options will generate the following files and folders:
 
 ```bash
 $ syrup gf posts --type Suite --count 5
@@ -299,6 +274,8 @@ $ syrup gf posts --type Suite --count 5
 ```
 
 ##### With Prompts
+
+Running the command without any arguments will prompt you for the feature type and the number of pre-generated components. Here's an example:
 
 ```bash
 $ syrup gf posts
@@ -334,9 +311,13 @@ $ syrup gf posts
 [SUCCESS] ✔ Generated Component Index: C:\syrup\web\src\features\posts\components\index.ts
 ```
 
-#### Boilerplate
+### Boilerplate
 
-##### Page
+#
+
+#### Page
+
+The generated page files contains the following boilerplate code:
 
 ```bash
 import { FC } from 'react';
@@ -363,7 +344,9 @@ export const ${unplural ? deplural(featureName) : featureName}: FC = () => {
 };
 ```
 
-##### Component
+#### Component
+
+The generated component files contain the following boilerplate code:
 
 ```bash
 import { FC } from 'react';
@@ -379,7 +362,9 @@ export const ${componentName}: FC<Props> = ({ ...rest }) => {
 };
 ```
 
-##### Routes Index File
+#### Routes Index File
+
+The generated routes index file contains the following boilerplate code:
 
 ```bash
 import { Navigate, Route, Routes } from 'react-router-dom';
@@ -398,7 +383,9 @@ export const ${featureName}Routes = () => {
 };
 ```
 
-##### API Hook
+#### API Hook
+
+The generated API hook files contain the following boilerplate code:
 
 ```bash
 import { useQuery } from 'react-query';
@@ -431,23 +418,37 @@ export const use${featureName} = ({ config }: Use${featureName}Options = {}) => 
 
 #
 
-### Generate Feature Component Files
+## Generate Feature Component Files
 
-Generates a specified amount of components in the specificed feature.
+Generates a specified number of components in the specified feature.
 
-If using the prompt, syrup will automatically give a list of folders in the features folder.
+If executed without prompts, Syrup will automatically use the list of folders in the features folder.
 
-#### Input
+### Input
+
+#
 
 ```bash
 syrup gfc --name posts --count 5
-or
-syrup gfc (uses prompts for options)
 ```
 
-#### Output
+- --name <feature-name> (optional): Specifies the name of the feature where the components will be generated. If not provided, Syrup will prompt you to choose a feature from the available list.
 
-##### Without Prompts
+- --count <component-count> (optional): Specifies the number of pre-generated components to create. If not provided, Syrup will prompt you to enter the count.
+
+Alternatively, you can use prompts for options by running the command without any arguments:
+
+```bash
+syrup gfc
+```
+
+### Output
+
+#
+
+#### With Prompts
+
+Example Usage with Prompts
 
 ```bash
 $ syrup gfc --name posts --count 5
@@ -464,7 +465,9 @@ $ syrup gfc --name posts --count 5
 [SUCCESS] ✔ Generated Component Index: C:\syrup\web\src\features\posts\components\index.ts
 ```
 
-##### With Prompts
+#### Without Prompts
+
+Example Usage without Prompts
 
 ```bash
 $ syrup gfc
@@ -492,9 +495,13 @@ $ syrup gfc
 [SUCCESS] ✔ Generated Component Index: C:\syrup\web\src\features\posts\components\index.ts
 ```
 
-#### Boilerplate
+### Boilerplate
 
-##### Component
+#
+
+#### Component
+
+The generated component files contain the following boilerplate code:
 
 ```bash
 import { FC } from 'react';
@@ -512,17 +519,25 @@ export const ${componentName}: FC<Props> = ({ ...rest }) => {
 
 #
 
-### Generate App Hook Files
+## Generate App Hook Files
 
 Generate boilerplate hook file.
 
-#### Input
+### Input
+
+#
 
 ```bash
-syrup gh useBreakpoint
+syrup gh <hookName>
 ```
 
-#### Output
+- hookName: Specifies the name of the hook file to generate.
+
+### Output
+
+#
+
+Example Usage
 
 ```bash
 $ syrup gh useBreakpoint
@@ -534,7 +549,13 @@ $ syrup gh useBreakpoint
 [SUCCESS] ✔ Generated Hook File: useBreakpoint.tsx
 ```
 
-#### Boilerplate
+### Boilerplate
+
+#
+
+#### Hook File
+
+The generated hook file contains the following boilerplate code:
 
 ```bash
 import { useState, useEffect } from 'react';
@@ -552,17 +573,25 @@ export const ${hookName} = (prop: any): any => {
 
 #
 
-### Generate App Store Files
+## Generate App Store Files
 
-Generate store file (zustand).
+Generates a store file using Zustand.
 
-#### Input
+### Input
+
+#
 
 ```bash
-syrup gs auth
+syrup gs <storeName>
 ```
 
-#### Output
+- storeName: Specifies the name of the store file to generate.
+
+### Output
+
+#
+
+Example Usage
 
 ```bash
 $ syrup gs auth
@@ -574,7 +603,13 @@ $ syrup gs auth
 [SUCCESS] ✔ Generated Store File: auth.tsx
 ```
 
-#### Boilerplate
+### Boilerplate
+
+#
+
+#### Store File
+
+The generated store file contains the following boilerplate code:
 
 ```bash
 import { create } from 'zustand';
