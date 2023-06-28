@@ -11,7 +11,7 @@ import { Logger } from '../utils/logger.js';
 const __dirname = path.resolve();
 
 /**
- * Builds a store file for the specified store name.
+ * Builds a store file with the specified store name.
  *
  * @param {string} storeName - The name of the store to build the file for.
  * @returns {Promise<void>} A promise that resolves when the store file is built.

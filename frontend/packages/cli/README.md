@@ -28,53 +28,122 @@ syrup [command] [options]
 
 #
 
-## Commands
-
-### Quick List
+## Full Command List
 
 ```bash
-Generate a non-feature component file
----------------------------------------
+# Generate an app component file
+#
+# <componentName>: string to be used for component name
+#   Good Examples:  Button,
+#                   Popover
+#
+#   Bad Examples:   btn,
+#                   popOver,
 syrup gen-comp <componentName>
+syrup gen-comp Button
+
 syrup gen-c <componentName>
+syrup gen-c Button
+
 syrup gc <componentName>
+syrup gc Button
 
-Generate feature files
-----------------------------------------------------------------------------
+# Generate an app feature folder structure and files
+#
+# <featureName>: string to be used for feature name
+#   Good Examples:  posts,
+#   (Suite)         services,
+#                   comments,
+#
+#   Bad Examples:   post,
+#                   ServiceFeature,
+#                   Comments,
+#
+#   Good Examples:  post,
+#   (Individual)    service,
+#                   comment,
+#
+#   Bad Examples:   posts,
+#                   Comment,
+#                   service-feature,
+#
+# --type: Type of Feature to generate (Suite or Individual)
+#   Suite: Generates 2 Pages and 2 Hooks
+#   Individual: Generates 1 Page and 1 Hook
+# --count: Number of components to include when generating, defaults 1
 syrup gen-feat <featureName> --type <Suite or Individual> --count <number>
+syrup gen-feat posts --type Suite --count 1
+
 syrup gen-f <featureName> --type <Suite or Individual> --count <number>
+syrup gen-f posts --type Individual --count 3
+
 syrup gf <featureName> --type <Suite or Individual> --count <number>
+syrup gf posts --type Suite --count 8
 
-Generate feature components
----------------------------------------
-syrup gen-feat-comp
-syrup gen-f-c
-syrup gfc
+or pass with no options (i.e => no --type and --count) for prompt input
 
-Generate an app hook
----------------------------------------
+# Generate feature components
+#
+# --name: Name of feature to generate components in
+# --count: Number of components to generate
+syrup gen-feat-comp --name <Feature Name> --count <number>
+syrup gen-feat-comp --name services --count 5
+
+syrup gen-f-c --name <Feature Name> --count <number>
+syrup gen-f-c --name services --count 3
+
+syrup gfc --name <Feature Name> --count <number>
+syrup gfc --name services --count 1
+
+or pass with no options (i.e => no --name and --count) for prompt input
+
+# Generate an app hook
+#
+# <hookName>: string to be used for hook name
+#   Good Examples:  useBreakpoint,
+#                   useModal
+#
+#   Bad Examples:   breakpointHook,
+#                   modals
 syrup gen-hook <hookName>
+syrup gen-hook useBreakpoint
+
 syrup gen-h <hookName>
+syrup gen-h useBreakpoint
+
 syrup gh <hookName>
+syrup gh useBreakpoint
 
-Generate an app store
----------------------------------------
+# Generate an app store
+#
+# <storeName>: string to be used for hook name
+#   Good Examples:  auth,
+#                   alert,
+#
+#   Bad Examples:   Auth,
+#                   alertStore,
 syrup gen-store <storeName>
-syrup gen-s <storeName>
-syrup gs <storeName>
+syrup gen-store auth
 
-Display version
----------------------------------------
+syrup gen-s <storeName>
+syrup gen-s auth
+
+syrup gs <storeName>
+syrup gs auth
+
+# Display version
 syrup -V
 syrup --version
 
-Get a list of commands
-Pass a [command] for more help
----------------------------------------
+# Get a list of commands
+# Pass a [command] for more help
 syrup -h [command]
 syrup help [command]
 syrup --help [command]
 
+syrup -h gen-hook (specific command help)
+syrup help (full help menu, no command passed)
+syrup --help gen-comp (specific command help)
 ```
 
 #

@@ -10,9 +10,9 @@ import { Logger } from '../utils/logger.js';
 const __dirname = path.resolve();
 
 /**
- * Builds a hook file for the specified store name.
+ * Builds a hook file with the specified hook name.
  *
- * @param {string} storeName - The name of the store to build the hook file for.
+ * @param {string} hookName - The name of the hook to build the hook file for.
  * @returns {Promise<void>} A promise that resolves when the hook file is built.
  */
 async function buildHookFile(storeName) {
