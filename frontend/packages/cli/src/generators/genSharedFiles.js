@@ -1,7 +1,9 @@
 import path from 'path';
+import { FEATURE_COMPONENT_TYPE } from '../../config.js';
 
 import {
   ComponentBasicTemplate,
+  ComponentFullTemplate,
   FeatureHookTemplate,
   IndexTypesTemplate,
 } from '../templates/index.js';
@@ -40,10 +42,16 @@ export async function genSharedFiles(
     const componentName = `${formattedName}${i}`;
     componentImports.push(`export { ${componentName} } from './${componentName}';`);
 
-    const fileTemplate = ComponentBasicTemplate(componentName);
+    let fileTemplate;
+    if (FEATURE_COMPONENT_TYPE === 'basic') {
+      fileTemplate = ComponentBasicTemplate(componentName);
+    } else {
+      fileTemplate = ComponentFullTemplate(componentName);
+    }
+
     const fileName = path.join(featureDirectory, 'components', `${componentName}.tsx`);
 
-    await generator.addFileTemplate(fileTemplate, fileName, 'Component Basic File');
+    await generator.addFileTemplate(fileTemplate, fileName, 'Component File');
   }
 
   generator.addFileTemplate(
