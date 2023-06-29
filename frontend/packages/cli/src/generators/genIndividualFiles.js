@@ -1,10 +1,12 @@
 import path from 'path';
 
-import { IndexBasicTemplate } from '../templates/indexBasic.js';
-import { IndexHookIndividualTemplate } from '../templates/indexHook.js';
-import { FeatureRoutesIndividualTemplate } from '../templates/featureRoutesIndividual.js';
-import { FeaturePageTemplate } from '../templates/featurePage.js';
-import { SyLogger } from '../utils/SyLogger.js';
+import {
+  FeaturePageTemplate,
+  FeatureRoutesIndividualTemplate,
+  IndexBasicTemplate,
+  IndexHookIndividualTemplate,
+} from '../templates/index.js';
+import { SyGenerator } from '../utils/SyGenerator.js';
 
 /**
  * Generates individual feature files for a given feature directory and formatted name.
@@ -15,41 +17,31 @@ import { SyLogger } from '../utils/SyLogger.js';
  * @returns {Promise<void>} A promise that resolves when the individual feature file generation is complete.
  */
 export async function genIndividualFiles(featureDirectory, formattedName, templatesUsed) {
-  /**
-   * Array of file templates to be generated.
-   * Each object in the array contains the following properties:
-   * - template: The template file to be used.
-   * - fileName: The file path and name for the generated file.
-   * - displayName: The display name for logging feedback.
-   *
-   * @type {Array<{ template: string, fileName: string, displayName: string }>}
-   */
-  const fileTemplates = [
-    {
-      template: FeaturePageTemplate(formattedName),
-      fileName: path.join(featureDirectory, 'routes', `${formattedName}.tsx`),
-      displayName: 'Page File',
-    },
-    {
-      template: FeatureRoutesIndividualTemplate(formattedName),
-      fileName: path.join(featureDirectory, 'routes', 'index.ts'),
-      displayName: 'Individual Route Index',
-    },
-    {
-      template: IndexBasicTemplate(formattedName),
-      fileName: path.join(featureDirectory, 'index.ts'),
-      displayName: 'Feature Index',
-    },
-    {
-      template: IndexHookIndividualTemplate(formattedName),
-      fileName: path.join(featureDirectory, 'api', 'index.ts'),
-      displayName: 'API Index',
-    },
-  ];
+  const generator = new SyGenerator();
 
-  await Promise.all(
-    fileTemplates.map(async ({ template, fileName, displayName }) => {
-      await SyLogger.generateAndLogFile(fileName, template, templatesUsed, displayName, fileName);
-    })
+  generator.addFileTemplate(
+    FeaturePageTemplate(formattedName),
+    path.join(featureDirectory, 'routes', `${formattedName}.tsx`),
+    'Page File'
   );
+
+  generator.addFileTemplate(
+    FeatureRoutesIndividualTemplate(formattedName),
+    path.join(featureDirectory, 'routes', 'index.ts'),
+    'Individual Route Index'
+  );
+
+  generator.addFileTemplate(
+    IndexBasicTemplate(formattedName),
+    path.join(featureDirectory, 'index.ts'),
+    'Feature Index'
+  );
+
+  generator.addFileTemplate(
+    IndexHookIndividualTemplate(formattedName),
+    path.join(featureDirectory, 'api', 'index.ts'),
+    'API Index'
+  );
+
+  await generator.generateManyFiles(templatesUsed);
 }

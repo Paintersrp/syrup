@@ -1,4 +1,3 @@
-import fs from 'fs-extra';
 import { SyError } from './SyError.js';
 
 /**
@@ -63,48 +62,6 @@ export class SyLogger {
     const logFileMessage = `${color}[${label}] Files Generated: ${totalFiles}\x1b[0m`;
     console.log(logLineMessage);
     console.log(logFileMessage);
-  }
-
-  /**
-   * Ensures existence of directory and logs folder generation.
-   *
-   * @param {string} dir - The path of the file to be generated.
-   * @returns {Promise<void>} - A promise that resolves when the file generation is complete.
-   */
-
-  static async ensureAndLogDir(dir) {
-    try {
-      if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir);
-        SyLogger.log(`Generated Directory: ✔ ${dir}`, 'success');
-      } else {
-        SyLogger.log(`Used existing Directory: ✔ ${dir}`, 'success');
-      }
-    } catch (error) {
-      SyLogger.error(`Failed to ensure folder at path: ${dir}`);
-      SyError.throw(error.message, error.code);
-    }
-  }
-
-  /**
-   * Generates a file with the specified content and adds it to the provided file list.
-   *
-   * @param {string} filePath - The path of the file to be generated.
-   * @param {string} template - The content to be written to the file.
-   * @param {string[]} templatesUsed - The array to which the generated file path will be added.
-   * @param {string[]} displayName - String display name representation of file.
-   * @param {string[]} fileName - String actual name representation of file.
-   * @returns {Promise<void>} - A promise that resolves when the file generation is complete.
-   */
-  static async generateAndLogFile(filePath, template, templatesUsed, displayName, fileName) {
-    try {
-      await fs.writeFile(filePath, template);
-      templatesUsed.push(template);
-      SyLogger.log(`✔ Generated ${displayName}: ${fileName}`, 'success');
-    } catch (error) {
-      SyLogger.error(`Failed to generate file: ${filePath}`);
-      SyError.throw(error.message, error.code);
-    }
   }
 
   /**

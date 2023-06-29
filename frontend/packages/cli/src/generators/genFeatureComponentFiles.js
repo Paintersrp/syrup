@@ -1,7 +1,7 @@
 import path from 'path';
 
 import { ComponentBasicTemplate } from '../templates/componentBasic.js';
-import { SyLogger } from '../utils/SyLogger.js';
+import { SyGenerator } from '../utils/SyGenerator.js';
 
 /**
  * Generates component files for a feature.
@@ -19,17 +19,18 @@ export async function genFeatureComponentFiles(
   componentCount,
   componentImports
 ) {
+  const generator = new SyGenerator();
+
   await Promise.all(
     Array.from({ length: componentCount }, (_, i) => i + 1).map(async (i) => {
       const componentName = `${formattedName}Gen${i}`;
       componentImports.push(`export { ${componentName} } from './${componentName}';`);
 
-      await SyLogger.generateAndLogFile(
+      await generator.generateAndLogFile(
         path.join(featureDirectory, 'components', `${componentName}.tsx`),
         ComponentBasicTemplate(componentName),
         templatesUsed,
-        'Component Basic File',
-        `${componentName}.tsx`
+        'Component Basic File'
       );
     })
   );
@@ -37,11 +38,10 @@ export async function genFeatureComponentFiles(
   const indexFilePath = path.join(featureDirectory, 'components', 'index.ts');
   const componentImportsContent = componentImports.join('\n');
 
-  await SyLogger.generateAndLogFile(
+  await generator.generateAndLogFile(
     indexFilePath,
     componentImportsContent,
     templatesUsed,
-    'Component Index',
-    'index.ts'
+    'Component Index'
   );
 }

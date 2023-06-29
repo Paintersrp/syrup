@@ -1,7 +1,7 @@
 import path from 'path';
 
 import { AppStoreTemplate } from '../templates/appStore.js';
-import { SyLogger } from '../utils/SyLogger.js';
+import { SyGenerator } from '../utils/SyGenerator.js';
 
 /**
  * Generates a store file for the component directory.
@@ -20,11 +20,10 @@ export async function genStoreFile(
 ) {
   const fileName = `${lowercaseName}.tsx`;
 
-  await SyLogger.generateAndLogFile(
+  await SyGenerator.generateAndLogFile(
     path.join(componentDirectory, fileName),
     AppStoreTemplate(formattedName),
     templatesUsed,
-    'Store File',
-    fileName
+    'Store File'
   );
 }

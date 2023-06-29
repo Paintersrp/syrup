@@ -1,7 +1,6 @@
 import { genStoreFile } from '../generators/genStoreFile.js';
 import { STORES_DIR } from '../../config.js';
-import { SyLogger } from '../utils/SyLogger.js';
-import { SyFormatter } from '../utils/SyFormater.js';
+import { SyFormatter, SyGenerator, SyLogger } from '../utils/index.js';
 
 /**
  * Builds a store file with the specified store name.
@@ -14,7 +13,7 @@ async function buildStoreFile(storeName) {
   const lowercaseName = storeName.toLowerCase();
   const formattedName = SyFormatter.capFirst(storeName);
 
-  await SyLogger.ensureAndLogDir(STORES_DIR);
+  await SyGenerator.ensureAndLogDir(STORES_DIR);
   await genStoreFile(lowercaseName, formattedName, templatesUsed, STORES_DIR);
 
   SyLogger.logStats(templatesUsed);

@@ -1,12 +1,8 @@
 import path from 'path';
 
-import { genEmptyIndexes } from '../generators/genEmptyIndexes.js';
-import { genIndividualFiles } from '../generators/genIndividualFiles.js';
-import { genSharedFiles } from '../generators/genSharedFiles.js';
-import { genSuiteFiles } from '../generators/genSuiteFiles.js';
-import { FEATURES_DIR } from '../../config.js';
-import { SyLogger } from '../utils/SyLogger.js';
-import { SyFormatter } from '../utils/SyFormater.js';
+import { FEATURES_DIR, FEATURE_SUBDIRS } from '../../config.js';
+import { genIndividualFiles, genSharedFiles, genSuiteFiles } from '../generators/index.js';
+import { SyFormatter, SyGenerator, SyLogger } from '../utils/index.js';
 
 /**
  * Builds feature files for the specified feature name, type, and component count.
@@ -23,8 +19,11 @@ async function buildFeatureFiles(featureName, type, componentCount) {
   const formattedName = SyFormatter.capFirst(featureName);
   const depluraledName = SyFormatter.deplural(formattedName);
 
-  await SyLogger.ensureAndLogDir(featureDirectory);
-  await genEmptyIndexes(templatesUsed, featureDirectory);
+  await SyGenerator.ensureAndLogDir(featureDirectory);
+
+  FEATURE_SUBDIRS.map(async (subdir) => {
+    await SyGenerator.ensureAndLogDir(path.join(featureDirectory, subdir));
+  });
 
   if (type === 'Individual') {
     await genIndividualFiles(featureDirectory, formattedName, templatesUsed);

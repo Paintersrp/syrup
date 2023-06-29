@@ -11,7 +11,8 @@ export class SyError extends Error {
    * @param {number} code - The error code.
    */
   constructor(message, code) {
-    super(message);
+    // super(message);
+    super();
     this.name = 'SyError';
     this.code = code;
   }
@@ -37,7 +38,7 @@ export class SyError extends Error {
    * @param {number} code - The error code.
    * @returns {void}
    */
-  static throw(message, code) {
+  static async throw(message, code) {
     const error = new SyError(message, code);
     SyLogger.error(error);
     process.exit(code);

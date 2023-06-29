@@ -6,9 +6,10 @@ import { COMPONENTS_DIR } from '../../config.js';
 
 /**
  * Prompts the user to choose a subdirectory from the components directory.
+ * @param {string} validatedName - The validated name of the component.
  * @returns {Promise<string>} - The selected subdirectory.
  */
-export async function promptSubdirectory() {
+export async function promptSubdirectory(validatedName) {
   const componentsExists = await fs.pathExists(COMPONENTS_DIR);
   if (!componentsExists) {
     SyLogger.error('The components directory does not exist.');
@@ -23,7 +24,7 @@ export async function promptSubdirectory() {
     {
       type: 'list',
       name: 'subdirectory',
-      message: 'Choose a subdirectory for the component:',
+      message: `Choose a subdirectory for ${validatedName}:`,
       choices: componentFolders,
       default: componentFolders[0],
       validate: (input) => {

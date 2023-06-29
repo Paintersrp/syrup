@@ -1,4 +1,4 @@
-import { SyFormatter } from '../utils/SyFormater.js';
+import { SyFormatter } from '../utils/SyFormatter.js';
 
 /**
  * Returns the template for generating the index suite file.

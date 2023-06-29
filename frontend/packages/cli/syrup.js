@@ -3,21 +3,21 @@
 import { program } from 'commander';
 import path from 'path';
 
-import { buildComponentFiles } from './src/builders/buildComponentFiles.js';
-import { buildFeatureFiles } from './src/builders/buildFeatureFiles.js';
-import { buildFeatureComponentFiles } from './src/builders/buildFeatureComponentFiles.js';
-import { buildHookFile } from './src/builders/buildHookFile.js';
-import { buildStoreFile } from './src/builders/buildStoreFile.js';
-
-import { promptSubdirectory } from './src/prompts/promptSubdirectory.js';
-import { promptComponentCount } from './src/prompts/promptComponentCount.js';
-import { promptFeatureName } from './src/prompts/promptFeatureName.js';
-import { promptFeatureType } from './src/prompts/promptFeatureType.js';
-
-import { SyError } from './src/utils/SyError.js';
-import { SyValidator } from './src/utils/SyValidator.js';
 import { COMPONENTS_DIR } from './config.js';
-import { SyLogger } from './src/utils/SyLogger.js';
+import {
+  buildComponentFiles,
+  buildFeatureComponentFiles,
+  buildFeatureFiles,
+  buildHookFile,
+  buildStoreFile,
+} from './src/builders/index.js';
+import {
+  promptComponentCount,
+  promptFeatureName,
+  promptSubdirectory,
+  promptFeatureType,
+} from './src/prompts/index.js';
+import { SyError, SyGenerator, SyLogger, SyValidator } from './src/utils/index.js';
 
 /**
  * Syrup CLI
@@ -44,7 +44,7 @@ program
 
       validNames.forEach((name) => {
         const dirPath = path.join(COMPONENTS_DIR, name);
-        SyLogger.ensureAndLogDir(dirPath);
+        SyGenerator.ensureAndLogDir(dirPath);
       });
     });
   });
@@ -62,10 +62,12 @@ program
   .description('Generate App Component Files')
   .action(async (componentName) => {
     await SyError.handleCommand(async () => {
+      const templatesUsed = [];
       const validatedName = SyValidator.name(componentName);
-      const subdirectory = await promptSubdirectory();
+      const subdirectory = await promptSubdirectory(validatedName);
 
-      await buildComponentFiles(validatedName, subdirectory);
+      await buildComponentFiles(templatesUsed, validatedName, subdirectory);
+      SyLogger.logStats(templatesUsed);
     });
   });
 
@@ -82,10 +84,22 @@ program
   .description('Generate Multiple App Components')
   .action(async (componentNames) => {
     await SyError.handleCommand(async () => {
+      const componentData = [];
+
+      // Generate prompt answers first to allow logging everything together
       for (const name of componentNames) {
-        const subdirectory = await promptSubdirectory(name);
-        await buildComponentFiles(name, subdirectory);
+        const validatedName = SyValidator.name(name);
+        const subdirectory = await promptSubdirectory(validatedName);
+        componentData.push({ name: validatedName, subdirectory });
       }
+
+      const templatesUsed = [];
+
+      for (const data of componentData) {
+        await buildComponentFiles(templatesUsed, data.name, data.subdirectory);
+      }
+
+      SyLogger.logStats(templatesUsed);
     });
   });
 

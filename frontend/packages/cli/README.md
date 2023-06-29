@@ -394,35 +394,20 @@ $ syrup gen-comps Button Popover Avatar
 After selecting a subdirectory for each component, the corresponding component files will be generated. The output will indicate the generated folders and files for each component:
 
 ```bash
-[INFO] Generated Folders:
-[SUCCESS] ✔ C:\***\***\src\components\Category1\Button
-
-[INFO] Generated Files:
-[SUCCESS] ✔ Generated Storybook File: Button.stories.tsx
+[SUCCESS] Used existing Directory: ✔ C:\Python\syrup\frontend\packages\src\components\Elements\Button
 [SUCCESS] ✔ Generated Component File: Button.tsx
 [SUCCESS] ✔ Generated Test File: Button.test.tsx
-[INFO] Lines of Code Generated: 61
-[INFO] Files Generated: 3
-
-[INFO] Generated Folders:
-[SUCCESS] ✔ C:\***\***\src\components\Category1\Popover
-
-[INFO] Generated Files:
-[SUCCESS] ✔ Generated Storybook File: Popover.stories.tsx
+[SUCCESS] ✔ Generated Storybook File: Button.stories.tsx
+[SUCCESS] Generated Directory: ✔ C:\Python\syrup\frontend\packages\src\components\Elements\Popover
 [SUCCESS] ✔ Generated Component File: Popover.tsx
+[SUCCESS] ✔ Generated Storybook File: Popover.stories.tsx
 [SUCCESS] ✔ Generated Test File: Popover.test.tsx
-[INFO] Lines of Code Generated: 61
-[INFO] Files Generated: 3
-
-[INFO] Generated Folders:
-[SUCCESS] ✔ C:\***\***\src\components\Category1\Avatar
-
-[INFO] Generated Files:
+[SUCCESS] Generated Directory: ✔ C:\Python\syrup\frontend\packages\src\components\Elements\Avatar
 [SUCCESS] ✔ Generated Storybook File: Avatar.stories.tsx
 [SUCCESS] ✔ Generated Component File: Avatar.tsx
 [SUCCESS] ✔ Generated Test File: Avatar.test.tsx
-[INFO] Lines of Code Generated: 61
-[INFO] Files Generated: 3
+[INFO] Lines of Code Generated: 183
+[INFO] Files Generated: 9
 ```
 
 ### Boilerplate
