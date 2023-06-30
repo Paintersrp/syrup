@@ -1,5 +1,5 @@
-export { SyError } from './SyError.js';
-export { SyFormatter } from './SyFormatter.js';
-export { SyGenerator } from './SyGenerator.js';
-export { SyLogger } from './SyLogger.js';
-export { SyValidator } from './SyValidator.js';
+export { SyErr } from './SyErr.js';
+export { SyAlter } from './SyAlter.js';
+export { SyGen } from './SyGen.js';
+export { SyLog } from './SyLog.js';
+export { SyVal } from './SyVal.js';

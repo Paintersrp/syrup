@@ -1,4 +1,4 @@
-import { SyFormatter } from '../utils/SyFormatter.js';
+import { SyAlter } from '../utils/SyAlter.js';
 
 /**
  * Returns the template for generating the index suite file.
@@ -9,8 +9,6 @@ import { SyFormatter } from '../utils/SyFormatter.js';
 export const IndexSuiteTemplate = (featureName) =>
   `
 export { ${featureName} } from './routes/${featureName}';
-export { ${SyFormatter.deplural(featureName)} } from './routes/${SyFormatter.deplural(
-    featureName
-  )}';
+export { ${SyAlter.deplural(featureName)} } from './routes/${SyAlter.deplural(featureName)}';
 export { ${featureName}Routes } from './routes';
 `;

@@ -1,7 +1,7 @@
 import path from 'path';
 
 import { AppHookTemplate } from '../templates/appHook.js';
-import { SyGenerator } from '../utils/SyGenerator.js';
+import { SyGen } from '../utils/SyGen.js';
 
 /**
  * Generates a hook file with the provided formatted name.
@@ -14,7 +14,7 @@ import { SyGenerator } from '../utils/SyGenerator.js';
 export async function genHookFile(formattedName, templatesUsed, componentDirectory) {
   const fileName = `${formattedName}.tsx`;
 
-  await SyGenerator.generateAndLogFile(
+  await SyGen.generateAndLogFile(
     path.join(componentDirectory, fileName),
     AppHookTemplate(formattedName),
     templatesUsed,

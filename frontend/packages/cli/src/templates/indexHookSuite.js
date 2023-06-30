@@ -1,4 +1,4 @@
-import { SyFormatter } from '../utils/SyFormatter.js';
+import { SyAlter } from '../utils/SyAlter.js';
 
 /**
  * Returns the template for generating the index hook suite file.
@@ -9,7 +9,7 @@ import { SyFormatter } from '../utils/SyFormatter.js';
 const IndexHookSuiteTemplate = (featureName) =>
   `
 export { use${featureName} } from './use${featureName}';
-export { use${SyFormatter.deplural(featureName)} } from './use${SyFormatter.deplural(featureName)}';
+export { use${SyAlter.deplural(featureName)} } from './use${SyAlter.deplural(featureName)}';
 `;
 
 export { IndexHookSuiteTemplate };

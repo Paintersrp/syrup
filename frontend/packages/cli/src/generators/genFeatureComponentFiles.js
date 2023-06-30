@@ -1,7 +1,7 @@
 import path from 'path';
 
 import { ComponentBasicTemplate } from '../templates/componentBasic.js';
-import { SyGenerator } from '../utils/SyGenerator.js';
+import { SyGen } from '../utils/SyGen.js';
 
 /**
  * Generates component files for a feature.
@@ -19,7 +19,7 @@ export async function genFeatureComponentFiles(
   componentCount,
   componentImports
 ) {
-  const generator = new SyGenerator();
+  const generator = new SyGen();
 
   await Promise.all(
     Array.from({ length: componentCount }, (_, i) => i + 1).map(async (i) => {

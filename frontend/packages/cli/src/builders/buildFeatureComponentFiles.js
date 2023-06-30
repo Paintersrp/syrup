@@ -2,7 +2,7 @@ import path from 'path';
 
 import { genFeatureComponentFiles } from '../generators/genFeatureComponentFiles.js';
 import { FEATURES_DIR } from '../../config.js';
-import { SyFormatter, SyGenerator, SyLogger } from '../utils/index.js';
+import { SyAlter, SyGen, SyLog } from '../utils/index.js';
 
 /**
  * Builds feature component files for the specified feature name and component count.
@@ -15,9 +15,9 @@ async function buildFeatureComponentFiles(featureName, componentCount) {
   const templatesUsed = [];
   const componentImports = [];
   const featureDirectory = path.join(FEATURES_DIR, featureName);
-  const formattedName = SyFormatter.capFirst(featureName);
+  const formattedName = SyAlter.capFirst(featureName);
 
-  await SyGenerator.ensureAndLogDir(featureDirectory);
+  await SyGen.ensureAndLogDir(featureDirectory);
   await genFeatureComponentFiles(
     featureDirectory,
     formattedName,
@@ -26,7 +26,7 @@ async function buildFeatureComponentFiles(featureName, componentCount) {
     componentImports
   );
 
-  SyLogger.logStats(templatesUsed);
+  SyLog.logStats(templatesUsed);
 }
 
 export { buildFeatureComponentFiles };

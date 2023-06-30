@@ -7,7 +7,7 @@ import {
   FeatureHookTemplate,
   IndexTypesTemplate,
 } from '../templates/index.js';
-import { SyGenerator } from '../utils/SyGenerator.js';
+import { SyGen } from '../utils/SyGen.js';
 
 /**
  * Generates shared files for a feature directory with components, hooks, and types.
@@ -36,7 +36,7 @@ export async function genSharedFiles(
    * @type {Array<{ template: string, fileName: string, displayName: string }>}
    */
 
-  const generator = new SyGenerator();
+  const generator = new SyGen();
 
   for (let i = 1; i <= componentCount; i++) {
     const componentName = `${formattedName}${i}`;

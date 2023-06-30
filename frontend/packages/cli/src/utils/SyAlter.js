@@ -1,7 +1,7 @@
 /**
  * Utility class for formatting strings and values.
  */
-export class SyFormatter {
+export class SyAlter {
   /**
    * Capitalizes the first character of a string.
    *

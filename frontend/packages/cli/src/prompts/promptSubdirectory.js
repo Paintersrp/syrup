@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 import fs from 'fs-extra';
 
-import { SyLogger } from '../utils/SyLogger.js';
+import { SyLog } from '../utils/SyLog.js';
 import { COMPONENTS_DIR } from '../../config.js';
 
 /**
@@ -12,12 +12,12 @@ import { COMPONENTS_DIR } from '../../config.js';
 export async function promptSubdirectory(validatedName) {
   const componentsExists = await fs.pathExists(COMPONENTS_DIR);
   if (!componentsExists) {
-    SyLogger.error('The components directory does not exist.');
+    SyLog.error('The components directory does not exist.');
   }
 
   const componentFolders = await fs.readdir(COMPONENTS_DIR);
   if (componentFolders.length === 0) {
-    SyLogger.error('There are no subdirectories in the components directory.');
+    SyLog.error('There are no subdirectories in the components directory.');
   }
 
   const { subdirectory } = await inquirer.prompt([

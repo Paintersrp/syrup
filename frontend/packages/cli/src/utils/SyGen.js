@@ -1,14 +1,15 @@
 import fs from 'fs-extra';
-import { SyError } from './SyError.js';
-import { SyLogger } from './SyLogger.js';
+import { SyErr } from './SyErr.js';
+import { SyLog } from './SyLog.js';
 
 /**
  * Utility class for generating files and folders, using SyLogger for messages and feedback
  * as well as SyError for errors.
  */
-export class SyGenerator {
+export class SyGen {
   constructor() {
     this.fileTemplates = [];
+    this.templatesUsed = [];
   }
 
   /**
@@ -17,17 +18,17 @@ export class SyGenerator {
    * @param {string} dir - The path of the file to be generated.
    * @returns {Promise<void>} - A promise that resolves when the file generation is complete.
    */
-  static async ensureAndLogDir(dir) {
+  async ensureAndLogDir(dir) {
     try {
       if (!fs.existsSync(dir)) {
         fs.ensureDir(dir);
-        SyLogger.log(` ✔ Generated Directory: ${dir}`, 'success');
+        SyLog.log(` ✔ Generated Directory: ${dir}`, 'success');
       } else {
-        SyLogger.log(` ✔  Used existing Directory: ${dir}`, 'success');
+        SyLog.log(` ✔  Used existing Directory: ${dir}`, 'success');
       }
     } catch (error) {
-      SyError.throw(error.message, 1);
-      SyLogger.error(`Failed to ensure folder at path: ${dir}`);
+      SyErr.throw(error.message, 1);
+      SyLog.error(`Failed to ensure folder at path: ${dir}`);
     }
   }
 
@@ -40,14 +41,15 @@ export class SyGenerator {
    * @param {string} displayName - The display name for logging feedback.
    * @returns {Promise<void>} A Promise that resolves when the file generation and logging are complete.
    */
-  static async generateAndLogFile(filePath, template, templatesUsed, displayName) {
+  async generateAndLogFile(filePath, template, displayName) {
     try {
       await fs.writeFile(filePath, template);
-      templatesUsed.push(template);
-      SyLogger.log(`✔ Generated ${displayName}: ${filePath}`, 'success');
+      this.templatesUsed.push(template);
+      SyLog.log(`✔ Generated ${displayName}: ${filePath}`, 'success');
     } catch (error) {
-      SyLogger.error(`Failed to generate file: ${filePath}`);
-      SyError.throw(error.message, error.code);
+      console.log(error);
+      SyLog.error(`Failed to generate file: ${filePath}`);
+      SyErr.throw(error.message, error.code);
     }
   }
 
@@ -65,16 +67,15 @@ export class SyGenerator {
 
   /**
    * Generates files based on the provided templates, file names, and output directory.
-   * @param {Array} fileTemplates - An array of file templates to be generated.
-   * @param {string} outputDirectory - The directory path where the files will be generated.
-   * @param {Array} templatesUsed - An array to store the generated file paths.
-   * @returns {Promise<void>}
+   * @returns {Promise<string[]>} A promise that resolves with an array of the generated file templates.
    */
-  async generateManyFiles(templatesUsed) {
+  async generateQueue() {
     await Promise.all(
       this.fileTemplates.map(async ({ template, fileName, displayName }) => {
-        await SyGenerator.generateAndLogFile(fileName, template, templatesUsed, displayName);
+        await this.generateAndLogFile(fileName, template, displayName);
       })
     );
+
+    return this.templatesUsed;
   }
 }

@@ -6,7 +6,7 @@ import {
   IndexBasicTemplate,
   IndexHookIndividualTemplate,
 } from '../templates/index.js';
-import { SyGenerator } from '../utils/SyGenerator.js';
+import { SyGen } from '../utils/SyGen.js';
 
 /**
  * Generates individual feature files for a given feature directory and formatted name.
@@ -17,7 +17,7 @@ import { SyGenerator } from '../utils/SyGenerator.js';
  * @returns {Promise<void>} A promise that resolves when the individual feature file generation is complete.
  */
 export async function genIndividualFiles(featureDirectory, formattedName, templatesUsed) {
-  const generator = new SyGenerator();
+  const generator = new SyGen();
 
   generator.addFileTemplate(
     FeaturePageTemplate(formattedName),

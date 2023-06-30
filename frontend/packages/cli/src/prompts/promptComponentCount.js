@@ -1,6 +1,6 @@
 import inquirer from 'inquirer';
 
-import { SyValidator } from '../utils/SyValidator.js';
+import { SyVal } from '../utils/SyVal.js';
 
 /**
  * Prompts the user to enter the count of pre-generated components.
@@ -12,7 +12,7 @@ export async function promptComponentCount() {
       type: 'input',
       name: 'componentCount',
       message: 'How many pre-generated components do you want?',
-      validate: SyValidator.number,
+      validate: SyVal.number,
     },
   ]);
 

@@ -1,9 +1,9 @@
-import { SyError } from './SyError.js';
+import { SyErr } from './SyErr.js';
 
 /**
  * Utility class for logging messages and feedback.
  */
-export class SyLogger {
+export class SyLog {
   /**
    * Log levels with their corresponding labels and colors.
    */
@@ -27,12 +27,12 @@ export class SyLogger {
    * @throws {Error} If an invalid log level is provided.
    */
   static log(message, level = 'info') {
-    const logLevels = Object.keys(SyLogger.levels);
+    const logLevels = Object.keys(SyLog.levels);
     if (!logLevels.includes(level)) {
-      SyLogger.error(`Invalid log level: ${level}. Valid levels are: ${logLevels.join(', ')}`);
+      SyLog.error(`Invalid log level: ${level}. Valid levels are: ${logLevels.join(', ')}`);
     }
 
-    const { label, color } = SyLogger.levels[level];
+    const { label, color } = SyLog.levels[level];
     const logMessage = `${color}[${label}] ${message}\x1b[0m`; // x1b[0m resets color
     console.log(logMessage);
   }
@@ -44,11 +44,11 @@ export class SyLogger {
    * @returns {void}
    */
   static logStats(templatesUsed) {
-    const { label, color } = SyLogger.levels['info'];
+    const { label, color } = SyLog.levels['info'];
 
     const { totalLines, totalFiles } = templatesUsed.reduce(
       (acc, template) => {
-        const lines = SyLogger.countLines(template);
+        const lines = SyLog.countLines(template);
 
         acc.totalLines += lines;
         acc.totalFiles++;
@@ -75,7 +75,7 @@ export class SyLogger {
    * @returns {void}
    */
   static error(error, additionalMessage) {
-    const { label, color } = SyLogger.levels.error;
+    const { label, color } = SyLog.levels.error;
     const errorMessage = `${color}[${label}] Error: ${error.message}\x1b[0m`;
 
     console.error(errorMessage);
@@ -84,7 +84,7 @@ export class SyLogger {
     }
     console.error(`${color}[${label}] ${error.stack}\x1b[0m`);
 
-    if (error instanceof SyError) {
+    if (error instanceof SyErr) {
       process.exit(error.code);
     } else {
       process.exit(1);

@@ -1,9 +1,9 @@
-import { SyError } from './SyError.js';
+import { SyErr } from './SyErr.js';
 
 /**
  * Utility class for validating strings and values.
  */
-export class SyValidator {
+export class SyVal {
   /**
    * Validates the name of a component, feature, hook, or store.
    *
@@ -14,7 +14,7 @@ export class SyValidator {
    */
   static name(name) {
     if (!name || !name.match(/^[a-zA-Z][a-zA-Z0-9]*$/)) {
-      throw new SyError(
+      throw new SyErr(
         'Invalid name. The name must start with a letter and can only contain letters and numbers.'
       );
     }
@@ -34,7 +34,7 @@ export class SyValidator {
     }
     return true;
   }
-  
+
   /**
    * Validates a directory name.
    *

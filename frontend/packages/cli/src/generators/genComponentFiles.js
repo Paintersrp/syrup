@@ -6,7 +6,7 @@ import {
   ComponentStorybookTemplate,
   ComponentTestTemplate,
 } from '../templates/index.js';
-import { SyGenerator } from '../utils/SyGenerator.js';
+import { SyGen } from '../utils/SyGen.js';
 
 /**
  * Generates component files based on the provided template and file names.
@@ -16,7 +16,7 @@ import { SyGenerator } from '../utils/SyGenerator.js';
  * @returns {Promise<void>}
  */
 export async function genComponentFiles(formattedName, templatesUsed, componentDirectory) {
-  const generator = new SyGenerator();
+  const generator = new SyGen();
 
   generator.addFileTemplate(
     ComponentFullTemplate(formattedName),

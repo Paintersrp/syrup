@@ -1,7 +1,7 @@
 import { genHookFile } from '../generators/genHookFile.js';
 import { HOOKS_DIR } from '../../config.js';
-import { SyLogger } from '../utils/SyLogger.js';
-import { SyGenerator } from '../utils/SyGenerator.js';
+import { SyLog } from '../utils/SyLog.js';
+import { SyGen } from '../utils/SyGen.js';
 
 /**
  * Builds a hook file with the specified hook name.
@@ -9,13 +9,13 @@ import { SyGenerator } from '../utils/SyGenerator.js';
  * @param {string} hookName - The name of the hook to build the hook file for.
  * @returns {Promise<void>} A promise that resolves when the hook file is built.
  */
-async function buildHookFile(storeName) {
+async function buildHookFile(hookName) {
   const templatesUsed = [];
 
-  await SyGenerator.ensureAndLogDir(HOOKS_DIR);
-  await genHookFile(storeName, templatesUsed, HOOKS_DIR);
+  await SyGen.ensureAndLogDir(HOOKS_DIR);
+  await genHookFile(hookName, templatesUsed, HOOKS_DIR);
 
-  SyLogger.logStats(templatesUsed);
+  SyLog.logStats(templatesUsed);
 }
 
 export { buildHookFile };

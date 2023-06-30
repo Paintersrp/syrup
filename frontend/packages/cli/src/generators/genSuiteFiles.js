@@ -7,7 +7,7 @@ import {
   IndexHookSuiteTemplate,
   IndexSuiteTemplate,
 } from '../templates/index.js';
-import { SyGenerator } from '../utils/SyGenerator.js';
+import { SyGen } from '../utils/SyGen.js';
 
 /**
  * Generates suite-related files for the feature directory.
@@ -24,7 +24,7 @@ export async function genSuiteFiles(
   depluraledName,
   templatesUsed
 ) {
-  const generator = new SyGenerator();
+  const generator = new SyGen();
 
   [formattedName, depluraledName].forEach((name) => {
     generator.addFileTemplate(

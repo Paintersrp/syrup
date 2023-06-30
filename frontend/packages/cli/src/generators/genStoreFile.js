@@ -1,7 +1,7 @@
 import path from 'path';
 
 import { AppStoreTemplate } from '../templates/appStore.js';
-import { SyGenerator } from '../utils/SyGenerator.js';
+import { SyGen } from '../utils/SyGen.js';
 
 /**
  * Generates a store file for the component directory.
@@ -20,7 +20,7 @@ export async function genStoreFile(
 ) {
   const fileName = `${lowercaseName}.tsx`;
 
-  await SyGenerator.generateAndLogFile(
+  await SyGen.generateAndLogFile(
     path.join(componentDirectory, fileName),
     AppStoreTemplate(formattedName),
     templatesUsed,

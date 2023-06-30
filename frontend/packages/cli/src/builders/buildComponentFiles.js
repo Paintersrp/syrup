@@ -1,8 +1,10 @@
 import path from 'path';
-
-import { genComponentFiles } from '../generators/genComponentFiles.js';
-import { COMPONENTS_DIR } from '../../config.js';
-import { SyFormatter, SyGenerator } from '../utils/index.js';
+import { INCLUDE_STORIES, INCLUDE_TESTS } from '../../config.js';
+import {
+  ComponentFullTemplate,
+  ComponentStorybookTemplate,
+  ComponentTestTemplate,
+} from '../templates/index.js';
 
 /**
  * Builds component files for the specified component name and subdirectory.
@@ -12,12 +14,28 @@ import { SyFormatter, SyGenerator } from '../utils/index.js';
  * @param {string} subdirectory - The subdirectory where the component will be created.
  * @returns {Promise<void>} A promise that resolves when the component files are built.
  */
-async function buildComponentFiles(templatesUsed, componentName, subdirectory) {
-  const formattedName = SyFormatter.capFirst(componentName);
-  const componentDirectory = path.join(COMPONENTS_DIR, subdirectory, formattedName);
+async function buildComponentFiles(generator, formattedName, componentDirectory) {
+  generator.addFileTemplate(
+    ComponentFullTemplate(formattedName),
+    path.join(componentDirectory, `${formattedName}.tsx`),
+    'Component File'
+  );
 
-  await SyGenerator.ensureAndLogDir(componentDirectory);
-  await genComponentFiles(formattedName, templatesUsed, componentDirectory);
+  if (INCLUDE_STORIES) {
+    generator.addFileTemplate(
+      ComponentStorybookTemplate(formattedName),
+      path.join(componentDirectory, `${formattedName}.stories.tsx`),
+      'Storybook File'
+    );
+  }
+
+  if (INCLUDE_TESTS) {
+    generator.addFileTemplate(
+      ComponentTestTemplate(formattedName),
+      path.join(componentDirectory, `${formattedName}.test.tsx`),
+      'Test File'
+    );
+  }
 }
 
 export { buildComponentFiles };

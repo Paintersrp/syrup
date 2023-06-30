@@ -1,9 +1,9 @@
-import { SyLogger } from './SyLogger.js';
+import { SyLog } from './SyLog.js';
 
 /**
  * Utility class for handling errors.
  */
-export class SyError extends Error {
+export class SyErr extends Error {
   /**
    * Creates a new CLIError instance.
    *
@@ -23,11 +23,11 @@ export class SyError extends Error {
    * @param {Function} fn - The command execution function to wrap.
    * @returns {Promise<void>} - A promise that resolves when the command execution is complete.
    */
-  static async handleCommand(fn) {
+  static async handle(fn) {
     try {
       await fn();
     } catch (error) {
-      SyError.throw(error.message, error.code);
+      SyErr.throw(error.message, error.code);
     }
   }
 
@@ -39,8 +39,8 @@ export class SyError extends Error {
    * @returns {void}
    */
   static async throw(message, code) {
-    const error = new SyError(message, code);
-    SyLogger.error(error);
+    const error = new SyErr(message, code);
+    SyLog.error(error);
     process.exit(code);
   }
 }
