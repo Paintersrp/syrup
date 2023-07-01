@@ -60,7 +60,7 @@ export class SyGen {
    * @param {string} displayName - The display name for logging feedback.
    * @returns {FileTemplatesBuilder} The current instance of the builder.
    */
-  addFileTemplate(template, fileName, displayName) {
+  addFileToQueue(template, fileName, displayName) {
     this.fileTemplates.push({ template, fileName, displayName });
     return this;
   }

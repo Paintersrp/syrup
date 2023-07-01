@@ -8,6 +8,7 @@ import { generateFeature } from './src/commands/generateFeature.js';
 import { generateFeatureComponents } from './src/commands/generateFeatureComponents.js';
 import { generateHook } from './src/commands/generateHook.js';
 import { generateStore } from './src/commands/generateStore.js';
+import { initializeProject } from './src/commands/initializeProject.js';
 
 /**
  * Syrup CLI
@@ -16,6 +17,20 @@ import { generateStore } from './src/commands/generateStore.js';
  * Provides commands for generating directories and files.
  */
 program.version('1.0.2').description('Syrup CLI');
+
+/**
+ * Initialize Project Command.
+ *
+ * This command initializes the project structure by creating the necessary directories and files.
+ * It sets up the basic folder structure and configuration files required for the project.
+ */
+program
+  .command('initialize')
+  .alias('init')
+  .description('Initialize the project structure')
+  .action(async () => {
+    await initializeProject();
+  });
 
 /**
  * Generate Directories Command

@@ -76,13 +76,12 @@ export class SyLog {
    */
   static error(error, additionalMessage) {
     const { label, color } = SyLog.levels.error;
-    const errorMessage = `${color}[${label}] Error: ${error.message}\x1b[0m`;
+    const errorMessage = `${color}[${label}] Error: ${error}\x1b[0m`;
 
     console.error(errorMessage);
     if (additionalMessage) {
       console.error(`${color}[${label}] ${additionalMessage}\x1b[0m`);
     }
-    console.error(`${color}[${label}] ${error.stack}\x1b[0m`);
 
     if (error instanceof SyErr) {
       process.exit(error.code);
