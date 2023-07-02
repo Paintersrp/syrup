@@ -5,6 +5,7 @@ import { SyErr } from './SyErr.js';
  */
 export class SyVal {
   /**
+   * @description
    * Validates the name of a component, feature, hook, or store.
    *
    * @param {string} name - The name to validate.
@@ -22,6 +23,7 @@ export class SyVal {
   }
 
   /**
+   * @description
    * Validates that the passed-in value is a number; otherwise, requests reinput.
    *
    * @param {number} value - The value to validate.
@@ -36,6 +38,7 @@ export class SyVal {
   }
 
   /**
+   * @description
    * Validates a directory name.
    *
    * @param {string} directoryName - The name of the directory to validate.

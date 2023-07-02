@@ -5,19 +5,20 @@ import { SyLog } from './SyLog.js';
  */
 export class SyErr extends Error {
   /**
+   * @description
    * Creates a new CLIError instance.
    *
    * @param {string} message - The error message.
    * @param {number} code - The error code.
    */
   constructor(message, code) {
-    // super(message);
-    super();
+    super(message);
     this.name = 'SyError';
     this.code = code;
   }
 
   /**
+   * @description
    * Handles errors that occur during command execution and logs them using the Logger.
    *
    * @param {Function} fn - The command execution function to wrap.
@@ -32,6 +33,7 @@ export class SyErr extends Error {
   }
 
   /**
+   * @description
    * Handles and logs an error with a custom error message and exits the process with the provided error code.
    *
    * @param {string} message - The custom error message.

@@ -1,12 +1,12 @@
-import { keyframes } from '@emotion/react';
+import { keyframes as kf } from '@emotion/react';
 import { genAnimStyles } from '../utils';
 
-export type AnimationKeyframe = keyof typeof keyframeCx;
+export type AnimationKeyframe = keyof typeof keyframes;
 export type AnimationStyleKey = `${AnimationKeyframe}${number}`;
 export type AnimationStyles = { [key in AnimationStyleKey]: string };
 
-export const keyframeCx = {
-  enterRight: keyframes({
+export const keyframes = {
+  enterRight: kf({
     '0%': {
       opacity: 0,
       transform: 'translateX(-100%)',
@@ -16,7 +16,7 @@ export const keyframeCx = {
       transform: 'translateX(0)',
     },
   }),
-  enterLeft: keyframes({
+  enterLeft: kf({
     '0%': {
       opacity: 0,
       transform: 'translateX(100%)',
@@ -26,7 +26,7 @@ export const keyframeCx = {
       transform: 'translateX(0)',
     },
   }),
-  fadeIn: keyframes({
+  fadeIn: kf({
     '0%': {
       opacity: 0,
     },
@@ -36,7 +36,7 @@ export const keyframeCx = {
   }),
 };
 
-export const animations: AnimationStyles = Object.entries(keyframeCx).reduce(
+export const animations: AnimationStyles = Object.entries(keyframes).reduce(
   (result, [key, keyframe]) => {
     const generatedStyles = genAnimStyles(key, keyframe);
     return {

@@ -3,6 +3,7 @@
  */
 export class SyAlter {
   /**
+   * @description
    * Capitalizes the first character of a string.
    *
    * @param {string} str - The string to capitalize.
@@ -13,6 +14,7 @@ export class SyAlter {
   }
 
   /**
+   * @description
    * Removes the last character from a string.
    *
    * @param {string} str - The string to remove the last character from.
@@ -23,6 +25,7 @@ export class SyAlter {
   }
 
   /**
+   * @description
    * Converts a string to camelCase.
    *
    * @param {string} str - The string to convert to camelCase.
@@ -33,6 +36,7 @@ export class SyAlter {
   }
 
   /**
+   * @description
    * Converts a string to kebab-case.
    *
    * @param {string} str - The string to convert to kebab-case.
@@ -43,6 +47,7 @@ export class SyAlter {
   }
 
   /**
+   * @description
    * Converts a string to PascalCase.
    *
    * @param {string} str - The string to convert to PascalCase.

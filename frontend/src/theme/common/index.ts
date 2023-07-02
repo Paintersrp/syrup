@@ -1,4 +1,4 @@
-export { keyframeCx, animations } from './animations';
+export { keyframes as keyframeCx, animations } from './animations';
 export type { AnimationKeyframe, AnimationStyleKey, AnimationStyles } from './animations';
 
 export { breakpoints } from './breakpoints';

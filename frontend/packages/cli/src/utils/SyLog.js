@@ -5,6 +5,7 @@ import { SyErr } from './SyErr.js';
  */
 export class SyLog {
   /**
+   * @description
    * Log levels with their corresponding labels and colors.
    */
   static levels = {
@@ -15,6 +16,7 @@ export class SyLog {
   };
 
   /**
+   * @description
    * Logs a formatted message based on the specified log level.
    *
    * @param {string} message - The message to log.
@@ -38,6 +40,7 @@ export class SyLog {
   }
 
   /**
+   * @description
    * Logs a formatted message with generation statistics about what was just generated.
    *
    * @param {array} templatesUsed - Array of template names used in generation.
@@ -65,6 +68,7 @@ export class SyLog {
   }
 
   /**
+   * @description
    * Handle and log errors. If the error is an instance of SyError,
    * log the error message and exit with the error code. Otherwise,
    * log an unexpected error message and stack trace, and exit with
@@ -91,6 +95,7 @@ export class SyLog {
   }
 
   /**
+   * @description
    * Counts the number of lines in a template.
    *
    * @param {string} template - The template content.

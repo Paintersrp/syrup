@@ -85,10 +85,7 @@ export const ScrollToTopFAB: FC<ScrollToTopFABProps> = () => {
           onClick={handleClick}
           icon="arrow_upward"
           size="20px"
-          css={[
-            cx.fabAnimate,
-            animateTrigger ? cx.fadeOutFab : cx.fadeInFab,
-          ]}
+          css={[cx.fabAnimate, animateTrigger ? cx.fadeOutFab : cx.fadeInFab]}
           tooltip="Scroll to Top"
         />
       )}

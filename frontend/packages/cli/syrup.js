@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import { program } from 'commander';
-import { generateComponent } from './src/commands/generateComponent.js';
 import { generateComponents } from './src/commands/generateComponents.js';
 import { generateDirectories } from './src/commands/generateDirectories.js';
 import { generateFeature } from './src/commands/generateFeature.js';
@@ -48,31 +47,16 @@ program
   });
 
 /**
- * Generate Component Command
+ * Generate One or Many Components Command
  *
- * Command to generate a single component in the Components Directory.
- * This command accepts a component name and a create directory and relevant files.
- */
-program
-  .command('gen-comp <componentName>')
-  .alias('gen-c')
-  .alias('gc')
-  .description('Generate App Component Files')
-  .action(async (componentName) => {
-    await generateComponent(componentName);
-  });
-
-/**
- * Generate Multiple Components Command
- *
- * Command to generate multiple components in the Components Directory.
+ * Command to generate one or many components in the Components Directory.
  * This command accepts a list of component names and creates directories and files for each component.
  */
 program
-  .command('gen-comps <componentNames...>')
-  .alias('gen-cs')
-  .alias('gcs')
-  .description('Generate Multiple App Components')
+  .command('gen-comp <componentNames...>')
+  .alias('gen-c')
+  .alias('gc')
+  .description('Generate One or Many App Components')
   .action(async (componentNames) => {
     await generateComponents(componentNames);
   });
