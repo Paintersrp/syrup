@@ -35,6 +35,22 @@ export class SyGen {
     }
   }
 
+  async ensureAndLogDirs(dirs) {
+    try {
+      for (const dir of dirs) {
+        if (!fs.existsSync(dir)) {
+          await fs.ensureDir(dir);
+          SyLog.log(` ✔ Generated Directory: ${dir}`, 'success');
+        } else {
+          SyLog.log(` ✔ Used existing Directory: ${dir}`, 'success');
+        }
+      }
+    } catch (error) {
+      handleError(error);
+      SyLog.log(`Failed to ensure folders at paths: ${dirs.join(', ')}`, 'error');
+    }
+  }
+
   /**
    * @description
    * Generates a file using the provided template, writes it to the specified file path,
@@ -46,10 +62,14 @@ export class SyGen {
    * @param {string} displayName - The display name for logging feedback.
    * @returns {Promise<void>} A Promise that resolves when the file generation and logging are complete.
    */
-  async generateAndLogFile(filePath, template, displayName) {
+  async generateAndLogFile(filePath, template, displayName, format) {
     try {
-      const prettifiedTemplate = await this.prettifyTemplate(template);
-      await fs.writeFile(filePath, prettifiedTemplate);
+      if (format) {
+        const prettifiedTemplate = await this.prettifyTemplate(template);
+        await fs.writeFile(filePath, prettifiedTemplate);
+      } else {
+        await fs.writeFile(filePath, template);
+      }
 
       this.templatesUsed.push(template);
       SyLog.log(`✔ Generated ${displayName}: ${filePath}`, 'success');
@@ -68,8 +88,8 @@ export class SyGen {
    * @param {string} displayName - The display name for logging feedback.
    * @returns {FileTemplatesBuilder} The current instance of the builder.
    */
-  addFileToQueue(template, fileName, displayName) {
-    this.fileTemplates.push({ template, fileName, displayName });
+  addFileToQueue(template, fileName, displayName, format = true) {
+    this.fileTemplates.push({ template, fileName, displayName, format });
     return this;
   }
 
@@ -81,8 +101,8 @@ export class SyGen {
    */
   async generateQueue() {
     await Promise.all(
-      this.fileTemplates.map(async ({ template, fileName, displayName }) => {
-        await this.generateAndLogFile(fileName, template, displayName);
+      this.fileTemplates.map(async ({ template, fileName, displayName, format }) => {
+        await this.generateAndLogFile(fileName, template, displayName, format);
       })
     );
 

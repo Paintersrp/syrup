@@ -1,7 +1,50 @@
 import { darken, lighten } from 'polished';
-
-import { genColorSet } from '@/theme/utils';
 import { GenericMapping } from '@/types';
+
+export type GeneratedThemeColors = {
+  [key: string]: string;
+};
+
+export type GenColorSetFn = (
+  baseName: string,
+  baseColor: string,
+  lightenValue: number,
+  darkenValue: number
+) => GeneratedThemeColors;
+
+/**
+ * Generates a set of color classes based on the passed-in name, color, lighten value, and darken value.
+ * Creates a light, dark, and regular class for the passed-in color.
+ *
+ * @param baseName - The base name for the color classes.
+ * @param baseColor - The base color value.
+ * @param lightenValue - The value used with lighten to control how much to lighten the base color.
+ * @param darkenValue - The value used with darken to control how much to darken the base color.
+ * @returns The generated color set as an object.
+ *
+ * @example
+ * const colorSetExample = genColorSet('primary', '#2e3b55', 0.1, 0.1);
+ * console.log(colorSetExample);
+ *
+ * Output:
+ * {
+ *   primary: '#2e3b55',
+ *   primaryLight: '#69869a',
+ *   primaryDark: '#29333a'
+ * }
+ */
+export const genColorSet: GenColorSetFn = (baseName, baseColor, lightenValue, darkenValue) => {
+  const lightName = `${baseName}Light`;
+  const darkName = `${baseName}Dark`;
+
+  const colorSet: GeneratedThemeColors = {
+    [baseName]: baseColor,
+    [lightName]: lighten(lightenValue, baseColor),
+    [darkName]: darken(darkenValue, baseColor),
+  };
+
+  return colorSet;
+};
 
 export type Colors = GenericMapping & {
   dark: string;
@@ -28,6 +71,9 @@ export type Colors = GenericMapping & {
   backgroundDark: string;
 };
 
+/**
+ * Represents a mapping of colors used in the application.
+ */
 export const colors: Colors = {
   ...genColorSet('primary', '#2e3b55', 0.1, 0.1),
   ...genColorSet('secondary', '#ff8c00', 0.2, 0.05),

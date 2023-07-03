@@ -4,8 +4,7 @@ import { promptComponentCount, promptFeatureName } from '../prompts/index.js';
 import { queueFeatureComponents } from '../queue/queueFeatureComponents.js';
 import { handleFunction } from '../utils/error.js';
 import { capFirst } from '../utils/format.js';
-import { getPaths } from '../utils/getPaths.js';
-import { SyGen, SyLog } from '../utils/index.js';
+import { getPaths, SyGen, SyLog } from '../utils/index.js';
 import { validateName } from '../utils/validate.js';
 
 /**
@@ -29,7 +28,7 @@ export async function generateFeatureComponents(cmd) {
     const generator = new SyGen();
     const paths = getPaths();
 
-    const featureDirectory = path.join(paths.src.features, validatedName);
+    const featureDirectory = path.join(paths.web.src.features, validatedName);
     const formattedName = capFirst(validatedName);
 
     await generator.ensureAndLogDir(featureDirectory);

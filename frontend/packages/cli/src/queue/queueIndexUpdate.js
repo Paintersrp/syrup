@@ -15,9 +15,14 @@ import path from 'path';
 export async function queueIndexUpdate(name, directory, logMessage, generator) {
   const exportStatement = `export { ${name} } from './${name}';\n`;
   const indexFilePath = path.join(directory, 'index.ts');
+  const fileExists = await fs.pathExists(indexFilePath);
 
-  const indexFileContent = await fs.promises.readFile(indexFilePath, 'utf8');
-  const updatedIndexFileContent = `${indexFileContent.trimEnd()}\n${exportStatement}`;
-
-  generator.addFileToQueue(updatedIndexFileContent, indexFilePath, logMessage);
+  if (fileExists) {
+    const indexFileContent = await fs.promises.readFile(indexFilePath, 'utf8');
+    const updatedIndexFileContent = `${indexFileContent.trimEnd()}\n${exportStatement}`;
+    generator.addFileToQueue(updatedIndexFileContent, indexFilePath, logMessage);
+  } else {
+    await fs.promises.writeFile(indexFilePath, '');
+    generator.addFileToQueue(exportStatement, indexFilePath, logMessage);
+  }
 }

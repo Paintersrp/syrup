@@ -1,14 +1,18 @@
 #!/usr/bin/env node
 
 import { program } from 'commander';
-import { generateComponents } from './src/commands/generateComponents.js';
-import { generateDirectories } from './src/commands/generateDirectories.js';
-import { generateFeature } from './src/commands/generateFeature.js';
-import { generateFeatureComponents } from './src/commands/generateFeatureComponents.js';
-import { generateHook } from './src/commands/generateHook.js';
-import { generateStore } from './src/commands/generateStore.js';
-import { generateProject } from './src/commands/generateProject.js';
-import { generateModelSchema } from './src/commands/generateModelSchema.js';
+
+import {
+  generateComponents,
+  generateDirectories,
+  generateEndpoint,
+  generateFeature,
+  generateFeatureComponents,
+  generateHook,
+  generateModelSchema,
+  generateProject,
+  generateStore,
+} from './src/commands/index.js';
 
 /**
  * Syrup CLI
@@ -131,8 +135,18 @@ program
   .alias('gen-m')
   .alias('gm')
   .description('Generate Model Schema')
-  .action(() => {
-    generateModelSchema();
+  .option('-f, --fields', 'Specify fields for the model')
+  .action((options) => {
+    generateModelSchema(options);
+  });
+
+program
+  .command('gen-endpoint <appName>')
+  .alias('gen-e')
+  .alias('ge')
+  .description('Create a new api endpoint')
+  .action((appName) => {
+    generateEndpoint(appName);
   });
 
 program.parse(process.argv);

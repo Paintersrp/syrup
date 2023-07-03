@@ -151,7 +151,7 @@ export async function queueSharedFeature(name, directory, componentCount, genera
  */
 export async function queueFeature(name, type, componentCount, generator) {
   const paths = getPaths();
-  const featureDirectory = path.join(paths.src.features, name);
+  const featureDirectory = path.join(paths.web.src.features, name);
   await generator.ensureAndLogDir(featureDirectory);
 
   const formattedName = capFirst(name);

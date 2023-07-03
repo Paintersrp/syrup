@@ -1,6 +1,5 @@
 import { handleFunction } from '../utils/error.js';
-import { getPaths } from '../utils/getPaths.js';
-import { SyGen } from '../utils/index.js';
+import { getPaths, SyGen } from '../utils/index.js';
 import { validateDirectory } from '../utils/validate.js';
 
 /**
@@ -19,6 +18,6 @@ export async function generateDirectories(directoryNames) {
     const generator = new SyGen();
     const paths = getPaths();
 
-    await generator.genDirectoriesRecursively(validNames, paths.src.components.abs);
+    await generator.genDirectoriesRecursively(validNames, paths.web.src.components.abs);
   });
 }

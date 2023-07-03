@@ -1,8 +1,7 @@
-import { queueStoreFile } from '../queue/queueStore.js';
+import { queueStore } from '../queue/queueStore.js';
 import { handleFunction } from '../utils/error.js';
 import { capFirst } from '../utils/format.js';
-import { getPaths } from '../utils/getPaths.js';
-import { SyGen, SyLog } from '../utils/index.js';
+import { getPaths, SyGen, SyLog } from '../utils/index.js';
 import { validateName } from '../utils/validate.js';
 
 /**
@@ -23,8 +22,8 @@ export async function generateStore(storeName) {
     const generator = new SyGen();
     const paths = getPaths();
 
-    await generator.ensureAndLogDir(paths.src.stores);
-    await queueStoreFile(formattedName, lowercaseName, paths.src.stores, generator);
+    await generator.ensureAndLogDir(paths.web.src.stores);
+    await queueStore(formattedName, lowercaseName, paths.web.src.stores, generator);
 
     const templatesUsed = await generator.generateQueue();
     SyLog.logStats(templatesUsed);

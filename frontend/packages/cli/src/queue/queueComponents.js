@@ -15,7 +15,7 @@ import {
  * @param {string} directory - The target directory for the component files.
  * @param {SyGen} generator - The generator instance.
  */
-export async function queueComponentFiles(name, directory, generator) {
+export async function queueComponents(name, directory, generator) {
   generator.addFileToQueue(
     ComponentFullTemplate(name),
     path.join(directory, `${name}.tsx`),

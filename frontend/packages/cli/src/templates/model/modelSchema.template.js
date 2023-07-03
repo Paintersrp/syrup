@@ -2,9 +2,6 @@ export const ModelSchemaTemplate = (modelName, fields) => {
   const fieldDefinitions = fields.map(generateFieldDefinition).join('\n');
 
   return `
-from django.db import models
-from backend.customs import *
-  
 class ${modelName}(models.Model): 
     \n${fieldDefinitions}
     

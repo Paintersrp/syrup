@@ -1,15 +1,20 @@
 import path from 'path';
-import { queueComponentFiles } from '../queue/queueComponents.js';
+import { execSync } from 'child_process';
+
+import { handleFunction } from '../utils/error.js';
+import { capFirst } from '../utils/format.js';
+import { getPaths, PROJECT_DIRS, PROJECT_DIRS_WITH_INDEX } from '../utils/getPaths.js';
 import {
+  queueComponents,
+  queueFeature,
+  queueHook,
   queueInitLib,
   queueInitProviders,
   queueInitRoutes,
   queueInitTheme,
   queueInitUtils,
-} from '../queue/queueProjectInit.js';
-import { handleFunction } from '../utils/error.js';
-import { capFirst } from '../utils/format.js';
-import { getPaths, PROJECT_DIRS, PROJECT_DIRS_WITH_INDEX } from '../utils/getPaths.js';
+  queueStore,
+} from '../queue/index.js';
 import { SyGen, SyLog } from '../utils/index.js';
 
 /**
@@ -22,14 +27,21 @@ import { SyGen, SyLog } from '../utils/index.js';
  */
 export async function generateProject() {
   await handleFunction(async () => {
+    execSync(`django-admin startproject api`, {
+      stdio: 'inherit',
+    });
+
     const generator = new SyGen();
     const paths = getPaths();
+
+    await generator.ensureAndLogDir(paths.web.abs);
+    await generator.ensureAndLogDir(paths.web.src.abs);
 
     // Queue project directories and index files
     await Promise.all(
       PROJECT_DIRS.map(async (directory) => {
         const dirPath =
-          directory === 'components' ? paths.src[directory].abs : paths.src[directory];
+          directory === 'components' ? paths.web.src[directory].abs : paths.web.src[directory];
 
         await generator.ensureAndLogDir(dirPath);
 
@@ -49,42 +61,58 @@ export async function generateProject() {
     const placeholderName = 'Placeholder';
 
     await Promise.all(
-      Object.entries(paths.src.components).map(async ([directory, dirPath]) => {
+      Object.entries(paths.web.src.components).map(async ([directory, dirPath]) => {
         if (directory === 'abs') {
           return;
         }
         await generator.ensureAndLogDir(dirPath);
         const compPath = path.join(dirPath, placeholderName);
         await generator.ensureAndLogDir(compPath);
-        await queueComponentFiles(placeholderName, compPath, generator);
+        await queueComponents(placeholderName, compPath, generator);
       })
     );
 
+    // Queue initial features and feature files
+    await queueFeature('Suite', 'Suite', 3, generator);
+    await queueFeature('Individual', 'Individual', 3, generator);
+
+    // Queue initial features and feature files
+    await queueHook('usePlaceholder', paths.web.src.hooks, generator);
+
     // Queue initial src/lib files
-    await queueInitLib(paths.src.lib, generator);
+    await queueInitLib(paths.web.src.lib, generator);
+
+    // Queue initial src/lib files
+    await queueInitLib(paths.web.src.lib, generator);
 
     // Queue initial provider files
-    await queueInitProviders(paths.src.providers, generator);
+    await queueInitProviders(paths.web.src.providers, generator);
 
     // Queue initial routes files
-    await queueInitRoutes(paths.src.routes, generator);
+    await queueInitRoutes(paths.web.src.routes, generator);
+
+    // Queue initial store files
+    await queueStore('Auth', 'auth', paths.web.src.stores, generator);
+    await queueStore('Notifications', 'notifications', paths.web.src.stores, generator);
 
     // Queue initial theme files
-    await queueInitTheme(paths.src.theme, generator);
+    await queueInitTheme(paths.web.src.theme, generator);
 
-    // Queue initial theme files
-    await queueInitUtils(paths.src.utils, generator);
+    // Queue initial utils files
+    await queueInitUtils(paths.web.src.utils, generator);
 
-    // Admin
-    // Hooks?
-    // Stores?
+    // Admin?
     // Auth? + AuthProvider + Auth Feature
+
     // Component/Package Dependencies/NPM Install
+
     // Stock Home / Landing Page
-    // Route updating
-    // Settings
     // Stock AppNavbar / Footer / Drawer
     // Button / Palette Demo
+
+    // Route updating
+    // Settings
+
     // More Utils? Format?
 
     // Process and generate queue

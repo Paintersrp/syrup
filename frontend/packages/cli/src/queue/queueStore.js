@@ -12,7 +12,7 @@ import { AppStoreTemplate } from '../templates/index.js';
  * @param {SyGen} generator - The generator instance.
  * @async
  */
-export async function queueStoreFile(name, lowercaseName, directory, generator) {
+export async function queueStore(name, lowercaseName, directory, generator) {
   const fileName = `${lowercaseName}.tsx`;
   const filePath = path.join(directory, fileName);
 

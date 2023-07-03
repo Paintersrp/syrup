@@ -1,7 +1,7 @@
 import path from 'path';
 
 import { promptSubdirectory } from '../prompts/index.js';
-import { queueComponentFiles } from '../queue/queueComponents.js';
+import { queueComponents } from '../queue/queueComponents.js';
 import { handleFunction } from '../utils/error.js';
 import { capFirst } from '../utils/format.js';
 import { getPaths } from '../utils/getPaths.js';
@@ -46,11 +46,11 @@ export async function setupComponent(componentName, generator) {
   const formattedName = capFirst(validatedName);
   const paths = getPaths();
 
-  const subDir = path.join(paths.src.components.abs, subdirectory);
+  const subDir = path.join(paths.web.src.components.abs, subdirectory);
   await generator.ensureAndLogDir(subDir);
 
   const componentDir = path.join(subDir, formattedName);
   await generator.ensureAndLogDir(componentDir);
 
-  await queueComponentFiles(formattedName, componentDir, generator);
+  await queueComponents(formattedName, componentDir, generator);
 }

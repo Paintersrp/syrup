@@ -31,9 +31,21 @@ export interface AuthStore {
   handleClearAuth: () => void;
 }
 
+/**
+ * Creates and initializes the authentication store.
+ * @param set The function to set the state of the store.
+ * @returns The authentication store.
+ * @example
+ * console.log(authStore.authState);
+ * // { is_authenticated: true, is_superuser: true, is_checked: true, username: 'john_doe' }
+ */
 export const useAuthStore = create<AuthStore>((set) => ({
   authState: initialAuthState,
 
+  /**
+   * Handles the authentication response and updates the state accordingly.
+   * @param response The authentication response data.
+   */
   handleAuth: (response) => {
     set(() => ({
       authState: {
@@ -50,6 +62,9 @@ export const useAuthStore = create<AuthStore>((set) => ({
     }
   },
 
+  /**
+   * Clears the authentication state.
+   */
   handleClearAuth: () => {
     set(() => ({
       authState: {

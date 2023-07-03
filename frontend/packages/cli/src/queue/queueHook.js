@@ -11,7 +11,7 @@ import { queueIndexUpdate } from './queueIndexUpdate.js';
  * @param {string} directory - The target directory for the hook file.
  * @param {SyGen} generator - The generator instance.
  */
-export async function queueHookFile(name, directory, generator) {
+export async function queueHook(name, directory, generator) {
   const fileName = `${name}.tsx`;
   const filePath = path.join(directory, fileName);
 

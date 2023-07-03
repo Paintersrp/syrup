@@ -18,6 +18,7 @@ import {
   ThemeInjectFnTemplate,
   ThemeShadowsTemplate,
   ThemeTypesIndexTemplate,
+  UtilsFormatTemplate,
   UtilsLazyImportTemplate,
   UtilsScrollToTopTemplate,
 } from '../templates/index.js';
@@ -175,6 +176,11 @@ export async function queueInitTheme(themeDir, generator) {
  * @async
  */
 export async function queueInitUtils(utilsDir, generator) {
+  generator.addFileToQueue(
+    UtilsFormatTemplate(),
+    path.join(utilsDir, 'format.ts'),
+    'Format Util File'
+  );
   generator.addFileToQueue(
     UtilsLazyImportTemplate(),
     path.join(utilsDir, 'lazyImport.tsx'),
