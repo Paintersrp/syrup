@@ -1,2 +1,2 @@
-export { AppHookTemplate } from './appHook.js';
-export { AppStoreTemplate } from './appStore.js';
+export { AppHookTemplate } from './appHook.template.js';
+export { AppStoreTemplate } from './appStore.template.js';

@@ -1,5 +1,8 @@
-import { HOOKS_DIR } from '../../config.js';
-import { SyErr, SyGen, SyLog, SyQue, SyVal } from '../utils/index.js';
+import { queueHookFile } from '../queue/queueHook.js';
+import { handleFunction } from '../utils/error.js';
+import { getPaths } from '../utils/getPaths.js';
+import { SyGen, SyLog } from '../utils/index.js';
+import { validateName } from '../utils/validate.js';
 
 /**
  * @description
@@ -11,14 +14,14 @@ import { SyErr, SyGen, SyLog, SyQue, SyVal } from '../utils/index.js';
  * @async
  */
 export async function generateHook(hookName) {
-  await SyErr.handle(async () => {
-    const validatedName = SyVal.name(hookName);
+  await handleFunction(async () => {
+    const validatedName = validateName(hookName);
 
     const generator = new SyGen();
-    const queuer = new SyQue(generator);
+    const paths = getPaths();
 
-    await generator.ensureAndLogDir(HOOKS_DIR);
-    await queuer.queueHookFile(validatedName, HOOKS_DIR);
+    await generator.ensureAndLogDir(paths.src.hooks);
+    await queueHookFile(validatedName, paths.src.hooks, generator);
 
     const templatesUsed = await generator.generateQueue();
     SyLog.logStats(templatesUsed);

@@ -2,12 +2,11 @@ import path from 'path';
 import fs from 'fs-extra';
 import prettier from 'prettier';
 
-import { SyErr } from './SyErr.js';
 import { SyLog } from './SyLog.js';
+import { handleError } from './error.js';
 
 /**
- * Utility class for generating files and folders, using SyLogger for messages and feedback
- * as well as SyError for errors.
+ * Utility class for generating files and folders
  */
 export class SyGen {
   constructor() {
@@ -31,8 +30,8 @@ export class SyGen {
         SyLog.log(` ✔  Used existing Directory: ${dir}`, 'success');
       }
     } catch (error) {
-      SyErr.throw(error.message, 1);
-      SyLog.error(`Failed to ensure folder at path: ${dir}`);
+      handleError(error);
+      SyLog.log(`Failed to ensure folder at path: ${dir}`, 'error');
     }
   }
 
@@ -55,9 +54,8 @@ export class SyGen {
       this.templatesUsed.push(template);
       SyLog.log(`✔ Generated ${displayName}: ${filePath}`, 'success');
     } catch (error) {
-      console.log(error);
-      SyLog.error(`Failed to generate file: ${filePath}`);
-      SyErr.throw(error.message, error.code);
+      SyLog.log(`Failed to generate file: ${filePath}`, 'error');
+      handleError(error);
     }
   }
 

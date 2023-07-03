@@ -1,7 +1,7 @@
-import path from 'path';
-
-import { COMPONENTS_DIR } from '../../config.js';
-import { SyErr, SyGen, SyVal } from '../utils/index.js';
+import { handleFunction } from '../utils/error.js';
+import { getPaths } from '../utils/getPaths.js';
+import { SyGen } from '../utils/index.js';
+import { validateDirectory } from '../utils/validate.js';
 
 /**
  * @description
@@ -14,13 +14,11 @@ import { SyErr, SyGen, SyVal } from '../utils/index.js';
  * @async
  */
 export async function generateDirectories(directoryNames) {
-  await SyErr.handle(async () => {
-    const validNames = directoryNames.filter(SyVal.directory);
+  await handleFunction(async () => {
+    const validNames = directoryNames.filter(validateDirectory);
     const generator = new SyGen();
+    const paths = getPaths();
 
-    validNames.forEach((name) => {
-      const dirPath = path.join(COMPONENTS_DIR, name);
-      generator.ensureAndLogDir(dirPath);
-    });
+    await generator.genDirectoriesRecursively(validNames, paths.src.components.abs);
   });
 }

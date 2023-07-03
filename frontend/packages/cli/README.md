@@ -35,7 +35,7 @@ Below is a list of commands supported by the CLI tool along with their descripti
 **Generate directories in Components Directory**
 
 - Command: `syrup gen-dirs <directoryNames...>`
-- Description: `Generates an app component file.`
+- Description: `Generates a single or multiple app component directories.`
 - Aliases:
 
   - `syrup gen-d <directoryNames...>`
@@ -43,43 +43,26 @@ Below is a list of commands supported by the CLI tool along with their descripti
 
 - Usage examples:
 
-  - `syrup gen-dir Subdirectory1 Subdirectory2 Subdirectory3`
-  - `syrup gen-d Subdirectory1 Subdirectory2 Subdirectory3`
-  - `syrup gd Subdirectory1 Subdirectory2 Subdirectory3`
+  - `syrup gen-dir Elements`
+  - `syrup gen-d Elements Form`
+  - `syrup gd Elements Form Layout`
 
 ---
 
-**Generate an app component file**
+**Generate A Single or Multiple App Components**
 
-- Command: `syrup gen-comp <componentName>`
-- Description: `Generates an app component file.`
+- Command: `syrup gen-comp <componentNames...>`
+- Description: `Generates a single or multiple app component files.`
 - Aliases:
 
-  - `syrup gen-c <componentName>`
-  - `syrup gc <componentName>`
+  - `syrup gen-c <componentNames...>`
+  - `syrup gc <componentNames...>`
 
 - Usage examples:
 
   - `syrup gen-comp Button`
-  - `syrup gen-c Button`
-  - `syrup gc Button`
-
----
-
-**Generate Multiple App Components**
-
-- Command: `syrup gen-comps <componentNames...>`
-- Description: `Generates multiple app component files.`
-- Aliases:
-
-  - `syrup gen-cs <componentNames...>`
-  - `syrup gcs <componentNames...>`
-
-- Usage examples:
-
-  - `syrup gen-comps Button Popover Avatar`
-  - `syrup gen-cs Button Popover Avatar`
-  - `syrup gcs Button Popover Avatar`
+  - `syrup gen-c Button Popover`
+  - `syrup gc Button Popover Avatar`
 
 ---
 
@@ -179,7 +162,7 @@ Below is a list of commands supported by the CLI tool along with their descripti
 
 ## Generate Subdirectories in Components Directory
 
-The `syrup gen-dirs` command allows you to generate multiple directories within the Components directory.
+The `syrup gen-dirs` command allows you to generate a single or multiple directories within the Components directory.
 
 ### Input
 
@@ -219,7 +202,7 @@ The gen-dirs command does not generate any specific files or boilerplate code. I
 
 #
 
-## Generate App Component Files
+## Generate One or Many App Component Files
 
 The "syrup gc" command generates a component file with boilerplate code, along with accompanying .test and .stories files.
 
@@ -233,9 +216,17 @@ To generate a component named "Button", execute the following command:
 syrup gc Button
 ```
 
+To generate multiple components such as a Button, Popover, and Avatar, execute the following command:
+
+```bash
+syrup gc Button Popover Avatar
+```
+
 ### Output
 
 #
+
+#### Single Component
 
 Upon running the command, you will be prompted to choose a subdirectory for the component. Select one from the provided options. For example:
 
@@ -259,6 +250,48 @@ After selecting a subdirectory, the component files will be generated. Here's an
 [SUCCESS] ✔ Generated Test File: Button.test.tsx
 [INFO] Lines of Code Generated: 61
 [INFO] Files Generated: 3
+```
+
+#
+
+#### Multiple Components
+
+Upon running the command, you will be prompted to choose a subdirectory for each component. The prompt will be repeated for each component name provided. Select a subdirectory from the options presented.
+
+```bash
+$ syrup gen-comps Button Popover Avatar
+? Choose a subdirectory for the component Button: (Use arrow keys)
+❯ Category1
+  Category2
+  Category3
+? Choose a subdirectory for the component Popover: (Use arrow keys)
+❯ Category1
+  Category2
+  Category3
+? Choose a subdirectory for the component Avatar: (Use arrow keys)
+❯ Category1
+  Category2
+  Category3
+
+```
+
+After selecting a subdirectory for each component, the corresponding component files will be generated. The output will indicate the generated folders and files for each component:
+
+```bash
+[SUCCESS] Used existing Directory: ✔ C:\Python\syrup\frontend\packages\src\components\Category1\Button
+[SUCCESS] ✔ Generated Component File: Button.tsx
+[SUCCESS] ✔ Generated Test File: Button.test.tsx
+[SUCCESS] ✔ Generated Storybook File: Button.stories.tsx
+[SUCCESS] Generated Directory: ✔ C:\Python\syrup\frontend\packages\src\components\Category2\Popover
+[SUCCESS] ✔ Generated Component File: Popover.tsx
+[SUCCESS] ✔ Generated Storybook File: Popover.stories.tsx
+[SUCCESS] ✔ Generated Test File: Popover.test.tsx
+[SUCCESS] Generated Directory: ✔ C:\Python\syrup\frontend\packages\src\components\Category3\Avatar
+[SUCCESS] ✔ Generated Storybook File: Avatar.stories.tsx
+[SUCCESS] ✔ Generated Component File: Avatar.tsx
+[SUCCESS] ✔ Generated Test File: Avatar.test.tsx
+[INFO] Lines of Code Generated: 183
+[INFO] Files Generated: 9
 ```
 
 ### Boilerplate
@@ -344,80 +377,6 @@ describe('${componentName}', () => {
     // Add your assertions here
   });
 });
-```
-
-#
-
-## Generate Multiple App Components
-
-The "syrup gcs" command allows you to generate multiple app components with associated files.
-
-### Input
-
-#
-
-To generate multiple components, execute the following command:
-
-```bash
-syrup gcs <componentNames...>
-```
-
-Replace <componentNames...> with a list of component names separated by spaces. For example:
-
-```bash
-syrup gen-comps Button Popover Avatar
-```
-
-### Output
-
-#
-
-Upon running the command, you will be prompted to choose a subdirectory for each component. The prompt will be repeated for each component name provided. Select a subdirectory from the options presented.
-
-```bash
-$ syrup gen-comps Button Popover Avatar
-? Choose a subdirectory for the component Button: (Use arrow keys)
-❯ Category1
-  Category2
-  Category3
-? Choose a subdirectory for the component Popover: (Use arrow keys)
-❯ Category1
-  Category2
-  Category3
-? Choose a subdirectory for the component Avatar: (Use arrow keys)
-❯ Category1
-  Category2
-  Category3
-
-```
-
-After selecting a subdirectory for each component, the corresponding component files will be generated. The output will indicate the generated folders and files for each component:
-
-```bash
-[SUCCESS] Used existing Directory: ✔ C:\Python\syrup\frontend\packages\src\components\Elements\Button
-[SUCCESS] ✔ Generated Component File: Button.tsx
-[SUCCESS] ✔ Generated Test File: Button.test.tsx
-[SUCCESS] ✔ Generated Storybook File: Button.stories.tsx
-[SUCCESS] Generated Directory: ✔ C:\Python\syrup\frontend\packages\src\components\Elements\Popover
-[SUCCESS] ✔ Generated Component File: Popover.tsx
-[SUCCESS] ✔ Generated Storybook File: Popover.stories.tsx
-[SUCCESS] ✔ Generated Test File: Popover.test.tsx
-[SUCCESS] Generated Directory: ✔ C:\Python\syrup\frontend\packages\src\components\Elements\Avatar
-[SUCCESS] ✔ Generated Storybook File: Avatar.stories.tsx
-[SUCCESS] ✔ Generated Component File: Avatar.tsx
-[SUCCESS] ✔ Generated Test File: Avatar.test.tsx
-[INFO] Lines of Code Generated: 183
-[INFO] Files Generated: 9
-```
-
-### Boilerplate
-
-#
-
-[See Generate App Component Files Boilerplate section](#boilerplate), which contains the templates used for each generated component from:
-
-```bash
-syrup gcs Button Popover Avatar
 ```
 
 #

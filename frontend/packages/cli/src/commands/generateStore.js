@@ -1,5 +1,9 @@
-import { STORES_DIR } from '../../config.js';
-import { SyAlter, SyErr, SyGen, SyLog, SyQue, SyVal } from '../utils/index.js';
+import { queueStoreFile } from '../queue/queueStore.js';
+import { handleFunction } from '../utils/error.js';
+import { capFirst } from '../utils/format.js';
+import { getPaths } from '../utils/getPaths.js';
+import { SyGen, SyLog } from '../utils/index.js';
+import { validateName } from '../utils/validate.js';
 
 /**
  * @description
@@ -11,16 +15,16 @@ import { SyAlter, SyErr, SyGen, SyLog, SyQue, SyVal } from '../utils/index.js';
  * @async
  */
 export async function generateStore(storeName) {
-  await SyErr.handle(async () => {
-    const validatedName = SyVal.name(storeName);
-    const formattedName = SyAlter.capFirst(validatedName);
+  await handleFunction(async () => {
+    const validatedName = validateName(storeName);
+    const formattedName = capFirst(validatedName);
     const lowercaseName = validatedName.toLowerCase();
 
     const generator = new SyGen();
-    const queuer = new SyQue(generator);
+    const paths = getPaths();
 
-    await generator.ensureAndLogDir(STORES_DIR);
-    await queuer.queueStoreFile(formattedName, lowercaseName, STORES_DIR);
+    await generator.ensureAndLogDir(paths.src.stores);
+    await queueStoreFile(formattedName, lowercaseName, paths.src.stores, generator);
 
     const templatesUsed = await generator.generateQueue();
     SyLog.logStats(templatesUsed);

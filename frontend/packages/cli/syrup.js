@@ -7,7 +7,8 @@ import { generateFeature } from './src/commands/generateFeature.js';
 import { generateFeatureComponents } from './src/commands/generateFeatureComponents.js';
 import { generateHook } from './src/commands/generateHook.js';
 import { generateStore } from './src/commands/generateStore.js';
-import { initializeProject } from './src/commands/initializeProject.js';
+import { generateProject } from './src/commands/generateProject.js';
+import { generateModelSchema } from './src/commands/generateModelSchema.js';
 
 /**
  * Syrup CLI
@@ -24,11 +25,13 @@ program.version('1.0.2').description('Syrup CLI');
  * It sets up the basic folder structure and configuration files required for the project.
  */
 program
-  .command('initialize')
+  .command('gen-project')
+  .alias('gen-p')
+  .alias('gp')
   .alias('init')
   .description('Initialize the project structure')
   .action(async () => {
-    await initializeProject();
+    await generateProject();
   });
 
 /**
@@ -121,6 +124,15 @@ program
   .description('Generate Store File')
   .action(async (storeName) => {
     generateStore(storeName);
+  });
+
+program
+  .command('gen-model')
+  .alias('gen-m')
+  .alias('gm')
+  .description('Generate Model Schema')
+  .action(() => {
+    generateModelSchema();
   });
 
 program.parse(process.argv);

@@ -1,8 +1,12 @@
 import path from 'path';
 
-import { COMPONENTS_DIR } from '../../config.js';
 import { promptSubdirectory } from '../prompts/index.js';
-import { SyAlter, SyErr, SyGen, SyLog, SyQue, SyVal } from '../utils/index.js';
+import { queueComponentFiles } from '../queue/queueComponents.js';
+import { handleFunction } from '../utils/error.js';
+import { capFirst } from '../utils/format.js';
+import { getPaths } from '../utils/getPaths.js';
+import { SyGen, SyLog } from '../utils/index.js';
+import { validateName } from '../utils/validate.js';
 
 /**
  * @description
@@ -14,12 +18,11 @@ import { SyAlter, SyErr, SyGen, SyLog, SyQue, SyVal } from '../utils/index.js';
  * @async
  */
 export async function generateComponents(componentNames) {
-  await SyErr.handle(async () => {
+  await handleFunction(async () => {
     const generator = new SyGen();
-    const queuer = new SyQue(generator);
 
     for (const name of componentNames) {
-      await setupComponent(name, generator, queuer);
+      await setupComponent(name, generator);
     }
 
     const templatesUsed = await generator.generateQueue();
@@ -33,21 +36,21 @@ export async function generateComponents(componentNames) {
  *
  * @param {string} componentName - The name of the component.
  * @param {SyGen} generator - The generator instance.
- * @param {SyQue} queuer - The queuer instance.
  * @returns {Promise<void>}
  *
  * @async
  */
-export async function setupComponent(componentName, generator, queuer) {
-  const validatedName = SyVal.name(componentName);
+export async function setupComponent(componentName, generator) {
+  const validatedName = validateName(componentName);
   const subdirectory = await promptSubdirectory(validatedName);
-  const formattedName = SyAlter.capFirst(validatedName);
+  const formattedName = capFirst(validatedName);
+  const paths = getPaths();
 
-  const subDir = path.join(COMPONENTS_DIR, subdirectory);
+  const subDir = path.join(paths.src.components.abs, subdirectory);
   await generator.ensureAndLogDir(subDir);
 
   const componentDir = path.join(subDir, formattedName);
   await generator.ensureAndLogDir(componentDir);
 
-  await queuer.queueComponentFiles(formattedName, componentDir);
+  await queueComponentFiles(formattedName, componentDir, generator);
 }

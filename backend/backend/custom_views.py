@@ -64,20 +64,15 @@ class BaseListView(generics.ListCreateAPIView):
             if isinstance(field, ForeignKey) and field.name == "tag":
                 related_class = field.remote_field.model
                 if "tag" in data and not data["tag"].isnumeric():
-                    print("yeet")
                     tag = data.pop("tag", None)
                     tag_obj, created = related_class.objects.get_or_create(name=tag[0])
                     data["tag"] = tag_obj.id
             elif isinstance(field, ForeignKey):
-                print("fk found: ", field)
                 related_class = field.remote_field.model
-                print("related: ", related_class)
 
                 if field.name in data:
                     obj = data.pop(field.name, None)
-                    print("obj", obj)
                     foo_obj, created = related_class.objects.get_or_create(id=obj[0])
-                    print(foo_obj)
                     data[field.name] = foo_obj.id
             elif isinstance(field, ManyToManyField):
                 mtm_fields[field.name] = field.remote_field.model
@@ -103,13 +98,8 @@ class BaseListView(generics.ListCreateAPIView):
             author = User.objects.get(username=request.username)
             data["author"] = author.id
 
-        print(data)
-        print(self.model_class.serializer_class)
-
         serializer = self.model_class.serializer_class(data=data)
         serializer.is_valid()
-        print("valid", serializer.validated_data)
-        print(serializer.errors)
         serializer.is_valid(raise_exception=True)
         instance = self.perform_create(serializer)
 
@@ -143,7 +133,6 @@ class BaseDetailView(generics.RetrieveUpdateDestroyAPIView):
     mtm_fields = {}
 
     def update(self, request, *args, **kwargs):
-        print(request.data)
         instance = self.get_object()
         old_instance = self.model_class.objects.get(pk=instance.pk)
 

@@ -4,4 +4,6 @@ export * from './general/index.js';
 export * from './index/index.js';
 export * from './lib/index.js';
 export * from './provider/index.js';
+export * from './routes/index.js';
 export * from './theme/index.js';
+export * from './utils/index.js';

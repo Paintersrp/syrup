@@ -2,7 +2,7 @@ import inquirer from 'inquirer';
 import fs from 'fs-extra';
 
 import { SyLog } from '../utils/SyLog.js';
-import { COMPONENTS_DIR } from '../../config.js';
+import { COMPONENTS_DIR } from '../utils/getPaths.js';
 
 /**
  * @description
@@ -16,12 +16,14 @@ export async function promptSubdirectory(validatedName) {
   const componentsExists = await fs.pathExists(COMPONENTS_DIR);
 
   if (!componentsExists) {
-    SyLog.error('The components directory does not exist.');
+    SyLog.log('The components directory does not exist.', 'error');
+    process.exit(1);
   }
 
   const componentFolders = await fs.readdir(COMPONENTS_DIR);
   if (componentFolders.length === 0) {
-    SyLog.error('There are no subdirectories in the components directory.');
+    SyLog.log('There are no subdirectories in the components directory.', 'error');
+    process.exit(1);
   }
 
   return inquirer

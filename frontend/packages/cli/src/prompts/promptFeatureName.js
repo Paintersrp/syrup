@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import inquirer from 'inquirer';
 
-import { FEATURES_DIR } from '../../config.js';
+import { FEATURES_DIR } from '../utils/getPaths.js';
 import { SyLog } from '../utils/SyLog.js';
 
 /**
@@ -14,12 +14,14 @@ import { SyLog } from '../utils/SyLog.js';
 export async function promptFeatureName() {
   const featuresExists = await fs.pathExists(FEATURES_DIR);
   if (!featuresExists) {
-    SyLog.error('The features directory does not exist.');
+    SyLog.log('The features directory does not exist.', 'error');
+    process.exit(1);
   }
 
   const featureFolders = await fs.readdir(FEATURES_DIR);
   if (featureFolders.length === 0) {
-    SyLog.error('There are no subdirectories in the features directory.');
+    SyLog.log('There are no subdirectories in the features directory.', 'error');
+    process.exit(1);
   }
 
   return inquirer

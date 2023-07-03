@@ -1,4 +1,4 @@
-export { ComponentBasicTemplate } from './componentBasic.js';
-export { ComponentFullTemplate } from './componentFull.js';
-export { ComponentStorybookTemplate } from './componentStorybook.js';
-export { ComponentTestTemplate } from './componentTest.js';
+export { ComponentBasicTemplate } from './compBasic.template.js';
+export { ComponentFullTemplate } from './compFull.template.js';
+export { ComponentStorybookTemplate } from './compStorybook.template.js';
+export { ComponentTestTemplate } from './compTest.template.js';

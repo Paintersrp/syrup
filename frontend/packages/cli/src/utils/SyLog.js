@@ -1,5 +1,3 @@
-import { SyErr } from './SyErr.js';
-
 /**
  * Utility class for logging messages and feedback.
  */
@@ -31,12 +29,13 @@ export class SyLog {
   static log(message, level = 'info') {
     const logLevels = Object.keys(SyLog.levels);
     if (!logLevels.includes(level)) {
-      SyLog.error(`Invalid log level: ${level}. Valid levels are: ${logLevels.join(', ')}`);
+      SyLog.log(`Invalid log level: ${level}. Valid levels are: ${logLevels.join(', ')}`, 'error');
+      console.log(message);
+    } else {
+      const { label, color } = SyLog.levels[level];
+      const logMessage = `${color}[${label}] ${message}\x1b[0m`; // x1b[0m resets color
+      console.log(logMessage);
     }
-
-    const { label, color } = SyLog.levels[level];
-    const logMessage = `${color}[${label}] ${message}\x1b[0m`; // x1b[0m resets color
-    console.log(logMessage);
   }
 
   /**
@@ -65,33 +64,6 @@ export class SyLog {
     const logFileMessage = `${color}[${label}] Files Generated: ${totalFiles}\x1b[0m`;
     console.log(logLineMessage);
     console.log(logFileMessage);
-  }
-
-  /**
-   * @description
-   * Handle and log errors. If the error is an instance of SyError,
-   * log the error message and exit with the error code. Otherwise,
-   * log an unexpected error message and stack trace, and exit with
-   * a generic error code (1).
-   *
-   * @param {Error} error - The error object to handle.
-   * @param {string} [additionalMessage] - Additional error message to display.
-   * @returns {void}
-   */
-  static error(error, additionalMessage) {
-    const { label, color } = SyLog.levels.error;
-    const errorMessage = `${color}[${label}] Error: ${error}\x1b[0m`;
-
-    console.error(errorMessage);
-    if (additionalMessage) {
-      console.error(`${color}[${label}] ${additionalMessage}\x1b[0m`);
-    }
-
-    if (error instanceof SyErr) {
-      process.exit(error.code);
-    } else {
-      process.exit(1);
-    }
   }
 
   /**

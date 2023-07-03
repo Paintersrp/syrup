@@ -1,8 +1,12 @@
 import path from 'path';
 
-import { FEATURES_DIR } from '../../config.js';
 import { promptComponentCount, promptFeatureName } from '../prompts/index.js';
-import { SyAlter, SyErr, SyGen, SyLog, SyQue, SyVal } from '../utils/index.js';
+import { queueFeatureComponents } from '../queue/queueFeatureComponents.js';
+import { handleFunction } from '../utils/error.js';
+import { capFirst } from '../utils/format.js';
+import { getPaths } from '../utils/getPaths.js';
+import { SyGen, SyLog } from '../utils/index.js';
+import { validateName } from '../utils/validate.js';
 
 /**
  * @description
@@ -16,20 +20,21 @@ import { SyAlter, SyErr, SyGen, SyLog, SyQue, SyVal } from '../utils/index.js';
  * @async
  */
 export async function generateFeatureComponents(cmd) {
-  await SyErr.handle(async () => {
+  await handleFunction(async () => {
     const { name, count } = cmd;
     const featureName = name || (await promptFeatureName());
-    const validatedName = SyVal.name(featureName);
+    const validatedName = validateName(featureName);
     const componentCount = count || (await promptComponentCount());
 
     const generator = new SyGen();
-    const queuer = new SyQue(generator);
+    const paths = getPaths();
 
-    const featureDirectory = path.join(FEATURES_DIR, validatedName);
-    const formattedName = SyAlter.capFirst(validatedName);
+    const featureDirectory = path.join(paths.src.features, validatedName);
+    const formattedName = capFirst(validatedName);
 
     await generator.ensureAndLogDir(featureDirectory);
-    await queuer.queueFeatureComponentFiles(formattedName, featureDirectory, componentCount);
+
+    await queueFeatureComponents(formattedName, featureDirectory, componentCount, generator);
     const templatesUsed = await generator.generateQueue();
 
     SyLog.logStats(templatesUsed);

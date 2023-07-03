@@ -1,6 +1,6 @@
 import inquirer from 'inquirer';
 
-import { SyVal } from '../utils/SyVal.js';
+import { validateNumber } from '../utils/validate.js';
 
 /**
  * @description
@@ -15,7 +15,7 @@ export async function promptComponentCount() {
       type: 'input',
       name: 'componentCount',
       message: 'Enter the number of pre-generated components you need:',
-      validate: SyVal.number,
+      validate: validateNumber,
     },
   ]);
 

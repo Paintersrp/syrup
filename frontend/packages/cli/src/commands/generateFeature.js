@@ -1,5 +1,8 @@
 import { promptComponentCount, promptFeatureType } from '../prompts/index.js';
-import { SyErr, SyGen, SyLog, SyQue, SyVal } from '../utils/index.js';
+import { queueFeature } from '../queue/queueFeature.js';
+import { handleFunction } from '../utils/error.js';
+import { SyGen, SyLog } from '../utils/index.js';
+import { validateName } from '../utils/validate.js';
 
 /**
  * @description
@@ -14,17 +17,16 @@ import { SyErr, SyGen, SyLog, SyQue, SyVal } from '../utils/index.js';
  * @async
  */
 export async function generateFeature(featureName, cmd) {
-  await SyErr.handle(async () => {
-    const validatedName = SyVal.name(featureName);
+  await handleFunction(async () => {
+    const validatedName = validateName(featureName);
     const { type, count } = cmd;
 
     const featureType = type || (await promptFeatureType());
     const componentCount = count || (await promptComponentCount());
 
     const generator = new SyGen();
-    const queuer = new SyQue(generator);
 
-    await queuer.queueFeature(validatedName, featureType, componentCount);
+    await queueFeature(validatedName, featureType, componentCount, generator);
     const templatesUsed = await generator.generateQueue();
     SyLog.logStats(templatesUsed);
   });
