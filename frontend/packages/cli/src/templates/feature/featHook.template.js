@@ -9,7 +9,8 @@ export const FeatureHookTemplate = (featureName) =>
   `
 import { useQuery } from 'react-query';
 
-import { axios, ExtractFnReturnType, QueryConfig } from '@/lib/api';
+import { axios } from '@/lib/axios';
+import { ExtractFnReturnType, QueryConfig } from '@/lib/query';
 
 import { ${featureName}Content } from '../types';
 

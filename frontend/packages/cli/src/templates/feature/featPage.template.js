@@ -10,8 +10,8 @@ export const FeaturePageTemplate = (featureName) =>
   `
 import { FC } from 'react';
 
-import { Loading } from '@/components/Elements';
-import { Page } from '@/components/Layout';
+import { Loading } from 'sy-core/components/Elements';
+import { Page } from 'sy-core/components/Layout';
 
 import { use${featureName} } from '../api/use${featureName}';
 

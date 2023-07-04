@@ -5,7 +5,7 @@ export const BASE_DIR = path.resolve();
 export const API_DIR = path.join(BASE_DIR, 'api');
 export const API_AUTH_DIR = path.join(API_DIR, 'auth');
 
-export const WEB_DIR = path.join(BASE_DIR, 'frontend');
+export const WEB_DIR = path.join(BASE_DIR, 'web');
 export const SOURCE_DIR = path.join(WEB_DIR, 'src');
 export const HOOKS_DIR = path.join(SOURCE_DIR, 'hooks');
 export const LIB_DIR = path.join(SOURCE_DIR, 'lib');

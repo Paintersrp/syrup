@@ -9,7 +9,7 @@ export const ComponentBasicTemplate = (componentName) =>
   `
 import { FC } from 'react';
 
-import { BaseProps } from '@/theme/base';
+import { BaseProps } from 'sy-core/theme/base'';
 
 interface Props extends BaseProps {}
 

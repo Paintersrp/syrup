@@ -10,10 +10,10 @@ export const ComponentFullTemplate = (componentName) =>
 import { FC } from 'react';
 import { css } from '@emotion/react';
 
-import { Base, BaseProps } from '@/theme/base';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
-import { GenericMapping } from '@/types';
+import { Base, BaseProps } from 'sy-core/theme/base';
+import { ExtendedTheme } from 'sy-core/theme/types';
+import { inject } from 'sy-core/theme/utils';
+import { GenericMapping } from 'sy-core/types';
 
 const Mapping: GenericMapping = {
   key: value,

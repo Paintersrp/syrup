@@ -1,20 +1,12 @@
 import path from 'path';
+import fs from 'fs-extra';
 import { execSync } from 'child_process';
+import { fileURLToPath } from 'url';
 
 import { handleFunction } from '../utils/error.js';
 import { capFirst } from '../utils/format.js';
 import { getPaths, PROJECT_DIRS, PROJECT_DIRS_WITH_INDEX } from '../utils/getPaths.js';
-import {
-  queueComponents,
-  queueFeature,
-  queueHook,
-  queueInitLib,
-  queueInitProviders,
-  queueInitRoutes,
-  queueInitTheme,
-  queueInitUtils,
-  queueStore,
-} from '../queue/index.js';
+import { queueComponents, queueFeature, queueHook, queueStore } from '../queue/index.js';
 import { SyGen, SyLog } from '../utils/index.js';
 
 /**
@@ -27,12 +19,33 @@ import { SyGen, SyLog } from '../utils/index.js';
  */
 export async function generateProject() {
   await handleFunction(async () => {
-    execSync(`django-admin startproject api`, {
-      stdio: 'inherit',
-    });
+    /**
+     * Add Admin to Core
+     * Add Auth to Core (?)
+     *
+     * Add Settings
+     * Add Django Additions / Customs / Middleware
+     *
+     * Auto routing
+     * Auto links
+     *
+     * Stock Home / Landing Page
+     * Stock AppNavbar / Footer / Drawer
+     * Button / Palette Demo
+     * Palette Preview Dev
+     * Dev Mode
+     */
 
     const generator = new SyGen();
     const paths = getPaths();
+
+    execSync(`npm create vite@latest web -- --template react-ts`, {
+      stdio: 'inherit',
+    });
+
+    execSync(`django-admin startproject api`, {
+      stdio: 'inherit',
+    });
 
     await generator.ensureAndLogDir(paths.web.abs);
     await generator.ensureAndLogDir(paths.web.src.abs);
@@ -49,10 +62,8 @@ export async function generateProject() {
         const generateIndex = PROJECT_DIRS_WITH_INDEX.includes(directory);
 
         if (generateIndex) {
-          const indexContent =
-            directory === 'types' ? 'export type GenericMapping = { [key: string]: any };' : '';
           const indexPath = path.join(dirPath, 'index.ts');
-          await generator.addFileToQueue(indexContent, indexPath, formattedSubdirName);
+          await generator.addFileToQueue('', indexPath, formattedSubdirName);
         }
       })
     );
@@ -61,62 +72,37 @@ export async function generateProject() {
     const placeholderName = 'Placeholder';
 
     await Promise.all(
-      Object.entries(paths.web.src.components).map(async ([directory, dirPath]) => {
-        if (directory === 'abs') {
-          return;
-        }
-        await generator.ensureAndLogDir(dirPath);
-        const compPath = path.join(dirPath, placeholderName);
+      Array.from({ length: 5 }).map(async (_, index) => {
+        const dirPath = paths.web.src.components.abs;
+        const compPath = path.join(dirPath, `${placeholderName}${index + 1}`);
         await generator.ensureAndLogDir(compPath);
-        await queueComponents(placeholderName, compPath, generator);
+        await queueComponents(`${placeholderName}${index + 1}`, compPath, generator);
       })
     );
 
-    // Queue initial features and feature files
+    // Queue initial placeholder features and feature files
     await queueFeature('Suite', 'Suite', 3, generator);
     await queueFeature('Individual', 'Individual', 3, generator);
 
-    // Queue initial features and feature files
-    await queueHook('usePlaceholder', paths.web.src.hooks, generator);
+    // Queue initial placeholder hooks
+    await queueHook('usePlaceholder1', paths.web.src.hooks, generator);
+    await queueHook('usePlaceholder2', paths.web.src.hooks, generator);
 
-    // Queue initial src/lib files
-    await queueInitLib(paths.web.src.lib, generator);
-
-    // Queue initial src/lib files
-    await queueInitLib(paths.web.src.lib, generator);
-
-    // Queue initial provider files
-    await queueInitProviders(paths.web.src.providers, generator);
-
-    // Queue initial routes files
-    await queueInitRoutes(paths.web.src.routes, generator);
-
-    // Queue initial store files
-    await queueStore('Auth', 'auth', paths.web.src.stores, generator);
-    await queueStore('Notifications', 'notifications', paths.web.src.stores, generator);
-
-    // Queue initial theme files
-    await queueInitTheme(paths.web.src.theme, generator);
-
-    // Queue initial utils files
-    await queueInitUtils(paths.web.src.utils, generator);
-
-    // Admin?
-    // Auth? + AuthProvider + Auth Feature
-
-    // Component/Package Dependencies/NPM Install
-
-    // Stock Home / Landing Page
-    // Stock AppNavbar / Footer / Drawer
-    // Button / Palette Demo
-
-    // Route updating
-    // Settings
-
-    // More Utils? Format?
+    // Queue initial placeholder store files
+    await queueStore('Placeholder1', 'placeholder1', paths.web.src.stores, generator);
+    await queueStore('Placeholder2', 'placeholder2', paths.web.src.stores, generator);
 
     // Process and generate queue
     const templatesUsed = await generator.generateQueue();
     SyLog.logStats(templatesUsed);
+
+    const staticTemplatesUrl = new URL('../templates/static', import.meta.url);
+    const staticTemplatesPath = fileURLToPath(staticTemplatesUrl);
+    fs.copySync(staticTemplatesPath, paths.web.abs);
+
+    execSync(`npm install`, {
+      stdio: 'inherit',
+      cwd: paths.web.abs,
+    });
   });
 }
