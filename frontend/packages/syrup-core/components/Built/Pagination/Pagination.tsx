@@ -1,9 +1,11 @@
-import { ChangeEvent, FC } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { IconButton } from '@/components/Buttons';
-import { Flexer } from '@/components/Containers';
-import { Text, Tooltip } from '@/components/Elements';
-import { Option, Select } from '@/components/Form';
+import React, { ChangeEvent, FC } from 'react';
+import { IconButton } from '../../Buttons';
+import { Flexer } from '../../Containers';
+import { Text, Tooltip } from '../../Elements';
+import { Option, Select } from '../../Form';
 
 interface PaginationProps {
   count: number;

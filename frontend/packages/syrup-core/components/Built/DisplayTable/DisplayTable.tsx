@@ -1,8 +1,12 @@
-import { CSSProperties, FC } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { CSSProperties, FC } from 'react';
 import { To, useLocation } from 'react-router-dom';
 
-import { Button } from '@/components/Buttons';
-import { Flexer } from '@/components/Containers';
+import { BaseProps } from '../../../theme/base';
+import { Button } from '../../Buttons';
+import { Flexer } from '../../Containers';
 import {
   Divider,
   Icon,
@@ -16,9 +20,7 @@ import {
   TableSizes,
   Text,
   Tooltip,
-} from '@/components/Elements';
-
-import { BaseProps } from '@/theme/base';
+} from '../../Elements';
 
 type Cell = { id: string; value: any };
 

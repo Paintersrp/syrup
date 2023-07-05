@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react';
+import React, { CSSProperties } from 'react';
 import { AlignmentValue, JustificationValue } from '../base';
 import { AnimationStyles, Breakpoints, Colors } from '../common';
 import { shadows, Shadows } from '../common/shadows';

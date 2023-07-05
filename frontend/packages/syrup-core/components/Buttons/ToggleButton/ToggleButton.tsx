@@ -1,4 +1,7 @@
-import { CSSProperties, FC, ReactNode } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { CSSProperties, FC, ReactNode } from 'react';
 import { useTheme } from '@emotion/react';
 import clsx from 'clsx';
 

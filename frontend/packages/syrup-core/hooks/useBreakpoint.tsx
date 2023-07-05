@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Breakpoint, breakpoints } from '@/theme/common';
+import React, { useState, useEffect } from 'react';
+import { Breakpoint, breakpoints } from '../theme/common';
 
 export const useBreakpoint = (breakpoint: Breakpoint): boolean => {
   const [isAtBreakpoint, setIsAtBreakpoint] = useState(false);

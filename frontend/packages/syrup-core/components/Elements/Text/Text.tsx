@@ -1,11 +1,13 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React, { CSSProperties, ReactNode } from 'react';
 import { css } from '@emotion/react';
 import clsx from 'clsx';
-
-import { colors } from '@/theme/common';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
-import { GenericMapping } from '@/types';
+import { ExtendedTheme } from '../../../theme/types';
+import { GenericMapping } from '../../../types';
+import { inject } from '../../../theme/utils';
+import { colors } from '../../../theme/common';
 
 const typeMapping: GenericMapping = {
   h1: {

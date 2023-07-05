@@ -1,13 +1,16 @@
-import { FC, Fragment } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { FC, Fragment } from 'react';
 import { css } from '@emotion/react';
 
 import { Tooltip } from '../Tooltip/Tooltip';
 import { Text } from '../Text/Text';
-import { Flexer } from '@/components/Containers';
-import { PaletteOptions } from '@/theme/palettes';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
-import { GenericMapping } from '@/types';
+import { GenericMapping } from '../../../types';
+import { ExtendedTheme } from '../../../theme/types';
+import { PaletteOptions } from '../../../theme/palettes';
+import { inject } from '../../../theme/utils';
+import { Flexer } from '../../Containers';
 
 export type AvatarSizes = 'tiny' | 'sm' | 'md' | 'lg';
 

@@ -1,3 +1,6 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React, { FC } from 'react';
 
 import { Flexer } from '../../Containers';

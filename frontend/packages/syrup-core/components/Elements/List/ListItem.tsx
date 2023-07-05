@@ -1,9 +1,13 @@
-import { CSSProperties, FC, MouseEvent } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { CSSProperties, FC, MouseEvent } from 'react';
 
 import ListItemWithIcon from './ListItemWithIcon';
 import ListItemTextOnly from './ListItemTextOnly';
-import { Base, BaseProps } from '@/theme/base';
+
 import clsx from 'clsx';
+import { Base, BaseProps } from '../../../theme/base';
 
 export interface ListItemDataType {
   text: string;

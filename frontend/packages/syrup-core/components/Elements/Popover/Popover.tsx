@@ -1,4 +1,7 @@
-import React, { useState, useRef, useEffect } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { Fragment, useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { css } from '@emotion/react';
 
@@ -174,7 +177,7 @@ export const Popover: React.FC<PopoverProps> = ({
   const onMouseLeave = trigger === 'hover' ? closePopover : undefined;
 
   return (
-    <>
+    <Fragment>
       <div
         css={triggerStyles}
         ref={triggerRef}
@@ -191,6 +194,6 @@ export const Popover: React.FC<PopoverProps> = ({
           </div>,
           portalContainer
         )}
-    </>
+    </Fragment>
   );
 };

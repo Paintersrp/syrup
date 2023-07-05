@@ -1,9 +1,12 @@
-import React, { ReactNode } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { Flexer } from '@/components/Containers';
-import { Divider, Text } from '@/components/Elements';
-import { BaseProps, JustificationValue } from '@/theme/base';
-import { PaletteOptions } from '@/theme/palettes';
+import React, { ReactNode } from 'react';
+import { BaseProps, JustificationValue } from '../../../theme/base';
+import { PaletteOptions } from '../../../theme/palettes';
+import { Flexer } from '../../Containers';
+import { Divider } from '../Divider/Divider';
+import { Text } from '../Text/Text';
 
 interface DrawerHeaderProps extends BaseProps {
   j?: JustificationValue;

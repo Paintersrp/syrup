@@ -1,4 +1,7 @@
-import { FC, ReactNode, useEffect, useRef, useState } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 
 interface SlideOnScrollProps {

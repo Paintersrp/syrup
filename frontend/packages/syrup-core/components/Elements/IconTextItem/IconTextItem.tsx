@@ -1,10 +1,13 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React, { CSSProperties } from 'react';
 
-import { Flexer } from '@/components/Containers';
-import { Divider, Text, TextAlign } from '..';
-import { BaseProps } from '@/theme/base';
-
+import { BaseProps } from '../../../theme/base';
+import { Flexer } from '../../Containers';
+import { Divider } from '../Divider/Divider';
 import { Icon } from '../Icon/Icon';
+import { Text, TextAlign } from '../Text/Text';
 interface IconTextItemProps extends BaseProps {
   icon?: string;
   text?: string;

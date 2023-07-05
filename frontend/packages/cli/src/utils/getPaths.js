@@ -34,6 +34,7 @@ export const PROJECT_DIRS = [...PROJECT_DIRS_WITH_INDEX, ...PROJECT_DIRS_WITHOUT
  */
 export function getPaths() {
   const paths = {
+    abs: BASE_DIR,
     api: {
       abs: API_DIR,
       auth: API_AUTH_DIR,

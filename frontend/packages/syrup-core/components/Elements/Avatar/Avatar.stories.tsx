@@ -1,5 +1,5 @@
-import { Flexer } from '@/components/Containers';
 import { Meta, StoryFn } from '@storybook/react';
+import { Flexer } from '../../Containers';
 import { Avatar, AvatarProps } from './Avatar';
 
 export default {

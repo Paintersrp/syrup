@@ -1,4 +1,7 @@
-import {
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, {
   useState,
   ReactNode,
   CSSProperties,
@@ -10,8 +13,8 @@ import {
 } from 'react';
 import clsx from 'clsx';
 
-import { Base, BaseProps } from '@/theme/base';
 import { css, useTheme } from '@emotion/react';
+import { Base, BaseProps } from '../../../theme/base';
 
 export const cx: any = {
   borderLeft: css({

@@ -1,10 +1,12 @@
-import { useState, ChangeEvent, CSSProperties, FC } from 'react';
-import { css } from '@emotion/react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { HelpText } from '@/components/Elements';
-import { Base, BaseProps } from '@/theme/base';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
+import React, { useState, ChangeEvent, CSSProperties, FC } from 'react';
+import { css } from '@emotion/react';
+import { ExtendedTheme } from '../../../theme/types';
+import { Base, BaseProps } from '../../../theme/base';
+import { inject } from '../../../theme/utils';
+import { HelpText } from '../../Elements';
 
 const sizeMapping: any = {
   small: 2,

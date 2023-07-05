@@ -1,4 +1,7 @@
-import { FC, ReactEventHandler } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { FC, ReactEventHandler } from 'react';
 import { css, useTheme } from '@emotion/react';
 
 export const cx = (active: boolean, theme: any) =>

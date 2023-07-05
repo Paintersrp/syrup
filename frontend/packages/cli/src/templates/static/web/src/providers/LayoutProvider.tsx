@@ -1,9 +1,14 @@
 import { FC } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 
-import { AppDrawer, AppFooter, AppNavbar } from '@/components/Layout';
+import { ScrollToTopFAB } from 'sy-core/components/Built';
+// import { Alert } from 'sy-core/components/Elements';
+// import { AppDrawer, AppFooter, AppNavbar } from 'sy-core/components/Layout';
 import { useDrawer } from 'sy-core/hooks';
 import { LOGO, TITLE } from '@/settings';
+
+import { useAlertStore } from '@/stores/alert';
+import { ScrollToTop } from '@/utils/scrollToTop';
 
 export interface SiteLinkType {
   to: string;
@@ -31,6 +36,25 @@ export const LINKS: SiteLinkType[] = [
     footer: true,
     navbar: true,
   },
+  {
+    to: '/services',
+    key: 'Services',
+    footer: true,
+    navbar: true,
+  },
+  {
+    to: '/posts',
+    key: 'Posts',
+    footer: true,
+    navbar: true,
+  },
+
+  {
+    to: '/WIP',
+    key: 'WIP',
+    footer: true,
+    navbar: true,
+  },
 ];
 
 type LayoutProviderProps = {
@@ -39,18 +63,23 @@ type LayoutProviderProps = {
 
 export const LayoutProvider: FC<LayoutProviderProps> = ({ children }) => {
   const { isDrawerOpen, handleDrawer } = useDrawer();
+  const { alertState, closeAlert } = useAlertStore();
 
   return (
     <Router>
-      <AppNavbar menuButton menuOpen={isDrawerOpen} menuOnClick={handleDrawer} links={LINKS} />
-      <AppDrawer
+      {/* {alertState.open && <Alert alert={alertState} onClose={() => closeAlert()} />} */}
+      {/* <AppNavbar menuButton menuOpen={isDrawerOpen} menuOnClick={handleDrawer} links={LINKS} /> */}
+      {/* <AppDrawer
         open={isDrawerOpen}
         handleClose={handleDrawer}
         companyIcon={LOGO}
         companyTitle={TITLE}
-      />
+      /> */}
       {children}
-      <AppFooter links={LINKS} />
+
+      <ScrollToTop />
+      <ScrollToTopFAB />
+      {/* <AppFooter links={LINKS} /> */}
     </Router>
   );
 };

@@ -1,11 +1,13 @@
-import { FC } from 'react';
-import { css } from '@emotion/react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { Flexer } from '@/components/Containers';
-import { Text } from '@/components/Elements';
-import { Base } from '@/theme/base';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
+import React, { FC } from 'react';
+import { css } from '@emotion/react';
+import { ExtendedTheme } from '../../../theme/types';
+import { inject } from '../../../theme/utils';
+import { Base } from '../../../theme/base';
+import { Flexer } from '../../Containers';
+import { Text } from '../Text/Text';
 
 const styles = (theme: ExtendedTheme) => ({
   step: (index: number, activeStep: number) => {

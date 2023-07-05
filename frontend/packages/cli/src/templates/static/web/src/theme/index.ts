@@ -1,12 +1,6 @@
 import { darken, lighten, transparentize } from 'polished';
-
-import {
-  animations,
-  breakpoints,
-  colors as defaultColors,
-  shadows as shadowSet,
-} from '@/theme/common';
-import { BaseTheme, ExtendedTheme } from '@/theme/types';
+import { animations, breakpoints, colors as defaultColors, shadows as shadowSet } from './common';
+import { BaseTheme, ExtendedTheme } from './types';
 
 const buildBaseTheme = (): BaseTheme => {
   const anim = animations;

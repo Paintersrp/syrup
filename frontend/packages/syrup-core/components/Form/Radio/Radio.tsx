@@ -1,9 +1,11 @@
-import { FC } from 'react';
-import { css } from '@emotion/react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { Text } from '@/components/Elements';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
+import React, { FC } from 'react';
+import { css } from '@emotion/react';
+import { ExtendedTheme } from '../../../theme/types';
+import { inject } from '../../../theme/utils';
+import { Text } from '../../Elements';
 
 const styles = (theme: ExtendedTheme) => ({
   root: css({

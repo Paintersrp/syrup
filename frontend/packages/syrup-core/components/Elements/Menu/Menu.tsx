@@ -1,4 +1,8 @@
-import {
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, {
+  Fragment,
   useState,
   useRef,
   useEffect,
@@ -11,11 +15,11 @@ import {
 } from 'react';
 import { css } from '@emotion/react';
 
-import { Base, BaseProps } from '@/theme/base';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
 import { Divider } from '../Divider/Divider';
 import { Button } from '../../Buttons';
+import { Base, BaseProps } from '../../../theme/base';
+import { inject } from '../../../theme/utils';
+import { ExtendedTheme } from '../../../theme/types';
 
 const styles = (theme: ExtendedTheme) => ({
   root: css({
@@ -112,10 +116,10 @@ export const Menu: FC<MenuProps> = ({
     const shouldRenderDivider = dividers && index !== 0;
 
     return (
-      <>
+      <Fragment>
         {shouldRenderDivider && <Divider />}
         {child}
-      </>
+      </Fragment>
     );
   });
 

@@ -1,5 +1,5 @@
 import { SerializedStyles } from '@emotion/react';
-import { AnimationStyleKey, AnimationStyles } from '../../../theme/common';
+import { AnimationStyleKey, AnimationStyles } from '../common';
 
 // Generates a set of animation classes based on the passed in name / keyframe animations
 // baseName = enterLeft, animationKeyframe = *emotion keyframes here*

@@ -16,7 +16,7 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "jsxImportSource": "@emotion/react",
-    "types": ["vite/client", "@emotion/react/types/css-prop", "@emotion/react", "@emotion/styled"]
+    "types": ["@emotion/react/types/css-prop", "@emotion/react", "@emotion/styled"]
   },
   "include": [
     "src",
@@ -82,6 +82,5 @@
     "theme/utils",
     "theme/index.ts"
   ],
-  "exclude": ["node_modules"],
-  "extends": "./tsconfig.paths.json"
+  "exclude": ["node_modules"]
 }

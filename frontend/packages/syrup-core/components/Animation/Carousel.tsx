@@ -1,12 +1,15 @@
-import { FC, useState, useEffect, ReactNode, CSSProperties } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { FC, useState, useEffect, ReactNode, CSSProperties } from 'react';
 import { css } from '@emotion/react';
 import clsx from 'clsx';
 
-import { Base, BaseProps } from '@/theme/base';
-import { mediaQueries } from '@/theme/common/breakpoints';
-import { inject } from '@/theme/utils';
-import { ExtendedTheme } from '@/theme/types';
-import { Icon } from '@/components/Elements';
+import { mediaQueries } from '../../theme/common/breakpoints';
+import { ExtendedTheme } from '../../theme/types';
+import { Base, BaseProps } from '../../theme/base';
+import { inject } from '../../theme/utils';
+import { Icon } from '../Elements';
 
 const styles = (theme: ExtendedTheme) => ({
   carousel: css({

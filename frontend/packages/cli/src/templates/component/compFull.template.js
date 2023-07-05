@@ -16,17 +16,17 @@ import { inject } from 'sy-core/theme/utils';
 import { GenericMapping } from 'sy-core/types';
 
 const Mapping: GenericMapping = {
-  key: value,
-  key: value
+  key1: "value1",
+  key2: "value2"
 };
 
 const styles = (theme: ExtendedTheme) => ({
   root: (prop: any) =>
     css({
-      property: value,
+      opacity: 1,
     }),
   container: css({
-    property: value,
+    opacity: 1,
   })
 });
 

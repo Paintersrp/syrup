@@ -1,4 +1,7 @@
-import { Children, CSSProperties, ReactNode } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { Children, CSSProperties, ReactNode } from 'react';
 import { css } from '@emotion/react';
 import { Icon } from '../Icon/Icon';
 

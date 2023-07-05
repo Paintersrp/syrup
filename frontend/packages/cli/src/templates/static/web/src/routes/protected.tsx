@@ -1,8 +1,8 @@
 import { Suspense } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
-import { lazyImport } from '@/utils/lazyImport';
 import { Loading } from 'sy-core/components/Elements';
+import { lazyImport } from '@/utils/lazyImport';
 
 const { Landing } = lazyImport(() => import('@/features/landing'), 'Landing');
 const { About } = lazyImport(() => import('@/features/about'), 'About');

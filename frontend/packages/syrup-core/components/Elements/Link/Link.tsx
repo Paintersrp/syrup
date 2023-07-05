@@ -1,4 +1,7 @@
-import { FC } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { FC } from 'react';
 import { Link as RouterLink, LinkProps } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
 import clsx from 'clsx';

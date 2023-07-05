@@ -1,8 +1,11 @@
-import React, { ReactNode, CSSProperties } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { BaseProps, JustificationValue } from '@/theme/base';
+import React, { ReactNode, CSSProperties } from 'react';
+import { BaseProps, JustificationValue } from '../../../theme/base';
+import { Surface } from '../../Containers';
+
 import { Divider } from '../Divider/Divider';
-import { Surface } from '@/components/Containers';
 
 interface ListProps extends BaseProps {
   children: ReactNode;

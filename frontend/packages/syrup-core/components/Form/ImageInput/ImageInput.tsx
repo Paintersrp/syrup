@@ -1,10 +1,12 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React, { ChangeEvent } from 'react';
 import { css } from '@emotion/react';
-
-import { Button } from '@/components/Buttons';
-import { Flexer } from '@/components/Containers';
-import { Text } from '@/components/Elements';
-import { BaseProps } from '@/theme/base';
+import { BaseProps } from '../../../theme/base';
+import { Flexer } from '../../Containers';
+import { Button } from '../../Buttons';
+import { Text } from '../../Elements';
 
 const styles = {
   button: (dense: boolean) =>

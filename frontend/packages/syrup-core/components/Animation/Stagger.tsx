@@ -1,9 +1,12 @@
-import { FC, ReactNode } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { FC, ReactNode } from 'react';
 import { css } from '@emotion/react';
 
-import { Base, BaseProps } from '@/theme/base';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
+import { ExtendedTheme } from '../../theme/types';
+import { Base, BaseProps } from '../../theme/base';
+import { inject } from '../../theme/utils';
 
 const styles = (theme: ExtendedTheme) => ({
   stagger: (orientation: string) =>

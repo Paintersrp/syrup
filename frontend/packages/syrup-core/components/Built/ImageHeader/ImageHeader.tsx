@@ -1,9 +1,10 @@
-import { CSSProperties, FC } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { Media, Text, TextType } from '@/components/Elements';
-import { Flexer } from '@/components/Containers';
-
-import { BaseProps } from '@/theme/base';
+import React, { CSSProperties, FC } from 'react';
+import { BaseProps } from '../../../theme/base';
+import { Flexer } from '../../Containers';
+import { Media, Text, TextType } from '../../Elements';
 
 // use Editable
 

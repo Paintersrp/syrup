@@ -1,4 +1,7 @@
-import { FC, ReactNode } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { FC, ReactNode } from 'react';
 
 import { Popover } from '../Popover/Popover';
 import { Text } from '../Text/Text';

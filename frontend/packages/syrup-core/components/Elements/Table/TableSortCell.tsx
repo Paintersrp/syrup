@@ -1,8 +1,10 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React from 'react';
-
-import { Icon, Text } from '@/components/Elements';
-
-import { Base } from '@/theme/base';
+import { Base } from '../../../theme/base';
+import { Icon } from '../Icon/Icon';
+import { Text } from '../Text/Text';
 
 interface TableSortCellProps {
   active: boolean;

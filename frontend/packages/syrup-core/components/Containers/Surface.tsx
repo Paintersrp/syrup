@@ -1,7 +1,9 @@
-import { ReactNode, CSSProperties, FC } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { Base, BaseProps } from '@/theme/base';
-import { shadows } from '@/theme/common';
+import React, { ReactNode, CSSProperties, FC } from 'react';
+import { Base, BaseProps } from '../../theme/base';
+import { shadows } from '../../theme/common';
 
 interface SurfaceProps extends BaseProps {
   children?: ReactNode;

@@ -1,11 +1,14 @@
-import { FC } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { FC } from 'react';
 
 import { ListItem, ListItemDataType } from '../List/ListItem';
 
-import { BaseProps } from '@/theme/base';
 import { List } from '../List/List';
-import { Flexer } from '@/components/Containers';
 import { Divider } from '../Divider/Divider';
+import { Flexer } from '../../Containers';
+import { BaseProps } from '../../../theme/base';
 
 interface DrawerFooterLinksProps extends BaseProps {
   handleClose?: () => void;

@@ -1,11 +1,13 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React, { useState } from 'react';
 import { css } from '@emotion/react';
-
-import { HelpText } from '@/components/Elements';
-import { Base, BaseProps } from '@/theme/base';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
-import { GenericMapping } from '@/types';
+import { GenericMapping } from '../../../types';
+import { ExtendedTheme } from '../../../theme/types';
+import { Base, BaseProps } from '../../../theme/base';
+import { inject } from '../../../theme/utils';
+import { HelpText } from '../../Elements';
 
 const sizeMapping: GenericMapping = {
   small: {

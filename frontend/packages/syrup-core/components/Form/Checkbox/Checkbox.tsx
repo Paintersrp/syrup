@@ -1,9 +1,11 @@
-import { ChangeEventHandler, CSSProperties, FC } from 'react';
-import { css } from '@emotion/react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { HelpText, Icon } from '@/components/Elements';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
+import React, { ChangeEventHandler, CSSProperties, FC } from 'react';
+import { css } from '@emotion/react';
+import { ExtendedTheme } from '../../../theme/types';
+import { inject } from '../../../theme/utils';
+import { HelpText, Icon } from '../../Elements';
 
 const styles = (theme: ExtendedTheme) => ({
   checkbox: css({

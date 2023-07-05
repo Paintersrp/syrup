@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 import { keyframes as kf, SerializedStyles } from '@emotion/react';
 
 /**

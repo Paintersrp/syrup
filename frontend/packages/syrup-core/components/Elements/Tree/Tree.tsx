@@ -1,9 +1,11 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React, { useState, ReactNode, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import './Tree.css';
-
-import { Base, BaseProps } from '@/theme/base';
+import { Base, BaseProps } from '../../../theme/base';
 
 interface TreeNodeProps extends BaseProps {
   label: string;

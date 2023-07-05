@@ -1,5 +1,8 @@
-import { ReactNode, CSSProperties, FC, Children, isValidElement, cloneElement } from 'react';
-import { Base, BaseProps } from '@/theme/base';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { ReactNode, CSSProperties, FC, Children, isValidElement, cloneElement } from 'react';
+import { Base, BaseProps } from '../../theme/base';
 
 interface ContainerProps extends BaseProps {
   children: ReactNode;

@@ -1,4 +1,7 @@
-import { useRef, FC, ReactNode, CSSProperties } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { useRef, FC, ReactNode, CSSProperties } from 'react';
 import { Transition } from 'react-transition-group';
 
 interface CollapserProps {

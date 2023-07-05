@@ -1,11 +1,13 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React, { useRef } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { css } from '@emotion/react';
-
-import { Base, BaseProps } from '@/theme/base';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
+import { ExtendedTheme } from '../../../theme/types';
+import { Base, BaseProps } from '../../../theme/base';
+import { inject } from '../../../theme/utils';
 
 const sizeMapping: any = {
   small: 200,

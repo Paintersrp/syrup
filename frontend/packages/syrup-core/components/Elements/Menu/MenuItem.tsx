@@ -1,11 +1,14 @@
-import { FC, ReactNode } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { Base, BaseProps } from '@/theme/base';
+import React, { FC, ReactNode } from 'react';
+
 import { Flexer } from '../../Containers';
 
 import { css } from '@emotion/react';
 import { Text } from '../Text/Text';
 import { Icon } from '../Icon/Icon';
+import { Base, BaseProps } from '../../../theme/base';
 
 const styles = {
   root: (isActive: boolean) =>

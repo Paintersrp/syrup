@@ -1,11 +1,13 @@
-import { ReactNode, CSSProperties, FC } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { ReactNode, CSSProperties, FC } from 'react';
 import { css } from '@emotion/react';
 import clsx from 'clsx';
-
-import { Text } from '@/components/Elements';
-import { Base, BaseProps } from '@/theme/base';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
+import { ExtendedTheme } from '../../../theme/types';
+import { Base, BaseProps } from '../../../theme/base';
+import { inject } from '../../../theme/utils';
+import { Text } from '../Text/Text';
 
 const tablePadding: any = {
   small: '2px',

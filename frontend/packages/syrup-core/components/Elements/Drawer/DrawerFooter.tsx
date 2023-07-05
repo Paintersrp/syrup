@@ -1,10 +1,12 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React from 'react';
 
-
-import { BaseProps } from '@/theme/base';
 import { Text } from '../Text/Text';
-import { Flexer } from '@/components/Containers';
 import { Divider } from '../Divider/Divider';
+import { BaseProps } from '../../../theme/base';
+import { Flexer } from '../../Containers';
 
 interface DrawerFooterProps extends BaseProps {
   title?: string;

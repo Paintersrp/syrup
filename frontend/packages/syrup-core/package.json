@@ -1,15 +1,16 @@
 {
   "name": "sy-core",
-  "version": "1.0.2",
+  "version": "1.0.952",
   "private": false,
   "description": "Core package of component framework and theme utilities",
   "type": "module",
-  "main": "src/index.ts",
+  "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack --config webpack.config.js"
   },
   "dependencies": {
     "@emotion/babel-plugin": "^11.11.0",
+    "@emotion/babel-preset-css-prop": "^11.11.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.3",
@@ -40,6 +41,14 @@
     "react-transition-group": "^4.4.5"
   },
   "devDependencies": {
+    "@babel/core": "^7.22.6",
+    "@babel/preset-env": "^7.22.6",
+    "@babel/preset-react": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
+    "@emotion/babel-plugin": "^11.11.0",
+    "@emotion/babel-preset-css-prop": "^11.11.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@storybook/addon-essentials": "^7.0.20",
     "@storybook/addon-interactions": "^7.0.20",
     "@storybook/addon-links": "^7.0.20",
@@ -55,6 +64,10 @@
     "@types/react-dom": "^18.0.11",
     "@types/react-transition-group": "^4.4.6",
     "@types/styled-components": "^5.1.26",
+    "babel-loader": "^9.1.2",
+    "babel-plugin-console": "^0.2.1",
+    "babel-plugin-jsx-control-statements": "^4.1.2",
+    "css-loader": "^6.8.1",
     "eslint": "^8.38.0",
     "eslint-plugin-react": "^7.32.2",
     "eslint-plugin-react-hooks": "^4.6.0",
@@ -62,7 +75,11 @@
     "eslint-plugin-storybook": "^0.6.12",
     "sass": "^1.62.1",
     "storybook": "^7.0.20",
-    "typescript": "^5.1.3"
+    "style-loader": "^3.3.3",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.1",
+    "webpack-cli": "^5.1.4"
   },
   "keywords": [],
   "publishConfig": {

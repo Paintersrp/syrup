@@ -8,7 +8,7 @@ export function scrollToTop() {
   });
 }
 
-export default function ScrollToTop(): null {
+export function ScrollToTop(): null {
   const { pathname } = useLocation();
 
   useEffect(() => {

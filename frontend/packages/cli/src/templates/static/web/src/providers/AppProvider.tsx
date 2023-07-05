@@ -4,8 +4,9 @@ import { HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from '@emotion/react';
 import { QueryClientProvider } from 'react-query';
 
-import { Error } from 'sy-core/components/Layout';
 import { Loading } from 'sy-core/components/Elements';
+import { Error } from 'sy-core/components/Layout';
+
 import { queryClient } from '@/lib/query';
 import { light } from '@/theme';
 

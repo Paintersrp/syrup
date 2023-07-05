@@ -1,12 +1,15 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React, { useState, useEffect, useRef, ReactNode, CSSProperties } from 'react';
 import { css } from '@emotion/react';
 import clsx from 'clsx';
 
-import { Divider, HelpText, Icon, Text } from '@/components/Elements';
-import { Base, BaseProps } from '@/theme/base';
 import { OptionProps } from '../Option/Option';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
+import { ExtendedTheme } from '../../../theme/types';
+import { Base, BaseProps } from '../../../theme/base';
+import { inject } from '../../../theme/utils';
+import { Divider, HelpText, Icon, Text } from '../../Elements';
 
 const styles = (theme: ExtendedTheme) => ({
   root: css({

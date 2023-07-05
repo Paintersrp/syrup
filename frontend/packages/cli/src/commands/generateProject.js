@@ -96,9 +96,14 @@ export async function generateProject() {
     const templatesUsed = await generator.generateQueue();
     SyLog.logStats(templatesUsed);
 
+    execSync(`python manage.py startapp authorization`, {
+      stdio: 'inherit',
+      cwd: paths.api.abs,
+    });
+
     const staticTemplatesUrl = new URL('../templates/static', import.meta.url);
     const staticTemplatesPath = fileURLToPath(staticTemplatesUrl);
-    fs.copySync(staticTemplatesPath, paths.web.abs);
+    fs.copySync(staticTemplatesPath, paths.abs);
 
     execSync(`npm install`, {
       stdio: 'inherit',

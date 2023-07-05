@@ -1,10 +1,12 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React, { CSSProperties } from 'react';
 import clsx from 'clsx';
 import { css } from '@emotion/react';
-
-import { Base, BaseProps } from '@/theme/base';
-import { colors, shadows } from '@/theme/common';
-import { Icon, Tooltip } from '@/components/Elements';
+import { colors, shadows } from '../../../theme/common';
+import { Base, BaseProps } from '../../../theme/base';
+import { Icon, Tooltip } from '../../Elements';
 
 const cx = {
   fabButton: css({

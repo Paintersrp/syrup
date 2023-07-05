@@ -1,6 +1,9 @@
-import { CSSProperties, FC, ReactNode } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { CSSProperties, FC, ReactNode } from 'react';
 import styled, { css } from 'styled-components';
-import { Base, BaseProps } from '@/theme/base';
+import { Base, BaseProps } from '../../theme/base';
 
 interface ItemProps extends BaseProps {
   xs?: number;

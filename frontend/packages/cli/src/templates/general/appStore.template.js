@@ -11,11 +11,11 @@ export const AppStoreTemplate = (storeName, lowercaseName) =>
 import { create } from 'zustand';
 
 const initial${storeName}State = {
-  property: value,
+  property: "value",
 };
 
 export interface ${storeName}State {
-  property: type,
+  property: any,
 }
 
 export interface ${storeName}Store {
@@ -30,7 +30,7 @@ export const use${storeName}Store = create<${storeName}Store>((set) => ({
       set((state) => ({
         ${lowercaseName}State: {
             ...state.${lowercaseName}State,
-            property: value,
+            property: "value",
         },
       }));
     },

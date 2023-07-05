@@ -1,11 +1,14 @@
-import { useState, useRef, useEffect, FC, ReactNode } from 'react';
-import { Base, BaseProps } from '@/theme/base';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { useState, useRef, useEffect, FC, ReactNode } from 'react';
 import { css } from '@emotion/react';
 
 import { Text } from '../Text/Text';
-import { Icon } from '@/components/Elements';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
+import { ExtendedTheme } from '../../../theme/types';
+import { Base, BaseProps } from '../../../theme/base';
+import { inject } from '../../../theme/utils';
+import { Icon } from '../Icon/Icon';
 
 const styles = (theme: ExtendedTheme) => ({
   accordion: (isOpen: boolean) =>

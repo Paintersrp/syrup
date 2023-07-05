@@ -1,9 +1,11 @@
-import { CSSProperties, FC } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { Button, ButtonSize } from '@/components/Buttons';
-import { Flexer } from '@/components/Containers';
-import { BaseProps } from '@/theme/base';
-import { GenericMapping } from '@/types';
+import React, { CSSProperties, FC } from 'react';
+import { BaseProps } from '../../../theme/base';
+import { GenericMapping } from '../../../types';
+import { Button, ButtonSize } from '../../Buttons';
+import { Flexer } from '../../Containers';
 
 const sizeMapping: GenericMapping = {
   tiny: 75,

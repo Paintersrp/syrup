@@ -1,4 +1,7 @@
-import { properties, values } from '@/theme/common';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import { properties, values } from '../common';
 
 export const classify = (props: { [key: string]: any }) => {
   return Object.entries(props).reduce<{ [key: string]: any }>((styles, [key, value]) => {

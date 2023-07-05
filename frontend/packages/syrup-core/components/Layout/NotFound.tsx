@@ -1,11 +1,13 @@
-import { FC } from 'react';
-import { css } from '@emotion/react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { Flexer, Surface } from '@/components/Containers';
-import { Link, Text } from '@/components/Elements';
-import { Page } from '@/components/Layout';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
+import React, { FC } from 'react';
+import { css } from '@emotion/react';
+import { ExtendedTheme } from '../../theme/types';
+import { Page } from './Page';
+import { inject } from '../../theme/utils';
+import { Flexer, Surface } from '../Containers';
+import { Link, Text } from '../Elements';
 
 const styles = (theme: ExtendedTheme) => ({
   illustration: css({

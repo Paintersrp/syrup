@@ -1,3 +1,6 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React, { CSSProperties, ElementType, forwardRef } from 'react';
 
 import { classify } from './classify';

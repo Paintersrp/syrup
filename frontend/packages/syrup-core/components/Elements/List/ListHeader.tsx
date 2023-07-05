@@ -1,8 +1,11 @@
-import { CSSProperties, FC } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { CSSProperties, FC } from 'react';
 import clsx from 'clsx';
 
-import { Base, BaseProps } from '@/theme/base';
 import { Text } from '../Text/Text';
+import { Base, BaseProps } from '../../../theme/base';
 
 interface ListHeaderProps extends BaseProps {
   header?: string;

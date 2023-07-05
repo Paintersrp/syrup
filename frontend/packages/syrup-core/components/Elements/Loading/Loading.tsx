@@ -1,11 +1,13 @@
-import { FC, useEffect } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { FC, useEffect } from 'react';
 import { css, keyframes } from '@emotion/react';
 
-import { Flexer } from '@/components/Containers';
-
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
 import { Icon } from '../Icon/Icon';
+import { ExtendedTheme } from '../../../theme/types';
+import { inject } from '../../../theme/utils';
+import { Flexer } from '../../Containers';
 
 const kf = {
   spinnerRotate: keyframes({

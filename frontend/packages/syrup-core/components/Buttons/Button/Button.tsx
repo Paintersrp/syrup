@@ -1,14 +1,15 @@
-import { useState, CSSProperties, ReactNode, ButtonHTMLAttributes, forwardRef } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { useState, CSSProperties, ReactNode, ButtonHTMLAttributes, forwardRef } from 'react';
 import { css } from '@emotion/react';
 import clsx from 'clsx';
-
-import { Flexer } from '@/components/Containers';
-import { Icon, Text } from '@/components/Elements';
-
-import { buttonPalette, iconPalette, PaletteOptions } from '@/theme/palettes';
-import { classify } from '@/theme/base';
 import { useTheme } from '@emotion/react';
-import { ExtendedTheme } from '@/theme/types';
+import { classify } from '../../../theme/base';
+import { buttonPalette, iconPalette, PaletteOptions } from '../../../theme/palettes';
+import { ExtendedTheme } from '../../../theme/types';
+import { Flexer } from '../../Containers';
+import { Icon, Text } from '../../Elements';
 
 export type ButtonSize = 'tiny' | 'sm' | 'md' | 'lg';
 export type ButtonVariant = 'outlined' | 'standard';

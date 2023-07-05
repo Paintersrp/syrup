@@ -1,3 +1,6 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 /**
  * Represents different breakpoints used for responsive design.
  */

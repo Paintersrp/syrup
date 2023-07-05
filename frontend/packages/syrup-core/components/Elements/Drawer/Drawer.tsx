@@ -1,9 +1,11 @@
-import { FC, useState, useEffect, CSSProperties, ReactNode, Fragment } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { FC, useState, useEffect, CSSProperties, ReactNode, Fragment } from 'react';
 import { css } from '@emotion/react';
 import clsx from 'clsx';
-
-import { inject } from '@/theme/utils';
-import { ExtendedTheme } from '@/theme/types';
+import { ExtendedTheme } from '../../../theme/types';
+import { inject } from '../../../theme/utils';
 
 // Will need to set the sidedrawer transform based on the side prop of the component in order
 // to build the animation correctly

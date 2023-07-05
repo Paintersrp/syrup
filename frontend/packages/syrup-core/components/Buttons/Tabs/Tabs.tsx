@@ -1,6 +1,8 @@
-import { useState, ReactElement, FC, isValidElement, cloneElement, Children } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { Base, BaseProps } from '@/theme/base';
+import React, { useState, ReactElement, FC, isValidElement, cloneElement, Children } from 'react';
+import { Base, BaseProps } from '../../../theme/base';
 
 import { TabProps } from './Tab';
 

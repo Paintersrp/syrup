@@ -1,7 +1,9 @@
-import { FC, Fragment, useEffect, useState } from 'react';
-import { css, keyframes } from '@emotion/react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { FAB } from '@/components/Buttons';
+import React, { FC, Fragment, useEffect, useState } from 'react';
+import { css, keyframes } from '@emotion/react';
+import { FAB } from '../../Buttons';
 
 export function scrollToTop() {
   window.scrollTo({

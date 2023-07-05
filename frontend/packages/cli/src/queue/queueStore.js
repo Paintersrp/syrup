@@ -16,5 +16,5 @@ export async function queueStore(name, lowercaseName, directory, generator) {
   const fileName = `${lowercaseName}.tsx`;
   const filePath = path.join(directory, fileName);
 
-  generator.addFileToQueue(AppStoreTemplate(name), filePath, 'App Store File');
+  generator.addFileToQueue(AppStoreTemplate(name, lowercaseName), filePath, 'App Store File');
 }

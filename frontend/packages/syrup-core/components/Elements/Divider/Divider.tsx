@@ -1,11 +1,13 @@
-import { CSSProperties, FC } from 'react';
-import { css } from '@emotion/react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { Flexer } from '@/components/Containers';
-import { Text } from '@/components/Elements';
-import { classify } from '@/theme/base/classify';
-import { inject } from '@/theme/utils';
-import { ExtendedTheme } from '@/theme/types';
+import React, { CSSProperties, FC } from 'react';
+import { css } from '@emotion/react';
+import { ExtendedTheme } from '../../../theme/types';
+import { classify } from '../../../theme/base';
+import { inject } from '../../../theme/utils';
+import { Flexer } from '../../Containers';
+import { Text } from '../Text/Text';
 
 const styles = (theme: ExtendedTheme) => ({
   root: css({

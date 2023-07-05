@@ -1,10 +1,13 @@
-import { FC } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { Flexer } from '@/components/Containers';
-import { BaseProps } from '@/theme/base';
+import React, { FC } from 'react';
+
 import { List } from '../List/List';
 import { ListItem, ListItemDataType } from '../List/ListItem';
 import { Divider } from '../Divider/Divider';
+import { Flexer } from '../../Containers';
+import { BaseProps } from '../../../theme/base';
 
 interface DrawerContentProps extends BaseProps {
   handleClose?: () => void;

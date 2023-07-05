@@ -1,4 +1,7 @@
-import { ReactNode, CSSProperties, FC } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { ReactNode, CSSProperties, FC } from 'react';
 import { Text, AlignmentValue, TextProps } from './Text';
 
 interface HelpTextProps extends TextProps {

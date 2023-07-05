@@ -1,10 +1,12 @@
-import { cloneElement, FC, ReactElement, useState } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { Base, BaseProps } from '@/theme/base';
+import React, { cloneElement, FC, ReactElement, useState } from 'react';
 
 import { FAB } from '../FAB/FAB';
 import { css } from '@emotion/react';
-import { Icon } from '@/components/Elements';
+import { Icon } from '../../Elements';
+import { Base, BaseProps } from '../../../theme/base';
 
 // move
 function formatPosition(position: string) {

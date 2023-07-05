@@ -1,7 +1,9 @@
-import { CSSProperties, FC } from 'react';
-import clsx from 'clsx';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
 
-import { Base, BaseProps } from '@/theme/base';
+import React, { CSSProperties, FC } from 'react';
+import clsx from 'clsx';
+import { Base, BaseProps } from '../../theme/base';
 
 interface FlexerProps extends BaseProps {
   w?: number | string;

@@ -1,8 +1,10 @@
-import { ReactNode, CSSProperties, FC } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { ReactNode, CSSProperties, FC } from 'react';
 import { css, useTheme } from '@emotion/react';
 import clsx from 'clsx';
-
-import { PaletteOptions } from '@/theme/palettes';
+import { PaletteOptions } from '../../../theme/palettes';
 
 const styles = {
   navbar: (theme: any, position: CSSProperties['position'], side: any, color: string) =>

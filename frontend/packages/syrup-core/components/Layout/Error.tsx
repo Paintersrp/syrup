@@ -1,13 +1,15 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React from 'react';
 import { css } from '@emotion/react';
-
-import { Page } from '@/components/Layout';
-import { Flexer, Surface } from '@/components/Containers';
-import { Text } from '@/components/Elements';
-import { Button } from '@/components/Buttons';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
-import { ErrorResponse } from '@/types';
+import { ExtendedTheme } from '../../theme/types';
+import { ErrorResponse } from '../../types';
+import { inject } from '../../theme/utils';
+import { Page } from './Page';
+import { Flexer, Surface } from '../Containers';
+import { Text } from '../Elements';
+import { Button } from '../Buttons';
 
 const styles = (theme: ExtendedTheme) => ({
   icon: css({
@@ -60,3 +62,5 @@ export const Error: React.FC<ErrorResponse> = ({ message, description, instructi
     </Page>
   );
 };
+
+export default Error;

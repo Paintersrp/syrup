@@ -1,5 +1,8 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import { useTheme } from '@emotion/react';
-import { FC, CSSProperties } from 'react';
+import React, { FC, CSSProperties } from 'react';
 
 interface MaterialIconProps {
   size?: CSSProperties['fontSize'];

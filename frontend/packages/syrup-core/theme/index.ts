@@ -1,5 +1,6 @@
 import { darken, lighten, transparentize } from 'polished';
 
+import { AlignmentValue, JustificationValue } from './base';
 import {
   alignments,
   animations,
@@ -7,9 +8,8 @@ import {
   colors as defaultColors,
   justifications,
   shadows as shadowSet,
-} from '@/theme/common';
-import { BaseTheme, ExtendedTheme } from '@/theme/types';
-import { AlignmentValue, JustificationValue } from './base';
+} from './common';
+import { BaseTheme, ExtendedTheme } from './types';
 
 const buildBaseTheme = (): BaseTheme => {
   const anim = animations;

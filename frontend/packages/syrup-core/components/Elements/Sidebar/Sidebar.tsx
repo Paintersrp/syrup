@@ -1,7 +1,11 @@
-import { CSSProperties, FC, ReactNode } from 'react';
-import { Base, BaseProps } from '@/theme/base';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { CSSProperties, FC, ReactNode } from 'react';
+
 import './Sidebar.css';
 import { css, useTheme } from '@emotion/react';
+import { Base, BaseProps } from '../../../theme/base';
 
 // retool component
 const styles = {

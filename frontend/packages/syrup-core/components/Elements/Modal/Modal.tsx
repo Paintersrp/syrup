@@ -1,11 +1,13 @@
-import { useState, useEffect, FC, ReactNode, CSSProperties } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { useState, useEffect, FC, ReactNode, CSSProperties } from 'react';
 import { css } from '@emotion/react';
 import ReactDOM from 'react-dom';
 import clsx from 'clsx';
-
-import { Base, BaseProps } from '@/theme/base';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
+import { ExtendedTheme } from '../../../theme/types';
+import { Base, BaseProps } from '../../../theme/base';
+import { inject } from '../../../theme/utils';
 
 const styles = (theme: ExtendedTheme) => ({
   root: css({

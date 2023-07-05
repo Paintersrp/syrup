@@ -1,4 +1,6 @@
-import { CapitalizeFirst } from '@/utils';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import { ExtendedTheme } from '../types';
 
 type ButtonStyle = (theme: ExtendedTheme) => {
@@ -33,8 +35,8 @@ const createOutlinedStyle = (theme: ExtendedTheme, baseColor: string) => {
 };
 
 const createStandardStyle = (theme: ExtendedTheme, baseColor: string, shade: string) => {
-  const formattedShade =
-    baseColor === 'light' || baseColor === 'dark' ? shade : CapitalizeFirst(shade);
+  // add cap first to last shade
+  const formattedShade = baseColor === 'light' || baseColor === 'dark' ? shade : shade;
 
   const background = theme[baseColor as keyof ExtendedTheme] as string;
   const hover = theme[`${baseColor}${formattedShade}` as keyof ExtendedTheme] as string;
@@ -64,7 +66,7 @@ const buttonConfigurations = [
   { color: 'dark', shade: 'er' },
 ];
 
-export const buttonPalette: ButtonPalette = {};
+export const buttonPalette: ButtonPalette | any = {};
 
 buttonConfigurations.forEach(({ color, shade }) => {
   buttonPalette[color] = {

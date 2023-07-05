@@ -1,5 +1,8 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import { darken, lighten } from 'polished';
-import { GenericMapping } from '@/types';
+import { GenericMapping } from '../../types';
 
 export type GeneratedThemeColors = {
   [key: string]: string;

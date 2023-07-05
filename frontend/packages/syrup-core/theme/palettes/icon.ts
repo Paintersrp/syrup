@@ -1,3 +1,6 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import { ExtendedTheme } from '../types';
 
 type IconBasicStyle = (theme: ExtendedTheme) => {

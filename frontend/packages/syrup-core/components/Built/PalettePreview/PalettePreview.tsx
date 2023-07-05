@@ -1,10 +1,12 @@
-import { CSSProperties, FC, Fragment } from 'react';
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
+import React, { CSSProperties, FC, Fragment } from 'react';
+import { Base } from '../../../theme/base';
+import { colors } from '../../../theme/common';
 
 import { Container, Flexer, Item } from '../../Containers';
-
-import { Base } from '@/theme/base';
-import { colors } from '@/theme/common';
-import { Text } from '@/components/Elements';
+import { Text } from '../../Elements';
 
 export const PalettePreview = () => {
   const colorSet = Object.entries(colors);

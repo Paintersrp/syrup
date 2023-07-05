@@ -1,11 +1,14 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React, { CSSProperties, ButtonHTMLAttributes } from 'react';
 import clsx from 'clsx';
 import { useTheme } from '@emotion/react';
 
-import { iconPalette, PaletteOptions } from '@/theme/palettes';
-import { classify } from '@/theme/base';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { classify } from '../../../theme/base';
+import { iconPalette, PaletteOptions } from '../../../theme/palettes';
 
 const iconButtonSizes = {
   tiny: { width: 26, height: 26, iconSize: '21px' },

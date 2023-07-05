@@ -1,12 +1,14 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/react';
+
 import React, { CSSProperties, useState } from 'react';
 import { css } from '@emotion/react';
 import clsx from 'clsx';
-
-import { Icon, Text } from '@/components/Elements';
-
-import { Base, BaseProps } from '@/theme/base';
-import { ExtendedTheme } from '@/theme/types';
-import { inject } from '@/theme/utils';
+import { ExtendedTheme } from '../../../theme/types';
+import { Base, BaseProps } from '../../../theme/base';
+import { inject } from '../../../theme/utils';
+import { Text } from '../Text/Text';
+import { Icon } from '../Icon/Icon';
 
 const styles = (theme: ExtendedTheme) => ({
   tag: css({
