@@ -6,6 +6,17 @@ import { ModelSerializerTemplate } from '../templates/model/modelSerializer.temp
 import { ModelUrlsTemplate } from '../templates/model/modelUrls.template.js';
 import { ModelViewsTemplate } from '../templates/model/modelViews.template.js';
 
+/**
+ * @description
+ * Queue the generation of files for a model, including models, serializers, views, and URLs.
+ *
+ * @param {SyGen} generator - The generator instance.
+ * @param {string} modelDir - The directory path for the model.
+ * @param {string} modelName - The name of the model.
+ * @param {Array<Object>} fields - The fields of the model.
+ * @returns {Promise<void>}
+ * @async
+ */
 export async function queueModel(generator, modelDir, modelName, fields) {
   const modelTemplate = ModelSchemaTemplate(modelName, fields);
   await queueModelsFile(generator, modelDir, modelTemplate);
@@ -20,6 +31,16 @@ export async function queueModel(generator, modelDir, modelName, fields) {
   await queueUrlsFile(generator, modelDir, urlsTemplate);
 }
 
+/**
+ * @description
+ * Queue the update of models.py file for a model.
+ *
+ * @param {SyGen} generator - The generator instance.
+ * @param {string} modelDir - The directory path for the model.
+ * @param {string} template - The content to be added to models.py.
+ * @returns {Promise<void>}
+ * @async
+ */
 export async function queueModelsFile(generator, modelDir, template) {
   const modelsFilePath = path.join(modelDir, 'models.py');
 
@@ -48,6 +69,17 @@ export async function queueModelsFile(generator, modelDir, template) {
   }
 }
 
+/**
+ * @description
+ * Queue the update of serializers.py file for a model.
+ *
+ * @param {SyGen} generator - The generator instance.
+ * @param {string} modelDir - The directory path for the model.
+ * @param {string} modelName - The name of the model.
+ * @param {string} template - The content to be added to serializers.py.
+ * @returns {Promise<void>}
+ * @async
+ */
 export async function queueSerializersFile(generator, modelDir, modelName, template) {
   const serializerFilePath = path.join(modelDir, 'serializers.py');
 
@@ -99,6 +131,16 @@ export async function queueSerializersFile(generator, modelDir, modelName, templ
   }
 }
 
+/**
+ * @description
+ * Queue the update of views.py file for a model.
+ *
+ * @param {SyGen} generator - The generator instance.
+ * @param {string} modelDir - The directory path for the model.
+ * @param {string} viewsTemplate - The content to be added to views.py.
+ * @returns {Promise<void>}
+ * @async
+ */
 export async function queueViewsFile(generator, modelDir, viewsTemplate) {
   const viewsFilePath = path.join(modelDir, 'views.py');
 
@@ -128,6 +170,16 @@ export async function queueViewsFile(generator, modelDir, viewsTemplate) {
   }
 }
 
+/**
+ * @description
+ * Queue the update of urls.py file for a model.
+ *
+ * @param {SyGen} generator - The generator instance.
+ * @param {string} modelDir - The directory path for the model.
+ * @param {string} urlTemplate - The content to be added to urls.py.
+ * @returns {Promise<void>}
+ * @async
+ */
 export async function queueUrlsFile(generator, modelDir, urlTemplate) {
   const urlsFilePath = path.join(modelDir, 'urls.py');
 

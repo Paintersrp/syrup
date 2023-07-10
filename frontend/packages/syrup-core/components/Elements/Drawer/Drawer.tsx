@@ -1,3 +1,4 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
@@ -6,19 +7,20 @@ import { css } from '@emotion/react';
 import clsx from 'clsx';
 import { ExtendedTheme } from '../../../theme/types';
 import { inject } from '../../../theme/utils';
+import { PaletteOptions } from '../../../theme/palettes';
 
 // Will need to set the sidedrawer transform based on the side prop of the component in order
 // to build the animation correctly
 // keyframes
 // essentially only usable on the left atm
 const styles = (theme: ExtendedTheme) => ({
-  sidedrawer: (isOpen: boolean, variant: string) =>
+  sidedrawer: (isOpen: boolean, variant: string, color: string) =>
     css({
       display: 'flex',
       position: 'fixed',
       width: 240,
       boxShadow: theme.shadows[1],
-      background: theme.primary,
+      background: theme[color],
       zIndex: theme.zIndex.drawer,
       transform: 'translateX(-100%)',
       opacity: 0,
@@ -79,6 +81,7 @@ interface DrawerProps {
   className?: string;
   style?: CSSProperties;
   children?: ReactNode;
+  color?: PaletteOptions;
 }
 
 export const Drawer: FC<DrawerProps> = ({
@@ -89,6 +92,7 @@ export const Drawer: FC<DrawerProps> = ({
   className = '',
   style = {},
   children = null,
+  color = 'primary',
 }) => {
   const css = inject(styles);
   const [isOpen, setIsOpen] = useState<boolean>(open);
@@ -110,7 +114,7 @@ export const Drawer: FC<DrawerProps> = ({
   const hasOverlay = variant !== 'permanent';
 
   const sidebarCx = [
-    css.sidedrawer(isOpen, variant),
+    css.sidedrawer(isOpen, variant, color),
     side === 'bottom' || side === 'left' ? css[side](isOpen) : css[side],
   ];
 

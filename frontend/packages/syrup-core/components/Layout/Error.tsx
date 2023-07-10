@@ -1,3 +1,4 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
@@ -20,7 +21,10 @@ const styles = (theme: ExtendedTheme) => ({
     width: 64,
     marginBottom: 16,
     fontSize: 36,
-    ...theme.flex('c', 'c'),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // ...theme.flex('c', 'c'),
   }),
 });
 

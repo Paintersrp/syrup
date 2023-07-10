@@ -1,3 +1,4 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
@@ -7,7 +8,7 @@ import { useTheme } from '@emotion/react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { classify } from '../../../theme/base';
+import { makeCss } from '../../../theme/base';
 import { iconPalette, PaletteOptions } from '../../../theme/palettes';
 
 const iconButtonSizes = {
@@ -39,7 +40,7 @@ const cx = {
     const v = variant ?? 'standard';
     const p = palette ?? 'primary';
 
-    return [classify(cssProps), iconButtonStyle, iconPalette[p][v](theme)];
+    return [makeCss(cssProps), iconButtonStyle, iconPalette[p][v](theme)];
   },
 };
 

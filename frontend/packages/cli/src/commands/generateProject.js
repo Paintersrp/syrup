@@ -6,7 +6,7 @@ import { fileURLToPath } from 'url';
 import { handleFunction } from '../utils/error.js';
 import { capFirst } from '../utils/format.js';
 import { getPaths, PROJECT_DIRS, PROJECT_DIRS_WITH_INDEX } from '../utils/getPaths.js';
-import { queueComponents, queueFeature, queueHook, queueStore } from '../queue/index.js';
+import { queueComponents, queueHook, queueStore } from '../queue/index.js';
 import { SyGen, SyLog } from '../utils/index.js';
 
 /**
@@ -19,23 +19,6 @@ import { SyGen, SyLog } from '../utils/index.js';
  */
 export async function generateProject() {
   await handleFunction(async () => {
-    /**
-     * Add Admin to Core
-     * Add Auth to Core (?)
-     *
-     * Add Settings
-     * Add Django Additions / Customs / Middleware
-     *
-     * Auto routing
-     * Auto links
-     *
-     * Stock Home / Landing Page
-     * Stock AppNavbar / Footer / Drawer
-     * Button / Palette Demo
-     * Palette Preview Dev
-     * Dev Mode
-     */
-
     const generator = new SyGen();
     const paths = getPaths();
 
@@ -72,7 +55,7 @@ export async function generateProject() {
     const placeholderName = 'Placeholder';
 
     await Promise.all(
-      Array.from({ length: 5 }).map(async (_, index) => {
+      Array.from({ length: 1 }).map(async (_, index) => {
         const dirPath = paths.web.src.components.abs;
         const compPath = path.join(dirPath, `${placeholderName}${index + 1}`);
         await generator.ensureAndLogDir(compPath);
@@ -80,23 +63,22 @@ export async function generateProject() {
       })
     );
 
-    // Queue initial placeholder features and feature files
-    await queueFeature('Suite', 'Suite', 3, generator);
-    await queueFeature('Individual', 'Individual', 3, generator);
-
     // Queue initial placeholder hooks
-    await queueHook('usePlaceholder1', paths.web.src.hooks, generator);
-    await queueHook('usePlaceholder2', paths.web.src.hooks, generator);
+    await queueHook('usePlaceholder', paths.web.src.hooks, generator);
 
     // Queue initial placeholder store files
-    await queueStore('Placeholder1', 'placeholder1', paths.web.src.stores, generator);
-    await queueStore('Placeholder2', 'placeholder2', paths.web.src.stores, generator);
+    await queueStore('Placeholder', 'placeholder', paths.web.src.stores, generator);
 
     // Process and generate queue
     const templatesUsed = await generator.generateQueue();
     SyLog.logStats(templatesUsed);
 
     execSync(`python manage.py startapp authorization`, {
+      stdio: 'inherit',
+      cwd: paths.api.abs,
+    });
+
+    execSync(`python manage.py startapp home`, {
       stdio: 'inherit',
       cwd: paths.api.abs,
     });
@@ -108,6 +90,21 @@ export async function generateProject() {
     execSync(`npm install`, {
       stdio: 'inherit',
       cwd: paths.web.abs,
+    });
+
+    execSync(`python manage.py makemigrations`, {
+      stdio: 'inherit',
+      cwd: paths.api.abs,
+    });
+
+    execSync(`python manage.py migrate`, {
+      stdio: 'inherit',
+      cwd: paths.api.abs,
+    });
+
+    execSync(`python manage.py createsuperuser`, {
+      stdio: 'inherit',
+      cwd: paths.api.abs,
     });
   });
 }

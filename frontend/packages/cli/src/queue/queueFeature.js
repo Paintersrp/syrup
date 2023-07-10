@@ -1,3 +1,4 @@
+import fs from 'fs-extra';
 import path from 'path';
 
 import { FEATURE_COMPONENT_TYPE } from '../../config.js';
@@ -141,6 +142,41 @@ export async function queueSharedFeature(name, directory, componentCount, genera
 
 /**
  * @description
+ * Queue the update of routes file to include the new feature.
+ *
+ * @param {string} name - The name of the feature.
+ * @param {string} path - The path to the routes file.
+ * @param {string} type - The type of the feature ('Individual' or 'Suite').
+ * @param {SyGen} generator - The generator instance.
+ * @returns {Promise<void>}
+ * @async
+ */
+export async function queueRoutesUpdate(name, path, type, generator) {
+  const currentContent = fs.readFileSync(path, 'utf8');
+  const lowercaseName = name.toLowerCase();
+
+  const importName = type === 'Suite' ? `${name}Routes` : name;
+  const routePath = type === 'Suite' ? `/${lowercaseName}/*` : `/${lowercaseName}`;
+
+  const featureImport = `const { ${importName} } = lazyImport(() => import('@/features/${lowercaseName}'), '${importName}')`;
+  const newRoute = `{ path: '${routePath}', element: <${importName} /> },`;
+
+  // Find the position to insert the feature import and route
+  const importIndex = currentContent.indexOf('const { Home } =');
+  const routeIndex = currentContent.indexOf("{ path: '*'");
+
+  const updatedRoutesContent =
+    currentContent.slice(0, importIndex) +
+    `${featureImport}\n` +
+    currentContent.slice(importIndex, routeIndex) +
+    `${newRoute}\n` +
+    currentContent.slice(routeIndex);
+
+  generator.addFileToQueue(updatedRoutesContent, path, 'App Routes');
+}
+
+/**
+ * @description
  * Queue files for a feature based on the feature type.
  *
  * @param {string} name - The name of the feature.
@@ -153,6 +189,9 @@ export async function queueFeature(name, type, componentCount, generator) {
   const paths = getPaths();
   const featureDirectory = path.join(paths.web.src.features, name);
   await generator.ensureAndLogDir(featureDirectory);
+
+  const routesDirectory = path.join(paths.web.src.routes, 'protected.tsx');
+  await generator.ensureAndLogDir(routesDirectory);
 
   const formattedName = capFirst(name);
   const singularName = deplural(formattedName);
@@ -168,4 +207,5 @@ export async function queueFeature(name, type, componentCount, generator) {
 
   await queueFeatureByType;
   await queueSharedFeature(formattedName, featureDirectory, componentCount, generator);
+  await queueRoutesUpdate(formattedName, routesDirectory, type, generator);
 }

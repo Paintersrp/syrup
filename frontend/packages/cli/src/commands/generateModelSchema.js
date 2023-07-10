@@ -9,6 +9,16 @@ import { queueModel } from '../queue/queueModel.js';
 import { handleFunction } from '../utils/error.js';
 import { getPaths, SyGen, SyLog } from '../utils/index.js';
 
+/**
+ * @description
+ * Generate a model schema based on the provided options, including the model name and fields.
+ *
+ * @param {object} options - The options for generating the model schema.
+ *   @property {boolean} [options.fields] - Flag indicating if the model has fields.
+ * @throws {Error} If an error occurs during the generation process.
+ * @returns {Promise<void>}
+ * @async
+ */
 export async function generateModelSchema(options) {
   await handleFunction(async () => {
     const generator = new SyGen();

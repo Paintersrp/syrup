@@ -1,9 +1,10 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
 import React, { CSSProperties, ElementType, forwardRef } from 'react';
 
-import { classify } from './classify';
+import { makeCss } from './makeCss';
 import { AlignmentValue, JustificationValue } from './types';
 
 export interface BaseProps {
@@ -141,7 +142,7 @@ export const Base = forwardRef<HTMLElement, BaseProps>(
     return (
       <Component
         className={className}
-        css={classify(baseCssProps)}
+        css={makeCss(baseCssProps)}
         style={style}
         onClick={onClick}
         onMouseEnter={onMouseEnter}

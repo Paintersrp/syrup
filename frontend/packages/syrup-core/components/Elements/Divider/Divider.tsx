@@ -1,10 +1,11 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
 import React, { CSSProperties, FC } from 'react';
 import { css } from '@emotion/react';
 import { ExtendedTheme } from '../../../theme/types';
-import { classify } from '../../../theme/base';
+import { makeCss } from '../../../theme/base';
 import { inject } from '../../../theme/utils';
 import { Flexer } from '../../Containers';
 import { Text } from '../Text/Text';
@@ -30,7 +31,7 @@ const styles = (theme: ExtendedTheme) => ({
       borderTop,
     };
 
-    return [classify(props), dividerStyle];
+    return [makeCss(props), dividerStyle];
   },
 });
 

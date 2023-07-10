@@ -1,3 +1,4 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
@@ -9,14 +10,21 @@ import { List } from '../List/List';
 import { Divider } from '../Divider/Divider';
 import { Flexer } from '../../Containers';
 import { BaseProps } from '../../../theme/base';
+import { PaletteOptions } from '../../../theme/palettes';
 
 interface DrawerFooterLinksProps extends BaseProps {
   handleClose?: () => void;
   itemCss?: string;
   items: ListItemDataType[];
+  iconColor: PaletteOptions;
 }
 
-export const DrawerFooterLinks: FC<DrawerFooterLinksProps> = ({ items, itemCss, ...rest }) => {
+export const DrawerFooterLinks: FC<DrawerFooterLinksProps> = ({
+  items,
+  itemCss,
+  iconColor = 'primary',
+  ...rest
+}) => {
   return (
     <Flexer fd="column" {...rest}>
       <div style={{ width: '100%' }}>
@@ -29,7 +37,7 @@ export const DrawerFooterLinks: FC<DrawerFooterLinksProps> = ({ items, itemCss, 
             css={[itemCss, { cursor: 'pointer', color: '#f5f5f5' }]}
             text={item.text}
             icon={item.icon}
-            iconColor={item.icon ? 'secondary' : ''}
+            iconColor={item.icon ? iconColor : ''}
             onClick={item.onClick}
             textAlign="center"
             to={item.to}

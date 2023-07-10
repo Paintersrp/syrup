@@ -1,4 +1,4 @@
-export { buttonPalette } from './button';
+export { buttonPalettes } from './button';
 export { iconPalette } from './icon';
 
 export type PaletteOptions =

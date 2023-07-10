@@ -3,6 +3,7 @@ import path from 'path';
 export const BASE_DIR = path.resolve();
 
 export const API_DIR = path.join(BASE_DIR, 'api');
+export const API_API_DIR = path.join(API_DIR, 'api');
 export const API_AUTH_DIR = path.join(API_DIR, 'auth');
 
 export const WEB_DIR = path.join(BASE_DIR, 'web');
@@ -37,6 +38,7 @@ export function getPaths() {
     abs: BASE_DIR,
     api: {
       abs: API_DIR,
+      api: API_API_DIR,
       auth: API_AUTH_DIR,
     },
     web: {

@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import status, generics, exceptions
+from rest_framework import status, generics
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.conf import settings
 from django.shortcuts import get_object_or_404
@@ -15,7 +15,7 @@ import jwt
 from rest_framework.decorators import permission_classes
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
-from backend.custom_views import *
+from api.custom_views import *
 
 
 class TokenBlacklistAPIView(generics.ListCreateAPIView):
@@ -35,7 +35,19 @@ class TokenBlacklistBulkAPIView(BaseBulkView):
 
 
 @csrf_exempt
-def verify_jwt(request):
+def verify_jwt(request) -> JsonResponse:
+    """
+    Verify the JWT token and return the authentication status.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response indicating the authentication status.
+
+    Raises:
+        ObjectDoesNotExist: If the token blacklist object does not exist.
+    """
     authorization_header = request.headers.get("Authorization")
 
     if not authorization_header:
@@ -61,11 +73,9 @@ def verify_jwt(request):
             )
 
             try:
-                print("BLACKLISTED BLACKLISTED")
                 old_token = TokenBlacklist.objects.get(token=token)
             except TokenBlacklist.DoesNotExist:
                 old_token = TokenBlacklist(token=token)
-                print("BLACKLISTED2 BLACKLISTED2")
                 token = "None"
 
             old_token.save()
@@ -82,7 +92,6 @@ def verify_jwt(request):
             )
 
         if TokenBlacklist.objects.filter(token=token).exists():
-            print("BLACKLISTED3 BLACKLISTED3")
             return JsonResponse({"authenticated": False}, status=401)
 
     except (jwt.exceptions.DecodeError, User.DoesNotExist, ObjectDoesNotExist):
@@ -99,12 +108,21 @@ def verify_jwt(request):
 
 
 @csrf_exempt
-def get_salt_view(request):
-    """Func String"""
+def get_salt_view(request) -> JsonResponse:
+    """
+    Retrieve the salt value for a user.
 
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response containing the salt value.
+
+    Raises:
+        User.DoesNotExist: If the user does not exist.
+    """
     if request.method == "POST":
         data = json.loads(request.body)
-        print(data)
 
         if not data["username"]:
             return JsonResponse({"error": "Missing required fields"}, status=400)
@@ -118,9 +136,19 @@ def get_salt_view(request):
 
 
 @csrf_exempt
-def login_view(request):
-    """Func String"""
+def login_view(request) -> JsonResponse:
+    """
+    Perform user login and generate a JWT token.
 
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response containing the JWT token and user details.
+
+    Raises:
+        ObjectDoesNotExist: If the user does not exist.
+    """
     if request.method == "POST":
         data = json.loads(request.body)
 
@@ -159,12 +187,21 @@ def login_view(request):
 
 
 @csrf_exempt
-def register(request):
-    """Func String"""
+def register(request) -> JsonResponse:
+    """
+    Register a new user.
 
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response indicating the success or failure of the registration.
+
+    Raises:
+        IntegrityError: If the username or email already exists.
+    """
     if request.method == "POST":
         data = json.loads(request.body)
-        print(data)
 
         if not data["username"] or not data["email"] or not data["password"]:
             return JsonResponse({"error": "Missing required fields"}, status=400)
@@ -175,7 +212,7 @@ def register(request):
             )
 
         try:
-            user = User.objects.create_user_with_settings(
+            User.objects.create_user_with_settings(
                 data["username"],
                 data["email"],
                 data["password"],
@@ -201,7 +238,16 @@ def register(request):
         return JsonResponse({"error": "Invalid request method"}, status=405)
 
 
-def logout_view(request):
+def logout_view(request) -> JsonResponse:
+    """
+    Perform user logout and invalidate the JWT token.
+
+    Args:
+        request (HttpRequest): The HTTP request object.
+
+    Returns:
+        JsonResponse: A JSON response indicating the success or failure of the logout.
+    """
     authorization_header = request.headers.get("Authorization")
 
     if not authorization_header:
@@ -210,14 +256,8 @@ def logout_view(request):
     token = authorization_header.split(" ")[1]
 
     try:
-        decoded_token = jwt.decode(
-            jwt=token, key=settings.SECRET_KEY, algorithms=["HS256"]
-        )
-        username = decoded_token["user"]
-        user = User.objects.get(username=username)
         logout(request)
         TokenBlacklist.objects.create(token=token)
-        print("BLACKLISTED4 BLACKLISTED4")
 
         return JsonResponse({"message": "User logged out successfully"})
 
@@ -227,7 +267,16 @@ def logout_view(request):
 
 @api_view(["PATCH", "GET"])
 @permission_classes([IsAuthenticated])
-def update_profile(request):
+def update_profile(request) -> JsonResponse:
+    """
+    Update the user profile.
+
+    Args:
+        request (Request): The HTTP request object.
+
+    Returns:
+        Response: A response indicating the success or failure of the profile update.
+    """
     User = get_user_model()
     user = get_object_or_404(User, pk=request.user.id)
     serializer = UserSerializer(user, data=request.data, partial=True)

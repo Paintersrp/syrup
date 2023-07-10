@@ -1,29 +1,31 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
 import React, { useState, CSSProperties, ReactNode, ButtonHTMLAttributes, forwardRef } from 'react';
 import { css } from '@emotion/react';
 import clsx from 'clsx';
-import { useTheme } from '@emotion/react';
-import { classify } from '../../../theme/base';
-import { buttonPalette, iconPalette, PaletteOptions } from '../../../theme/palettes';
-import { ExtendedTheme } from '../../../theme/types';
+
+import { buttonPalettes, iconPalette } from '../../../theme/palettes';
 import { Flexer } from '../../Containers';
 import { Icon, Text } from '../../Elements';
+import {
+  StyleProps,
+  buildStyles,
+  SizeOptions,
+  GenericPalette,
+} from '../../../theme/base/StyleProps';
 
-export type ButtonSize = 'tiny' | 'sm' | 'md' | 'lg';
-export type ButtonVariant = 'outlined' | 'standard';
-
-const sizes = {
+const sizes: SizeOptions = {
   tiny: { py: 2, px: 2, fontSize: '0.8rem', iconSize: '14px' },
   sm: { py: 4, px: 4, fontSize: '0.81rem', iconSize: '16px' },
   md: { py: 4, px: 6, fontSize: '0.95rem', iconSize: '17px' },
   lg: { py: 8, px: 8, fontSize: '1rem', iconSize: '20px' },
 };
 
-export const cx = {
-  buttonRoot: (props: RootProps) => {
-    const padding = props.size ? `${sizes[props.size].py}px ${sizes[props.size].px}px` : '';
+export const styles = {
+  buttonRoot: (props: StyleProps) => {
+    const padding = props.size ? `${sizes[props.size]?.py}px ${sizes[props.size]?.px}px` : '';
     const borderRadius = `${props.br ? props.br : 4}px`;
     const minWidth = props.hasIcon ? 70 : 55;
 
@@ -39,15 +41,11 @@ export const cx = {
       minWidth,
     };
 
-    const v = props.variant ?? 'standard';
-    const p = props.palette ?? 'primary';
+    const palette = props.palette || 'primary';
+    const variant = props.variant || 'standard';
+    const buttonPalette = buttonPalettes[palette][variant];
 
-    return [
-      classify(props),
-      buttonStyle,
-      buttonPalette[p][v],
-      props.disabled ? cx.buttonDisabled : '',
-    ];
+    return [buttonStyle, buttonPalette];
   },
   buttonDisabled: css({
     opacity: '0.5',
@@ -56,23 +54,11 @@ export const cx = {
   }),
 };
 
-export type RootProps = {
-  size?: ButtonSize;
-  variant?: ButtonVariant;
-  palette?: PaletteOptions;
-  w?: CSSProperties['width'];
-  ml?: CSSProperties['marginLeft'];
-  mr?: CSSProperties['marginRight'];
-  mt?: CSSProperties['marginTop'];
-  mb?: CSSProperties['marginBottom'];
-  br?: CSSProperties['borderRadius'];
-  disabled?: boolean;
-  hasIcon?: boolean;
-  theme?: ExtendedTheme;
-};
-
-export type ButtonProps = RootProps &
+export type ButtonProps = StyleProps &
   ButtonHTMLAttributes<HTMLButtonElement> & {
+    size?: 'tiny' | 'sm' | 'md' | 'lg';
+    variant?: 'outlined' | 'standard';
+    palette?: GenericPalette;
     children: ReactNode;
     onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
     className?: string | undefined;
@@ -82,18 +68,21 @@ export type ButtonProps = RootProps &
     href?: string | undefined;
   };
 
+/***
+ * TODO
+ * Headless Boolean? Part of Style Prop?
+ * Full implement Abstract Style Props (Rename just StyleProps)
+ * Better Palette Handling / More Dynamic / Generic
+ *
+ *
+ * Inject should also optionally return theme
+ */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
-      size = 'md',
+      size = 'sm',
       variant = 'standard',
       palette = 'primary',
-      w,
-      ml,
-      mr,
-      mt,
-      mb,
-      br,
       type = 'button',
       children,
       onClick,
@@ -103,27 +92,33 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       startIcon,
       endIcon,
       href,
+      ...rest
     },
     ref
   ) => {
-    const theme: any = useTheme();
+    const [hover, setHover] = useState(false);
     const hasIcon = !(!startIcon && !endIcon);
-    const rootProps: RootProps = {
+    const { theme, styleProps, baseCss } = buildStyles({
       size,
       variant,
       palette,
-      w,
-      ml,
-      mr,
-      mt,
-      mb,
-      br,
-      disabled,
       hasIcon,
-      theme,
-    };
+      disabled,
+      ...rest,
+    });
 
-    const [hover, setHover] = useState(false);
+    const buttonCss = [
+      baseCss,
+      styles.buttonRoot(styleProps),
+      disabled ? styles.buttonDisabled : '',
+    ];
+
+    const iconColor = hasIcon
+      ? hover
+        ? iconPalette[palette][variant === 'outlined' ? 'hover' : variant](theme)?.color
+        : theme.light
+      : undefined;
+
     const handleHref = () => {
       if (href) {
         window.location.href = href;
@@ -134,7 +129,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       <button
         ref={ref}
         className={clsx(className)}
-        css={cx.buttonRoot(rootProps)}
+        css={buttonCss}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
         onClick={href ? handleHref : onClick}
@@ -143,31 +138,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         style={style}
       >
         <Flexer a="c" j="c">
-          {startIcon && (
-            <Icon
-              icon={startIcon}
-              size={sizes[size]?.iconSize}
-              color={
-                hover
-                  ? iconPalette[palette][variant === 'outlined' ? 'hover' : variant](theme)?.color
-                  : theme.light
-              }
-            />
-          )}
+          {startIcon && <Icon icon={startIcon} size={sizes[size]?.iconSize} color={iconColor} />}
           <Text a="c" t="button" fw="600" s={sizes[size]?.fontSize}>
             {children}
           </Text>
-          {endIcon && (
-            <Icon
-              icon={endIcon}
-              size={sizes[size]?.iconSize}
-              color={
-                hover
-                  ? iconPalette[palette][variant === 'outlined' ? 'float' : variant](theme)?.color
-                  : theme.light
-              }
-            />
-          )}
+          {endIcon && <Icon icon={endIcon} size={sizes[size]?.iconSize} color={iconColor} />}
         </Flexer>
       </button>
     );

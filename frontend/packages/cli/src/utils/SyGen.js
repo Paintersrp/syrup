@@ -35,6 +35,13 @@ export class SyGen {
     }
   }
 
+  /**
+   * @description
+   * Ensures existence of directories and logs folder generation.
+   *
+   * @param {string} dir - The path of the file to be generated.
+   * @returns {Promise<void>} - A promise that resolves when the file generation is complete.
+   */
   async ensureAndLogDirs(dirs) {
     try {
       for (const dir of dirs) {

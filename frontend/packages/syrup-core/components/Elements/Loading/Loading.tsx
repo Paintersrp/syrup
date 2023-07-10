@@ -1,3 +1,4 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
@@ -57,7 +58,10 @@ const styles = (theme: ExtendedTheme) => ({
     position: 'absolute',
     width: 90,
     height: 90,
-    ...theme.flex('c', 'c'),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // ...theme.flex('c', 'c'),
     animation: `${kf.spinnerRotate} 2s infinite linear`,
   }),
   progress: css({
@@ -69,7 +73,10 @@ const styles = (theme: ExtendedTheme) => ({
     borderTopColor: 'transparent',
     width: 90,
     height: 90,
-    ...theme.flex('c', 'c'),
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    // ...theme.flex('c', 'c'),
     animation: `${kf.spinnerProgress} 2s infinite linear`,
   }),
   dotIcon: (index: number) =>

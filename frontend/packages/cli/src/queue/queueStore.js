@@ -13,7 +13,7 @@ import { AppStoreTemplate } from '../templates/index.js';
  * @async
  */
 export async function queueStore(name, lowercaseName, directory, generator) {
-  const fileName = `${lowercaseName}.tsx`;
+  const fileName = `${lowercaseName}.ts`;
   const filePath = path.join(directory, fileName);
 
   generator.addFileToQueue(AppStoreTemplate(name, lowercaseName), filePath, 'App Store File');

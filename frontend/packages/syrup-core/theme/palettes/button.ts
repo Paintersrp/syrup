@@ -1,3 +1,4 @@
+/** @jsxRuntime classic */
 /** @jsx jsx */
 import { jsx } from '@emotion/react';
 
@@ -66,10 +67,10 @@ const buttonConfigurations = [
   { color: 'dark', shade: 'er' },
 ];
 
-export const buttonPalette: ButtonPalette | any = {};
+export const buttonPalettes: ButtonPalette | any = {};
 
 buttonConfigurations.forEach(({ color, shade }) => {
-  buttonPalette[color] = {
+  buttonPalettes[color] = {
     outlined: (theme: ExtendedTheme) => createOutlinedStyle(theme, color),
     standard: (theme: ExtendedTheme) => createStandardStyle(theme, color, shade),
   };

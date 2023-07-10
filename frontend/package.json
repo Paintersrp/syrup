@@ -45,7 +45,6 @@
     "react-transition-group": "^4.4.5",
     "redux": "^4.2.1",
     "styled-components": "^5.3.11",
-    "sy-core": "^1.0.949",
     "zustand": "^4.3.8"
   },
   "devDependencies": {

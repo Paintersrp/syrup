@@ -3,11 +3,25 @@ from rest_framework import exceptions
 from django.conf import settings
 import jwt
 from .models import User
+from typing import Tuple, Optional
 
 
 class JWTTokenAuthentication(TokenAuthentication):
-    def authenticate(self, key):
-        authorization_header = key.headers.get("Authorization")
+    def authenticate(self, request) -> Tuple[Optional[User], None]:
+        """
+        Authenticate the request using JWT token.
+
+        Args:
+            request (HttpRequest): The HTTP request object.
+
+        Returns:
+            Tuple[Optional[User], None]: A tuple containing the authenticated user (or None) and None for the credentials.
+
+        Raises:
+            AuthenticationFailed: If authentication fails due to missing or invalid token.
+        """
+
+        authorization_header = request.headers.get("Authorization")
 
         if not authorization_header:
             raise exceptions.AuthenticationFailed("Missing authorization header")
