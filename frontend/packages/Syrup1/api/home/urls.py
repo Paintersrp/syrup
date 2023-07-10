@@ -1,7 +1,6 @@
 from django.urls import path
 from .views import *
 
-
 urlpatterns = [
     #
     #       General
@@ -17,7 +16,7 @@ urlpatterns = [
     path(
         "heroheader/main/",
         HeroHeaderMainAPIView.as_view(),
-        name="heroheader-single",
+        name="heroheader-main",
     ),
     path(
         "heroheader/",
@@ -31,7 +30,7 @@ urlpatterns = [
     ),
     path(
         "heroheader/bulk/",
-        HeroHeaderBulkAPIView.as_view(),
+        HeroHeaderBulkView.as_view(),
         name="heroheader-bulk-detail",
     ),
     #
@@ -39,22 +38,22 @@ urlpatterns = [
     #
     path(
         "sectionheader/",
-        SectionHeaderAPIView.as_view(),
+        SectionHeaderView.as_view(),
         name="sectionheader-list",
     ),
     path(
         "sectionheader/<int:pk>/",
-        SectionHeaderUpdateAPIView.as_view(),
-        name="sectionheader-update",
+        SectionHeaderView.as_view(),
+        name="sectionheader-detail",
     ),
     path(
         "sectionheader/<str:name>/",
-        SectionHeaderDetailAPIView.as_view(),
+        SectionHeaderSearchView.as_view(),
         name="sectionheader-search",
     ),
     path(
         "sectionheader/del/bulk/",
-        SectionHeaderBulkAPIView.as_view(),
+        SectionHeaderBulkView.as_view(),
         name="sectionheader-bulk-detail",
     ),
     #
@@ -62,26 +61,31 @@ urlpatterns = [
     #
     path(
         "tags/",
-        TagsView.as_view(),
-        name="tags-list",
+        TagView.as_view(),
+        name="posttag-list",
     ),
     path(
         "tags/<int:pk>/",
-        TagsRetrieveUpdateDestroyView.as_view(),
-        name="tags-detail-update-delete",
+        TagView.as_view(),
+        name="posttag-detail",
+    ),
+    path(
+        "tags/del/bulk/",
+        TagBulkView.as_view(),
+        name="posttag-bulk-detail",
     ),
     #
     #       Posts
     #
     path(
         "post/",
-        PostListCreateView.as_view(),
-        name="posts-list",
+        PostView.as_view(),
+        name="post-list",
     ),
     path(
         "post/<int:pk>/",
-        PostRetrieveUpdateDestroyView.as_view(),
-        name="post-detail-update-delete",
+        PostView.as_view(),
+        name="post-detail",
     ),
     path(
         "posts/recent/",

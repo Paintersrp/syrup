@@ -18,22 +18,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from api.custom_views import *
 
 
-class TokenBlacklistAPIView(generics.ListCreateAPIView):
-    queryset = TokenBlacklist.objects.all()
-    serializer_class = TokenBlacklistSerializer
-
-
-class TokenBlacklistDetailView(generics.RetrieveUpdateAPIView):
-    queryset = TokenBlacklist.objects.all()
-    serializer_class = TokenBlacklistSerializer
-
-
-class TokenBlacklistBulkAPIView(BaseBulkView):
-    queryset = TokenBlacklist.objects.all()
-    serializer_class = TokenBlacklistSerializer
-    model_class = TokenBlacklist
-
-
 @csrf_exempt
 def verify_jwt(request) -> JsonResponse:
     """

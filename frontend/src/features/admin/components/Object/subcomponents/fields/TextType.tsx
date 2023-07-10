@@ -42,6 +42,7 @@ const TextType: React.FC<TextTypeProps> = ({
           <HelpText>{helpText || 'Placeholder Help Text'}</HelpText>
           <Input
             id={fieldName}
+            name={fieldName}
             onChange={handleInputChange}
             value={formData[fieldName]}
             multiline

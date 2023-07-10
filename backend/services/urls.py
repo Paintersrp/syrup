@@ -35,7 +35,7 @@ urlpatterns = [
     ),
     path(
         "processimageitem/",
-        ProcessImageItemListView.as_view(),
+        ProcessImageItemDetailView.as_view(),
         name="processimageitem-list",
     ),
     path(
@@ -85,7 +85,7 @@ urlpatterns = [
     ),
     path(
         "servicetier/<int:pk>/",
-        ServiceTierDetailView.as_view(),
+        ServiceTierView.as_view(),
         name="servicetier-detail",
     ),
     path(

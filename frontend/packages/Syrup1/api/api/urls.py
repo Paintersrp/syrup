@@ -7,11 +7,6 @@ from . import views
 urlpatterns = (
     [
         path(
-            "admin/<int:content_type_id>/<int:object_id>/",
-            views.custom_admin_url_return,
-            name="custom_admin_url_return",
-        ),
-        path(
             "api/get_metadata/<str:model_name>/",
             views.ModelMetadataAPIView.as_view(),
             name="get_metadata",
@@ -32,29 +27,9 @@ urlpatterns = (
             name="get_model_metadata",
         ),
         path(
-            "api/get_contenttype_info/<int:content_id>/",
-            views.ContentTypeEndpointAPIView.as_view(),
-            name="get_contenttype_info",
-        ),
-        path(
-            "api/user/",
-            views.UserListView.as_view(),
-            name="user-list",
-        ),
-        path(
             "api/recent_admin_actions/",
             views.RecentAdminActionsView.as_view(),
             name="recent_admin_actions",
-        ),
-        # path(
-        #     "api/subscribe/",
-        #     views.subscribe_to_newsletter,
-        #     name="subscribe-list",
-        # ),
-        path(
-            "api/preview-data/",
-            views.component_preview_data,
-            name="component_preview_data",
         ),
         path(
             "admin/",

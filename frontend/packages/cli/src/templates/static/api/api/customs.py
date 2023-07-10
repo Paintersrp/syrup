@@ -51,11 +51,15 @@ class SyBaseField(models.Field):
         super().__init__(*args, **kwargs)
 
 
+class SyBooleanField(SyBaseField, models.BooleanField):
+    pass
+
+
 class SyCharField(SyBaseField, models.CharField):
     pass
 
 
-class SySlugField(SyBaseField, models.SlugField):
+class SyDecimalField(SyBaseField, models.DecimalField):
     pass
 
 
@@ -63,22 +67,7 @@ class SyEmailField(SyBaseField, models.EmailField):
     pass
 
 
-class SyTextField(SyBaseField, models.TextField):
-    def __init__(self, *args, **kwargs):
-        self.markdown = kwargs.pop("markdown", False)
-        self.min_rows = kwargs.pop("min_rows", 6)
-        super().__init__(*args, **kwargs)
-
-
-class SyDecimalField(SyBaseField, models.DecimalField):
-    pass
-
-
-class SyJSONField(SyBaseField, models.JSONField):
-    pass
-
-
-class SyPositiveIntegerField(SyBaseField, models.PositiveIntegerField):
+class SyForeignKeyField(SyBaseField, models.ForeignKey):
     pass
 
 
@@ -89,17 +78,28 @@ class SyImageField(SyBaseField, models.ImageField):
         super().__init__(*args, **kwargs)
 
 
-class SyBooleanField(SyBaseField, models.BooleanField):
-    pass
-
-
-class SyForeignKeyField(SyBaseField, models.ForeignKey):
-    pass
-
-
-class SyURLField(SyBaseField, models.URLField):
+class SyJSONField(SyBaseField, models.JSONField):
     pass
 
 
 class SyManyToManyField(SyBaseField, models.ManyToManyField):
+    pass
+
+
+class SyPositiveIntegerField(SyBaseField, models.PositiveIntegerField):
+    pass
+
+
+class SySlugField(SyBaseField, models.SlugField):
+    pass
+
+
+class SyTextField(SyBaseField, models.TextField):
+    def __init__(self, *args, **kwargs):
+        self.markdown = kwargs.pop("markdown", False)
+        self.min_rows = kwargs.pop("min_rows", 6)
+        super().__init__(*args, **kwargs)
+
+
+class SyURLField(SyBaseField, models.URLField):
     pass

@@ -53,6 +53,7 @@ class ServiceTier(models.Model):
         help_text="Service Tier Title",
         db_index=True,
     )
+
     price = CustomDecimalField(
         max_digits=10,
         decimal_places=2,
@@ -85,12 +86,14 @@ class ServiceTier(models.Model):
         verbose_name="Paragraph One",
         help_text="Paragraph One",
     )
+
     paragraph_two = CustomTextField(
         max_length=500,
         md_column_count=12,
         verbose_name="Paragraph Two",
         help_text="Paragraph Two",
     )
+
     paragraph_three = CustomTextField(
         max_length=500,
         md_column_count=12,
@@ -106,11 +109,6 @@ class ServiceTier(models.Model):
         self.supported_sites.all().delete()
         super().delete(*args, **kwargs)
 
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.features.xs_column_count = 12
-    #     self.features.md_column_count = 8
-
     class Meta:
         ordering = ["price"]
         verbose_name = "Service Tiers"
@@ -125,6 +123,7 @@ class Benefits(BaseModel):
         verbose_name="Header",
         help_text="Header Text",
     )
+
     description = CustomTextField(
         max_length=250,
         verbose_name="Description",
@@ -132,18 +131,21 @@ class Benefits(BaseModel):
         help_text="Content Text",
         min_rows=3,
     )
+
     icon = CustomCharField(
         max_length=40,
         md_column_count=12,
         verbose_name="Icon",
         help_text="Select Icon",
     )
+
     buttonText = CustomCharField(
         max_length=40,
         md_column_count=6,
         verbose_name="Button Text",
         help_text="Button Text",
     )
+
     page_link = CustomCharField(
         max_length=40,
         md_column_count=6,
@@ -166,6 +168,7 @@ class ProcessImageItem(models.Model):
         upload_to="process_images",
         verbose_name="Image",
     )
+
     servicetier = models.ForeignKey(
         ServiceTier,
         on_delete=models.CASCADE,

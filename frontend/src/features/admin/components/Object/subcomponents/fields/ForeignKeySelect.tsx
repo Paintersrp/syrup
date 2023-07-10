@@ -35,6 +35,7 @@ const ForeignKeySelect: React.FC<ForeignKeySelectProps> = ({
       {manualEntry ? (
         <Input
           id={fieldName}
+          name={fieldName}
           onChange={handleInputChange}
           value={
             fieldName === 'social' || fieldName === 'contact_info' || fieldName === 'hero_block'
@@ -51,6 +52,7 @@ const ForeignKeySelect: React.FC<ForeignKeySelectProps> = ({
               fieldName === 'page_set' ||
               fieldName === 'contact_info' ||
               fieldName === 'socials' ||
+              fieldName === 'servicetier' ||
               fieldName === 'hours')
               ? formData[fieldName]?.id
               : formData[fieldName]
@@ -66,8 +68,8 @@ const ForeignKeySelect: React.FC<ForeignKeySelectProps> = ({
               let optionText: any;
 
               if (fieldName === 'servicetier' || fieldName.includes('service_tier')) {
-                optionValue = value.service_title;
-                optionText = value.service_title;
+                optionValue = value.id;
+                optionText = value.id;
               } else if (fieldName === 'job') {
                 optionValue = value.position;
                 optionText = value.position;

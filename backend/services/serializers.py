@@ -32,27 +32,38 @@ class ServiceTierSerializer(serializers.ModelSerializer):
         model = ServiceTier
         fields = "__all__"
 
+    def is_valid(self, raise_exception=False):
+        formatted_data = self.format_data(self.initial_data)
+        self._validated_data = formatted_data
+        self._errors = {}
+        return not bool(self.errors)
+
     def format_data(self, data):
-        formatted_data = {"features": [], "supported_sites": []}
+        formatted_data = {}
 
         for key, value in data.items():
-            parts = re.findall(r"\[(.*?)\]", key)
             name = key.split("[")[0]
-
-            if name == "features":
-                if len(parts) == 2 and parts[0].isdigit() and parts[1] == "detail":
-                    feature_detail = value
-                    formatted_data[name].append(feature_detail)
-
-            elif name == "supported_sites":
-                if len(parts) == 2 and parts[0].isdigit() and parts[1] == "detail":
-                    supported_site_detail = value
-                    formatted_data[name].append(supported_site_detail)
-
-            else:
-                formatted_data[name] = value
+            formatted_data[name] = value
 
         return formatted_data
+
+    def update(self, instance, validated_data):
+        for key, value in validated_data.items():
+            setattr(instance, key, value)
+        instance.save()
+
+        self.clear_nested_instances(instance.features)
+        self.clear_nested_instances(instance.supported_sites)
+
+        return instance
+
+    def clear_nested_instances(self, instance_list):
+        instance_mapping = {
+            str(instance.id): instance for instance in instance_list.all()
+        }
+
+        for instance in instance_mapping.values():
+            instance_list.remove(instance)
 
 
 class BenefitsSerializer(serializers.ModelSerializer):
@@ -88,7 +99,7 @@ class ProcessTextItemSerializer(serializers.ModelSerializer):
 
 class ProcessImageItemSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(required=False, allow_null=True)
-    servicetier = serializers.StringRelatedField(source="servicetier.service_title")
+    # servicetier = serializers.StringRelatedField(source="servicetier.service_title")
     FIELD_KEYS = [
         "image",
         "servicetier",

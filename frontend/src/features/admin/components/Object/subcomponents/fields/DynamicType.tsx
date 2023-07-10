@@ -1,7 +1,7 @@
 import { Flexer, Item } from '@/components/Containers';
 import { HelpText } from '@/components/Elements';
 import { Input } from '@/components/Form';
-import {IconMixin} from '@/features/editable/components/IconMixin';
+import { IconMixin } from '@/features/editable/components/IconMixin';
 import React, { ChangeEvent } from 'react';
 
 interface DynamicTypeProps {
@@ -51,6 +51,7 @@ const DynamicType: React.FC<DynamicTypeProps> = ({
           <HelpText>{helpText ? helpText : '\u00A0'}</HelpText>
           <Input
             id={fieldName}
+            name={fieldName}
             onChange={handleInputChange}
             value={
               type.includes('Date')

@@ -28,7 +28,7 @@ class TokenBlacklistDetailView(generics.RetrieveUpdateAPIView):
     serializer_class = TokenBlacklistSerializer
 
 
-class TokenBlacklistBulkAPIView(BaseBulkView):
+class TokenBlacklistBulkAPIView(SyBulkView):
     queryset = TokenBlacklist.objects.all()
     serializer_class = TokenBlacklistSerializer
     model_class = TokenBlacklist

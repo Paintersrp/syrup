@@ -1,9 +1,11 @@
 from rest_framework import serializers
-from .models import *
-from authorization.models import User
-from authorization.serializers import UserSerializer
 from PIL import Image
 import re
+
+from .models import *
+
+from authorization.models import User
+from authorization.serializers import UserSerializer
 
 
 class HeroHeaderSerializer(serializers.ModelSerializer):
@@ -62,8 +64,7 @@ class PostSerializer(serializers.ModelSerializer):
     author_details = UserSerializer(source="author", read_only=True)
     tags = PostTagSerializer(many=True)
     image = serializers.ImageField(required=False, allow_null=True)
-    related_posts = serializers.SerializerMethodField()
-    tags_options = serializers.SerializerMethodField()
+
     FIELD_KEYS = [
         "created_at",
         "updated_at",
@@ -85,8 +86,6 @@ class PostSerializer(serializers.ModelSerializer):
             "tags",
             "image",
             "is_highlighted",
-            "related_posts",
-            "tags_options",
         ]
 
     def get_related_posts(self, obj):

@@ -19,3 +19,5 @@ class CustomTitleBlockAdmin(admin.ModelAdmin):
 
 admin.site.register(SectionHeader, CustomTitleBlockAdmin)
 admin.site.register(HeroHeader, CustomHeroBlockAdmin)
+admin.site.register(Post)
+admin.site.register(PostTag)

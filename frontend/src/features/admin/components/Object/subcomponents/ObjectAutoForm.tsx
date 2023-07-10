@@ -226,6 +226,8 @@ const ObjectAutoForm: FC<ObjectAutoFormProps> = ({
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
+    console.log(formData);
+
     const formDataWithoutId: any = {};
     for (const [key, value] of Object.entries(formData)) {
       if (key !== 'id') {
@@ -236,7 +238,12 @@ const ObjectAutoForm: FC<ObjectAutoFormProps> = ({
     if (Object.keys(data).length === 0) {
       if (endpointUrl) {
         try {
-          const response = await axios.post(endpointUrl, formDataWithoutId);
+          const response = await axios.post(endpointUrl, formDataWithoutId, {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          });
+          
           routeBackToModel();
           handleUpdate();
           showAlert('success', `${model.verbose_name} Object - Created ${model.verbose_name}`);
@@ -246,7 +253,12 @@ const ObjectAutoForm: FC<ObjectAutoFormProps> = ({
       }
     } else {
       try {
-        const response = await axios.patch(`${endpointUrl}${data.id}/`, formDataWithoutId);
+        const response = await axios.patch(`${endpointUrl}${data.id}/`, formDataWithoutId, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        });
+
         routeBackToModel();
         handleUpdate();
         showAlert('success', 'Object Updated');

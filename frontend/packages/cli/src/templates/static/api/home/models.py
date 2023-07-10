@@ -154,29 +154,31 @@ class Post(models.Model):
     title = SyCharField(
         max_length=255,
     )
+
     content = SyTextField()
+
     author = SyForeignKeyField(
         User,
         on_delete=models.SET_DEFAULT,
         default=1,
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
-    tags = models.ManyToManyField(
+    tags = SyManyToManyField(
         PostTag,
         related_name="post",
         verbose_name="Tags",
         blank=True,
     )
 
-    image = models.ImageField(
+    image = SyImageField(
         blank=True,
         null=True,
         upload_to="post_images",
     )
 
-    is_highlighted = models.BooleanField(default=False)
+    is_highlighted = SyBooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     highlighted_objects = HighlightedPostsManager()
     objects = models.Manager()

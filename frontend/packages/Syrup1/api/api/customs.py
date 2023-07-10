@@ -51,11 +51,15 @@ class CustomBaseField(models.Field):
         super().__init__(*args, **kwargs)
 
 
+class CustomBooleanField(CustomBaseField, models.BooleanField):
+    pass
+
+
 class CustomCharField(CustomBaseField, models.CharField):
     pass
 
 
-class CustomSlugField(CustomBaseField, models.SlugField):
+class CustomDecimalField(CustomBaseField, models.DecimalField):
     pass
 
 
@@ -63,22 +67,7 @@ class CustomEmailField(CustomBaseField, models.EmailField):
     pass
 
 
-class CustomTextField(CustomBaseField, models.TextField):
-    def __init__(self, *args, **kwargs):
-        self.markdown = kwargs.pop("markdown", False)
-        self.min_rows = kwargs.pop("min_rows", 6)
-        super().__init__(*args, **kwargs)
-
-
-class CustomDecimalField(CustomBaseField, models.DecimalField):
-    pass
-
-
-class CustomJSONField(CustomBaseField, models.JSONField):
-    pass
-
-
-class CustomPositiveIntegerField(CustomBaseField, models.PositiveIntegerField):
+class CustomForeignKeyField(CustomBaseField, models.ForeignKey):
     pass
 
 
@@ -89,17 +78,28 @@ class CustomImageField(CustomBaseField, models.ImageField):
         super().__init__(*args, **kwargs)
 
 
-class CustomBooleanField(CustomBaseField, models.BooleanField):
-    pass
-
-
-class CustomForeignKeyField(CustomBaseField, models.ForeignKey):
-    pass
-
-
-class CustomURLField(CustomBaseField, models.URLField):
+class CustomJSONField(CustomBaseField, models.JSONField):
     pass
 
 
 class CustomManyToManyField(CustomBaseField, models.ManyToManyField):
+    pass
+
+
+class CustomPositiveIntegerField(CustomBaseField, models.PositiveIntegerField):
+    pass
+
+
+class CustomSlugField(CustomBaseField, models.SlugField):
+    pass
+
+
+class CustomTextField(CustomBaseField, models.TextField):
+    def __init__(self, *args, **kwargs):
+        self.markdown = kwargs.pop("markdown", False)
+        self.min_rows = kwargs.pop("min_rows", 6)
+        super().__init__(*args, **kwargs)
+
+
+class CustomURLField(CustomBaseField, models.URLField):
     pass

@@ -1,6 +1,9 @@
 from pathlib import Path
 import os
 
+import logging
+from logging.handlers import TimedRotatingFileHandler
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
@@ -48,10 +51,39 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "corsheaders.middleware.CorsMiddleware",
+    "api.middleware.RateLimitingMiddleware",
+    "api.middleware.RequestLoggingMiddleware",
     "api.middleware.Default404ResponseMiddleware",
     "api.middleware.JWTMiddleware",
     "auditlog.middleware.AuditlogMiddleware",
 ]
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "file": {
+            "level": "DEBUG",
+            "class": "logging.handlers.TimedRotatingFileHandler",
+            "filename": "./logfile.log",
+            "when": "midnight",
+            "backupCount": 7,
+            "formatter": "custom",
+        },
+    },
+    "loggers": {
+        "request_logger": {
+            "handlers": ["file"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
+    },
+    "formatters": {
+        "custom": {
+            "format": "%(asctime)s - %(levelname)s - %(message)s",
+        },
+    },
+}
 
 AUDITLOG_CONTEXT_PROCESSORS = [
     "api.context_processors.auditlog_context_processor",

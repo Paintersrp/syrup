@@ -55,7 +55,12 @@ const ChoiceType: React.FC<ChoiceTypeProps> = ({
         <Flexer fd="column">
           <HelpText>{helpText || verboseName}</HelpText>
           {manualEntry ? (
-            <Input id={fieldName} onChange={handleChange} value={formData[fieldName]} />
+            <Input
+              id={fieldName}
+              name={fieldName}
+              onChange={handleChange}
+              value={formData[fieldName]}
+            />
           ) : (
             <Select
               value={formData[fieldName]}
