@@ -10,15 +10,6 @@ class JWTTokenAuthentication(TokenAuthentication):
     def authenticate(self, request) -> Tuple[Optional[User], None]:
         """
         Authenticate the request using JWT token.
-
-        Args:
-            request (HttpRequest): The HTTP request object.
-
-        Returns:
-            Tuple[Optional[User], None]: A tuple containing the authenticated user (or None) and None for the credentials.
-
-        Raises:
-            AuthenticationFailed: If authentication fails due to missing or invalid token.
         """
 
         authorization_header = request.headers.get("Authorization")

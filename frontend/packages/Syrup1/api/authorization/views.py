@@ -15,7 +15,7 @@ import jwt
 from rest_framework.decorators import permission_classes
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
-from api.custom_views import *
+from api.sy_views import *
 
 
 class TokenBlacklistAPIView(generics.ListCreateAPIView):

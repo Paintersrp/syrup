@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, UserManager
-from api.customs import *
+from api.sy_fields import *
 from .metadata import *
 
 

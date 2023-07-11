@@ -7,14 +7,6 @@ def get_serialized_page_data(
 ) -> Dict[str, any]:
     """
     Get serialized data for the models in the model_dict.
-
-    Args:
-        model_dict (Dict[str, Dict[str, any]]): The dictionary containing model options.
-        request: The request object.
-
-    Returns:
-        Dict[str, any]: The serialized page data.
-
     """
 
     data = {}

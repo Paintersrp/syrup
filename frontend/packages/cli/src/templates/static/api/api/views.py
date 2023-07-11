@@ -1,4 +1,5 @@
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, Union
+from datetime import datetime
 
 from auditlog.models import LogEntry
 from rest_framework.response import Response
@@ -8,35 +9,27 @@ from django.apps import apps
 from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from django.http import Http404
+from django.http import (
+    Http404,
+    HttpRequest,
+    HttpResponse,
+)
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import Q
 
-from api.custom_views import SyMetaView
+
+from api.sy_views import SyMetaView
 
 
 class ModelMetadataAPIView(APIView):
     """
     API view for retrieving metadata of a specific model.
-
-    Parameters:
-        model_name (str): The name of the model to retrieve metadata for.
-
-    Returns:
-        Response: Metadata of the specified model.
     """
 
     def get(self, request, model_name: str) -> Response:
         """
         Retrieve metadata of a specific model.
-
-        Parameters:
-            request (HttpRequest): The HTTP request object.
-            model_name (str): The name of the model to retrieve metadata for.
-
-        Returns:
-            Response: Metadata of the specified model.
         """
 
         all_models = apps.get_models(include_auto_created=True)
@@ -79,13 +72,6 @@ class ModelMetadataAPIView(APIView):
     ) -> Dict[str, List[Dict[str, Any]]]:
         """
         Get the filter choices for the specified model.
-
-        Parameters:
-            model (Model): The model to retrieve filter choices for.
-            filter_options (list): List of filter options.
-
-        Returns:
-            dict: Filter choices for the specified model.
         """
 
         filter_choices = {}
@@ -113,13 +99,6 @@ class ModelMetadataAPIView(APIView):
     ) -> Dict[str, Any]:
         """
         Build the initial metadata dictionary.
-
-        Parameters:
-            model (Model): The model to build metadata for.
-            filter_choices (dict): Filter choices for the model.
-
-        Returns:
-            dict: Initial metadata dictionary.
         """
 
         return {
@@ -186,12 +165,6 @@ class ModelMetadataAPIView(APIView):
     ) -> None:
         """
         Append field metadata to the metadata dictionary.
-
-        Parameters:
-            field_name (str): The name of the field.
-            field (Field): The field object.
-            model (Model): The model the field belongs to.
-            metadata (dict): The metadata dictionary to append to.
         """
 
         all_fields_choices = []
@@ -264,10 +237,6 @@ class ModelMetadataAPIView(APIView):
     def append_sy_metadata(self, field: models.Field, metadata: Dict[str, Any]) -> None:
         """
         Append custom metadata for fields.
-
-        Parameters:
-            field (Field): The field object.
-            metadata (dict): The metadata dictionary to append to.
         """
 
         if not field.name == "password" and not field.name == "salt":
@@ -302,9 +271,6 @@ class ModelEndpointAPIView(SyMetaView):
 
     Retrieves information about the models and their corresponding endpoints,
     including serializer classes and app configurations.
-
-    Returns:
-        Response: Response object containing the information about the models.
     """
 
     def get(self, request):
@@ -340,15 +306,6 @@ class SingleModelAPIView(SyMetaView):
 
     Retrieves information about the specified model and its corresponding endpoint,
     including the serializer class.
-
-    Parameters:
-        model_name (str): The name of the model to retrieve information about.
-
-    Returns:
-        Response: Response object containing the information about the model.
-
-    Raises:
-        Http404: If the model or serializer class is not found.
     """
 
     def get(self, request, model_name=None):
@@ -379,12 +336,6 @@ class SingleAppEndpointAPIView(SyMetaView):
 
     Retrieves information about the specified app, including its models,
     app configuration, and corresponding endpoints.
-
-    Parameters:
-        app_name (str): The name of the app to retrieve information about.
-
-    Returns:
-        Response: Response object containing the information about the app.
     """
 
     def get(self, request, app_name=None, format=None):
@@ -419,7 +370,18 @@ class SingleAppEndpointAPIView(SyMetaView):
 
 @method_decorator(csrf_exempt, name="dispatch")
 class RecentAdminActionsView(APIView):
-    def get(self, request, *args, **kwargs):
+    """
+    API view that returns the recent admin actions.
+
+    This view retrieves the recent admin actions from the LogEntry model and provides them as JSON response.
+    The actions can be filtered by app_label, model_query, and items count.
+    """
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        """
+        Handle the GET request and return the recent admin actions.
+        """
+
         items = request.query_params.get("items", 10)
         app = request.query_params.get("app", None)
         model_query = request.query_params.get("model", None)
@@ -440,6 +402,7 @@ class RecentAdminActionsView(APIView):
         """
         Get the ContentType object based on the provided app_label and model_query.
         """
+
         if model_query == "":
             content_type = ContentType.objects.get(app_label=app_label)
         else:
@@ -449,11 +412,12 @@ class RecentAdminActionsView(APIView):
         return content_type
 
     def get_recent_actions(
-        self, app_label: str = "", model_query: str = "", items: int = None
-    ):
+        self, app_label: str = "", model_query: str = "", items: int = 10
+    ) -> List[LogEntry]:
         """
-        Get the recent LogEntry actions based on the provided app_label, model_query, and items count.
+        Get the recent admin actions based on the provided filters.
         """
+
         if app_label:
             content_type_filter = Q(content_type__app_label=app_label)
         else:
@@ -472,7 +436,13 @@ class RecentAdminActionsView(APIView):
 
         return recent_actions
 
-    def append_action(self, action, data):
+    def append_action(
+        self, action: LogEntry, data: List[Dict[str, Union[str, datetime]]]
+    ) -> None:
+        """
+        Append the admin action to the data list.
+        """
+
         object_repr = action.object_repr
         change_message = action.changes
         app_label = action.content_type.app_label

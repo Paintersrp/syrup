@@ -3,7 +3,7 @@ from django.db.models.signals import pre_save
 from authorization.models import User
 
 from django.dispatch import receiver
-from api.customs import *
+from api.sy_fields import *
 from .metadata import *
 
 

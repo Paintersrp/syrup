@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import status, generics
+from rest_framework import status
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.conf import settings
 from django.shortcuts import get_object_or_404
@@ -15,23 +15,14 @@ import jwt
 from rest_framework.decorators import permission_classes
 import datetime
 from django.core.exceptions import ObjectDoesNotExist
-from api.custom_views import *
 
 
 @csrf_exempt
 def verify_jwt(request) -> JsonResponse:
     """
     Verify the JWT token and return the authentication status.
-
-    Args:
-        request (HttpRequest): The HTTP request object.
-
-    Returns:
-        JsonResponse: A JSON response indicating the authentication status.
-
-    Raises:
-        ObjectDoesNotExist: If the token blacklist object does not exist.
     """
+
     authorization_header = request.headers.get("Authorization")
 
     if not authorization_header:
@@ -95,16 +86,8 @@ def verify_jwt(request) -> JsonResponse:
 def get_salt_view(request) -> JsonResponse:
     """
     Retrieve the salt value for a user.
-
-    Args:
-        request (HttpRequest): The HTTP request object.
-
-    Returns:
-        JsonResponse: A JSON response containing the salt value.
-
-    Raises:
-        User.DoesNotExist: If the user does not exist.
     """
+
     if request.method == "POST":
         data = json.loads(request.body)
 
@@ -123,16 +106,8 @@ def get_salt_view(request) -> JsonResponse:
 def login_view(request) -> JsonResponse:
     """
     Perform user login and generate a JWT token.
-
-    Args:
-        request (HttpRequest): The HTTP request object.
-
-    Returns:
-        JsonResponse: A JSON response containing the JWT token and user details.
-
-    Raises:
-        ObjectDoesNotExist: If the user does not exist.
     """
+
     if request.method == "POST":
         data = json.loads(request.body)
 
@@ -174,16 +149,8 @@ def login_view(request) -> JsonResponse:
 def register(request) -> JsonResponse:
     """
     Register a new user.
-
-    Args:
-        request (HttpRequest): The HTTP request object.
-
-    Returns:
-        JsonResponse: A JSON response indicating the success or failure of the registration.
-
-    Raises:
-        IntegrityError: If the username or email already exists.
     """
+
     if request.method == "POST":
         data = json.loads(request.body)
 
@@ -225,13 +192,8 @@ def register(request) -> JsonResponse:
 def logout_view(request) -> JsonResponse:
     """
     Perform user logout and invalidate the JWT token.
-
-    Args:
-        request (HttpRequest): The HTTP request object.
-
-    Returns:
-        JsonResponse: A JSON response indicating the success or failure of the logout.
     """
+
     authorization_header = request.headers.get("Authorization")
 
     if not authorization_header:
@@ -254,12 +216,6 @@ def logout_view(request) -> JsonResponse:
 def update_profile(request) -> JsonResponse:
     """
     Update the user profile.
-
-    Args:
-        request (Request): The HTTP request object.
-
-    Returns:
-        Response: A response indicating the success or failure of the profile update.
     """
     User = get_user_model()
     user = get_object_or_404(User, pk=request.user.id)

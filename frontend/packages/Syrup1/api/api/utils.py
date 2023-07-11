@@ -29,13 +29,7 @@ def get_filter_choices(model, filter_options):
 
 def analyze_django_app(models):
     """
-    Analyze a Django app and provide statistics about its models.
-
-    Parameters:
-        app_name (str): The name of the Django app to analyze.
-
-    Returns:
-        dict: A dictionary containing various statistics about the app's models.
+    Analyze a Django app and provide statistics about its models..
     """
     num_models = 0
     num_objects = 0

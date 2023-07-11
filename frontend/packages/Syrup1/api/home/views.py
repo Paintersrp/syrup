@@ -6,7 +6,7 @@ from .models import *
 from .serializers import *
 
 from api.utils import get_serialized_page_data
-from api.custom_views import *
+from api.sy_views import *
 
 
 class HomeFullTestView(generics.GenericAPIView):
@@ -53,7 +53,7 @@ class HeroHeaderMainAPIView(
         return self.update(request, *args, **kwargs)
 
 
-class HeroHeaderView(SyView):
+class HeroHeaderView(SyListCreateView, SyUpdateDestroyView):
     queryset = HeroHeader.objects.all()
     serializer_class = HeroHeaderSerializer
     model_class = HeroHeader
@@ -66,14 +66,14 @@ class HeroHeaderBulkView(SyBulkView):
     model_class = HeroHeader
 
 
-class SectionHeaderView(SyView):
+class SectionHeaderView(SyListCreateView, SyUpdateDestroyView):
     queryset = SectionHeader.objects.all()
     serializer_class = SectionHeaderSerializer
     model_class = SectionHeader
     lookup_field = "pk"
 
 
-class SectionHeaderSearchView(SyView):
+class SectionHeaderSearchView(SyListCreateView, SyUpdateDestroyView):
     queryset = SectionHeader.objects.all()
     serializer_class = SectionHeaderSerializer
     model_class = SectionHeader
@@ -86,7 +86,7 @@ class SectionHeaderBulkView(SyBulkView):
     model_class = SectionHeader
 
 
-class PostView(SyView):
+class PostView(SyListCreateView, SyUpdateDestroyView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
     model_class = Post
@@ -111,7 +111,7 @@ class HighlightedPostView(PostView):
         return JsonResponse(serializer.data, safe=False)
 
 
-class TagView(SyView):
+class TagView(SyListCreateView, SyUpdateDestroyView):
     queryset = PostTag.objects.all()
     serializer_class = PostTagSerializer
     model_class = PostTag

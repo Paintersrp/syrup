@@ -19,11 +19,8 @@ class SyMiddleware:
     def __init__(self, get_response: callable):
         """
         Initialize the middleware.
-
-        Args:
-            get_response (callable): The callback to get the response.
         """
-        
+
         self.get_response = get_response
 
     def check_headers_for_user(self, request: HttpRequest) -> Optional[User]:
@@ -50,12 +47,6 @@ class SyMiddleware:
     def __call__(self, request: HttpRequest) -> HttpResponse:
         """
         Process the request and return the response.
-
-        Args:
-            request (HttpRequest): The incoming request.
-
-        Returns:
-            HttpResponse: The response.
         """
 
         self.process_request(request)

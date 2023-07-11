@@ -21,7 +21,7 @@ from .utils import analyze_django_app, get_filter_choices
 from django.db import models
 from django.db.models import Q
 
-from api.custom_views import SyMetaView
+from api.sy_views import SyMetaView
 
 
 class ModelMetadataAPIView(APIView):
