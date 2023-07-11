@@ -11,6 +11,12 @@ from authorization.models import User
 
 
 class SyProcessingMixin:
+    """
+    Mixin class for processing request data before serialization.
+
+    Provides methods for pre-processing and transforming request data before it is serialized and saved. It handles foreign key fields, many-to-many fields, and the author field. It also provides utility methods for checking data for image fields and updating many-to-many fields of an instance.
+    """
+
     def pre_process_fields(
         self,
         request,
@@ -19,7 +25,7 @@ class SyProcessingMixin:
         update: bool = False,
     ) -> None:
         """
-        Pre-process the fields in the request data.
+        Performs pre-processing of the request data before it is serialized and saved. It handles foreign key fields, many-to-many fields, and the author field by transforming the data based on the field requirements.
         """
 
         if self.fk_fields:
@@ -37,7 +43,7 @@ class SyProcessingMixin:
         update: bool = False,
     ) -> None:
         """
-        Process foreign key fields in the request data.
+        Processes the foreign key fields in the request data by converting the related objects to their respective IDs. It also performs validation by checking if the related objects exist in the database.
         """
 
         for field in self.fk_fields:
@@ -65,7 +71,8 @@ class SyProcessingMixin:
         model_fields: List[Any],
     ) -> None:
         """
-        Process many-to-many fields in the request data.
+        Processes the many-to-many fields in the request data by extracting the related objects' IDs
+        and populating the respective fields. It handles the extraction and validation of the related objects.
         """
 
         model_fields = self.serializer_class.Meta.model._meta.get_fields()
@@ -125,7 +132,8 @@ class SyProcessingMixin:
         data: Dict[str, Any],
     ) -> None:
         """
-        Process the author field in the request data.
+        Processes the author field in the request data by retrieving the authenticated user from the
+        request and populating the author field with the user's ID.
         """
 
         author = User.objects.get(username=request.username)
@@ -133,7 +141,8 @@ class SyProcessingMixin:
 
     def check_data_for_images(self, instance, request) -> Dict[str, Any]:
         """
-        Check the request data for image fields.
+        Checks if the request data contains image fields and handles the necessary operations,
+        such as deleting old images and preserving the existing image data.
         """
 
         image_field_name = None
@@ -159,7 +168,7 @@ class SyProcessingMixin:
 
     def update_instance_mtm_fields(self, instance) -> None:
         """
-        Update the ManyToMany fields of the instance.
+        Updates the ManyToMany fields of a model instance with the values provided during processing.
         """
 
         for field in self.mtm_values:
@@ -168,6 +177,15 @@ class SyProcessingMixin:
 
 
 class SyLoggingMixin:
+    """
+    Mixin class for logging model changes.
+
+    This mixin provides methods for logging changes made to a model instance. It includes methods for creating log
+    entries and returning the changes made between instances.
+
+    Note: This mixin assumes the presence of an auditlog model named `LogEntry`.
+    """
+
     def log_entry(
         self,
         request,
@@ -176,7 +194,7 @@ class SyLoggingMixin:
         type="create",
     ) -> None:
         """
-        Log the entry for the instance.
+        Creates a log entry for the given model instance. It captures the changes made between the instance and an old instance (if applicable) and logs the action, username, instance details, and changes.
         """
 
         change_str = (
@@ -202,7 +220,7 @@ class SyLoggingMixin:
         self, action: str, username: str, instance: Model, changes: str
     ) -> None:
         """
-        Create a log entry for the given action, username, instance, and changes.
+        Creates a log entry for the given action, username, model instance, and changes. It saves the log entry to the database.
         """
 
         content_type = ContentType.objects.get_for_model(instance)
@@ -223,7 +241,7 @@ class SyLoggingMixin:
 
     def return_changes(self, instance: Model, old_instance: Model) -> str:
         """
-        Return the changes made between the instance and the old instance.
+        Compares the fields of the current instance with the old instance and returns a string representing the changes made.
         """
 
         changes: Dict[str, Tuple[str, str]] = {}

@@ -18,7 +18,7 @@ class SyBaseView(
     SyProcessingMixin,
 ):
     """
-    Base view containing shared functionality / inheritance
+    This base view class combines multiple generic views and mixins to provide shared functionality for CRUD (Create, Retrieve, Update, Delete) operations. It includes mixins for logging model changes and processing request data, and provides methods for retrieving the queryset, performing create operations, and getting a specific object.
     """
 
     serializer_class: Type[Serializer] = None
@@ -55,12 +55,12 @@ class SyBaseView(
 
 class SyListCreateView(SyBaseView):
     """
-    Extends base view with create operations.
+    Extends the base view by adding support for create operations (POST requests). It includes a method for handling the creation of new objects.
     """
 
     def create(self, request, *args, **kwargs) -> Response:
         """
-        Handle POST requests for object creation.
+        Handles the POST requests for object creation. It preprocesses the request data, performs validation, saves the serialized data, updates the many-to-many fields, and logs the creation.
         """
 
         data = request.data.copy()
@@ -82,12 +82,12 @@ class SyListCreateView(SyBaseView):
 
 class SyUpdateDestroyView(SyBaseView):
     """
-    Extends base view with combined update and destroy operations.
+    Extends the base view by adding support for combined update (PUT) and destroy (DELETE) operations. It includes methods for handling object updates and deletions.
     """
 
     def update(self, request, *args, **kwargs) -> Response:
         """
-        Handle PUT requests for object update.
+        Handles the PUT requests for object update. It retrieves the object, preprocesses the request data, performs validation, updates the object with the serialized data, updates the many-to-many fields, and logs the update.
         """
 
         instance = self.get_object()
@@ -108,7 +108,7 @@ class SyUpdateDestroyView(SyBaseView):
 
     def destroy(self, request, *args, **kwargs) -> Response:
         """
-        Handle DELETE requests for object deletion.
+        Handles the DELETE requests for object deletion. It retrieves the object, deletes the associated image if applicable, performs the deletion, and logs the deletion.
         """
 
         instance = self.get_object()
@@ -123,7 +123,7 @@ class SyUpdateDestroyView(SyBaseView):
 
 class SyBulkView(generics.DestroyAPIView, generics.UpdateAPIView):
     """
-    A custom view that combines update and destroy bulk operations.
+    This custom view combines the update (PUT) and destroy (DELETE) operations for multiple objects in a bulk manner. It includes methods for handling bulk updates and deletions.
     """
 
     serializer_class = None
@@ -132,7 +132,7 @@ class SyBulkView(generics.DestroyAPIView, generics.UpdateAPIView):
 
     def destroy(self, request, *args, **kwargs) -> None:
         """
-        Delete multiple objects based on provided ids.
+        Handles the DELETE requests for bulk object deletion. It retrieves the IDs of the objects to be deleted, performs the deletion, and returns a response indicating the success or failure of the deletion operation.
         """
 
         self.ids: List[int] = request.data.get("ids", [])
@@ -163,7 +163,7 @@ class SyBulkView(generics.DestroyAPIView, generics.UpdateAPIView):
 
     def update(self, request, *args, **kwargs) -> Response:
         """
-        Handle PUT requests for object update.
+        Handles the PUT requests for bulk object update. It retrieves the IDs of the objects to be updated, the field to be updated, and the new value, performs the update, and returns a response indicating the success or failure of the update operation.
         """
 
         self.ids: List[int] = request.data.get("ids", [])
@@ -207,12 +207,12 @@ class SyBulkView(generics.DestroyAPIView, generics.UpdateAPIView):
 
 class SyMetaView(APIView):
     """
-    A custom view for processing metadata.
+    This custom view provides methods for analyzing an app and its models, processing the app configuration, and building an endpoint dictionary for a model.
     """
 
     def analyze_app(models: List[Model]) -> Dict[str, any]:
         """
-        Analyze an app and provide statistics about its models.
+        This method analyzes an app and provides statistics about its models, such as the number of models, the number of objects, and specific information about each model.
         """
 
         num_models = 0
@@ -243,7 +243,7 @@ class SyMetaView(APIView):
         self, app_label: str, app_config: Any, endpoints: Dict[str, Any]
     ) -> None:
         """
-        Process the app configuration and update the endpoints dictionary.
+        Processes the app configuration and updates the endpoints dictionary with the app's icon, links, and visibility.
         """
 
         endpoints["configs"][app_label] = {
@@ -257,7 +257,7 @@ class SyMetaView(APIView):
 
     def process_model(self, model: Model, serializer_class: Any) -> Dict[str, Any]:
         """
-        Process the model and serializer to create the endpoint dictionary.
+        Processes a model and its corresponding serializer to create an endpoint dictionary. It extracts relevant information about the model, such as its name, verbose name, URL, metadata, and additional details.
         """
 
         model_name = model.__name__.lower()
@@ -299,7 +299,7 @@ class SyMetaView(APIView):
         serializer: Any,
     ) -> Dict[str, Any]:
         """
-        Build an endpoint dictionary for a model.
+        Builds an endpoint dictionary for a model by combining the model's information, URL, metadata, and serializer details.
         """
 
         return {

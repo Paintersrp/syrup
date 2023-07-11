@@ -9,11 +9,7 @@ from django.apps import apps
 from django.views.decorators.cache import cache_page
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from django.http import (
-    Http404,
-    HttpRequest,
-    HttpResponse,
-)
+from django.http import Http404, HttpRequest, HttpResponse
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import Q
@@ -29,7 +25,7 @@ class ModelMetadataAPIView(APIView):
 
     def get(self, request, model_name: str) -> Response:
         """
-        Retrieve metadata of a specific model.
+        Handles the GET request and retrieves the metadata of a specific model. It takes the model_name as a parameter and returns the metadata as a JSON response.
         """
 
         all_models = apps.get_models(include_auto_created=True)
@@ -71,7 +67,7 @@ class ModelMetadataAPIView(APIView):
         self, model: models.Model, filter_options: Optional[List[str]]
     ) -> Dict[str, List[Dict[str, Any]]]:
         """
-        Get the filter choices for the specified model.
+        Retrieves the filter choices for the specified model. It takes the model object and the filter_options as parameters and returns a dictionary containing the filter choices for each filter option.
         """
 
         filter_choices = {}
@@ -98,7 +94,7 @@ class ModelMetadataAPIView(APIView):
         self, model: models.Model, filter_choices: Dict[str, List[Dict[str, Any]]]
     ) -> Dict[str, Any]:
         """
-        Build the initial metadata dictionary.
+        Builds the initial metadata dictionary for the specified model. It takes the model object and the filter_choices as parameters and returns a dictionary containing the initial metadata.
         """
 
         return {
@@ -164,7 +160,7 @@ class ModelMetadataAPIView(APIView):
         metadata: Dict[str, Any],
     ) -> None:
         """
-        Append field metadata to the metadata dictionary.
+        Appends the field metadata to the metadata dictionary. It takes the field_name, field, model, and metadata as parameters and modifies the metadata dictionary with the field metadata.
         """
 
         all_fields_choices = []
@@ -236,7 +232,7 @@ class ModelMetadataAPIView(APIView):
 
     def append_sy_metadata(self, field: models.Field, metadata: Dict[str, Any]) -> None:
         """
-        Append custom metadata for fields.
+        Appends custom metadata for fields to the metadata dictionary. It takes the field and metadata as parameters and modifies the metadata dictionary with the custom metadata for the field.
         """
 
         if not field.name == "password" and not field.name == "salt":
@@ -379,7 +375,7 @@ class RecentAdminActionsView(APIView):
 
     def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
         """
-        Handle the GET request and return the recent admin actions.
+        Handles the GET request and returns the recent admin actions. It retrieves the query parameters for items, app, and model_query from the request, and calls the `get_recent_actions` method to get the recent admin actions based on the provided filters. It then builds the action data and returns it as a JSON response.
         """
 
         items = request.query_params.get("items", 10)
@@ -394,13 +390,13 @@ class RecentAdminActionsView(APIView):
         data = []
 
         for action in recent_actions:
-            self.append_action(action, data)
+            self.build_action(action, data)
 
         return Response(data)
 
     def get_content_type(self, app_label: str, model_query: str = "") -> ContentType:
         """
-        Get the ContentType object based on the provided app_label and model_query.
+        Retrieves the ContentType object based on the provided app_label and model_query. If the model_query is empty, it retrieves the ContentType based on the app_label only. If the model_query is provided, it retrieves the ContentType based on both the app_label and model_query.
         """
 
         if model_query == "":
@@ -415,7 +411,7 @@ class RecentAdminActionsView(APIView):
         self, app_label: str = "", model_query: str = "", items: int = 10
     ) -> List[LogEntry]:
         """
-        Get the recent admin actions based on the provided filters.
+        Retrieves the recent admin actions based on the provided filters. It accepts optional filters for app_label, model_query, and items count. If the app_label is provided, it filters the actions by app_label.  If the model_query is provided, it filters the actions by both app_label and model_query. If the items count is provided, it limits the number of actions returned.
         """
 
         if app_label:
@@ -436,18 +432,17 @@ class RecentAdminActionsView(APIView):
 
         return recent_actions
 
-    def append_action(
+    def build_action(
         self, action: LogEntry, data: List[Dict[str, Union[str, datetime]]]
     ) -> None:
         """
-        Append the admin action to the data list.
+        Appends the admin action to the data list. It takes an action object and a data list as parameters. It extracts the relevant information from the action object, such as user, action time, action flag, content type, app label, model name, object ID, object representation, change message, and object URL. It then appends the information to the data list.
         """
 
         object_repr = action.object_repr
         change_message = action.changes
         app_label = action.content_type.app_label
         model_name = action.content_type.model
-        change_message_str = ""
 
         try:
             model_class = apps.get_model(app_label=app_label, model_name=model_name)
@@ -455,57 +450,7 @@ class RecentAdminActionsView(APIView):
         except:
             model_verbose_name = "Not Found"
 
-        if action.action == LogEntry.Action.CREATE:
-            object_repr = f"Added {object_repr}"
-            change_message_str = object_repr
-            try:
-                obj = action.content_type.get_object_for_this_type(pk=action.object_pk)
-
-                if model_name == "messages" or model_name == "application":
-                    obj_url = f"/admin/{model_name}/read/{obj.pk}/"
-                else:
-                    obj_url = f"/admin/{model_name}/control/{obj.pk}/"
-            except:
-                try:
-                    obj = action.content_type.get_object_for_this_type(
-                        pk=action.object_id
-                    )
-
-                    if model_name == "messages" or model_name == "application":
-                        obj_url = f"/admin/{model_name}/read/{obj.pk}/"
-                    else:
-                        obj_url = f"/admin/{model_name}/control/{obj.pk}/"
-                except:
-                    obj_url = "Object not found"
-
-        elif action.action == LogEntry.Action.UPDATE:
-            object_repr = f"Changed {object_repr}"
-            change_message_str = change_message
-
-            try:
-                obj = action.content_type.get_object_for_this_type(pk=action.object_pk)
-
-                if model_name == "messages" or model_name == "application":
-                    obj_url = f"/admin/{model_name}/read/{obj.pk}/"
-                else:
-                    obj_url = f"/admin/{model_name}/control/{obj.pk}/"
-            except:
-                try:
-                    obj = action.content_type.get_object_for_this_type(
-                        pk=action.object_id
-                    )
-
-                    if model_name == "messages" or model_name == "application":
-                        obj_url = f"/admin/{model_name}/read/{obj.pk}/"
-                    else:
-                        obj_url = f"/admin/{model_name}/control/{obj.pk}/"
-                except:
-                    obj_url = "Failed"
-
-        elif action.action == LogEntry.Action.DELETE:
-            object_repr = f"Deleted {object_repr}"
-            change_message_str = object_repr
-            obj_url = "Not Applicable"
+        change_message, obj_url = self.get_action_details(change_message, action)
 
         data.append(
             {
@@ -517,10 +462,67 @@ class RecentAdminActionsView(APIView):
                 "model_name": model_verbose_name,
                 "object_id": str(action.object_pk),
                 "object_repr": object_repr,
-                "change_message": change_message_str,
-                "obj_url": obj_url,
+                "change_message": change_message.format(object_repr=object_repr),
+                "obj_url": obj_url(action, model_name)
+                if callable(obj_url)
+                else obj_url,
             }
         )
+
+    def get_action_details(self, change_message, action):
+        """
+        Retrieves the action details based on the given change_message and action. It maps the action to its corresponding change_message and object URL, and returns the change_message and object URL as a tuple.
+        """
+
+        action_dict = {
+            LogEntry.Action.CREATE: {
+                "change_message": "Added {object_repr}",
+                "obj_url": lambda action, model_name: self.get_obj_url(
+                    action, model_name
+                ),
+            },
+            LogEntry.Action.UPDATE: {
+                "change_message": change_message,
+                "obj_url": lambda action, model_name: self.get_obj_url(
+                    action, model_name
+                ),
+            },
+            LogEntry.Action.DELETE: {
+                "change_message": "Deleted {object_repr}",
+                "obj_url": "Not Applicable",
+            },
+        }
+
+        action_details = action_dict.get(action.action, {})
+
+        return action_details.get("change_message", ""), action_details.get("obj_url")
+
+    def get_obj_url(self, action, model_name):
+        """
+        Retrieves the object URL for the given action and model name. It checks if the object can be retrieved using the content type and object_pk or object_id. It constructs the object URL based on the model name and object primary key, and returns the object URL.
+        """
+        try:
+            obj = action.content_type.get_object_for_this_type(pk=action.object_pk)
+            obj_url = self.__obj_url_check_name(model_name, obj)
+        except:
+            try:
+                obj = action.content_type.get_object_for_this_type(pk=action.object_id)
+                obj_url = self.__obj_url_check_name(model_name, obj)
+            except:
+                obj_url = "Object not found"
+
+        return obj_url
+
+    def __obj_url_check_name(self, model_name, obj):
+        """
+        This method checks the model name and returns the object URL based on the model name and object primary key. It constructs the object URL using the model name and object primary key, and returns the object URL.
+        """
+        if model_name == "messages" or model_name == "application":
+            obj_url = f"/admin/{model_name}/read/{obj.pk}/"
+        else:
+            obj_url = f"/admin/{model_name}/control/{obj.pk}/"
+
+        return obj_url
 
     dispatch = method_decorator(cache_page(60 * 5))(APIView.dispatch)
 

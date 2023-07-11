@@ -13,7 +13,7 @@ User = get_user_model()
 
 class SyMiddleware:
     """
-    Base middleware class that provides common functionality.
+    This base middleware class provides common functionality for other middleware classes. It includes methods for checking request headers for user information and processing the request and response.
     """
 
     def __init__(self, get_response: callable):
@@ -25,8 +25,7 @@ class SyMiddleware:
 
     def check_headers_for_user(self, request: HttpRequest) -> Optional[User]:
         """
-        Check the request headers for user information.
-        Returns the User object if found, else None.
+        Checks the request headers for an authorization header containing a JWT token. If a valid token is found, it decodes the token, retrieves the corresponding user from the database, and returns the user object.
         """
 
         auth_header = request.headers.get("Authorization")
@@ -46,7 +45,8 @@ class SyMiddleware:
 
     def __call__(self, request: HttpRequest) -> HttpResponse:
         """
-        Process the request and return the response.
+        This method is called for each request and handles the processing of the request and generation of the response.
+        It calls the `process_request` method to perform request-specific processing, then calls the `get_response` callback function to retrieve the response.
         """
 
         self.process_request(request)
@@ -66,7 +66,7 @@ class JWTMiddleware(SyMiddleware):
 
     def process_request(self, request: HttpRequest) -> None:
         """
-        Process the request and authenticate the user based on JWT token.
+        Processes the request and checks the headers for a JWT token.
         """
 
         user = self.check_headers_for_user(request)

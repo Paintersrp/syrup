@@ -1,25 +1,23 @@
-from typing import Optional, Dict, Any, List
+from typing import Optional, Dict, Any, List, Union
+from datetime import datetime
 
-from django.shortcuts import render
-from django.conf import settings
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import generics, serializers, status
-from django.apps import apps
-from django.views.decorators.csrf import csrf_exempt
-from authorization.models import User
-from authorization.serializers import UserSerializer
-from django.urls import reverse, NoReverseMatch
-from rest_framework.views import APIView
-from django.utils.decorators import method_decorator
-from django.views.decorators.cache import cache_page
-from django.http import Http404
-from django.shortcuts import render, get_object_or_404
-from django.contrib.contenttypes.models import ContentType
 from auditlog.models import LogEntry
-from .utils import analyze_django_app, get_filter_choices
+from rest_framework.response import Response
+from rest_framework import serializers, status
+from rest_framework.views import APIView
+from django.apps import apps
+from django.views.decorators.cache import cache_page
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.http import (
+    Http404,
+    HttpRequest,
+    HttpResponse,
+)
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.db.models import Q
+
 
 from api.sy_views import SyMetaView
 
@@ -27,24 +25,11 @@ from api.sy_views import SyMetaView
 class ModelMetadataAPIView(APIView):
     """
     API view for retrieving metadata of a specific model.
-
-    Parameters:
-        model_name (str): The name of the model to retrieve metadata for.
-
-    Returns:
-        Response: Metadata of the specified model.
     """
 
     def get(self, request, model_name: str) -> Response:
         """
         Retrieve metadata of a specific model.
-
-        Parameters:
-            request (HttpRequest): The HTTP request object.
-            model_name (str): The name of the model to retrieve metadata for.
-
-        Returns:
-            Response: Metadata of the specified model.
         """
 
         all_models = apps.get_models(include_auto_created=True)
@@ -87,13 +72,6 @@ class ModelMetadataAPIView(APIView):
     ) -> Dict[str, List[Dict[str, Any]]]:
         """
         Get the filter choices for the specified model.
-
-        Parameters:
-            model (Model): The model to retrieve filter choices for.
-            filter_options (list): List of filter options.
-
-        Returns:
-            dict: Filter choices for the specified model.
         """
 
         filter_choices = {}
@@ -121,13 +99,6 @@ class ModelMetadataAPIView(APIView):
     ) -> Dict[str, Any]:
         """
         Build the initial metadata dictionary.
-
-        Parameters:
-            model (Model): The model to build metadata for.
-            filter_choices (dict): Filter choices for the model.
-
-        Returns:
-            dict: Initial metadata dictionary.
         """
 
         return {
@@ -194,12 +165,6 @@ class ModelMetadataAPIView(APIView):
     ) -> None:
         """
         Append field metadata to the metadata dictionary.
-
-        Parameters:
-            field_name (str): The name of the field.
-            field (Field): The field object.
-            model (Model): The model the field belongs to.
-            metadata (dict): The metadata dictionary to append to.
         """
 
         all_fields_choices = []
@@ -272,10 +237,6 @@ class ModelMetadataAPIView(APIView):
     def append_sy_metadata(self, field: models.Field, metadata: Dict[str, Any]) -> None:
         """
         Append custom metadata for fields.
-
-        Parameters:
-            field (Field): The field object.
-            metadata (dict): The metadata dictionary to append to.
         """
 
         if not field.name == "password" and not field.name == "salt":
@@ -304,145 +265,14 @@ class ModelMetadataAPIView(APIView):
                 )
 
 
-@method_decorator(csrf_exempt, name="dispatch")
-class RecentAdminActionsView(APIView):
-    def get(self, request, *args, **kwargs):
-        items = request.query_params.get("items", 10)
-        app = request.query_params.get("app", None)
-        model_query = request.query_params.get("model", None)
-
-        if items == "all":
-            recent_actions = self.get_recent_actions(app, model_query)
-        else:
-            recent_actions = self.get_recent_actions(app, model_query, int(items))
-
-        data = []
-
-        for action in recent_actions:
-            self.append_action(action, data)
-
-        return Response(data)
-
-    def get_content_type(self, app_label: str, model_query: str = "") -> ContentType:
-        """
-        Get the ContentType object based on the provided app_label and model_query.
-        """
-        if model_query == "":
-            content_type = ContentType.objects.get(app_label=app_label)
-        else:
-            content_type = ContentType.objects.get(
-                app_label=app_label, model=model_query.lower()
-            )
-        return content_type
-
-    def get_recent_actions(
-        self, app_label: str = "", model_query: str = "", items: int = None
-    ):
-        """
-        Get the recent LogEntry actions based on the provided app_label, model_query, and items count.
-        """
-        if app_label:
-            content_type_filter = Q(content_type__app_label=app_label)
-        else:
-            content_type_filter = Q()
-
-        if model_query:
-            content_type = self.get_content_type(app_label, model_query)
-            content_type_filter &= Q(content_type=content_type)
-
-        recent_actions = LogEntry.objects.filter(content_type_filter).order_by(
-            "-timestamp"
-        )
-
-        if items is not None:
-            recent_actions = recent_actions[:items]
-
-        return recent_actions
-
-    def append_action(self, action, data):
-        object_repr = action.object_repr
-        change_message = action.changes
-        app_label = action.content_type.app_label
-        model_name = action.content_type.model
-        change_message_str = ""
-
-        try:
-            model_class = apps.get_model(app_label=app_label, model_name=model_name)
-            model_verbose_name = model_class._meta.verbose_name.title()
-        except:
-            model_verbose_name = "Not Found"
-
-        if action.action == LogEntry.Action.CREATE:
-            object_repr = f"Added {object_repr}"
-            change_message_str = object_repr
-            try:
-                obj = action.content_type.get_object_for_this_type(pk=action.object_pk)
-
-                if model_name == "messages" or model_name == "application":
-                    obj_url = f"/admin/{model_name}/read/{obj.pk}/"
-                else:
-                    obj_url = f"/admin/{model_name}/control/{obj.pk}/"
-            except:
-                try:
-                    obj = action.content_type.get_object_for_this_type(
-                        pk=action.object_id
-                    )
-
-                    if model_name == "messages" or model_name == "application":
-                        obj_url = f"/admin/{model_name}/read/{obj.pk}/"
-                    else:
-                        obj_url = f"/admin/{model_name}/control/{obj.pk}/"
-                except:
-                    obj_url = "Object not found"
-
-        elif action.action == LogEntry.Action.UPDATE:
-            object_repr = f"Changed {object_repr}"
-            change_message_str = change_message
-
-            try:
-                obj = action.content_type.get_object_for_this_type(pk=action.object_pk)
-
-                if model_name == "messages" or model_name == "application":
-                    obj_url = f"/admin/{model_name}/read/{obj.pk}/"
-                else:
-                    obj_url = f"/admin/{model_name}/control/{obj.pk}/"
-            except:
-                try:
-                    obj = action.content_type.get_object_for_this_type(
-                        pk=action.object_id
-                    )
-
-                    if model_name == "messages" or model_name == "application":
-                        obj_url = f"/admin/{model_name}/read/{obj.pk}/"
-                    else:
-                        obj_url = f"/admin/{model_name}/control/{obj.pk}/"
-                except:
-                    obj_url = "Failed"
-
-        elif action.action == LogEntry.Action.DELETE:
-            object_repr = f"Deleted {object_repr}"
-            change_message_str = object_repr
-            obj_url = "Not Applicable"
-
-        data.append(
-            {
-                "user": str(action.actor),
-                "action_time": action.timestamp,
-                "action_flag": action.get_action_display().capitalize(),
-                "content_type": str(action.content_type),
-                "app_label": app_label.capitalize(),
-                "model_name": model_verbose_name,
-                "object_id": str(action.object_pk),
-                "object_repr": object_repr,
-                "change_message": change_message_str,
-                "obj_url": obj_url,
-            }
-        )
-
-    dispatch = method_decorator(cache_page(60 * 5))(APIView.dispatch)
-
-
 class ModelEndpointAPIView(SyMetaView):
+    """
+    API view that returns information about all models in the Django app.
+
+    Retrieves information about the models and their corresponding endpoints,
+    including serializer classes and app configurations.
+    """
+
     def get(self, request):
         models = apps.get_models(include_auto_created=False)
         app_configs = {
@@ -471,6 +301,13 @@ class ModelEndpointAPIView(SyMetaView):
 
 
 class SingleModelAPIView(SyMetaView):
+    """
+    API view that returns information about a single model in the Django app.
+
+    Retrieves information about the specified model and its corresponding endpoint,
+    including the serializer class.
+    """
+
     def get(self, request, model_name=None):
         models = apps.get_models(include_auto_created=True)
         model = None
@@ -494,6 +331,13 @@ class SingleModelAPIView(SyMetaView):
 
 
 class SingleAppEndpointAPIView(SyMetaView):
+    """
+    API view that returns information about a single app in the Django project.
+
+    Retrieves information about the specified app, including its models,
+    app configuration, and corresponding endpoints.
+    """
+
     def get(self, request, app_name=None, format=None):
         app_config = apps.get_app_config(app_name)
         models = app_config.get_models()
@@ -510,7 +354,7 @@ class SingleAppEndpointAPIView(SyMetaView):
                 "visibility": app_config.visibility
                 if hasattr(app_config, "visibility")
                 else None,
-                "app_info": analyze_django_app(app_config.get_models()),
+                "app_info": self.analyze_app(app_config.get_models()),
             }
             endpoints["models"][app_config.label] = []
 
@@ -522,3 +366,374 @@ class SingleAppEndpointAPIView(SyMetaView):
                 endpoints["models"][app_config.label].append(endpoint)
 
         return Response(endpoints)
+
+
+@method_decorator(csrf_exempt, name="dispatch")
+class RecentAdminActionsView(APIView):
+    """
+    API view that returns the recent admin actions.
+
+    This view retrieves the recent admin actions from the LogEntry model and provides them as JSON response.
+    The actions can be filtered by app_label, model_query, and items count.
+    """
+
+    def get(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        """
+        Handle the GET request and return the recent admin actions.
+        """
+
+        items = request.query_params.get("items", 10)
+        app = request.query_params.get("app", None)
+        model_query = request.query_params.get("model", None)
+
+        if items == "all":
+            recent_actions = self.get_recent_actions(app, model_query)
+        else:
+            recent_actions = self.get_recent_actions(app, model_query, int(items))
+
+        data = []
+
+        for action in recent_actions:
+            self.build_action(action, data)
+
+        return Response(data)
+
+    def get_content_type(self, app_label: str, model_query: str = "") -> ContentType:
+        """
+        Get the ContentType object based on the provided app_label and model_query.
+        """
+
+        if model_query == "":
+            content_type = ContentType.objects.get(app_label=app_label)
+        else:
+            content_type = ContentType.objects.get(
+                app_label=app_label, model=model_query.lower()
+            )
+        return content_type
+
+    def get_recent_actions(
+        self, app_label: str = "", model_query: str = "", items: int = 10
+    ) -> List[LogEntry]:
+        """
+        Get the recent admin actions based on the provided filters.
+        """
+
+        if app_label:
+            content_type_filter = Q(content_type__app_label=app_label)
+        else:
+            content_type_filter = Q()
+
+        if model_query:
+            content_type = self.get_content_type(app_label, model_query)
+            content_type_filter &= Q(content_type=content_type)
+
+        recent_actions = LogEntry.objects.filter(content_type_filter).order_by(
+            "-timestamp"
+        )
+
+        if items is not None:
+            recent_actions = recent_actions[:items]
+
+        return recent_actions
+
+    def build_action(
+        self, action: LogEntry, data: List[Dict[str, Union[str, datetime]]]
+    ) -> None:
+        """
+        Append the admin action to the data list.
+        """
+
+        object_repr = action.object_repr
+        change_message = action.changes
+        app_label = action.content_type.app_label
+        model_name = action.content_type.model
+
+        try:
+            model_class = apps.get_model(app_label=app_label, model_name=model_name)
+            model_verbose_name = model_class._meta.verbose_name.title()
+        except:
+            model_verbose_name = "Not Found"
+
+        change_message, obj_url = self.get_action_details(change_message, action)
+
+        data.append(
+            {
+                "user": str(action.actor),
+                "action_time": action.timestamp,
+                "action_flag": action.get_action_display().capitalize(),
+                "content_type": str(action.content_type),
+                "app_label": app_label.capitalize(),
+                "model_name": model_verbose_name,
+                "object_id": str(action.object_pk),
+                "object_repr": object_repr,
+                "change_message": change_message.format(object_repr=object_repr),
+                "obj_url": obj_url(action, model_name)
+                if callable(obj_url)
+                else obj_url,
+            }
+        )
+
+    def get_action_details(self, change_message, action):
+        action_dict = {
+            LogEntry.Action.CREATE: {
+                "change_message": "Added {object_repr}",
+                "obj_url": lambda action, model_name: self.get_obj_url(
+                    action, model_name
+                ),
+            },
+            LogEntry.Action.UPDATE: {
+                "change_message": change_message,
+                "obj_url": lambda action, model_name: self.get_obj_url(
+                    action, model_name
+                ),
+            },
+            LogEntry.Action.DELETE: {
+                "change_message": "Deleted {object_repr}",
+                "obj_url": "Not Applicable",
+            },
+        }
+
+        action_details = action_dict.get(action.action, {})
+
+        return action_details.get("change_message", ""), action_details.get("obj_url")
+
+    def get_obj_url(self, action, model_name):
+        try:
+            obj = action.content_type.get_object_for_this_type(pk=action.object_pk)
+            obj_url = self.__obj_url_check_name(model_name, obj)
+        except:
+            try:
+                obj = action.content_type.get_object_for_this_type(pk=action.object_id)
+                obj_url = self.__obj_url_check_name(model_name, obj)
+            except:
+                obj_url = "Object not found"
+
+        return obj_url
+
+    def __obj_url_check_name(self, model_name, obj):
+        if model_name == "messages" or model_name == "application":
+            obj_url = f"/admin/{model_name}/read/{obj.pk}/"
+        else:
+            obj_url = f"/admin/{model_name}/control/{obj.pk}/"
+
+        return obj_url
+
+    dispatch = method_decorator(cache_page(60 * 5))(APIView.dispatch)
+
+
+# @method_decorator(csrf_exempt, name="dispatch")
+# class RecentAdminActionsView(APIView):
+#     def get(self, request, *args, **kwargs):
+#         items = request.query_params.get("items", 10)
+#         app = request.query_params.get("app", None)
+#         model_query = request.query_params.get("model", None)
+
+#         if items == "all":
+#             if app:
+#                 recent_actions = LogEntry.objects.filter(
+#                     content_type__app_label=app
+#                 ).order_by("-timestamp")
+#             elif model_query:
+#                 if model_query == "messages":
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="support"
+#                     )
+#                 elif (
+#                     model_query == "questionnaire"
+#                     or model_query == "questionset"
+#                     or model_query == "question"
+#                     or model_query == "answerchoice"
+#                 ):
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="quizes"
+#                     )
+#                 elif model_query == "teammember":
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="contact"
+#                     )
+#                 elif (
+#                     model_query == "servicetablelabels"
+#                     or model_query == "servicecomparerows"
+#                     or model_query == "servicetable"
+#                 ):
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="tables"
+#                     )
+#                 elif model_query == "header":
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="general"
+#                     )
+#                 elif model_query == "contactinformation":
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="contact"
+#                     )
+#                 elif model_query == "page":
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="pages"
+#                     )
+#                 elif model_query == "faq":
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="faqs"
+#                     )
+
+#                 else:
+#                     content_type = ContentType.objects.get(model=model_query.lower())
+
+#                 recent_actions = LogEntry.objects.filter(
+#                     content_type=content_type
+#                 ).order_by("-timestamp")
+#             else:
+#                 recent_actions = LogEntry.objects.order_by("-timestamp")
+#         else:
+#             if app:
+#                 recent_actions = LogEntry.objects.filter(
+#                     content_type__app_label=app
+#                 ).order_by("-timestamp")[: int(items)]
+
+#             elif model_query:
+#                 if model_query == "messages":
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="support"
+#                     )
+#                 elif (
+#                     model_query == "questionnaire"
+#                     or model_query == "questionset"
+#                     or model_query == "question"
+#                     or model_query == "answerchoice"
+#                 ):
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="quizes"
+#                     )
+#                 elif model_query == "teammember":
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="contact"
+#                     )
+#                 elif (
+#                     model_query == "servicetablelabels"
+#                     or model_query == "servicecomparerows"
+#                     or model_query == "servicetable"
+#                 ):
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="tables"
+#                     )
+#                 elif model_query == "header":
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="general"
+#                     )
+#                 elif model_query == "contactinformation":
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="contact"
+#                     )
+#                 elif model_query == "page":
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="pages"
+#                     )
+#                 elif model_query == "faq":
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="faqs"
+#                     )
+#                 elif model_query == "servicetier":
+#                     content_type = ContentType.objects.get(
+#                         model=model_query.lower(), app_label="services"
+#                     )
+
+#                 else:
+#                     content_type = ContentType.objects.get(model=model_query.lower())
+
+#                 recent_actions = LogEntry.objects.filter(
+#                     content_type=content_type
+#                 ).order_by("-timestamp")[: int(items)]
+#             else:
+#                 recent_actions = LogEntry.objects.order_by("-timestamp")[: int(items)]
+
+#         data = []
+#         for action in recent_actions:
+#             object_repr = action.object_repr
+#             change_message = action.changes
+#             app_label = action.content_type.app_label
+#             model_name = action.content_type.model
+#             change_message_str = ""
+
+#             try:
+#                 model_class = apps.get_model(app_label=app_label, model_name=model_name)
+#                 model_verbose_name = model_class._meta.verbose_name.title()
+#             except:
+#                 model_verbose_name = "Not Found"
+
+#             if action.action == LogEntry.Action.CREATE:
+#                 object_repr = f"Added {object_repr}"
+#                 change_message_str = object_repr
+#                 try:
+#                     obj = action.content_type.get_object_for_this_type(
+#                         pk=action.object_pk
+#                     )
+
+#                     if model_name == "messages" or model_name == "application":
+#                         obj_url = f"/admin/{model_name}/read/{obj.pk}/"
+#                     else:
+#                         obj_url = f"/admin/{model_name}/control/{obj.pk}/"
+#                 except:
+#                     try:
+#                         obj = action.content_type.get_object_for_this_type(
+#                             pk=action.object_id
+#                         )
+
+#                         if model_name == "messages" or model_name == "application":
+#                             obj_url = f"/admin/{model_name}/read/{obj.pk}/"
+#                         else:
+#                             obj_url = f"/admin/{model_name}/control/{obj.pk}/"
+#                     except:
+#                         obj_url = "Object not found"
+
+#             elif action.action == LogEntry.Action.UPDATE:
+#                 object_repr = f"Changed {object_repr}"
+#                 change_message_str = change_message
+
+#                 try:
+#                     obj = action.content_type.get_object_for_this_type(
+#                         pk=action.object_pk
+#                     )
+
+#                     if model_name == "messages" or model_name == "application":
+#                         obj_url = f"/admin/{model_name}/read/{obj.pk}/"
+#                     else:
+#                         obj_url = f"/admin/{model_name}/control/{obj.pk}/"
+#                 except:
+#                     try:
+#                         obj = action.content_type.get_object_for_this_type(
+#                             pk=action.object_id
+#                         )
+
+#                         if model_name == "messages" or model_name == "application":
+#                             obj_url = f"/admin/{model_name}/read/{obj.pk}/"
+#                         else:
+#                             obj_url = f"/admin/{model_name}/control/{obj.pk}/"
+#                     except:
+#                         obj_url = "Failed"
+
+#             elif action.action == LogEntry.Action.DELETE:
+#                 object_repr = f"Deleted {object_repr}"
+#                 change_message_str = object_repr
+#                 obj_url = "Not Applicable"
+
+#             data.append(
+#                 {
+#                     "user": str(action.actor),
+#                     "action_time": action.timestamp,
+#                     "action_flag": action.get_action_display().capitalize(),
+#                     "content_type": str(action.content_type),
+#                     "app_label": app_label.capitalize(),
+#                     "model_name": model_verbose_name,
+#                     "object_id": str(action.object_pk),
+#                     "object_repr": object_repr,
+#                     "change_message": change_message_str,
+#                     "obj_url": obj_url,
+#                 }
+#             )
+
+#         return Response(data)
+
+#     dispatch = method_decorator(cache_page(60 * 5))(APIView.dispatch)
+
+
+# Needs Testing, left previous in for refactor if needed
