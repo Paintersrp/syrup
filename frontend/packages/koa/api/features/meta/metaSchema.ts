@@ -5,7 +5,6 @@ export const metaSchema = `#graphql
 
   type MetaQuery {
     user: ModelMeta
-    user2: ModelMeta
   }
 
   type Metadata {
@@ -18,8 +17,6 @@ export const metaSchema = `#graphql
   }
 
   extend type Query {
-    metaUser: ModelMeta
-    metaUser2: ModelMeta
     metaQuery: MetaQuery
   }
 `;

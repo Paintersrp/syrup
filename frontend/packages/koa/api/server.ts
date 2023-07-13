@@ -28,7 +28,12 @@ import { metaResolvers, metaSchema } from './features/meta';
 import { rootResolvers, rootSchema } from './features/root';
 
 import { sequelize } from './lib';
-import { errorMiddleware, jwtMiddleware, loggingMiddleware } from './middleware';
+import {
+  errorMiddleware,
+  jwtMiddleware,
+  loggingMiddleware,
+  notFoundMiddleware,
+} from './middleware';
 
 /***
  * Initate Koa Server with Middlewares
@@ -37,6 +42,7 @@ const app = new Koa();
 app.use(jwtMiddleware);
 app.use(loggingMiddleware);
 app.use(errorMiddleware);
+app.use(notFoundMiddleware);
 // app.use(rateLimitingMiddleware);
 
 /***

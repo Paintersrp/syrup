@@ -1,5 +1,4 @@
-export { userResolvers } from './userResolvers';
-export { userSchema } from './userSchema';
-export { User } from './userModels';
+export { User } from './models';
 
-export type { CreateUserDTO } from './userResolvers';
+export { userResolvers } from './resolvers';
+export { userSchema } from './schema';

@@ -1,2 +1,4 @@
-export { rootResolvers } from './rootResolvers';
-export { rootSchema } from './rootSchema';
+export { Root } from './models';
+
+export { rootResolvers } from './resolvers';
+export { rootSchema } from './schema';

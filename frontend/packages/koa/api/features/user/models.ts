@@ -1,15 +1,16 @@
-import { DataTypes, Model } from 'sequelize';
-import { sequelize } from '../../lib';
+import { DataTypes } from 'sequelize';
 
-export class User extends Model {}
+import { sequelize } from '../../lib';
+import { Root } from '../root/models';
+import { validateUserInput } from './validate';
+
+export class User extends Root {
+  static verbose = 'User';
+  static validateFn = validateUserInput;
+}
 
 User.init(
   {
-    id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
