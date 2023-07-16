@@ -9,11 +9,7 @@ import { sequelize } from '../../lib';
  * @param descriptor The method descriptor.
  * @returns The updated method descriptor.
  */
-export function Rollback(
-  target: any,
-  key: string,
-  descriptor: PropertyDescriptor
-): PropertyDescriptor {
+export function Rollback(_: any, __: string, descriptor: PropertyDescriptor): PropertyDescriptor {
   const originalMethod = descriptor.value;
 
   descriptor.value = async function (...args: any[]): Promise<any> {

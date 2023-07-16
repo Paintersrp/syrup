@@ -1,27 +1,29 @@
 import Joi from 'joi';
-import { Column, DataType, Table } from 'sequelize-typescript';
+import { Column, Table } from 'sequelize-typescript';
+
+import { Virtual } from '../../decorators/models';
+import { StringSchema } from '../../decorators/schemas';
 
 import { sequelize } from '../../lib';
 import { Root } from '../root/models';
 
-export const userSchema = Joi.object({
-  firstName: Joi.string().required(),
-  lastName: Joi.string().required(),
-});
+import { UserSchema } from './schema';
 
 @Table
 export class User extends Root {
   static verbose = 'User';
-  static validateFn = userSchema;
+  static validateFn = UserSchema;
+  static viewSchema = Joi.object({});
 
   @Column
+  @StringSchema({ min: 2, max: 50 })
   firstName!: string;
 
   @Column
-  lastName!: string;
+  @StringSchema({ min: 1, max: 10 })
+  lastName?: string;
 
-  // Custom Virtual Decorator
-  @Column(DataType.VIRTUAL)
+  @Virtual
   public get fullName(): string {
     return `${this.firstName} ${this.lastName}`;
   }

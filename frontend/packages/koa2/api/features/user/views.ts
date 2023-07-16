@@ -1,14 +1,14 @@
 import Koa from 'koa';
 
 import { Views } from '../root';
-import { User, userSchema } from './models';
+import { User } from './models';
+import { UserSchema } from './schema';
 
 export class UserViews extends Views {
   public static model = User;
   static options = {};
-  static schema = userSchema;
 
   constructor(app: Koa) {
-    super(User, userSchema, app);
+    super(User, User.viewSchema, app);
   }
 }

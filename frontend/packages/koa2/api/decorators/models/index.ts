@@ -1,1 +1,1 @@
-export { Timestamps } from './timestamps';
+export { Virtual } from './virtual';

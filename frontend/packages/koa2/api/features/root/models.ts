@@ -21,6 +21,7 @@ export class Root extends Model {
    * @param input - The input data to validate.
    */
   static validateFn: ObjectSchema<any>;
+  static viewSchema: ObjectSchema<any>;
 
   /**
    * Get the table name associated with the model.
