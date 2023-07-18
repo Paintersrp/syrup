@@ -7,3 +7,4 @@ export { generateHook } from './generateHook.js';
 export { generateModelSchema } from './generateModelSchema.js';
 export { generateProject } from './generateProject.js';
 export { generateStore } from './generateStore.js';
+export { generateKoaModel } from './generateKoaModel.js';

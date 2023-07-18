@@ -12,6 +12,7 @@ import {
   generateModelSchema,
   generateProject,
   generateStore,
+  generateKoaModel,
 } from './src/commands/index.js';
 
 /**
@@ -148,5 +149,17 @@ program
   .action((appName) => {
     generateEndpoint(appName);
   });
+
+// Koa Start
+program
+  .command('gen-koa-model')
+  .alias('gen-k-m')
+  .alias('gkm')
+  .description('Generate Koa Model')
+  .option('-f, --fields', 'Specify fields for the model')
+  .action((options) => {
+    generateKoaModel(options);
+  });
+// Koa End
 
 program.parse(process.argv);

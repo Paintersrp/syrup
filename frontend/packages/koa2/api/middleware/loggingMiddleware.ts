@@ -1,6 +1,6 @@
 import Koa from 'koa';
 
-import { User } from '../features/user';
+import { User } from '../apps/user';
 
 export const loggingMiddleware: Koa.Middleware = async (ctx, next) => {
   const user: User | string = ctx.state.user ?? 'Anonymous';

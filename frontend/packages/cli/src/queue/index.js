@@ -10,6 +10,8 @@ export { queueHook } from './queueHook.js';
 
 export { queueIndexUpdate } from './queueIndexUpdate.js';
 
+export { queueKoaModel as queueKoaApp } from './queueKoaModel.js';
+
 export {
   queueModel,
   queueModelsFile,

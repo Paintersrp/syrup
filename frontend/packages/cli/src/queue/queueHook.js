@@ -14,7 +14,8 @@ import { queueIndexUpdate } from './queueIndexUpdate.js';
 export async function queueHook(name, directory, generator) {
   const fileName = `${name}.tsx`;
   const filePath = path.join(directory, fileName);
+  const exportStatement = `export { ${name} } from './${name}';\n`;
 
-  await queueIndexUpdate(name, directory, 'Updated Hook Index File', generator);
+  await queueIndexUpdate(exportStatement, directory, 'Updated Hook Index File', generator);
   await generator.addFileToQueue(AppHookTemplate(name), filePath, 'App Hook File');
 }

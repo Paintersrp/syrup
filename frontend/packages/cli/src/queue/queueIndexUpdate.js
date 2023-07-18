@@ -12,8 +12,7 @@ import path from 'path';
  * @returns {Promise<void>}
  * @async
  */
-export async function queueIndexUpdate(name, directory, logMessage, generator) {
-  const exportStatement = `export { ${name} } from './${name}';\n`;
+export async function queueIndexUpdate(exportStatement, directory, logMessage, generator) {  
   const indexFilePath = path.join(directory, 'index.ts');
   const fileExists = await fs.pathExists(indexFilePath);
 

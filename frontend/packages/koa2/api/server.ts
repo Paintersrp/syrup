@@ -1,37 +1,44 @@
 /**
- * Koa Apollo Server
+ * Koa Server
  *
- * This file sets up a Koa server with Apollo Server to handle GraphQL requests.
- * It merges the type definitions and resolvers from different feature modules
- * and initializes the server object with the merged schema and resolvers.
+ * This file sets up a Koa server to handle REST API requests using Sequelize ORM.
+ * It initializes the server object, applies middlewares, and registers API views
+ * and controllers from different feature modules.
  *
  * Features:
- *  - User: Handles user-related type definitions and resolvers.
- *  - Meta: Handles meta-related type definitions and resolvers.
- *  - Root: Handles root-level type definitions and resolvers.
+ *  - User: Handles user-related API views and controllers.
+ *  - Meta: Handles meta-related API views and controllers.
+ *  - Root: Handles root-level API views and controllers.
  *
  * Middlewares:
+ *  - bodyParser: Middleware for parsing request bodies.
+ *  - compress: Middleware for compressing response bodies.
  *  - jwtMiddleware: Middleware for JWT authentication.
+ *  - loggingMiddleware: Middleware for logging request details.
  *  - errorMiddleware: Middleware for error handling.
+ *  - notFoundMiddleware: Middleware for handling 404 (not found) errors.
  *
  * The server is started by calling the startServer function, which initializes
- * the Apollo Server, applies the Koa middleware, syncs the Sequelize database,
- * and starts the Koa server to listen for incoming requests.
+ * the Koa server, syncs the Sequelize database, and starts the server to listen
+ * for incoming requests.
  */
 
 import Koa from 'koa';
 import bodyParser from 'koa-bodyparser';
 import compress from 'koa-compress';
 
-import { sequelize } from './lib';
 import {
+  authMiddleware,
   errorMiddleware,
   jwtMiddleware,
   loggingMiddleware,
   notFoundMiddleware,
 } from './middleware';
 
-import { UserViews } from './features/user';
+import { sequelize } from './core/lib/sequelize';
+import { BlacklistViews, ProfileViews, UserViews } from './views';
+import { doStuffWithUser } from './models/user';
+import { APP_VIEWS } from './settings';
 
 /***
  * Initate Koa Server with Middlewares
@@ -39,15 +46,28 @@ import { UserViews } from './features/user';
 const app = new Koa();
 const PORT = 4000;
 
+/***
+ * Initate Middlewares
+ */
 app.use(bodyParser());
 app.use(compress());
 app.use(jwtMiddleware);
 app.use(loggingMiddleware);
 app.use(errorMiddleware);
 app.use(notFoundMiddleware);
+// app.use(authMiddleware);
 
-new UserViews(app);
+/***
+ * Initate API Views on Koa application
+ */
 
+for (const View of APP_VIEWS) {
+  new View(app);
+}
+
+/***
+ * Handles starting the server with feedback and initial messages
+ */
 async function startServer() {
   await sequelize
     .sync()
@@ -57,6 +77,8 @@ async function startServer() {
     .catch((error) => {
       console.error('Unable to connect to the database:', error);
     });
+
+  await doStuffWithUser();
 
   app.listen({ port: PORT }, () => {
     console.log(`Server running on http://localhost:${PORT}`);
