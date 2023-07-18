@@ -1,9 +1,8 @@
 import Koa from 'koa';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { JWT_SECRET } from '../settings';
 
 /**
- * JWT Middleware
- *
  * Koa middleware to handle JWT authentication. Parses the authorization
  * header, verifies and decodes the JWT token, and attaches the decoded
  * user object to the Koa context state.
@@ -12,25 +11,29 @@ import jwt from 'jsonwebtoken';
  * @param next - Next middleware function.
  */
 export const jwtMiddleware: Koa.Middleware = async (ctx, next) => {
-  //   const token = ctx.headers.authorization?.split(' ')[1];
+  const authHeader = ctx.request.headers.authorization;
 
-  //   if (!token) {
-  //     ctx.status = 401;
-  //     ctx.body = { error: 'Missing token' };
-  //     // return;
-  //   }
+  if (authHeader) {
+    const token = authHeader.split(' ')[1];
 
-  //   try {
-  //     // remove comments on return and if checks once set up
-  //     if (token) {
-  //       const decoded = jwt.verify(token, 'your-secret-key');
-  //       ctx.state.user = decoded;
-  //     }
-  //   } catch (error) {
-  //     ctx.status = 401;
-  //     ctx.body = { error: 'Invalid token' };
-  //     // return;
-  //   }
+    if (!token) {
+      ctx.status = 401;
+      ctx.body = { error: 'Missing token' };
+    }
+
+    try {
+      if (token) {
+        const decodedToken = jwt.verify(token, JWT_SECRET) as JwtPayload;
+
+        ctx.state.user = decodedToken.username;
+        ctx.state.role = decodedToken.role;
+        ctx.state.token = decodedToken;
+      }
+    } catch (error) {
+      ctx.status = 401;
+      ctx.body = { error: 'Invalid token', errors: error };
+    }
+  }
 
   await next();
 };

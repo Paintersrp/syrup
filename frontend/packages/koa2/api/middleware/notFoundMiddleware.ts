@@ -1,10 +1,8 @@
 import Koa from 'koa';
 
 /**
- * Error Middleware
- *
- * Koa middleware to handle errors. Catches any errors that occur during
- * request processing and sends an appropriate error response.
+ * Koa middleware to handle a 404 Not Found Response. Catches any 404 and returns a structured
+ * default response error message.
  *
  * @param ctx - Koa context object.
  * @param next - Next middleware function.

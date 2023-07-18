@@ -1,11 +1,14 @@
 export const KoaModelTemplate = (modelName, fields) => {
+  const lowercaseName = modelName.toLowerCase();
   const fieldDefinitions = fields.map(generateFieldDefinition).join('\n');
+  const seedDefinitions = fields.map(generateSeedDefinition).join('\n');
 
   return `
 import { DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
+import { faker } from '@faker-js/faker';
 
 import { Field } from '../core/decorators/models';
-import { sequelize } from '../core/lib/sequelize';
+import { sequelize } from '../settings';
 import { SyModel } from '../core/SyModel';
 
 export class ${modelName} extends SyModel<InferAttributes<${modelName}>, InferCreationAttributes<${modelName}>> {
@@ -19,6 +22,24 @@ export class ${modelName} extends SyModel<InferAttributes<${modelName}>, InferCr
     beforeCreate: async (instance: ${modelName}) => {},
     afterCreate: async (instance: ${modelName}) => {},
   };
+
+  static async seed${modelName}(count: number) {
+    try {
+      const ${lowercaseName}Data = []
+
+      for (let i = 0; i < count; i++) {
+        ${lowercaseName}Data.push({
+          ${seedDefinitions}
+        })
+      }
+
+      await ${modelName}.bulkCreate(${lowercaseName}Data);
+
+      console.log('${modelName} seeding completed successfully.');
+    } catch (error) {
+      console.error('${modelName} seeding failed:', error);
+    }
+  }
 }
 
 ${modelName}.init(
@@ -28,14 +49,13 @@ ${modelName}.init(
   },
   {
     hooks: ${modelName}.hooks,
-    tableName: '${modelName}',
+    tableName: '${lowercaseName}',
     sequelize,
   }
 );
 `;
 };
 
-// add required
 export function generateFieldDefinition(field) {
   const { name, type, required, verbose, defaultValue } = field;
 
@@ -47,6 +67,22 @@ export function generateFieldDefinition(field) {
   }
   })
   declare ${name}${required ? '' : '?'}: ${type.toLowerCase()};
+  `;
+
+  return fieldDefinition;
+}
+
+export function generateSeedDefinition(field) {
+  const { name, type, min, max } = field;
+
+  const fakerMap = {
+    STRING: 'faker.word.words(1)',
+    NUMBER: `faker.number.int({min: ${min}, max: ${max}})`,
+    BOOLEAN: `faker.datatype.boolean()`,
+  };
+
+  let fieldDefinition = `
+  ${name}: ${fakerMap[type]},
   `;
 
   return fieldDefinition;

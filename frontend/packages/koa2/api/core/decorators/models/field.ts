@@ -5,9 +5,15 @@ type FieldInterface = {
   primaryKey?: boolean;
   autoIncrement?: boolean;
   readOnly?: boolean;
+  unique?: boolean;
   verbose?: string;
 };
 
+/**
+ * Decorator function used to define Sequelize model properties.
+ * @param {FieldInterface} options The field options.
+ * @returns The property decorator function.
+ */
 export function Field({
   type,
   defaultValue = undefined,
@@ -15,6 +21,7 @@ export function Field({
   primaryKey = false,
   autoIncrement = false,
   readOnly = false,
+  unique = false,
   verbose = undefined,
 }: FieldInterface): PropertyDecorator {
   return (target: any, propertyKey: string | symbol): void => {
@@ -29,6 +36,7 @@ export function Field({
       primaryKey,
       autoIncrement,
       readOnly,
+      unique,
     };
 
     if (verbose) {

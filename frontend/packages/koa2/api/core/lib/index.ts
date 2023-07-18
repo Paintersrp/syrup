@@ -1,4 +1,3 @@
 export { buildMetadata } from './buildMetadata';
-export { sequelize } from './sequelize';
-
+export * from './enums';
 export * from './errors';

@@ -1,12 +1,11 @@
 import Koa from 'koa';
 import Router from 'koa-router';
 import { ModelStatic, FindAndCountOptions, Optional, Model } from 'sequelize';
+import { Log, Monitor, Rollback } from './decorators/views';
 
 import { SyModel } from './SyModel';
-
-// Skip pagination?
-// @Log
-// @Cache(60000)
+import { Cache } from '../models/cache';
+import { Time } from './lib';
 
 export abstract class SyViews {
   protected model: ModelStatic<any>;
@@ -24,23 +23,110 @@ export abstract class SyViews {
     this.router = new Router();
     this.schema = schema;
 
-    // Bind Methods
     this.create = this.create.bind(this);
     this.read = this.read.bind(this);
     this.update = this.update.bind(this);
     this.delete = this.delete.bind(this);
     this.getAll = this.getAll.bind(this);
     this.validateBody = this.validateBody.bind(this);
+    this.cacheEndpoint = this.cacheEndpoint.bind(this);
 
-    // Add Model Routes to Koa Application Router
     this.router.post(`/${this.model.tableName}`, this.validateBody, this.create);
     this.router.get(`/${this.model.tableName}/:id`, this.read);
     this.router.put(`/${this.model.tableName}/:id`, this.validateBody, this.update);
     this.router.delete(`/${this.model.tableName}/:id`, this.delete);
-    this.router.get(`/${this.model.tableName}`, this.getAll);
+    this.router.get(`/${this.model.tableName}`, this.cacheEndpoint, this.getAll);
     // query?
 
     this.addToApp(app);
+  }
+
+  /**
+   * Middleware to validate the request body against the defined schema.
+   */
+  private validateBody(ctx: Router.RouterContext, next: Koa.Next) {
+    const fields = ctx.request.body as Optional<any, string> | undefined;
+
+    const { error } = this.schema.validate(fields, { abortEarly: false });
+    if (error) {
+      ctx.status = 400;
+      ctx.body = { error: error.details[0].message };
+      return;
+    }
+
+    return next();
+  }
+
+  /**
+   * Middleware to cache the response of an endpoint and serve the cached response if available.
+   * If `skip` query parameter is set to 'true', the cache is skipped and the endpoint is processed * normally.
+   */
+  private async cacheEndpoint(ctx: Router.RouterContext, next: Koa.Next) {
+    const skipAndRefreshCache = ctx.query.skip === 'true';
+    const cacheKey = `${ctx.method}-${ctx.url}`;
+    const cachedResponse = await Cache.findOne({
+      where: { cacheKey },
+    });
+
+    if (cachedResponse && !skipAndRefreshCache) {
+      const updatedAt = new Date(cachedResponse.updatedAt);
+      const expirationDate = new Date(updatedAt.getTime() + Time.Minutes * 1);
+
+      if (expirationDate > new Date()) {
+        ctx.body = cachedResponse.response;
+        ctx.set('Content-Type', 'application/json');
+        return;
+      }
+    }
+
+    await next();
+
+    if (!cachedResponse) {
+      await this.createCache(ctx, cacheKey);
+    } else {
+      await this.updateCache(ctx, cacheKey);
+    }
+  }
+
+  /**
+   * Create a new cache entry for the given cache key and response.
+   * @param cacheKey The cache key.
+   */
+  private async createCache(ctx: Router.RouterContext, cacheKey: string) {
+    await Cache.create({
+      cacheKey,
+      response: ctx.body as JSON,
+      createdAt: new Date(),
+    });
+  }
+
+  /**
+   * Update the existing cache entry for the given cache key with the updated response.
+   * @param cacheKey The cache key.
+   */
+  private async updateCache(ctx: Router.RouterContext, cacheKey: string) {
+    const cachedResponse = await Cache.findOne({
+      where: { cacheKey },
+    });
+
+    if (cachedResponse) {
+      await cachedResponse.update({ response: ctx.body as JSON });
+    }
+  }
+
+  /**
+   * Creates a new instance of the model.
+   * Validated with validateBody class middleware
+   */
+  private async create(ctx: Router.RouterContext) {
+    try {
+      const fields = ctx.request.body as Optional<any, string> | undefined;
+      const item = await this.model.create(fields);
+      ctx.body = item;
+    } catch (error) {
+      ctx.status = 500;
+      ctx.body = { error: 'Internal server error' };
+    }
   }
 
   /**
@@ -55,21 +141,6 @@ export abstract class SyViews {
         ctx.body = { error: 'Item not found' };
         return;
       }
-      ctx.body = item;
-    } catch (error) {
-      ctx.status = 500;
-      ctx.body = { error: 'Internal server error' };
-    }
-  }
-
-  /**
-   * Creates a new instance of the model.
-   * Validated with validateBody class middleware
-   */
-  private async create(ctx: Router.RouterContext) {
-    try {
-      const fields = ctx.request.body as Optional<any, string> | undefined;
-      const item = await this.model.create(fields);
       ctx.body = item;
     } catch (error) {
       ctx.status = 500;
@@ -107,7 +178,7 @@ export abstract class SyViews {
    * @param item The model instance to update.
    * @param fields The fields to update.
    */
-  // @Rollback
+  @Rollback
   private async updateWithRollback(item: any, fields: Optional<any, string> | undefined) {
     Object.assign(item, fields);
     await item.save();
@@ -138,10 +209,8 @@ export abstract class SyViews {
   /**
    * Retrieves all instances of the model with pagination support.
    */
-  // @Throttle(10, 60000)
-  // @Catch
-  // @Monitor
-  // @Compress
+  @Monitor
+  @Log
   private async getAll(ctx: Router.RouterContext) {
     try {
       const options: FindAndCountOptions = {};
@@ -183,25 +252,11 @@ export abstract class SyViews {
     this.model = model;
   }
 
+  /**
+   * Validates field objects using instance schema
+   * @param fields An object of input data as fields from a request.
+   */
   public async validate(fields: Optional<any, string>) {
     await this.schema.validate(fields, { abortEarly: false });
-  }
-
-  /**
-   * Middleware to validate the request body against the defined schema.
-   * @param ctx The Koa RouterContext object.
-   * @param next The next middleware function.
-   */
-  private validateBody(ctx: Router.RouterContext, next: Koa.Next) {
-    const fields = ctx.request.body as Optional<any, string> | undefined;
-
-    const { error } = this.schema.validate(fields, { abortEarly: false });
-    if (error) {
-      ctx.status = 400;
-      ctx.body = { error: error.details[0].message };
-      return;
-    }
-
-    return next();
   }
 }

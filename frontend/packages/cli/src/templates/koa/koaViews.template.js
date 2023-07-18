@@ -7,7 +7,6 @@ export const KoaViewsTemplate = (modelName, lowercaseName) =>
   import { ${modelName}Schema } from '../schemas';
   
   export class ${modelName}Views extends SyViews {
-    static model = ${modelName};
     static options = {};
   
     constructor(app: Koa) {

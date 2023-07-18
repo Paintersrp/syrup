@@ -8,6 +8,7 @@ export const API_APPS_DIR = path.join(API_DIR, 'apps');
 export const API_AUTH_DIR = path.join(API_DIR, 'auth');
 export const API_MODELS_DIR = path.join(API_DIR, 'models');
 export const API_VIEWS_DIR = path.join(API_DIR, 'views');
+export const API_TYPES_DIR = path.join(API_DIR, 'types');
 export const API_SCHEMAS_DIR = path.join(API_DIR, 'schemas');
 
 export const WEB_DIR = path.join(BASE_DIR, 'web');
@@ -47,6 +48,7 @@ export function getPaths() {
       auth: API_AUTH_DIR,
       models: API_MODELS_DIR,
       schemas: API_SCHEMAS_DIR,
+      types: API_TYPES_DIR,
       views: API_VIEWS_DIR,
     },
     web: {

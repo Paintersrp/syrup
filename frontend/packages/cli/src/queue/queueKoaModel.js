@@ -1,7 +1,12 @@
 import path from 'path';
 import fs from 'fs-extra';
 
-import { KoaModelTemplate, KoaSchemaTemplate, KoaViewsTemplate } from '../templates/koa/index.js';
+import {
+  KoaDTOTypesTemplate,
+  KoaModelTemplate,
+  KoaSchemaTemplate,
+  KoaViewsTemplate,
+} from '../templates/koa/index.js';
 import { capFirst } from '../utils/format.js';
 import { queueIndexUpdate } from './queueIndexUpdate.js';
 
@@ -24,6 +29,7 @@ export async function queueKoaModel(generator, paths, modelName, fields) {
   await queueKoaSchemaFile(modelName, formattedModelName, paths, fields, fileName, generator);
   await queueKoaViewsFile(modelName, formattedModelName, paths, fileName, generator);
   await queueKoaSettingsUpdate(formattedModelName, paths, generator);
+  await queueKoaDTOTypesUpdate(formattedModelName, paths, fields, generator);
 }
 
 export async function queueKoaModelFile(name, formattedName, paths, fields, fileName, generator) {
@@ -54,7 +60,7 @@ export async function queueKoaViewsFile(name, formattedName, paths, fileName, ge
 }
 
 export async function queueKoaSettingsUpdate(formattedName, paths, generator) {
-  const settingsPath = `${paths.api.abs}/settings.ts`;
+  const settingsPath = `${paths.api.abs}/settings/settings.ts`;
   const settingsContent = fs.readFileSync(settingsPath, 'utf8');
   const appPattern = `\\b${formattedName}Views\\b`;
 
@@ -69,7 +75,7 @@ export async function queueKoaSettingsUpdate(formattedName, paths, generator) {
     if (!installedAppsList.includes(appPattern)) {
       const updatedInstalledAppsList = installedAppsList.replace(
         /(\[|\])\s*$/, // Remove trailing comma and whitespace
-        `,\nviews.${formattedName}Views,\n$1`
+        `Views.${formattedName}Views,\n$1`
       );
 
       const updatedSettingsContent = settingsContent.replace(
@@ -84,4 +90,13 @@ export async function queueKoaSettingsUpdate(formattedName, paths, generator) {
   } else {
     throw new Error('APP_VIEWS not found in settings.ts');
   }
+}
+
+export async function queueKoaDTOTypesUpdate(formattedName, paths, fields, generator) {
+  const viewsFilePath = path.join(paths.api.types, 'index.ts');
+  const typesContent = fs.readFileSync(viewsFilePath, 'utf8');
+  const viewsTemplate = KoaDTOTypesTemplate(formattedName, fields);
+  const updatedTypesContent = typesContent + '\n' + viewsTemplate;
+
+  await generator.addFileToQueue(updatedTypesContent, viewsFilePath, 'Koa Types File');
 }

@@ -10,17 +10,24 @@ import {
 import bcrypt from 'bcrypt';
 
 import { Field } from '../core/decorators/models';
-import { sequelize } from '../core/lib/sequelize';
+import { sequelize } from '../settings';
 import { SyModel } from '../core/SyModel';
 
 import { Profile } from './profile';
+import { faker } from '@faker-js/faker';
 
+/**
+ * Enumeration of user roles.
+ */
 export enum UserRoleEnum {
   SUPER = 'super',
   ADMIN = 'admin',
   USER = 'user',
 }
 
+/**
+ * Enumeration of theme options for users.
+ */
 export enum ThemeEnum {
   LIGHT = 'light',
   DARK = 'dark',
@@ -77,6 +84,10 @@ export class User extends SyModel<
   declare setProfile: HasOneSetAssociationMixin<Profile, 'userId'>;
   declare profile?: NonAttribute<Profile>;
 
+  /**
+   * Creates a blank profile for the user.
+   * @param user The user instance.
+   */
   public async createBlankProfile(user: User) {
     const fields = Profile.getKeys();
     const emptyProfile: { [key: string]: string } = {};
@@ -88,18 +99,64 @@ export class User extends SyModel<
     await user.createProfile(emptyProfile);
   }
 
+  /**
+   * Hashes the given password using bcrypt.
+   * @param password The password to hash.
+   * @returns An object containing the hashed password and salt.
+   */
+  protected static async hashPassword(password: string) {
+    const saltRounds = 10;
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    return {
+      password: hashedPassword,
+      salt,
+    };
+  }
+
+  /**
+   * Hooks to be executed before and after creating user instances.
+   */
   public static hooks = {
     beforeCreate: async (instance: User) => {
-      const saltRounds = 10;
-      const salt = await bcrypt.genSalt(saltRounds);
-      const hashedPassword = await bcrypt.hash(instance.password, salt);
-      instance.password = hashedPassword;
+      const { password, salt } = await this.hashPassword(instance.password);
+      instance.password = password;
       instance.salt = salt;
+    },
+    beforeBulkCreate: async (instances: User[]) => {
+      for (const instance of instances) {
+        const { password, salt } = await this.hashPassword(instance.password);
+        instance.password = password;
+        instance.salt = salt;
+      }
     },
     afterCreate: async (user: User) => {
       user.createBlankProfile(user);
     },
   };
+
+  /**
+   * Seeds the User model with the specified number of dummy user data.
+   * @param count The number of users to seed.
+   */
+  static async seedUser(count: number) {
+    try {
+      const userData = [];
+
+      for (let i = 0; i < count; i++) {
+        const username = faker.internet.userName();
+        const password = faker.internet.password();
+
+        userData.push({ username, password });
+      }
+
+      await User.bulkCreate(userData);
+
+      console.log('User seeding completed successfully.');
+    } catch (error) {
+      console.error('User seeding failed:', error);
+    }
+  }
 }
 
 User.init(
@@ -127,6 +184,7 @@ export async function doStuffWithUser() {
   console.log(newUser.id, newUser.username, newUser.password);
 }
 
+// User.seedUser(10);
 // console.log(User.metadata);
 // console.log(User.fields);
 // console.log(User.getKeys());

@@ -5,9 +5,10 @@ import {
   CreationOptional,
   ForeignKey,
 } from 'sequelize';
+import { faker } from '@faker-js/faker';
 
 import { Field } from '../core/decorators/models';
-import { sequelize } from '../core/lib/sequelize';
+import { sequelize } from '../settings';
 import { SyModel } from '../core/SyModel';
 
 import { User } from './user';
@@ -52,10 +53,10 @@ export class Profile extends SyModel<InferAttributes<Profile>, InferCreationAttr
   declare country: CreationOptional<string>;
 
   @Field({
-    type: DataTypes.NUMBER,
+    type: DataTypes.STRING(20),
     verbose: 'Phone Number',
   })
-  declare phone: CreationOptional<number>;
+  declare phone: CreationOptional<string>;
 
   @Field({
     type: DataTypes.STRING(30),
@@ -105,6 +106,52 @@ export class Profile extends SyModel<InferAttributes<Profile>, InferCreationAttr
       fullName: `${this.firstName} ${this.lastName}`,
     };
   }
+
+  static async seedProfile(count: number) {
+    try {
+      const profileData = [];
+
+      for (let i = 0; i < count; i++) {
+        const email = faker.internet.email();
+        const firstName = faker.person.firstName();
+        const lastName = faker.person.lastName();
+        const bio = faker.lorem.sentence();
+        const city = faker.location.city();
+        const country = faker.location.country();
+        const phone = faker.phone.number();
+        const facebook = faker.internet.userName();
+        const instagram = faker.internet.userName();
+        const threads = faker.internet.userName();
+        const twitter = faker.internet.userName();
+        const linkedIn = faker.internet.userName();
+        const github = faker.internet.userName();
+        const youtube = faker.internet.userName();
+
+        profileData.push({
+          email,
+          firstName,
+          lastName,
+          bio,
+          city,
+          country,
+          phone,
+          facebook,
+          instagram,
+          threads,
+          twitter,
+          linkedIn,
+          github,
+          youtube,
+        });
+      }
+
+      await Profile.bulkCreate(profileData);
+
+      console.log('Profile seeding completed successfully.');
+    } catch (error) {
+      console.error('Profile seeding failed:', error);
+    }
+  }
 }
 
 Profile.init(
@@ -118,5 +165,4 @@ Profile.init(
   }
 );
 
-// console.log(Profile.metadata);
-// console.log(Profile.getKeys());
+// Profile.seedProfile(10);

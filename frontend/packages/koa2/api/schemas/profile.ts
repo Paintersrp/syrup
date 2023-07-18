@@ -1,5 +1,14 @@
 import * as Yup from 'yup';
 
+function capitalize(string: any) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+const socialFieldSchema = Yup.string()
+  .trim()
+  .min(2, (field) => `${capitalize(field)} must be at least 2 characters`)
+  .max(30, (field) => `${capitalize(field)} cannot exceed 30 characters`);
+
 export const ProfileSchema = Yup.object().shape({
   email: Yup.string()
     .email('Invalid email address')
@@ -23,32 +32,11 @@ export const ProfileSchema = Yup.object().shape({
     .min(2, 'Country must be at least 2 characters')
     .max(30, 'Country cannot exceed 30 characters'),
   phone: Yup.string().matches(/^\d{10}$/, 'Phone number must be a 10-digit number'),
-  facebook: Yup.string()
-    .trim()
-    .min(2, 'Facebook must be at least 2 characters')
-    .max(30, 'Facebook cannot exceed 30 characters'),
-  instagram: Yup.string()
-    .trim()
-    .min(2, 'Instagram must be at least 2 characters')
-    .max(30, 'Instagram cannot exceed 30 characters'),
-  threads: Yup.string()
-    .trim()
-    .min(2, 'Threads must be at least 2 characters')
-    .max(30, 'Threads cannot exceed 30 characters'),
-  twitter: Yup.string()
-    .trim()
-    .min(2, 'Twitter must be at least 2 characters')
-    .max(30, 'Twitter cannot exceed 30 characters'),
-  github: Yup.string()
-    .trim()
-    .min(2, 'Github must be at least 2 characters')
-    .max(30, 'Github cannot exceed 30 characters'),
-  youtube: Yup.string()
-    .trim()
-    .min(2, 'YouTube must be at least 2 characters')
-    .max(30, 'YouTube cannot exceed 30 characters'),
-  linkedIn: Yup.string()
-    .trim()
-    .min(2, 'LinkedIn must be at least 2 characters')
-    .max(30, 'LinkedIn cannot exceed 30 characters'),
+  facebook: socialFieldSchema,
+  instagram: socialFieldSchema,
+  threads: socialFieldSchema,
+  twitter: socialFieldSchema,
+  github: socialFieldSchema,
+  youtube: socialFieldSchema,
+  linkedIn: socialFieldSchema,
 });

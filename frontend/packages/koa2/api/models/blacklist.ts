@@ -7,7 +7,7 @@ import {
 } from 'sequelize';
 
 import { Field } from '../core/decorators/models';
-import { sequelize } from '../core/lib/sequelize';
+import { sequelize } from '../settings';
 import { SyModel } from '../core/SyModel';
 
 import { User } from './user';
@@ -32,6 +32,3 @@ Blacklist.init(
     sequelize,
   }
 );
-
-// console.log(Profile.metadata);
-// console.log(Profile.getKeys());
