@@ -37,7 +37,7 @@ export class UserViews extends SyViews {
     this.router.post(`/refresh-token`, this.refresh_token);
     this.router.get(`/health`);
 
-    this.addToApp(app);
+    this.addRoutesToApp(app);
   }
 
   /**

@@ -31,7 +31,7 @@ export const ProfileSchema = Yup.object().shape({
     .trim()
     .min(2, 'Country must be at least 2 characters')
     .max(30, 'Country cannot exceed 30 characters'),
-  phone: Yup.string().matches(/^\d{10}$/, 'Phone number must be a 10-digit number'),
+  phone: socialFieldSchema,
   facebook: socialFieldSchema,
   instagram: socialFieldSchema,
   threads: socialFieldSchema,
