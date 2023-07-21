@@ -1,7 +1,5 @@
 import Router from 'koa-router';
-import { ModelStatic, Model } from 'sequelize';
-
-import { SyMixin } from './SyMixin';
+import { MixinOptions, SyMixin } from './SyMixin';
 
 /**
  * TODO:
@@ -11,10 +9,10 @@ import { SyMixin } from './SyMixin';
 export class SyDeleteMixin extends SyMixin {
   /**
    * Constructs a new instance of the Mixin class.
-   * @param model A Sequelize model representing the database table.
+   * @param {MixinOptions} options Options for initiating the Mixin class.
    */
-  constructor(model: ModelStatic<Model>) {
-    super(model);
+  constructor(options: MixinOptions) {
+    super(options);
   }
 
   /**

@@ -22,7 +22,7 @@ export const errorMiddleware: Koa.Middleware = async (ctx, next) => {
       ctx.body = {
         error: 'Internal Server Error',
       };
-      console.error(error);
+      ctx.logger.error(error);
     }
   }
 };

@@ -1,0 +1,17 @@
+import { Logger } from 'pino';
+
+import { SyController } from '../core/SyController';
+import { Profile } from '../models/profile';
+import { ProfileSchema } from '../schemas';
+
+export class ProfileController extends SyController {
+  static options = {};
+
+  /**
+   * Creates an instance of the Profile Controller.
+   * @param {Logger} logger The application logger instance.
+   */
+  constructor(logger: Logger) {
+    super(Profile, ProfileSchema, logger);
+  }
+}

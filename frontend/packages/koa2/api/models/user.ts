@@ -10,7 +10,7 @@ import {
 import bcrypt from 'bcrypt';
 
 import { Field } from '../core/decorators/models';
-import { sequelize } from '../settings';
+import { logger, sequelize } from '../settings';
 import { SyModel } from '../core/SyModel';
 
 import { Profile } from './profile';
@@ -152,9 +152,9 @@ export class User extends SyModel<
 
       await User.bulkCreate(userData);
 
-      console.log('User seeding completed successfully.');
+      logger.info('User seeding completed successfully.');
     } catch (error) {
-      console.error('User seeding failed:', error);
+      logger.error('User seeding failed:', error);
     }
   }
 }
@@ -181,10 +181,10 @@ export async function doStuffWithUser() {
     username: 'Johnny',
     password: 'John',
   });
-  console.log(newUser.id, newUser.username, newUser.password);
+  logger.info(newUser.id, newUser.username, newUser.password);
 }
 
 // User.seedUser(10);
-// console.log(User.metadata);
-// console.log(User.fields);
-// console.log(User.getKeys());
+// logger.info(User.metadata);
+// logger.info(User.fields);
+// logger.info(User.getKeys());

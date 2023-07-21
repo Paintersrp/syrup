@@ -1,10 +1,12 @@
 import Koa from 'koa';
 import Router from 'koa-router';
-import { ModelStatic, Model, Optional } from 'sequelize';
+import { Optional } from 'sequelize';
 
 import { Cache } from '../../models';
-import { Time } from '../lib';
-import { SyMixin } from './SyMixin';
+import { cache } from '../../settings';
+import { MixinOptions, SyMixin } from './SyMixin';
+
+export type MixinMiddleWareOptions = MixinOptions & { schema: any };
 
 /**
  * TODO:
@@ -16,12 +18,12 @@ export class SyMiddlewareMixin extends SyMixin {
 
   /**
    * Constructs a new instance of the Mixin class.
-   * @param model A Sequelize model representing the database table.
+   * @param {MixinOptions} options Options for initiating the Mixin class.
    * @param schema A Joi object schema used for validating request body data.
    */
-  constructor(model: ModelStatic<Model>, schema: any) {
-    super(model);
-    this.schema = schema;
+  constructor(options: MixinMiddleWareOptions) {
+    super(options);
+    this.schema = options.schema;
   }
 
   /**
@@ -47,28 +49,17 @@ export class SyMiddlewareMixin extends SyMixin {
   public async cacheEndpoint(ctx: Router.RouterContext, next: Koa.Next) {
     const skipAndRefreshCache = ctx.query.skip === 'true';
     const cacheKey = `${ctx.method}-${ctx.url}`;
-    const cachedResponse = await Cache.findOne({
-      where: { cacheKey },
-    });
+
+    const cachedResponse = cache.get(cacheKey);
 
     if (cachedResponse && !skipAndRefreshCache) {
-      const updatedAt = new Date(cachedResponse.updatedAt);
-      const expirationDate = new Date(updatedAt.getTime() + Time.Minutes * 1);
-
-      if (expirationDate > new Date()) {
-        ctx.body = cachedResponse.response;
-        ctx.set('Content-Type', 'application/json');
-        return;
-      }
+      ctx.body = cachedResponse;
+      ctx.set('Content-Type', 'application/json');
+      return;
     }
 
     await next();
-
-    if (!cachedResponse) {
-      await this.createCache(ctx, cacheKey);
-    } else {
-      await this.updateCache(ctx, cacheKey);
-    }
+    await cache.set(cacheKey, ctx.body, 60);
   }
 
   /**

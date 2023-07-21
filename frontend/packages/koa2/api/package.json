@@ -36,6 +36,7 @@
     "yup": "^1.2.0"
   },
   "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
     "@types/jsonwebtoken": "^9.0.2",
     "@types/koa-compress": "^4.0.3",
     "@types/koa-router": "^7.4.4",

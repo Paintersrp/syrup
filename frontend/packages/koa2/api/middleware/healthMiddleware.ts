@@ -1,5 +1,5 @@
 import Koa from 'koa';
-import { checkHealth } from '../utils';
+import { checkHealth } from '../helpers';
 
 /**
  * Koa middleware to handle checking the application's health.

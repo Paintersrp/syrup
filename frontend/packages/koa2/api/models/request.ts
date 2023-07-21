@@ -1,6 +1,6 @@
 import { DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
 import { Field } from '../core/decorators/models';
-import { sequelize } from '../settings';
+import { logger, sequelize } from '../settings';
 import { SyModel } from '../core/SyModel';
 import { Op } from 'sequelize';
 
@@ -46,7 +46,7 @@ export class Request extends SyModel<InferAttributes<Request>, InferCreationAttr
       },
     });
 
-    console.log(`Removed: ${count} Requests`);
+    logger.info(`Removed: ${count} Requests`);
   }
 }
 

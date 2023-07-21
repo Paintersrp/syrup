@@ -1,16 +1,14 @@
 import * as Middleware from '../middleware';
-import * as Views from '../views';
-
+import * as Routes from '../routes';
 /**
  * Collection of views handling user-related API views and controllers.
  */
-export const APP_VIEWS = [
-  // Add Views Here
-  Views.UserViews,
-  Views.ProfileViews,
-  Views.BlacklistViews,
-  Views.CacheViews,
-  Views.RequestViews,
+export const ROUTES = [
+  Routes.UserRoutes,
+  Routes.ProfileRoutes,
+  Routes.BlacklistRoutes,
+  Routes.CacheRoutes,
+  Routes.RequestRoutes,
 ];
 
 /**

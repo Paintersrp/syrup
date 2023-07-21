@@ -1,7 +1,7 @@
 import Router from 'koa-router';
-import { ModelStatic, Model, FindAndCountOptions } from 'sequelize';
+import { FindAndCountOptions } from 'sequelize';
 
-import { SyMixin } from './SyMixin';
+import { MixinOptions, SyMixin } from './SyMixin';
 
 /**
  * TODO:
@@ -13,10 +13,10 @@ import { SyMixin } from './SyMixin';
 export class SyListMixin extends SyMixin {
   /**
    * Constructs a new instance of the Mixin class.
-   * @param model A Sequelize model representing the database table.
+   * @param {MixinOptions} options Options for initiating the Mixin class.
    */
-  constructor(model: ModelStatic<Model>) {
-    super(model);
+  constructor(options: MixinOptions) {
+    super(options);
   }
 
   /**
@@ -33,7 +33,7 @@ export class SyListMixin extends SyMixin {
         data: rows,
       };
     } catch (error) {
-      console.log(error);
+      this.logger.error(error);
       ctx.status = 500;
       ctx.body = { error: 'Internal server error', log: error };
     }

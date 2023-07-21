@@ -1,4 +1,5 @@
 import { Context, Next } from 'koa';
+import { logger } from '../../../settings';
 
 /**
  * TODO:
@@ -25,5 +26,5 @@ export function Monitor(_: any, key: string, descriptor: PropertyDescriptor): Pr
 }
 
 export function reportMetrics(key: string, executionTime: number) {
-  console.log(`Method ${key} executed in ${executionTime}ms`);
+  logger.info({ key, executionTime });
 }

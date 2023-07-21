@@ -11,7 +11,7 @@ export const loggingMiddleware: Koa.Middleware = async (ctx, next) => {
   const user: User | string = `${ctx.state.user} (${ctx.state.role})` ?? 'Anonymous';
 
   const logMessage = `Received request - Method: ${ctx.method}, Path: ${ctx.path}, User: ${user}`;
-  console.log(logMessage);
+  ctx.logger.info(logMessage);
 
   await next();
 };

@@ -8,7 +8,7 @@ import {
 import { faker } from '@faker-js/faker';
 
 import { Field } from '../core/decorators/models';
-import { sequelize } from '../settings';
+import { logger, sequelize } from '../settings';
 import { SyModel } from '../core/SyModel';
 
 import { User } from './user';
@@ -147,9 +147,9 @@ export class Profile extends SyModel<InferAttributes<Profile>, InferCreationAttr
 
       await Profile.bulkCreate(profileData);
 
-      console.log('Profile seeding completed successfully.');
+      logger.info('Profile seeding completed successfully.');
     } catch (error) {
-      console.error('Profile seeding failed:', error);
+      logger.error('Profile seeding failed:', error);
     }
   }
 }
