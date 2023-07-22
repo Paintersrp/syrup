@@ -41,24 +41,8 @@ export class SyRoutes<T extends SyController> {
     this.routeName = routeName;
     this.logger = app.context.logger;
 
-    this.bindMethods();
     this.initModelRoutes();
     this.addRoutesToApp(app);
-  }
-
-  /**
-   * Binds the context of the controller methods to the controller.
-   */
-  private bindMethods(): void {
-    this.controller.create = this.controller.create.bind(this.controller);
-    this.controller.read = this.controller.read.bind(this.controller);
-    this.controller.update = this.controller.update.bind(this.controller);
-    this.controller.delete = this.controller.delete.bind(this.controller);
-    this.controller.all = this.controller.all.bind(this.controller);
-    this.controller.validateBody = this.controller.validateBody.bind(this.controller);
-    this.controller.cacheEndpoint = this.controller.cacheEndpoint.bind(this.controller);
-
-    this.controller.getMetadata = this.controller.getMetadata.bind(this.controller);
   }
 
   /**

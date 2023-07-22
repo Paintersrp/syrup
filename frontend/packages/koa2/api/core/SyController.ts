@@ -4,7 +4,8 @@ import { Logger } from 'pino';
 import { ModelStatic, Optional, Transaction, DataTypes } from 'sequelize';
 import { ORM } from '../settings';
 
-import { Log, Monitor } from './decorators/views';
+import { ETag, Log, Monitor } from './decorators/controllers';
+
 import {
   SyCreateMixin,
   SyDeleteMixin,
@@ -51,10 +52,14 @@ export abstract class SyController extends EventEmitter {
   protected middlewareMixin: SyMiddlewareMixin;
 
   /**
-   * Constructs a new instance of the Controller class.
-   * @param model A Sequelize model representing the database table.
-   * @param schema A Joi object schema used for validating request body data.
-   * @param logger The instance of application logger.
+   * @desc Constructs a new instance of the SyController class and initializes the Mixins which
+   * provide the main functionality of the SyController. It also binds all the inherited methods
+   * from SyController and the inheriting class to the respective instances.
+   *
+   * @param {ModelStatic<any>} options.model A Sequelize model representing the database table.
+   * @param {any} options.schema - A Joi object schema used for validating request body data.
+   * @param {Logger} options.logger - The instance of application logger.
+   * @param {Middleware[]} [options.middlewares] - An array of custom middlewares to be used in this controller.
    */
   constructor({ model, schema, logger, middlewares = [] }: SyControllerOptions) {
     super();
@@ -69,6 +74,12 @@ export abstract class SyController extends EventEmitter {
     this.updateMixin = new SyUpdateMixin({ model, logger: this.logger });
     this.deleteMixin = new SyDeleteMixin({ model, logger: this.logger });
     this.middlewareMixin = new SyMiddlewareMixin({ model, logger: this.logger, schema });
+
+    Object.getOwnPropertyNames(Object.getPrototypeOf(Object.getPrototypeOf(this)))
+      .filter((prop) => typeof (this as any)[prop] === 'function' && prop !== 'constructor')
+      .forEach((method) => {
+        (this as any)[method] = (this as any)[method].bind(this);
+      });
   }
 
   /**
@@ -127,7 +138,6 @@ export abstract class SyController extends EventEmitter {
 
   /**
    * Middleware to cache the response of an endpoint and serve the cached response if available.
-   * If `skip` query parameter is set to 'true', the cache is skipped and the endpoint is processed * normally.
    */
   async cacheEndpoint(ctx: Router.RouterContext, next: Koa.Next) {
     return this.middlewareMixin.cacheEndpoint(ctx, next);
@@ -137,7 +147,6 @@ export abstract class SyController extends EventEmitter {
    * Retrieves all instances of the model with pagination support.
    */
   @Monitor
-  @Log
   async all(ctx: Router.RouterContext) {
     return this.listMixin.all(ctx);
   }
@@ -145,6 +154,7 @@ export abstract class SyController extends EventEmitter {
   /**
    * Retrieves a specific instance of the model by its ID.
    */
+  @Log
   async read(ctx: Router.RouterContext) {
     return this.listMixin.read(ctx);
   }
@@ -200,6 +210,7 @@ export abstract class SyController extends EventEmitter {
    *
    * @throws Will throw an error if an issue occurred while trying to fetch the model's attributes or associations.
    */
+  @ETag
   async getMetadata(ctx: Router.RouterContext): Promise<void> {
     const attributes = this.model.getAttributes();
     const associations = this.model.associations;
@@ -272,5 +283,32 @@ export abstract class SyController extends EventEmitter {
       default:
         return `UNKNOWN_TYPE: ${dataType.key}`;
     }
+  }
+
+  /**
+   * @method bindMethods
+   * @description This method is responsible for automatically binding the context ('this') to the
+   * methods of the inheriting class to their respective instances. This ensures that the methods
+   * are always invoked with the correct 'this' value, which corresponds to the class instance they
+   * are invoked on.
+   *
+   * The function iterates over all the method names of the inheriting class, excluding the
+   * 'constructor'.
+   * It then uses the JavaScript 'bind' function to set the 'this' value of the method to the class
+   * instance (also 'this').
+   * This makes it so that when these methods are called in the future, they are always executed in
+   * the context of the instance they were bound to.
+   *
+   * It is designed to be called within the constructor of the inheriting class after calling
+   * super(), so that the methods of the inheriting class are bound correctly.
+   *
+   * @returns {void} This method does not return a value.
+   */
+  protected bindMethods(): void {
+    Object.getOwnPropertyNames(Object.getPrototypeOf(this))
+      .filter((prop) => typeof (this as any)[prop] === 'function' && prop !== 'constructor')
+      .forEach((method) => {
+        (this as any)[method] = (this as any)[method].bind(this);
+      });
   }
 }

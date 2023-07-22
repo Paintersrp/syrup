@@ -18,6 +18,7 @@ export class UserController extends SyController {
    */
   constructor(logger: Logger) {
     super({ model: User, schema: UserSchema, logger });
+    this.bindMethods();
   }
 
   /**

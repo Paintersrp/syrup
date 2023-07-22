@@ -1,6 +1,6 @@
 import { Dialect } from 'sequelize';
 import { SyDatabase } from '../core/SyDatabase';
-import { logger, queriesLogger } from './logger';
+import { logger, queriesLogger } from './loggers';
 
 export const DB_PATH = '../dev.sqlite3';
 export const DB_TYPE = 'sqlite' as Dialect;
