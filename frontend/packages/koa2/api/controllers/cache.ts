@@ -12,6 +12,6 @@ export class CacheController extends SyController {
    * @param {Logger} logger The application logger instance.
    */
   constructor(logger: Logger) {
-    super(Cache, CacheSchema, logger);
+    super({ model: Cache, schema: CacheSchema, logger });
   }
 }

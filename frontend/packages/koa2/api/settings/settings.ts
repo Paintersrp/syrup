@@ -1,14 +1,15 @@
 import * as Middleware from '../middleware';
 import * as Routes from '../routes';
+import { RouteConstructor } from '../types';
+
 /**
  * Collection of views handling user-related API views and controllers.
  */
-export const ROUTES = [
+export const ROUTES: RouteConstructor[] = [
   Routes.UserRoutes,
   Routes.ProfileRoutes,
   Routes.BlacklistRoutes,
   Routes.CacheRoutes,
-  Routes.RequestRoutes,
 ];
 
 /**
@@ -16,15 +17,14 @@ export const ROUTES = [
  */
 export const MIDDLEWARES = [
   // Add Middlewares Here
-  Middleware.helmet(),
   // Middleware.cors(),
+  Middleware.helmet(),
   Middleware.bodyParser(),
   Middleware.compress(),
   Middleware.responseTime(),
   Middleware.rateLimitMiddleware,
   Middleware.jwtMiddleware,
   Middleware.loggingMiddleware,
-  Middleware.healthMiddleware,
   Middleware.errorMiddleware,
   Middleware.notFoundMiddleware,
   Middleware.serve('public'), // constant for static files?

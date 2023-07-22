@@ -12,6 +12,6 @@ export class BlacklistController extends SyController {
    * @param {Logger} logger The application logger instance.
    */
   constructor(logger: Logger) {
-    super(Blacklist, BlacklistSchema, logger);
+    super({ model: Blacklist, schema: BlacklistSchema, logger });
   }
 }

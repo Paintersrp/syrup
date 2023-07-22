@@ -8,16 +8,18 @@
 import Koa from 'koa';
 
 import * as settings from './settings';
-import { startServer } from './helpers/startServer';
+import { SyServer } from './core/SyServer';
 
-const port = 4000; // use dotenv
-const app = new Koa();
-
-app.context.logger = settings.logger;
-app.use(settings.APP_MIDDLEWARES);
-
-settings.ROUTES.forEach((RouteSet) => {
-  new RouteSet(app);
+export const server = new SyServer({
+  app: new Koa(),
+  port: 4000,
+  logger: settings.logger,
+  cache: settings.cache,
+  ORM: settings.ORM,
+  middleware: settings.APP_MIDDLEWARES,
+  routes: settings.ROUTES,
+  version: '0.01',
 });
 
-startServer(app, port, settings.logger, settings.cache);
+server.ORM.checkDatabase();
+server.start();

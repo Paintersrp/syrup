@@ -1,7 +1,8 @@
-import Koa from 'koa';
+import Koa, { EventEmitter, Middleware } from 'koa';
 import Router from 'koa-router';
 import { Logger } from 'pino';
-import { ModelStatic, Optional, Model } from 'sequelize';
+import { ModelStatic, Optional, Transaction, DataTypes } from 'sequelize';
+import { ORM } from '../settings';
 
 import { Log, Monitor } from './decorators/views';
 import {
@@ -10,13 +11,38 @@ import {
   SyListMixin,
   SyMiddlewareMixin,
   SyUpdateMixin,
-} from './mixins';
+} from './mixins/controller';
 import { SyModel } from './SyModel';
+import { SyControllerOptions } from './types/controller';
 
-export abstract class SyController {
+/**
+ * @class SyController
+ * @classdesc SyController is a class responsible for handling HTTP requests and responses.
+ * It includes advanced features such as input validation, transaction management, logging, rate limiting, and more.
+ *
+ * It's highly flexible and can be easily extended or customized for your specific needs.
+ *
+ * @example
+ * class UserController extends SyController {
+ *   constructor({options}) {
+ *     super(options);
+ *     // add custom logic here
+ *   }
+ * }
+ *
+ * const userController = new UserController({
+ *   model: UserModel,
+ *   schema: UserSchema,
+ *   logger: pino(),
+ * });
+ *
+ * userRouter.get('/users/:id', userController.read);
+ */
+export abstract class SyController extends EventEmitter {
   protected model: ModelStatic<any>;
   protected schema: any;
   protected logger: Logger;
+  protected customMiddlewares: Middleware[];
 
   protected createMixin: SyCreateMixin;
   protected listMixin: SyListMixin;
@@ -30,16 +56,50 @@ export abstract class SyController {
    * @param schema A Joi object schema used for validating request body data.
    * @param logger The instance of application logger.
    */
-  constructor(model: ModelStatic<Model>, schema: any, logger: Logger) {
+  constructor({ model, schema, logger, middlewares = [] }: SyControllerOptions) {
+    super();
+
     this.model = model;
     this.schema = schema;
     this.logger = logger;
+    this.customMiddlewares = middlewares;
 
     this.createMixin = new SyCreateMixin({ model, logger: this.logger });
     this.listMixin = new SyListMixin({ model, logger: this.logger });
     this.updateMixin = new SyUpdateMixin({ model, logger: this.logger });
     this.deleteMixin = new SyDeleteMixin({ model, logger: this.logger });
     this.middlewareMixin = new SyMiddlewareMixin({ model, logger: this.logger, schema });
+  }
+
+  /**
+   * Wraps a callback function within a database transaction.
+   * If any operation within the transaction fails, all operations are rolled back.
+   * The error is also emitted as an event and can be listened to.
+   * @param {RouterContext} ctx - Koa RouterContext.
+   * @param {Function} callback - Callback function to be executed within the transaction.
+   * @return {Promise<U>} The result of the callback function execution.
+   * @emits SyController#error
+   */
+  private async withTransaction<U>(
+    ctx: Router.RouterContext,
+    callback: (transaction: Transaction) => Promise<U>
+  ): Promise<U> {
+    let transaction: Transaction | null = null;
+
+    try {
+      transaction = await ORM.database.transaction();
+      const result = await callback(transaction);
+      await transaction.commit();
+      return result;
+    } catch (error) {
+      if (transaction) {
+        await transaction.rollback();
+      }
+
+      this.logger.error(error, 'Transaction failed');
+      this.emit('error', error);
+      ctx.throw(500, 'Internal server error', { error });
+    }
   }
 
   /**
@@ -91,24 +151,126 @@ export abstract class SyController {
 
   /**
    * Creates a new instance of the model.
-   * Validated with validateBody class middleware
    */
   async create(ctx: Router.RouterContext) {
-    return this.createMixin.create(ctx);
+    return this.withTransaction(ctx, async (transaction) => {
+      return this.createMixin.create(ctx, transaction);
+    });
   }
 
   /**
    * Updates a specific instance of the model by its ID.
-   * Validated with validateBody class middleware
    */
   async update(ctx: Router.RouterContext) {
-    return this.updateMixin.update(ctx);
+    return this.withTransaction(ctx, async (transaction) => {
+      return this.updateMixin.update(ctx, transaction);
+    });
   }
 
   /**
    * Deletes a specific instance of the model by its ID.
    */
   async delete(ctx: Router.RouterContext) {
-    return this.deleteMixin.delete(ctx);
+    return this.withTransaction(ctx, async (transaction) => {
+      return this.deleteMixin.delete(ctx, transaction);
+    });
+  }
+
+  /**
+   * Apply middleware to a specific Koa router.
+   * @param {Router} router - Koa router where the middleware will be applied.
+   * @example
+   * userController.applyMiddleware(userRouter);
+   */
+  applyMiddleware(router: Router) {
+    this.customMiddlewares.forEach((middleware) => router.use(middleware));
+  }
+
+  /**
+   * @method getMetadata
+   * @async
+   * @description This method is responsible for obtaining metadata of a Sequelize model. The metadata includes
+   * attributes (columns) of the model and their types, associations (relations) with other models, and their types.
+   * This metadata can be used to dynamically generate UI components, perform validations, or inform other services
+   * about the structure of the model.
+   *
+   * @param {Router.RouterContext} ctx - Koa context. The method sets the ctx.body property with the model's metadata.
+   *
+   * @returns {Promise<void>} Nothing is explicitly returned but the model's metadata is set to ctx.body.
+   *
+   * @throws Will throw an error if an issue occurred while trying to fetch the model's attributes or associations.
+   */
+  async getMetadata(ctx: Router.RouterContext): Promise<void> {
+    const attributes = this.model.getAttributes();
+    const associations = this.model.associations;
+
+    const structuredAttributes = Object.keys(attributes).map((key) => {
+      return {
+        name: key,
+        type: this.stringifyDataType(attributes[key].type),
+        allowNull: attributes[key].allowNull,
+      };
+    });
+
+    const structuredAssociations = Object.keys(associations).map((key) => {
+      return {
+        name: key,
+        type: associations[key].associationType,
+        relatedModel: associations[key].target.name,
+      };
+    });
+
+    ctx.body = {
+      modelName: this.model.name,
+      attributes: structuredAttributes,
+      associations: structuredAssociations,
+    };
+  }
+
+  /**
+   * @method stringifyDataType
+   * @description This method receives a Sequelize DataType object and returns a string representation of it.
+   *
+   * @param {any} dataType - Sequelize DataType object.
+   *
+   * @returns {string} String representation of the Sequelize DataType object.
+   *
+   * @throws Will throw an error if the dataType parameter is null or undefined.
+   */
+  private stringifyDataType(dataType: any): string {
+    switch (dataType.key) {
+      case 'ENUM':
+        return `ENUM(${(dataType as DataTypes.EnumDataType<string>).values.join(', ')})`;
+      case 'STRING':
+        return dataType.options
+          ? `STRING(${(dataType as DataTypes.StringDataType).options?.length})`
+          : 'STRING';
+      case 'BIGINT':
+        return 'BIGINT';
+      case 'FLOAT':
+        return 'FLOAT';
+      case 'DOUBLE':
+        return 'DOUBLE';
+      case 'REAL':
+        return 'REAL';
+      case 'DECIMAL':
+        return 'DECIMAL';
+      case 'INTEGER':
+        return 'INTEGER';
+      case 'TEXT':
+        return 'TEXT';
+      case 'BOOLEAN':
+        return 'BOOLEAN';
+      case 'DATE':
+        return 'DATE';
+      case 'ARRAY':
+        return 'ARRAY';
+      case 'JSON':
+        return 'JSON';
+      case 'BLOB':
+        return 'BLOB';
+      default:
+        return `UNKNOWN_TYPE: ${dataType.key}`;
+    }
   }
 }

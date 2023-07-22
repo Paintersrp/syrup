@@ -1,9 +1,9 @@
 export { errorMiddleware } from './errorMiddleware';
-export { healthMiddleware } from './healthMiddleware';
 export { jwtMiddleware } from './jwtMiddleware';
 export { loggingMiddleware } from './loggingMiddleware';
 export { notFoundMiddleware } from './notFoundMiddleware';
 export { rateLimitMiddleware } from './rateLimitMiddleware';
+export { rbacMiddleware } from './rbacMiddleware';
 
 export { default as bodyParser } from 'koa-bodyparser';
 export { default as compose } from 'koa-compose';

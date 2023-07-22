@@ -8,7 +8,7 @@ import {
 import { faker } from '@faker-js/faker';
 
 import { Field } from '../core/decorators/models';
-import { logger, sequelize } from '../settings';
+import { logger, ORM } from '../settings';
 import { SyModel } from '../core/SyModel';
 
 import { User } from './user';
@@ -161,7 +161,7 @@ Profile.init(
   },
   {
     tableName: 'profile',
-    sequelize,
+    sequelize: ORM.database,
   }
 );
 

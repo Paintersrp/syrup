@@ -17,7 +17,73 @@ export class UserController extends SyController {
    * @param {Logger} logger The application logger instance.
    */
   constructor(logger: Logger) {
-    super(User, UserSchema, logger);
+    super({ model: User, schema: UserSchema, logger });
+  }
+
+  /**
+   * Checks if the request contains a valid access token.
+   */
+  private async checkForToken(ctx: Router.RouterContext): Promise<boolean> {
+    const accessToken = ctx.cookies.get('jwt');
+
+    if (accessToken) {
+      try {
+        const decodedToken: any = jwt.verify(accessToken, JWT_SECRET);
+        const user = await User.findOne({
+          where: { username: decodedToken.username },
+        });
+
+        if (user) {
+          return true;
+        }
+      } catch (error) {
+        return false;
+      }
+    }
+
+    return false;
+  }
+
+  /**
+   * Generate access token for a user
+   */
+  private generateAccessToken(user: User) {
+    return jwt.sign({ username: user.username, role: user.role }, JWT_SECRET, {
+      expiresIn: '480h',
+    });
+  }
+
+  /**
+   * Generate refresh token for a user
+   */
+  private generateRefreshToken(user: User) {
+    return jwt.sign({ username: user.username }, JWT_SECRET);
+  }
+
+  /**
+   * Set authentication cookies
+   */
+  private async setCookies(ctx: Router.RouterContext, accessToken: string, refreshToken: string) {
+    ctx.cookies.set('jwt', accessToken, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 48,
+    });
+    ctx.cookies.set('refreshToken', refreshToken, { httpOnly: true });
+  }
+
+  /**
+   * Blacklists a token by adding it to the blacklist table.
+   */
+  private async blacklistToken(token: string) {
+    await Blacklist.create({ token });
+  }
+
+  /**
+   * Checks if a token is blacklisted.
+   */
+  private async isTokenBlacklisted(token: string): Promise<boolean> {
+    const blacklistEntry = await Blacklist.findOne({ where: { token } });
+    return !!blacklistEntry;
   }
 
   /**
@@ -65,42 +131,37 @@ export class UserController extends SyController {
     };
     const hasToken = await this.checkForToken(ctx);
 
-    if (!hasToken) {
-      try {
-        const user = await User.findOne({ where: { username } });
+    if (hasToken) {
+      ctx.status = 403;
+      ctx.body = { message: 'Already logged in' };
+      return;
+    }
 
-        if (user && (await bcrypt.compare(password, user.password))) {
-          if (user.refreshToken) {
-            const decodedOriginalRefresh = jwt.decode(user.refreshToken) as jwt.JwtPayload;
-            if (decodedOriginalRefresh) {
-              await this.blacklistToken(user.refreshToken);
-            }
+    try {
+      const user = await User.findOne({ where: { username } });
+
+      if (user && (await bcrypt.compare(password, user.password))) {
+        if (user.refreshToken) {
+          const decodedOriginalRefresh = jwt.decode(user.refreshToken) as jwt.JwtPayload;
+          if (decodedOriginalRefresh) {
+            await this.blacklistToken(user.refreshToken);
           }
-
-          const accessToken = jwt.sign({ username, role: user.role }, JWT_SECRET, {
-            expiresIn: '480h',
-          });
-          const refreshToken = jwt.sign({ username }, JWT_SECRET);
-
-          ctx.cookies.set('jwt', accessToken, {
-            httpOnly: true,
-            maxAge: 1000 * 60 * 60 * 48,
-          });
-          ctx.cookies.set('refreshToken', refreshToken, { httpOnly: true });
-
-          user.refreshToken = refreshToken;
-          await user.save();
-
-          ctx.body = { accessToken, refreshToken };
-        } else {
-          ctx.status = 401;
-          ctx.body = 'Invalid credentials';
         }
-      } catch (error) {
-        this.logger.error(error);
-        ctx.status = 500;
-        ctx.body = 'Error logging in';
+
+        const accessToken = this.generateAccessToken(user);
+        const refreshToken = this.generateRefreshToken(user);
+        await this.setCookies(ctx, accessToken, refreshToken);
+        user.refreshToken = refreshToken;
+        await user.save();
+        ctx.body = { accessToken, refreshToken };
+      } else {
+        ctx.status = 401;
+        ctx.body = 'Invalid credentials';
       }
+    } catch (error: any) {
+      this.logger.error(error);
+      ctx.status = 500;
+      ctx.body = { message: 'An error occurred while logging in', error: error.message };
     }
   }
 
@@ -119,15 +180,8 @@ export class UserController extends SyController {
         });
 
         if (user && user.refreshToken === refreshToken) {
-          const accessToken = jwt.sign({ username: user.username }, JWT_SECRET, {
-            expiresIn: '480h',
-          });
-
-          ctx.cookies.set('jwt', accessToken, {
-            httpOnly: true,
-            maxAge: 1000 * 60 * 60 * 48,
-          });
-
+          const accessToken = this.generateAccessToken(user);
+          await this.setCookies(ctx, accessToken, refreshToken);
           await this.blacklistToken(originalAccessToken);
           ctx.body = { accessToken };
         } else {
@@ -161,44 +215,5 @@ export class UserController extends SyController {
         ctx.body = 'Error logging out';
       }
     }
-  }
-
-  /**
-   * Checks if the request contains a valid access token.
-   */
-  async checkForToken(ctx: Router.RouterContext): Promise<boolean> {
-    const accessToken = ctx.cookies.get('jwt');
-
-    if (accessToken) {
-      try {
-        const decodedToken: any = jwt.verify(accessToken, JWT_SECRET);
-        const user = await User.findOne({
-          where: { username: decodedToken.username },
-        });
-
-        if (user) {
-          return true;
-        }
-      } catch (error) {
-        return false;
-      }
-    }
-
-    return false;
-  }
-
-  /**
-   * Blacklists a token by adding it to the blacklist table.
-   */
-  async blacklistToken(token: string) {
-    await Blacklist.create({ token });
-  }
-
-  /**
-   * Checks if a token is blacklisted.
-   */
-  async isTokenBlacklisted(token: string): Promise<boolean> {
-    const blacklistEntry = await Blacklist.findOne({ where: { token } });
-    return !!blacklistEntry;
   }
 }

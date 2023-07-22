@@ -10,7 +10,7 @@ import {
 import bcrypt from 'bcrypt';
 
 import { Field } from '../core/decorators/models';
-import { logger, sequelize } from '../settings';
+import { logger, ORM } from '../settings';
 import { SyModel } from '../core/SyModel';
 
 import { Profile } from './profile';
@@ -79,6 +79,10 @@ export class User extends SyModel<
   })
   declare theme?: ThemeEnum;
 
+  // public failedAttempts!: number;
+  // public lockUntil!: Date;
+  // public deletedAt?: Date;
+
   declare getProfile: HasOneGetAssociationMixin<Profile>;
   declare createProfile: HasOneCreateAssociationMixin<Profile>;
   declare setProfile: HasOneSetAssociationMixin<Profile, 'userId'>;
@@ -123,12 +127,13 @@ export class User extends SyModel<
       instance.password = password;
       instance.salt = salt;
     },
-    beforeBulkCreate: async (instances: User[]) => {
-      for (const instance of instances) {
-        const { password, salt } = await this.hashPassword(instance.password);
-        instance.password = password;
-        instance.salt = salt;
-      }
+    beforeBulkCreate: async (users: User[]) => {
+      const promises = users.map(async (user) => {
+        const { password, salt } = await User.hashPassword(user.password);
+        user.password = password;
+        user.salt = salt;
+      });
+      await Promise.all(promises);
     },
     afterCreate: async (user: User) => {
       user.createBlankProfile(user);
@@ -167,7 +172,7 @@ User.init(
   {
     hooks: User.hooks,
     tableName: 'users',
-    sequelize,
+    sequelize: ORM.database,
   }
 );
 

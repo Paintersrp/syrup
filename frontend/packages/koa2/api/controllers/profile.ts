@@ -12,6 +12,6 @@ export class ProfileController extends SyController {
    * @param {Logger} logger The application logger instance.
    */
   constructor(logger: Logger) {
-    super(Profile, ProfileSchema, logger);
+    super({ model: Profile, schema: ProfileSchema, logger });
   }
 }

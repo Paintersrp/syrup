@@ -1,22 +1,19 @@
 import { DataTypes, InferAttributes, InferCreationAttributes } from 'sequelize';
 
 import { Field } from '../core/decorators/models';
-import { sequelize } from '../settings';
-import { SyModel } from '../core/SyModel';
 
+import { SyModel } from '../core/SyModel';
+import { ORM } from '../settings';
+
+/**
+ * Model for saving the in-memory cache to storage on graceful shutdowns for reloading
+ */
 export class Cache extends SyModel<InferAttributes<Cache>, InferCreationAttributes<Cache>> {
   @Field({
-    type: DataTypes.STRING,
-    verbose: 'response',
-    unique: true,
-  })
-  declare cacheKey: string;
-
-  @Field({
     type: DataTypes.JSON,
-    verbose: 'Cached Response',
+    verbose: 'Cache Contents',
   })
-  declare response: JSON;
+  declare contents: JSON;
 }
 
 Cache.init(
@@ -25,7 +22,7 @@ Cache.init(
     ...Cache.fields,
   },
   {
-    tableName: 'cache',
-    sequelize,
+    tableName: 'cache_dump',
+    sequelize: ORM.database,
   }
 );

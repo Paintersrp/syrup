@@ -7,11 +7,13 @@ import {
 } from 'sequelize';
 
 import { Field } from '../core/decorators/models';
-import { sequelize } from '../settings';
+import { ORM } from '../settings';
 import { SyModel } from '../core/SyModel';
-
 import { User } from './user';
 
+/**
+ * Model for blacklisting invalidated authentication tokens
+ */
 export class Blacklist extends SyModel<
   InferAttributes<Blacklist>,
   InferCreationAttributes<Blacklist>
@@ -29,6 +31,6 @@ Blacklist.init(
   },
   {
     tableName: 'blacklist',
-    sequelize,
+    sequelize: ORM.database,
   }
 );

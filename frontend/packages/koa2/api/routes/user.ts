@@ -16,7 +16,6 @@ export class UserRoutes extends SyRoutes<UserController> {
     this.router.post(`/login`, this.controller.validateUserBody, this.controller.login);
     this.router.get(`/logout`, this.controller.logout);
     this.router.post(`/refresh-token`, this.controller.refresh_token);
-    this.router.get(`/health`);
 
     this.addRoutesToApp(app);
   }

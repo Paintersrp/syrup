@@ -4,7 +4,11 @@ import Router from 'koa-router';
 import { Logger } from 'pino';
 import { SyController } from './SyController';
 
+// app.use(jwt({ secret: JWT_SECRET }).unless({ path: [/^\/public/, /^\/login/] }));
+
 /**
+ * @todo JWT auth, exclude certain paths
+ *
  * Provides a reusable generic class to define routes and endpoints for a specific subclass of SyController.
  * @template T - The subclass of SyController that defines the model and controller logic.
  *
@@ -21,10 +25,10 @@ import { SyController } from './SyController';
  * // - GET /users: Retrieves all user records from the database with optional pagination, sorting, and filtering.
  */
 export class SyRoutes<T extends SyController> {
-  protected controller: T;
-  protected router: Router;
-  protected routeName: string;
-  protected logger: Logger;
+  controller: T;
+  router: Router;
+  routeName: string;
+  logger: Logger;
 
   /**
    * Constructs a new instance of the Routes class.
@@ -37,9 +41,15 @@ export class SyRoutes<T extends SyController> {
     this.routeName = routeName;
     this.logger = app.context.logger;
 
-    /**
-     * Bind methods / middlewares for router
-     */
+    this.bindMethods();
+    this.initModelRoutes();
+    this.addRoutesToApp(app);
+  }
+
+  /**
+   * Binds the context of the controller methods to the controller.
+   */
+  private bindMethods(): void {
     this.controller.create = this.controller.create.bind(this.controller);
     this.controller.read = this.controller.read.bind(this.controller);
     this.controller.update = this.controller.update.bind(this.controller);
@@ -48,19 +58,19 @@ export class SyRoutes<T extends SyController> {
     this.controller.validateBody = this.controller.validateBody.bind(this.controller);
     this.controller.cacheEndpoint = this.controller.cacheEndpoint.bind(this.controller);
 
-    // /**
-    //  * Initiate controller / model routes with middlewares
-    //  */
-    this.router.post(`/${routeName}`, this.controller.validateBody, this.controller.create);
-    this.router.get(`/${routeName}/:id`, this.controller.read);
-    this.router.put(`/${routeName}/:id`, this.controller.validateBody, this.controller.update);
-    this.router.delete(`/${routeName}/:id`, this.controller.delete);
-    this.router.get(`/${routeName}`, this.controller.cacheEndpoint, this.controller.all);
+    this.controller.getMetadata = this.controller.getMetadata.bind(this.controller);
+  }
 
-    /**
-     * Add initial routes and endpoints to application
-     */
-    this.addRoutesToApp(app);
+  /**
+   * Add initial routes and endpoints to application
+   */
+  initModelRoutes() {
+    this.router.post(`/${this.routeName}`, this.controller.validateBody, this.controller.create);
+    this.router.get(`/${this.routeName}/:id`, this.controller.read);
+    this.router.put(`/${this.routeName}/:id`, this.controller.validateBody, this.controller.update);
+    this.router.delete(`/${this.routeName}/:id`, this.controller.delete);
+    this.router.get(`/${this.routeName}`, this.controller.cacheEndpoint, this.controller.all);
+    this.router.get(`/meta/${this.routeName}`, this.controller.getMetadata);
   }
 
   /**
@@ -81,9 +91,9 @@ export class SyRoutes<T extends SyController> {
 
   /**
    * Sets a new Sequelize model for the instance.
-   * @param model A Sequelize model representing the database table.
+   * @param controller A Sequelize model representing the database table.
    */
-  setController(controller: T) {
+  public setController(controller: T): void {
     this.controller = controller;
   }
 }

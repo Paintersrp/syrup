@@ -8,10 +8,23 @@ import { User } from '../models';
  * @param next - Next middleware function.
  */
 export const loggingMiddleware: Koa.Middleware = async (ctx, next) => {
-  const user: User | string = `${ctx.state.user} (${ctx.state.role})` ?? 'Anonymous';
+  const startTime = Date.now();
 
-  const logMessage = `Received request - Method: ${ctx.method}, Path: ${ctx.path}, User: ${user}`;
-  ctx.logger.info(logMessage);
+  try {
+    await next();
+  } finally {
+    const duration = Date.now() - startTime;
+    const user: User | string = ctx.state.user?.username || 'Anonymous';
+    const role: string = ctx.state.user?.role || 'Unknown';
 
-  await next();
+    ctx.logger.info({
+      event: 'request',
+      method: ctx.method,
+      path: ctx.path,
+      duration,
+      user,
+      role,
+      status: ctx.status,
+    });
+  }
 };
