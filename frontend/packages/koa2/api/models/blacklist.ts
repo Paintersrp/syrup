@@ -6,9 +6,9 @@ import {
   ForeignKey,
 } from 'sequelize';
 
-import { Field } from '../core/decorators/models';
+import { Field } from '../core/lib/decorators/models';
 import { ORM } from '../settings';
-import { SyModel } from '../core/SyModel';
+import { SyModel } from '../core/model/SyModel';
 import { User } from './user';
 
 /**

@@ -8,7 +8,7 @@
 import Koa from 'koa';
 
 import * as settings from './settings';
-import { SyServer } from './core/SyServer';
+import { SyServer } from './core/server/SyServer';
 
 export const server = new SyServer({
   app: new Koa(),
@@ -18,8 +18,5 @@ export const server = new SyServer({
   ORM: settings.ORM,
   middleware: settings.APP_MIDDLEWARES,
   routes: settings.ROUTES,
-  version: '0.01',
+  version: '0.05',
 });
-
-server.ORM.checkDatabase();
-server.start();

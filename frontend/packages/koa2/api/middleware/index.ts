@@ -12,3 +12,8 @@ export { default as cors } from 'koa-cors';
 export { default as helmet } from 'koa-helmet';
 export { default as serve } from 'koa-static';
 export { default as responseTime } from 'koa-response-time';
+
+/**
+ * @todo JWT auth, exclude certain paths
+ * @example app.use(jwt({ secret: JWT_SECRET }).unless({ path: [/^\/public/, /^\/login/] }));
+ */

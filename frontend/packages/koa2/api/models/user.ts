@@ -9,9 +9,9 @@ import {
 } from 'sequelize';
 import bcrypt from 'bcrypt';
 
-import { Field } from '../core/decorators/models';
+import { Field } from '../core/lib/decorators/models';
 import { logger, ORM } from '../settings';
-import { SyModel } from '../core/SyModel';
+import { SyModel } from '../core/model/SyModel';
 
 import { Profile } from './profile';
 import { faker } from '@faker-js/faker';

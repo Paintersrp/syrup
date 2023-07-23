@@ -1,1 +1,0 @@
-export { SyHealthMixin } from './SyHealthMixin';

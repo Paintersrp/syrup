@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import { Logger } from 'pino';
 import { InferCreationAttributes } from 'sequelize';
 
-import { SyController } from '../core/SyController';
+import { SyController } from '../core/controller/SyController';
 import { UserSchema } from '../schemas';
 import { JWT_SECRET } from '../settings';
 import { Blacklist, User } from '../models';

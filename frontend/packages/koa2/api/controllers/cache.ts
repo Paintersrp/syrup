@@ -1,6 +1,6 @@
 import { Logger } from 'pino';
 
-import { SyController } from '../core/SyController';
+import { SyController } from '../core/controller/SyController';
 import { Cache } from '../models/cache';
 import { CacheSchema } from '../schemas';
 

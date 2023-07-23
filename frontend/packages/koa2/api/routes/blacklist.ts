@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import { BlacklistController } from '../controllers';
-import { SyRoutes } from '../core/SyRoutes';
+import { SyRoutes } from '../core/routes/SyRoutes';
 
 export class BlacklistRoutes extends SyRoutes<BlacklistController> {
   constructor(app: Koa) {

@@ -1,4 +1,4 @@
-import { SyCache } from '../core/SyCache';
+import { SyCache } from '../core/cache/SyCache';
 import { ORM } from './db';
 import { logger } from './loggers';
 

@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import { UserController } from '../controllers';
-import { SyRoutes } from '../core/SyRoutes';
+import { SyRoutes } from '../core/routes/SyRoutes';
 
 export class UserRoutes extends SyRoutes<UserController> {
   constructor(app: Koa) {
