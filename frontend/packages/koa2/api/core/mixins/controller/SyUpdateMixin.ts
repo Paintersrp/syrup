@@ -1,8 +1,14 @@
 import Router from 'koa-router';
 import { Optional, Transaction } from 'sequelize';
-import { HttpStatus } from '../../lib';
+import { HttpStatus, ResponseMessages } from '../../lib';
+import { SyClientError } from '../../SyError';
 import { ControllerMixinOptions } from '../../types/controller';
 import { SyMixin } from './SyMixin';
+
+interface FieldDTO {
+  id?: string;
+  [key: string]: any;
+}
 
 /**
  * SyUpdateMixin is a mixin class that extends the base SyMixin class and
@@ -54,14 +60,23 @@ export class SyUpdateMixin extends SyMixin {
    * ```
    */
   public async update(ctx: Router.RouterContext, transaction: Transaction) {
-    try {
-      const { id } = ctx.params;
-      const fields = ctx.request.body as Optional<any, string> | undefined;
-      const item = await this.model.findByPk(id, { transaction });
+    const { id } = ctx.params;
 
-      if (!item) {
-        throw this.createError(HttpStatus.NOT_FOUND, 'Item not found');
+    try {
+      this.throwIfNoId(id);
+
+      const fields = ctx.request.body as FieldDTO | undefined;
+
+      if (!fields) {
+        const errorDetails = `Received ID: ${id}`;
+        throw new SyClientError(
+          HttpStatus.BAD_REQUEST,
+          ResponseMessages.PAYLOAD_FAIL,
+          errorDetails
+        );
       }
+
+      const item = await this.findItemById(id, transaction);
 
       Object.assign(item, fields);
       await item.save({ transaction });
@@ -90,28 +105,23 @@ export class SyUpdateMixin extends SyMixin {
    * ```
    */
   public async bulkUpdate(ctx: Router.RouterContext, transaction: Transaction) {
+    const fields = ctx.request.body as FieldDTO[] | undefined;
+
     try {
-      const fields = ctx.request.body as Optional<any, string>[] | undefined;
-
-      if (fields) {
-        const updatedItems = await Promise.all(
-          fields.map(async (item: any) => {
-            const currentItem = await this.model.findByPk(item.id, { transaction });
-            if (!currentItem) {
-              throw this.createError(HttpStatus.NOT_FOUND, `Item not found with id ${item.id}`);
-            }
-
-            Object.assign(currentItem, item);
-            await currentItem.save({ transaction });
-
-            return currentItem;
-          })
-        );
-        ctx.status = HttpStatus.OK;
-        ctx.body = updatedItems;
-      } else {
-        this.createError(HttpStatus.BAD_REQUEST, 'Invalid Payload');
+      if (!fields || !Array.isArray(fields)) {
+        throw new SyClientError(HttpStatus.BAD_REQUEST, ResponseMessages.PAYLOAD_FAIL);
       }
+
+      const updatedItems = await Promise.all(
+        fields.map(async (item: any) => {
+          const currentItem = await this.findItemById(item.id, transaction);
+          Object.assign(currentItem, item);
+          await currentItem.save({ transaction });
+          return currentItem;
+        })
+      );
+      ctx.status = HttpStatus.OK;
+      ctx.body = updatedItems;
     } catch (error) {
       this.handleError(ctx, error);
     }

@@ -81,3 +81,17 @@ export enum HttpStatus {
   NOT_EXTENDED = 510,
   NETWORK_AUTHENTICATION_REQUIRED = 511,
 }
+
+export enum ResponseMessages {
+  ARRAY_FAIL = 'Request body must be an array',
+  DEL_OK = 'Item deleted successfully',
+  DELS_OK = 'Items deleted successfully',
+  ID_FAIL = 'Invalid ID',
+  IDS_FAIL = 'Invalid IDs',
+  ITEM_FAIL = 'Item not found',
+  ITEMS_FAIL = 'No matching items found',
+  PAYLOAD_FAIL = 'Invalid Payload (fields)',
+  SOFT_DEL_FAIL = 'Unable to soft delete the item',
+  SOFT_DEL_OK = 'Item soft deleted successfully',
+  SOFT_DELS_OK = `Items soft deleted successfully`,
+}

@@ -10,7 +10,7 @@ import { JWT_SECRET } from '../settings';
 import { Blacklist, User } from '../models';
 
 export class UserController extends SyController {
-  static options = {};
+  private methodsToBind = ['register', 'login', 'logout', 'refresh_token', 'validateUserBody'];
 
   /**
    * Creates an instance of the User Controller.
@@ -18,7 +18,8 @@ export class UserController extends SyController {
    */
   constructor(logger: Logger) {
     super({ model: User, schema: UserSchema, logger });
-    this.bindMethods();
+
+    this.bindMethods(this.methodsToBind);
   }
 
   /**
@@ -141,24 +142,35 @@ export class UserController extends SyController {
     try {
       const user = await User.findOne({ where: { username } });
 
-      if (user && (await bcrypt.compare(password, user.password))) {
-        if (user.refreshToken) {
+      if (!user) {
+        ctx.throw(401, 'User not found');
+      }
+
+      const isValidPassword = await bcrypt.compare(password, user.password);
+
+      if (!isValidPassword) {
+        ctx.throw(401, 'Invalid password');
+      }
+
+      if (user.refreshToken) {
+        const isBlacklisted = await this.isTokenBlacklisted(user.refreshToken);
+
+        if (!isBlacklisted) {
           const decodedOriginalRefresh = jwt.decode(user.refreshToken) as jwt.JwtPayload;
           if (decodedOriginalRefresh) {
             await this.blacklistToken(user.refreshToken);
           }
         }
-
-        const accessToken = this.generateAccessToken(user);
-        const refreshToken = this.generateRefreshToken(user);
-        await this.setCookies(ctx, accessToken, refreshToken);
-        user.refreshToken = refreshToken;
-        await user.save();
-        ctx.body = { accessToken, refreshToken };
-      } else {
-        ctx.status = 401;
-        ctx.body = 'Invalid credentials';
       }
+
+      const accessToken = this.generateAccessToken(user);
+      const refreshToken = this.generateRefreshToken(user);
+      await this.setCookies(ctx, accessToken, refreshToken);
+
+      user.refreshToken = refreshToken;
+      await user.save();
+
+      ctx.body = { accessToken, refreshToken };
     } catch (error: any) {
       this.logger.error(error);
       ctx.status = 500;
@@ -201,20 +213,26 @@ export class UserController extends SyController {
    */
   async logout(ctx: Router.RouterContext) {
     const accessToken = ctx.cookies.get('jwt');
+    const refreshToken = ctx.cookies.get('refreshToken');
 
     if (accessToken) {
-      try {
-        await this.blacklistToken(accessToken);
-        ctx.cookies.set('jwt', '', { signed: false, expires: new Date(0) });
-        ctx.cookies.set('refreshToken', '', {
-          signed: false,
-          expires: new Date(0),
-        });
-        ctx.body = 'Logged out successfully';
-      } catch (erorr) {
-        ctx.status = 500;
-        ctx.body = 'Error logging out';
-      }
+      await this.blacklistToken(accessToken);
+    }
+
+    if (refreshToken) {
+      await this.blacklistToken(refreshToken);
+    }
+
+    try {
+      ctx.cookies.set('jwt', '', { signed: false, expires: new Date(0) });
+      ctx.cookies.set('refreshToken', '', {
+        signed: false,
+        expires: new Date(0),
+      });
+      ctx.body = 'Logged out successfully';
+    } catch (erorr) {
+      ctx.status = 500;
+      ctx.body = 'Error logging out';
     }
   }
 }

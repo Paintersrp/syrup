@@ -113,6 +113,29 @@ export class SyDatabase {
   }
 
   /**
+   * Backs up the database if the dialect is SQLite. If successful, the backup file path is returned.
+   * @returns The path of the backup file.
+   */
+  async backupDatabase(): Promise<string | null> {
+    if (this.databasePath && this.database.getDialect() === 'sqlite') {
+      const backupPath = `${this.databasePath}.bak`;
+      await fs.copy(this.databasePath, backupPath);
+      return backupPath;
+    }
+    return null;
+  }
+
+  /**
+   * Explains a SQL query so it can be analyzed.
+   * @param sql The SQL query to explain.
+   * @returns The explanation of the query.
+   */
+  async explainQuery(sql: string): Promise<any> {
+    const [result] = await this.database.query(`EXPLAIN ${sql}`);
+    return result;
+  }
+
+  /**
    * Adds hooks to the Sequelize instance to start logging before and after every query.
    */
   private startQueryLogging() {
@@ -123,6 +146,9 @@ export class SyDatabase {
     this.database.addHook('afterQuery', (_, options: any) => {
       const duration = Date.now() - options.start_time;
       this.queriesLogger.info({ query: options.sql, duration }, 'Executed query');
+      if (duration > 2000) {
+        this.logger.warn(`Slow query detected. Query: ${options.sql}, Duration: ${duration}`);
+      }
     });
   }
 
@@ -133,12 +159,19 @@ export class SyDatabase {
     process.on('unhandledRejection', (error) => {
       this.logger.error(error, 'Unhandled Promise Rejection');
     });
+
+    process.on('SIGINT', async () => {
+      await this.database.close();
+      this.logger.info('Database connection closed');
+      process.exit(0);
+    });
   }
 
   /**
    * Runs automated tests on the database to ensure it's functioning correctly.
    * For example, it might check that basic arithmetic operations are working as expected.
-   * Extend this method to add more complex tests.
+   * 
+   * @todo Extend this method to add more complex tests.
    */
   private runAutomatedTests() {
     // Implement some actual testing

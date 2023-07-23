@@ -2,94 +2,185 @@ import { Logger } from 'pino';
 import { Sequelize, Transaction } from 'sequelize';
 import { Cache } from '../models/cache';
 
-export interface CacheInterface {
-  value: any;
-  expires?: Date | null;
-  lastAccessed?: Date;
+/**
+ * @todo Metrics Mixin
+ * @todo Heap Node / Min Heap Mixins
+ * @todo LFU Eviction Mixin
+ * @todo Persistence Mixin
+ */
+
+/**
+ * Interface representing a cached item.
+ */
+export interface CacheInterface<T> {
+  value: T; // The value of the cached item.
+  expires?: Date | null; // The expiration date of the cached item.
+  lastAccessed?: Date; // The last access date of the cached item.
 }
 
 /**
- * @todo Mixin for modularity
- *
- * @classdesc Class representing a hybrid cache with in-memory storage and ORM-supported persistence.
+ * Interface for SyCache options.
  */
-export class SyCache {
-  private cacheMap: Map<string, CacheInterface>;
+export interface SyCacheOptions {
+  defaultTTL?: number; // The default TTL for cached items.
+  maxCacheSize?: number; // The maximum number of items that can be stored in the cache.
+  evictInterval?: number; // The interval between cache eviction runs.
+}
+
+/**
+ * SyCache is a caching system for the application.
+ * It uses the LRU (Least Recently Used) policy for cache eviction.
+ */
+export class SyCache<T> {
+  private cacheMap: Map<string, CacheInterface<T>>;
   private database: Sequelize;
   private logger: Logger;
+
   private defaultTTL: number | null;
   private maxCacheSize: number;
-  private transaction: Transaction | undefined;
+  private evictInterval: number;
+
   private cacheStats: { hits: number; misses: number; evictions: number };
+  private isInitialised: boolean;
+
+  private evictionIntervalId?: NodeJS.Timeout;
 
   /**
-   * Create a new instance of SyCache.
-   * @param {Sequelize} database - The Sequelize instance for ORM support.
-   * @param {Logger} logger - The Pino logger instance for logging.
-   * @param {number} [defaultTTL=null] - The default Time-to-Live for cache in seconds (optional).
-   * @param {number} [maxCacheSize=5000] - The maximum size of the in-memory cache (optional).
+   * Constructs a new SyCache object. Sets the default options and starts the cache.
+   * Registers a shutdown handler for graceful shutdowns.
+   *
+   * @param {Sequelize} database - The Sequelize database connection object.
+   * @param {Logger} logger - The Pino logger object.
+   * @param {SyCacheOptions} options - The options for the cache. These are:
+   *    - defaultTTL (Optional): The default Time To Live for cached items in milliseconds.
+   *      If specified, cached items will automatically be evicted after this duration.
+   *    - maxCacheSize (Optional): The maximum number of items that can be stored in the cache.
+   *      If specified, the cache will evict least recently used items when the limit is reached.
+   *    - evictInterval (Optional): The interval in milliseconds between automatic eviction runs.
+   *      If specified, the cache will automatically attempt to evict expired items at this interval.
    */
-  constructor(
-    database: Sequelize,
-    logger: Logger,
-    defaultTTL: number | null = null,
-    maxCacheSize: number = 5000
-  ) {
-    this.cacheMap = new Map();
+  constructor(database: Sequelize, logger: Logger, options: SyCacheOptions = {}) {
     this.logger = logger;
     this.database = database;
-    this.defaultTTL = defaultTTL;
-    this.maxCacheSize = maxCacheSize;
+
+    this.defaultTTL = options.defaultTTL || null;
+    this.maxCacheSize = options.maxCacheSize || 5000;
+    this.evictInterval = options.evictInterval || 30000;
+
+    this.cacheMap = new Map();
     this.cacheStats = { hits: 0, misses: 0, evictions: 0 };
+
+    this.registerShutdownHandler();
+    this.isInitialised = false;
   }
 
   /**
-   * Load the cache from the database on cache initialization.
+   * Starts a recurring process that automatically evicts expired items from the cache.
+   */
+  private startEvictingExpiredItems(): void {
+    this.evictionIntervalId = setInterval(() => this.autoEvictExpiredItems(), this.evictInterval);
+  }
+
+  /**
+   * Stops the recurring process started by `startEvictingExpiredItems()` that evicts expired items
+   * from the cache.
+   */
+  private stopEvictingExpiredItems(): void {
+    if (this.evictionIntervalId) {
+      clearInterval(this.evictionIntervalId);
+      this.evictionIntervalId = undefined;
+    }
+  }
+
+  /**
+   * Executes a database transaction. This method automatically commits the transaction if
+   * all operations are successful, or rolls back the transaction if any operation fails.
+   * In case of a failure, it also logs the error.
+   *
+   * @param {function} action - A callback function that receives the transaction object and
+   * returns a Promise. This function should include all the database operations to be
+   * executed in the transaction.
+   * @returns {Promise<void>}
+   * @throws Will throw an error if the transaction fails.
+   */
+  private async executeDatabaseTransaction(
+    action: (transaction: Transaction) => Promise<void>
+  ): Promise<void> {
+    const transaction = await this.database.transaction();
+    try {
+      await action(transaction);
+      await transaction.commit();
+    } catch (error) {
+      await transaction.rollback();
+      this.logger.error('Error executing database transaction:', error);
+      throw error;
+    }
+  }
+
+  /**
+   * Loads the cache from the database.
+   * @returns {Promise<void>}
    */
   private async loadCacheFromDatabase(): Promise<void> {
     try {
-      const cacheData = await Cache.findOne({ order: [['createdAt', 'DESC']] });
+      await this.executeDatabaseTransaction(async (transaction) => {
+        const cacheData = await Cache.findOne({
+          order: [['createdAt', 'DESC']],
+          transaction,
+        });
 
-      if (cacheData) {
-        this.cacheMap = new Map(Object.entries(cacheData.contents));
-      }
+        if (cacheData) {
+          this.cacheMap = new Map(Object.entries(cacheData.contents));
+        }
+      });
     } catch (error) {
-      this.logger.error('Error loading cache from the database:', error);
+      this.logger.error('Error loading cache to database:', error);
+      throw error;
     }
   }
 
   /**
-   * Save the current cache data to the database.
+   * Saves the cache to the database.
+   * @returns {Promise<void>}
    */
   private async saveCacheToDatabase(): Promise<void> {
     try {
-      const cacheDataObject: { [key: string]: CacheInterface } = {};
-      this.cacheMap.forEach((value, key) => {
-        cacheDataObject[key] = value;
-      });
+      await this.executeDatabaseTransaction(async (transaction) => {
+        const cacheDataObject: { [key: string]: CacheInterface<T> } = {};
+        this.cacheMap.forEach((value, key) => {
+          cacheDataObject[key] = value;
+        });
 
-      await Cache.create({
-        contents: JSON.parse(JSON.stringify(cacheDataObject)),
+        await Cache.create(
+          {
+            contents: JSON.parse(JSON.stringify(cacheDataObject)),
+          },
+          { transaction }
+        );
       });
     } catch (error) {
-      this.logger.error('Error saving cache data to the database:', error);
+      this.logger.error('Error saving cache to database:', error);
+      throw error;
     }
   }
 
   /**
-   * Automatically evict expired cache items.
+   * Automatically evicts expired items from the cache.
+   * @returns {Promise<void>}
    */
   private async autoEvictExpiredItems(): Promise<void> {
     const now = new Date();
-    for (const [key, cacheItem] of this.cacheMap) {
+    for (const [key, cacheItem] of this.cacheMap.entries()) {
       if (cacheItem.expires && cacheItem.expires < now) {
+        this.logger.info(`Cleared ${key}`);
         this.cacheMap.delete(key);
+        this.cacheStats.evictions++;
       }
     }
   }
 
   /**
-   * Delete the least recently used item when the cache is full.
+   * Evicts the least recently used item from the cache.
    */
   private evictLRUItem(): void {
     let lruKey = null;
@@ -110,11 +201,11 @@ export class SyCache {
   }
 
   /**
-   * Refresh an item's expiration if it's near to expire and accessed again.
-   * @param {string} key - The key of the cache item to refresh the expiration for.
-   * @param {CacheInterface} cacheItem - The cache item to refresh the expiration for.
+   * Refreshes the expiration of a cache item.
+   * @param key - The key of the cache item.
+   * @param cacheItem - The cache item.
    */
-  private refreshItemExpiration(key: string, cacheItem: CacheInterface): void {
+  private refreshItemExpiration(key: string, cacheItem: CacheInterface<T>): void {
     const refreshThreshold = 0.2;
     if (
       cacheItem.expires &&
@@ -126,9 +217,9 @@ export class SyCache {
   }
 
   /**
-   * Handle process shutdown to ensure cache data is saved.
+   * Registers a shutdown handler.
    */
-  private handleShutdown(): void {
+  private registerShutdownHandler(): void {
     process.on('SIGTERM', async () => {
       this.logger.info('Process is shutting down...');
       await this.close();
@@ -137,113 +228,101 @@ export class SyCache {
   }
 
   /**
-   * Helper method for executing transactional operations.
-   * @param operation - The function representing the transactional operation.
-   */
-  private async executeInTransaction(operation: () => Promise<void>): Promise<void> {
-    try {
-      this.transaction = await this.database.transaction();
-      await operation();
-      await this.transaction.commit();
-    } catch (error) {
-      if (this.transaction) {
-        await this.transaction.rollback();
-      }
-      throw error;
-    }
-  }
-
-  /**
-   * Initialize the cache, load data from the database.
+   * Starts the cache.
+   * @returns {Promise<void>}
    */
   async start(): Promise<void> {
-    try {
-      await this.database.sync();
-      this.logger.info('Cache Initiated');
-
-      await this.executeInTransaction(async () => {
+    if (!this.isInitialised) {
+      try {
+        this.logger.info('Cache Initiated');
         await this.loadCacheFromDatabase();
-      });
-    } catch (error) {
-      this.logger.error('Error during cache start:', error);
+        this.startEvictingExpiredItems();
+        this.isInitialised = true;
+      } catch (error) {
+        this.logger.error('Error during cache start:', error);
+        throw error;
+      }
     }
   }
 
   /**
-   * Set a value in the cache with an optional Time-to-Live (TTL).
-   * @param key - The key for the cache item.
-   * @param value - The value to be cached.
-   * @param ttl - The Time-to-Live (TTL) for the cache item in seconds (optional).
+   * Sets a value in the cache.
+   * @param key - The key of the item.
+   * @param value - The value of the item.
+   * @param ttl - The TTL of the item.
+   * @returns {Promise<void>}
    */
-  async set(key: string, value: any, ttl: number | null): Promise<void> {
+  async set(key: string, value: T, ttl: number | null = this.defaultTTL): Promise<void> {
     if (this.cacheMap.size >= this.maxCacheSize) {
       this.evictLRUItem();
     }
 
-    const cacheItem: CacheInterface = {
+    const cacheItem: CacheInterface<T> = {
       value,
       lastAccessed: new Date(),
-      expires: ttl
-        ? new Date(Date.now() + ttl * 1000)
-        : this.defaultTTL
-        ? new Date(Date.now() + this.defaultTTL * 1000)
-        : null,
+      expires: ttl ? new Date(Date.now() + ttl) : null,
     };
+
     this.cacheMap.set(key, cacheItem);
+    this.logger.debug(`Set item: ${key} in the cache.`);
   }
 
   /**
-   * Get the cached value for a given key.
-   * @param key - The key to retrieve from the cache.
-   * @returns The cached value if found, otherwise null.
+   * Gets a value from the cache.
+   * @param key - The key of the item.
+   * @returns {T | null} The value of the item, or null if not found.
    */
-  get(key: string): any {
+  get(key: string): T | null {
     const cacheItem = this.cacheMap.get(key);
-    if (!cacheItem || (cacheItem.expires && cacheItem.expires < new Date())) {
-      this.cacheMap.delete(key);
+    if (cacheItem) {
+      cacheItem.lastAccessed = new Date();
+      this.cacheStats.hits++;
+      this.refreshItemExpiration(key, cacheItem);
+      return cacheItem.value;
+    } else {
       this.cacheStats.misses++;
+      this.logger.warn(`Missed cache for key: ${key}`);
       return null;
     }
-    cacheItem.lastAccessed = new Date();
-    this.refreshItemExpiration(key, cacheItem);
-    this.cacheStats.hits++;
-    this.monitorCachePerformance();
-    return cacheItem.value;
   }
 
   /**
-   * Delete a cached item by its key.
-   * @param key - The key of the cached item to be deleted.
+   * Deletes a value from the cache.
+   * @param key - The key of the item.
    */
   del(key: string): void {
-    if (this.cacheMap.has(key)) {
-      this.cacheMap.delete(key);
+    if (this.cacheMap.delete(key)) {
+      this.logger.debug(`Deleted item: ${key} from the cache.`);
+    } else {
+      this.logger.warn(`Failed to delete item: ${key} from the cache.`);
     }
   }
 
   /**
-   * Clear the entire cache.
+   * Clears the cache.
    */
   clear(): void {
     this.cacheMap.clear();
+    this.logger.info('Cache cleared.');
   }
 
   /**
-   * Close the cache and save its contents to the database.
+   * Closes the cache.
+   * @returns {Promise<void>}
    */
   async close(): Promise<void> {
-    await this.autoEvictExpiredItems();
-
-    await this.executeInTransaction(async () => {
+    try {
+      this.stopEvictingExpiredItems();
       await this.saveCacheToDatabase();
-    });
-
-    this.handleShutdown();
-    this.logger.info('Cache successfully closed and saved.');
+      this.isInitialised = false;
+    } catch (error) {
+      this.logger.error('Error during cache close:', error);
+    }
   }
 
   /**
-   * Clear the cache database.
+   * Clears the cache database.
+   * @returns {Promise<void>}
    */
   async clearDatabase(): Promise<void> {
     try {
@@ -255,23 +334,23 @@ export class SyCache {
   }
 
   /**
-   * Get the current size of the cache.
-   * @returns The number of items in the cache.
+   * Gets the size of the cache.
+   * @returns {Promise<number>} The size of the cache.
    */
   async getCacheSize(): Promise<number> {
     return this.cacheMap.size;
   }
 
   /**
-   * Get the current cache statistics.
-   * @returns An object with the current number of cache hits, misses, and evictions.
+   * Gets the cache stats.
+   * @returns {{ hits: number; misses: number; evictions: number }} The cache stats.
    */
   getCacheStats(): { hits: number; misses: number; evictions: number } {
     return this.cacheStats;
   }
 
   /**
-   * Monitor the cache's performance and log any anomalies.
+   * Monitors the performance of the cache.
    */
   monitorCachePerformance(): void {
     const hitRatio = this.cacheStats.hits / (this.cacheStats.hits + this.cacheStats.misses);

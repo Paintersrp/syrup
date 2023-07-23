@@ -1,9 +1,10 @@
 import Router from 'koa-router';
 import { Optional, Transaction } from 'sequelize';
-import { HttpStatus } from '../../lib';
+import { HttpStatus, ResponseMessages } from '../../lib';
 
 import { SyMixin } from './SyMixin';
 import { ControllerMixinOptions } from '../../types/controller';
+import { SyClientError } from '../../SyError';
 
 /**
  * SyCreateMixin is a mixin class which extends the abstract SyMixin.
@@ -33,6 +34,10 @@ export class SyCreateMixin extends SyMixin {
     const fields = ctx.request.body as Optional<any, string> | undefined;
 
     try {
+      if (!fields) {
+        throw new SyClientError(HttpStatus.BAD_REQUEST, ResponseMessages.PAYLOAD_FAIL);
+      }
+
       const item = await this.model.create(fields, { transaction });
       this.createResponse(ctx, HttpStatus.CREATED, item);
     } catch (error) {
@@ -49,12 +54,11 @@ export class SyCreateMixin extends SyMixin {
   public async bulkCreate(ctx: Router.RouterContext, transaction: Transaction) {
     const items = ctx.request.body as Optional<any, string>[];
 
-    if (!Array.isArray(items)) {
-      this.createResponse(ctx, HttpStatus.BAD_REQUEST, { error: 'Request body must be an array' });
-      return;
-    }
-
     try {
+      if (!Array.isArray(items)) {
+        throw new SyClientError(HttpStatus.BAD_REQUEST, ResponseMessages.ARRAY_FAIL);
+      }
+
       const createdItems = await this.model.bulkCreate(items, { transaction });
       this.createResponse(ctx, HttpStatus.CREATED, createdItems);
     } catch (error) {

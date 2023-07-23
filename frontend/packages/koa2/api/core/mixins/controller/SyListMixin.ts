@@ -1,4 +1,5 @@
 import Router from 'koa-router';
+import { HttpStatus } from '../../lib';
 import { ControllerMixinOptions } from '../../types/controller';
 import { SyMixin } from './SyMixin';
 
@@ -23,7 +24,7 @@ export class SyListMixin extends SyMixin {
       const findOptions = await this.processQueryParams(ctx);
       const { count, rows } = await this.model.findAndCountAll(findOptions);
 
-      this.createResponse(ctx, 200, {
+      this.createResponse(ctx, HttpStatus.OK, {
         count,
         data: rows,
       });
@@ -36,14 +37,12 @@ export class SyListMixin extends SyMixin {
    * Retrieves a specific instance of the model by its ID.
    */
   public async read(ctx: Router.RouterContext) {
-    try {
-      const { id } = ctx.params;
-      const item = await this.model.findByPk(id);
-      if (!item) {
-        throw this.createError(404, 'Item not found');
-      }
+    const { id } = ctx.params;
 
-      this.createResponse(ctx, 200, item);
+    try {
+      this.throwIfNoId(id);
+      const item = await this.findItemById(id);
+      this.createResponse(ctx, HttpStatus.OK, item);
     } catch (error) {
       this.handleError(ctx, error);
     }

@@ -5,9 +5,7 @@ import { SyServer } from '../../SyServer';
 /**
  * A mixin for a Koa server that provides several health check endpoints.
  * These endpoints can be used to monitor the health status of the server,
- * its connections, and the system resources available. This can be useful
- * for maintaining the server's performance and identifying potential issues
- * before they become critical.
+ * its connections, and the system resources available.
  */
 export class SyHealthMixin {
   server: SyServer;

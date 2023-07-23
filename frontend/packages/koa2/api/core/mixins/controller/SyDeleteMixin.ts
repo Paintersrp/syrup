@@ -3,6 +3,12 @@ import { Op } from 'sequelize';
 import { Transaction } from 'sequelize';
 import { SyMixin } from './SyMixin';
 import { ControllerMixinOptions } from '../../types/controller';
+import { HttpStatus, ResponseMessages } from '../../lib';
+import { SyClientError } from '../../SyError';
+
+interface BulkDeleteBody {
+  ids: string[];
+}
 
 /**
  * SyDeleteMixin is an advanced and comprehensive class which extends SyMixin.
@@ -32,16 +38,22 @@ export class SyDeleteMixin extends SyMixin {
    */
   public async softDelete(ctx: Router.RouterContext, transaction: Transaction) {
     const { id } = ctx.params;
-    const item = await this.model.findByPk(id, { transaction });
-
-    if (!item) {
-      this.createResponse(ctx, 404, 'Item not found');
-      return;
-    }
 
     try {
-      await item.update({ deleted: true }, { transaction });
-      this.createResponse(ctx, 200, 'Item soft deleted successfully');
+      this.throwIfNoId(id);
+
+      const item = await this.findItemById(id, transaction);
+      const updatedItem = await item.update({ deleted: true }, { transaction });
+
+      if (updatedItem.get('deleted') === true) {
+        this.createResponse(ctx, HttpStatus.OK, ResponseMessages.SOFT_DEL_OK);
+      } else {
+        throw new SyClientError(
+          HttpStatus.BAD_REQUEST,
+          ResponseMessages.SOFT_DEL_FAIL,
+          updatedItem
+        );
+      }
     } catch (error) {
       this.handleError(ctx, error);
     }
@@ -53,18 +65,16 @@ export class SyDeleteMixin extends SyMixin {
    * @param {Router.RouterContext} ctx - The context object from Koa.
    * @param {Transaction} transaction - The Sequelize transaction.
    */
-  public async delete(ctx: Router.RouterContext, transaction: Transaction) {
+  async delete(ctx: Router.RouterContext, transaction: Transaction) {
     const { id } = ctx.params;
-    const item = await this.model.findByPk(id, { transaction });
-
-    if (!item) {
-      this.createResponse(ctx, 404, 'Item not found');
-      return;
-    }
 
     try {
+      this.throwIfNoId(id);
+
+      const item = await this.findItemById(id, transaction);
       await item.destroy({ transaction });
-      this.createResponse(ctx, 200, 'Item deleted successfully');
+
+      this.createResponse(ctx, HttpStatus.OK, ResponseMessages.DEL_OK);
     } catch (error) {
       this.handleError(ctx, error);
     }
@@ -77,9 +87,11 @@ export class SyDeleteMixin extends SyMixin {
    * @param {Transaction} transaction - The Sequelize transaction.
    */
   public async bulkSoftDelete(ctx: Router.RouterContext, transaction: Transaction) {
-    const { ids } = ctx.request.body as { ids: { [key: string]: number } };
+    const { ids } = ctx.request.body as BulkDeleteBody;
 
     try {
+      this.throwIfNoIds(ids);
+
       const deletedItems = await this.model.update(
         { deleted: true },
         {
@@ -93,9 +105,10 @@ export class SyDeleteMixin extends SyMixin {
       );
 
       if (deletedItems[0] === 0) {
-        this.createResponse(ctx, 404, 'No matching items found');
+        const errorDetails = `Received IDs: ${ids}`;
+        throw new SyClientError(HttpStatus.NOT_FOUND, ResponseMessages.ITEMS_FAIL, errorDetails);
       } else {
-        this.createResponse(ctx, 200, `${deletedItems[0]} items soft deleted successfully`);
+        this.createResponse(ctx, HttpStatus.OK, ResponseMessages.SOFT_DELS_OK);
       }
     } catch (error) {
       this.handleError(ctx, error);
@@ -109,15 +122,17 @@ export class SyDeleteMixin extends SyMixin {
    * @param {Transaction} transaction - The Sequelize transaction.
    */
   public async bulkDelete(ctx: Router.RouterContext, transaction: Transaction) {
-    const { ids } = ctx.request.body as { ids: { [key: string]: number } };
+    const { ids } = ctx.request.body as BulkDeleteBody;
 
     try {
+      this.throwIfNoIds(ids);
+
       await this.model.destroy({
         where: { id: ids },
         transaction,
       });
 
-      this.createResponse(ctx, 200, 'Items deleted successfully');
+      this.createResponse(ctx, HttpStatus.NO_CONTENT, ResponseMessages.DELS_OK);
     } catch (error) {
       this.handleError(ctx, error);
     }

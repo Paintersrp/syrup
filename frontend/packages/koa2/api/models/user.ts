@@ -17,6 +17,16 @@ import { Profile } from './profile';
 import { faker } from '@faker-js/faker';
 
 /**
+ * @todo Soft Deletion
+ * @todo _previousDataValues
+ * @todo LogChanges Model
+ * @todo beforeUpdate / beforeBulkUpdate
+ * @todo beforeDestroy (soft)
+ * @todo config for salt rounds
+ * @todo "Mixin" Entity Association for various fields like failedLoginAttempts, isAccountLocked, ***active status, accountLockUntil, verificationToken, passwordResetToken, passwordResetTokenExpiry, lastPasswordReset, isTwoFactorEnabled, ***lastLogin, isEmailVerified, lastProfileUpdate
+ */
+
+/**
  * Enumeration of user roles.
  */
 export enum UserRoleEnum {
@@ -45,14 +55,14 @@ export class User extends SyModel<
   declare username: string;
 
   @Field({
-    type: DataTypes.STRING(500),
+    type: DataTypes.STRING(255),
     allowNull: false,
     verbose: 'Password',
   })
   declare password: string;
 
   @Field({
-    type: DataTypes.STRING(500),
+    type: DataTypes.STRING(255),
     verbose: 'Salt',
   })
   declare salt?: string;
@@ -79,10 +89,6 @@ export class User extends SyModel<
   })
   declare theme?: ThemeEnum;
 
-  // public failedAttempts!: number;
-  // public lockUntil!: Date;
-  // public deletedAt?: Date;
-
   declare getProfile: HasOneGetAssociationMixin<Profile>;
   declare createProfile: HasOneCreateAssociationMixin<Profile>;
   declare setProfile: HasOneSetAssociationMixin<Profile, 'userId'>;
@@ -100,7 +106,11 @@ export class User extends SyModel<
       emptyProfile[field] = '';
     }
 
-    await user.createProfile(emptyProfile);
+    try {
+      await this.createProfile(emptyProfile);
+    } catch (error) {
+      logger.error('Failed to create blank profile:', error);
+    }
   }
 
   /**
@@ -109,13 +119,18 @@ export class User extends SyModel<
    * @returns An object containing the hashed password and salt.
    */
   protected static async hashPassword(password: string) {
-    const saltRounds = 10;
-    const salt = await bcrypt.genSalt(saltRounds);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    return {
-      password: hashedPassword,
-      salt,
-    };
+    try {
+      const saltRounds = 10;
+      const salt = await bcrypt.genSalt(saltRounds);
+      const hashedPassword = await bcrypt.hash(password, salt);
+      return {
+        password: hashedPassword,
+        salt,
+      };
+    } catch (error) {
+      logger.error('Failed to hash password:', error);
+      throw error;
+    }
   }
 
   /**
@@ -179,17 +194,4 @@ User.init(
 Profile.belongsTo(User, { targetKey: 'id' });
 User.hasOne(Profile, { sourceKey: 'id' });
 
-//
-
-export async function doStuffWithUser() {
-  const newUser = await User.create({
-    username: 'Johnny',
-    password: 'John',
-  });
-  logger.info(newUser.id, newUser.username, newUser.password);
-}
-
 // User.seedUser(10);
-// logger.info(User.metadata);
-// logger.info(User.fields);
-// logger.info(User.getKeys());

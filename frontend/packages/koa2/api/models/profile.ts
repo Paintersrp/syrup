@@ -13,6 +13,12 @@ import { SyModel } from '../core/SyModel';
 
 import { User } from './user';
 
+export enum GenderEnum {
+  MALE = 'male',
+  FEMALE = 'female',
+  OTHER = 'other',
+}
+
 export class Profile extends SyModel<InferAttributes<Profile>, InferCreationAttributes<Profile>> {
   declare userId: ForeignKey<User['id']>;
 
@@ -57,6 +63,24 @@ export class Profile extends SyModel<InferAttributes<Profile>, InferCreationAttr
     verbose: 'Phone Number',
   })
   declare phone: CreationOptional<string>;
+
+  @Field({
+    type: DataTypes.STRING(255),
+    verbose: 'Avatar',
+  })
+  declare avatar: CreationOptional<string>;
+
+  @Field({
+    type: DataTypes.ENUM(...Object.values(GenderEnum)),
+    verbose: 'Gender',
+  })
+  declare gender: CreationOptional<GenderEnum>;
+
+  @Field({
+    type: DataTypes.DATEONLY,
+    verbose: 'Date of Birth',
+  })
+  declare dob: CreationOptional<Date>;
 
   @Field({
     type: DataTypes.STRING(30),
@@ -112,36 +136,21 @@ export class Profile extends SyModel<InferAttributes<Profile>, InferCreationAttr
       const profileData = [];
 
       for (let i = 0; i < count; i++) {
-        const email = faker.internet.email();
-        const firstName = faker.person.firstName();
-        const lastName = faker.person.lastName();
-        const bio = faker.lorem.sentence();
-        const city = faker.location.city();
-        const country = faker.location.country();
-        const phone = faker.phone.number();
-        const facebook = faker.internet.userName();
-        const instagram = faker.internet.userName();
-        const threads = faker.internet.userName();
-        const twitter = faker.internet.userName();
-        const linkedIn = faker.internet.userName();
-        const github = faker.internet.userName();
-        const youtube = faker.internet.userName();
-
         profileData.push({
-          email,
-          firstName,
-          lastName,
-          bio,
-          city,
-          country,
-          phone,
-          facebook,
-          instagram,
-          threads,
-          twitter,
-          linkedIn,
-          github,
-          youtube,
+          email: faker.internet.email(),
+          firstName: faker.person.firstName(),
+          lastName: faker.person.lastName(),
+          bio: faker.lorem.sentence(),
+          city: faker.location.city(),
+          country: faker.location.country(),
+          phone: faker.phone.number(),
+          facebook: faker.internet.userName(),
+          instagram: faker.internet.userName(),
+          threads: faker.internet.userName(),
+          twitter: faker.internet.userName(),
+          linkedIn: faker.internet.userName(),
+          github: faker.internet.userName(),
+          youtube: faker.internet.userName(),
         });
       }
 

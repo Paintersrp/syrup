@@ -1,15 +1,15 @@
 import Koa, { EventEmitter, Middleware } from 'koa';
 import Router from 'koa-router';
 import { Logger } from 'pino';
-import { ModelStatic, Optional, Transaction, DataTypes } from 'sequelize';
+import { ModelStatic, Optional, Transaction } from 'sequelize';
+
 import { ORM } from '../settings';
-
 import { ETag, Log, Monitor } from './decorators/controllers';
-
 import {
   SyCreateMixin,
   SyDeleteMixin,
   SyListMixin,
+  SyMetaMixin,
   SyMiddlewareMixin,
   SyUpdateMixin,
 } from './mixins/controller';
@@ -44,12 +44,23 @@ export abstract class SyController extends EventEmitter {
   protected schema: any;
   protected logger: Logger;
   protected customMiddlewares: Middleware[];
+  protected internalMethodsToBind = [
+    'create',
+    'read',
+    'update',
+    'delete',
+    'all',
+    'validateBody',
+    'cacheEndpoint',
+    'getMetadata',
+  ];
 
   protected createMixin: SyCreateMixin;
   protected listMixin: SyListMixin;
   protected updateMixin: SyUpdateMixin;
   protected deleteMixin: SyDeleteMixin;
   protected middlewareMixin: SyMiddlewareMixin;
+  protected metaMixin: SyMetaMixin;
 
   /**
    * @desc Constructs a new instance of the SyController class and initializes the Mixins which
@@ -69,17 +80,15 @@ export abstract class SyController extends EventEmitter {
     this.logger = logger;
     this.customMiddlewares = middlewares;
 
-    this.createMixin = new SyCreateMixin({ model, logger: this.logger });
-    this.listMixin = new SyListMixin({ model, logger: this.logger });
-    this.updateMixin = new SyUpdateMixin({ model, logger: this.logger });
-    this.deleteMixin = new SyDeleteMixin({ model, logger: this.logger });
-    this.middlewareMixin = new SyMiddlewareMixin({ model, logger: this.logger, schema });
+    let mixinOptions = { model, logger: this.logger };
+    this.createMixin = new SyCreateMixin(mixinOptions);
+    this.listMixin = new SyListMixin(mixinOptions);
+    this.updateMixin = new SyUpdateMixin(mixinOptions);
+    this.deleteMixin = new SyDeleteMixin(mixinOptions);
+    this.middlewareMixin = new SyMiddlewareMixin({ ...mixinOptions, schema });
+    this.metaMixin = new SyMetaMixin(mixinOptions);
 
-    Object.getOwnPropertyNames(Object.getPrototypeOf(Object.getPrototypeOf(this)))
-      .filter((prop) => typeof (this as any)[prop] === 'function' && prop !== 'constructor')
-      .forEach((method) => {
-        (this as any)[method] = (this as any)[method].bind(this);
-      });
+    this.bindMethods(this.internalMethodsToBind);
   }
 
   /**
@@ -131,6 +140,7 @@ export abstract class SyController extends EventEmitter {
 
   /**
    * Middleware to validate the request body against the defined schema.
+   * @see SyMiddlewareMixin#validateBody
    */
   validateBody(ctx: Router.RouterContext, next: Koa.Next) {
     return this.middlewareMixin.validateBody(ctx, next);
@@ -138,13 +148,15 @@ export abstract class SyController extends EventEmitter {
 
   /**
    * Middleware to cache the response of an endpoint and serve the cached response if available.
+   * @see SyMiddlewareMixin#cacheEndpoint
    */
   async cacheEndpoint(ctx: Router.RouterContext, next: Koa.Next) {
     return this.middlewareMixin.cacheEndpoint(ctx, next);
   }
 
   /**
-   * Retrieves all instances of the model with pagination support.
+   * Returns all instances of the model.
+   * @see SyListMixin#all
    */
   @Monitor
   async all(ctx: Router.RouterContext) {
@@ -152,7 +164,8 @@ export abstract class SyController extends EventEmitter {
   }
 
   /**
-   * Retrieves a specific instance of the model by its ID.
+   * Returns an instance of the model.
+   * @see SyListMixin#read
    */
   @Log
   async read(ctx: Router.RouterContext) {
@@ -161,8 +174,9 @@ export abstract class SyController extends EventEmitter {
 
   /**
    * Creates a new instance of the model.
+   * @see SyCreateMixin#create
    */
-  async create(ctx: Router.RouterContext) {
+  async create(ctx: Router.RouterContext): Promise<void> {
     return this.withTransaction(ctx, async (transaction) => {
       return this.createMixin.create(ctx, transaction);
     });
@@ -170,8 +184,9 @@ export abstract class SyController extends EventEmitter {
 
   /**
    * Updates a specific instance of the model by its ID.
+   * @see SyUpdateMixin#update
    */
-  async update(ctx: Router.RouterContext) {
+  async update(ctx: Router.RouterContext): Promise<void> {
     return this.withTransaction(ctx, async (transaction) => {
       return this.updateMixin.update(ctx, transaction);
     });
@@ -179,8 +194,9 @@ export abstract class SyController extends EventEmitter {
 
   /**
    * Deletes a specific instance of the model by its ID.
+   * @see SyDeleteMixin#delete
    */
-  async delete(ctx: Router.RouterContext) {
+  async delete(ctx: Router.RouterContext): Promise<void> {
     return this.withTransaction(ctx, async (transaction) => {
       return this.deleteMixin.delete(ctx, transaction);
     });
@@ -197,118 +213,24 @@ export abstract class SyController extends EventEmitter {
   }
 
   /**
-   * @method getMetadata
-   * @async
-   * @description This method is responsible for obtaining metadata of a Sequelize model. The metadata includes
-   * attributes (columns) of the model and their types, associations (relations) with other models, and their types.
-   * This metadata can be used to dynamically generate UI components, perform validations, or inform other services
-   * about the structure of the model.
-   *
-   * @param {Router.RouterContext} ctx - Koa context. The method sets the ctx.body property with the model's metadata.
-   *
-   * @returns {Promise<void>} Nothing is explicitly returned but the model's metadata is set to ctx.body.
-   *
-   * @throws Will throw an error if an issue occurred while trying to fetch the model's attributes or associations.
+   * This method is responsible for obtaining metadata of a Sequelize model
+   * @see SyMetaMixin#getMetadata
    */
   @ETag
   async getMetadata(ctx: Router.RouterContext): Promise<void> {
-    const attributes = this.model.getAttributes();
-    const associations = this.model.associations;
-
-    const structuredAttributes = Object.keys(attributes).map((key) => {
-      return {
-        name: key,
-        type: this.stringifyDataType(attributes[key].type),
-        allowNull: attributes[key].allowNull,
-      };
-    });
-
-    const structuredAssociations = Object.keys(associations).map((key) => {
-      return {
-        name: key,
-        type: associations[key].associationType,
-        relatedModel: associations[key].target.name,
-      };
-    });
-
-    ctx.body = {
-      modelName: this.model.name,
-      attributes: structuredAttributes,
-      associations: structuredAssociations,
-    };
-  }
-
-  /**
-   * @method stringifyDataType
-   * @description This method receives a Sequelize DataType object and returns a string representation of it.
-   *
-   * @param {any} dataType - Sequelize DataType object.
-   *
-   * @returns {string} String representation of the Sequelize DataType object.
-   *
-   * @throws Will throw an error if the dataType parameter is null or undefined.
-   */
-  private stringifyDataType(dataType: any): string {
-    switch (dataType.key) {
-      case 'ENUM':
-        return `ENUM(${(dataType as DataTypes.EnumDataType<string>).values.join(', ')})`;
-      case 'STRING':
-        return dataType.options
-          ? `STRING(${(dataType as DataTypes.StringDataType).options?.length})`
-          : 'STRING';
-      case 'BIGINT':
-        return 'BIGINT';
-      case 'FLOAT':
-        return 'FLOAT';
-      case 'DOUBLE':
-        return 'DOUBLE';
-      case 'REAL':
-        return 'REAL';
-      case 'DECIMAL':
-        return 'DECIMAL';
-      case 'INTEGER':
-        return 'INTEGER';
-      case 'TEXT':
-        return 'TEXT';
-      case 'BOOLEAN':
-        return 'BOOLEAN';
-      case 'DATE':
-        return 'DATE';
-      case 'ARRAY':
-        return 'ARRAY';
-      case 'JSON':
-        return 'JSON';
-      case 'BLOB':
-        return 'BLOB';
-      default:
-        return `UNKNOWN_TYPE: ${dataType.key}`;
-    }
+    this.metaMixin.getMetadata(ctx);
   }
 
   /**
    * @method bindMethods
-   * @description This method is responsible for automatically binding the context ('this') to the
+   * @description This method is responsible for binding the context ('this') to the
    * methods of the inheriting class to their respective instances. This ensures that the methods
    * are always invoked with the correct 'this' value, which corresponds to the class instance they
    * are invoked on.
-   *
-   * The function iterates over all the method names of the inheriting class, excluding the
-   * 'constructor'.
-   * It then uses the JavaScript 'bind' function to set the 'this' value of the method to the class
-   * instance (also 'this').
-   * This makes it so that when these methods are called in the future, they are always executed in
-   * the context of the instance they were bound to.
-   *
-   * It is designed to be called within the constructor of the inheriting class after calling
-   * super(), so that the methods of the inheriting class are bound correctly.
-   *
-   * @returns {void} This method does not return a value.
    */
-  protected bindMethods(): void {
-    Object.getOwnPropertyNames(Object.getPrototypeOf(this))
-      .filter((prop) => typeof (this as any)[prop] === 'function' && prop !== 'constructor')
-      .forEach((method) => {
-        (this as any)[method] = (this as any)[method].bind(this);
-      });
+  protected bindMethods(methodsToBind: string[]): void {
+    methodsToBind.forEach((method) => {
+      (this as any)[method] = (this as any)[method].bind(this);
+    });
   }
 }
